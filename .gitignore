@@ -3,9 +3,3 @@ dist/
 .tmp/
 node_modules/
 logs/build/
-
-# 大型二进制资源（视频、图片、大字体、背景音乐）
-assets/video/
-assets/image/
-assets/Fonts/zpix.ttf
-assets/audio/music_*.ogg
