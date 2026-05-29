@@ -45,6 +45,12 @@ local Tombstone = require("social.Tombstone")
 local FPSMonitor = require("utils.FPSMonitor")
 
 -- ============================================================================
+-- GC 调优：降低暂停率，增大步进倍率，减少单次 GC 停顿
+-- ============================================================================
+collectgarbage("setpause", 110)       -- 内存增长 10% 即触发（默认200太懒）
+collectgarbage("setstepmul", 200)     -- 步进倍率加大（默认200，保持）
+
+-- ============================================================================
 -- 全局变量
 -- ============================================================================
 
@@ -106,24 +112,35 @@ function print(...)
     local line = table.concat(parts, "\t")
     if line:find("%[SaveData%]") or line:find("%[TotemSystem%]") or line:find("%[Cloud%]") then
         debugLogLines[#debugLogLines + 1] = line
-        if #debugLogLines > DEBUG_LOG_MAX then
-            table.remove(debugLogLines, 1)
+        -- 超出上限时批量裁剪（避免每次 O(n) 的 table.remove(1)）
+        if #debugLogLines > DEBUG_LOG_MAX + 20 then
+            local newLines = {}
+            for di = #debugLogLines - DEBUG_LOG_MAX + 1, #debugLogLines do
+                newLines[#newLines + 1] = debugLogLines[di]
+            end
+            debugLogLines = newLines
         end
     end
 end
 
 -- 作弊：Tab+E 获得200万经验
 
-local gameState = STATE_TITLE
-local gameOverVictory = false
-local gameOverShowTime = 0  -- 防止误触立即关闭结算界面
-local repNotifyTime = -999  -- 评价解锁按钮点击后的通知计时器
-local gameOverStats = nil
-local hasUsedRevive = false       -- 是否已使用广告复活（每局最多一次）
+-- 游戏状态（全局变量）
+gameState = STATE_TITLE
+gameOverVictory = false
+gameOverShowTime = 0  -- 防止误触立即关闭结算界面
+repNotifyTime = -999  -- 评价解锁按钮点击后的通知计时器
+gameOverStats = nil
+hasUsedRevive = false       -- 是否已使用广告复活（每局最多一次）
 
 -- 遗言输入
 local tombLastWords = ""          -- 玩家自定义遗言文本
 local tombEditMode = false        -- 是否处于遗言键盘输入模式
+
+
+-- 标题页点击闪光特效（必须在 HandleUpdate 之前声明）
+local titleFlash = 0.0
+local titleFlashX, titleFlashY = DESIGN_W / 2, DESIGN_H / 2
 
 -- 角色选择
 local selectedCharId = "cat"    -- 当前选中的角色 ID
@@ -734,7 +751,13 @@ local function StartBattle()
     HUD.paused = false
     DamageNumber.Reset()
     Particle.Reset()
-    BattleScene.Init(selectedCharId)
+    local initOk, initErr = pcall(BattleScene.Init, selectedCharId)
+    if not initOk then
+        print("[ERROR] BattleScene.Init failed: " .. tostring(initErr))
+        gameState = STATE_TITLE
+        return
+    end
+    BattleScene.ResetErrors()
 
     SetupBattleCallbacks()
 end
@@ -757,7 +780,13 @@ local function StartDailyChallenge()
     HUD.paused = false
     DamageNumber.Reset()
     Particle.Reset()
-    BattleScene.Init(selectedCharId)
+    local initOk1, initErr1 = pcall(BattleScene.Init, selectedCharId)
+    if not initOk1 then
+        print("[ERROR] BattleScene.Init(daily) failed: " .. tostring(initErr1))
+        gameState = STATE_TITLE
+        return
+    end
+    BattleScene.ResetErrors()
 
     SetupBattleCallbacks()
 end
@@ -779,7 +808,13 @@ local function StartWeeklyChallenge()
     DamageNumber.Reset()
     Particle.Reset()
     DailyChallenge.Reset()  -- 确保不受每日挑战影响
-    BattleScene.Init(selectedCharId)
+    local initOk2, initErr2 = pcall(BattleScene.Init, selectedCharId)
+    if not initOk2 then
+        print("[ERROR] BattleScene.Init(weekly) failed: " .. tostring(initErr2))
+        gameState = STATE_TITLE
+        return
+    end
+    BattleScene.ResetErrors()
 
     SetupBattleCallbacks()
 end
@@ -808,6 +843,7 @@ local function ResumeBattle()
     local charId = saveData.player and saveData.player.charId or "cat"
     selectedCharId = charId
     BattleScene.Init(charId)
+    BattleScene.ResetErrors()
 
     -- 覆盖存档状态
     SaveData.ApplyToGame(saveData, Player, Wave, Skill, Loot)
@@ -831,6 +867,9 @@ end
 ---@param eventData UpdateEventData
 function HandleUpdate(eventType, eventData)
     local dt = eventData["TimeStep"]:GetFloat()
+
+    -- 每帧增量 GC：分摊回收压力，避免大停顿（步进约 1KB/帧）
+    collectgarbage("step", 1)
 
     -- 每帧更新屏幕参数（窗口可能resize）
     UpdateScreenMetrics()
@@ -1006,8 +1045,8 @@ function HandleUpdate(eventType, eventData)
         end
     end
 
-    -- 非战斗时隐藏摇杆
-    joystick.visible = (gameState == STATE_PLAYING)
+    -- 非战斗时或用户选择隐藏时，隐藏摇杆
+    joystick.visible = (gameState == STATE_PLAYING) and (HUD.joystickPos ~= "hide")
     joystick:_updateShouldShow()
 
     if gameState == STATE_PLAYING then
@@ -1025,6 +1064,12 @@ function HandleUpdate(eventType, eventData)
             -- 键盘输入优先覆盖（归一化）
             local klen = math.sqrt(kx * kx + ky * ky)
             moveX, moveY = kx / klen, ky / klen
+            -- 检测到键盘操作时自动隐藏摇杆
+            if HUD.joystickPos ~= "hide" then
+                HUD.joystickPos = "hide"
+                ApplyJoystickPosition("hide")
+                HUD.SaveSettings()
+            end
         end
 
         -- 八向移动量化
@@ -1064,16 +1109,106 @@ function HandleUpdate(eventType, eventData)
             print("[CHEAT] Tab+K 跳过10波 → 当前 Wave " .. Wave.waveNum)
         end
 
+        -- 弹窗超时检测（防止SDK回调丢失导致永久卡死）
+        GiftAd.Update(dt)
+
+        -- ====================================================================
+        -- 保底防冻结系统 (Failsafe Anti-Freeze)
+        -- 目标：无论发生什么错误，玩家始终能移动
+        -- ====================================================================
+
+        -- [保底1] UI可见性状态不一致时自动修复
+        if SkillSelect.visible and #SkillSelect.choices == 0 then
+            print("[WARN] SkillSelect.visible but choices empty, auto-hiding")
+            SkillSelect.Hide()
+            if BattleScene.state == BattleScene.STATE_SKILL_SELECT then
+                BattleScene.state = BattleScene.STATE_PLAYING
+            end
+        end
+        if SkillSelect.ultimateVisible and not SkillSelect.onUltimateSelect then
+            print("[WARN] SkillSelect.ultimateVisible but no callback, auto-hiding")
+            SkillSelect.ultimateVisible = false
+            if BattleScene.state == BattleScene.STATE_ULTIMATE_SELECT then
+                BattleScene.state = BattleScene.STATE_PLAYING
+            end
+        end
+
+        -- [保底2] UI弹窗超时保护（技能选择卡住时自动关闭）
+        -- SkillSelect.visible 超时（15秒自动关闭）
+        if SkillSelect.visible then
+            _skillSelectTimer = (_skillSelectTimer or 0) + dt
+            if _skillSelectTimer > 15.0 then
+                print("[FAILSAFE] SkillSelect.visible timeout (15s), auto-hiding")
+                SkillSelect.Hide()
+                BattleScene.state = BattleScene.STATE_PLAYING
+                _skillSelectTimer = 0
+            end
+        else
+            _skillSelectTimer = 0
+        end
+        -- SkillSelect.ultimateVisible 超时（15秒自动关闭）
+        if SkillSelect.ultimateVisible then
+            _ultimateSelectTimer = (_ultimateSelectTimer or 0) + dt
+            if _ultimateSelectTimer > 15.0 then
+                print("[FAILSAFE] SkillSelect.ultimateVisible timeout (15s), auto-hiding")
+                SkillSelect.ultimateVisible = false
+                BattleScene.state = BattleScene.STATE_PLAYING
+                _ultimateSelectTimer = 0
+            end
+        else
+            _ultimateSelectTimer = 0
+        end
+
+        -- [保底3] 反向检查：state不是PLAYING但所有UI都已关闭（状态不同步）
+        if BattleScene.state ~= BattleScene.STATE_PLAYING
+            and BattleScene.state ~= BattleScene.STATE_PAUSED
+            and BattleScene.state ~= BattleScene.STATE_GAME_OVER
+            and BattleScene.state ~= BattleScene.STATE_VICTORY
+            and not SkillSelect.visible
+            and not SkillSelect.ultimateVisible
+            and not GiftAd.visible then
+            print("[WARN] BattleScene.state=" .. tostring(BattleScene.state) .. " but no UI blocking, resetting to PLAYING")
+            BattleScene.state = BattleScene.STATE_PLAYING
+        end
+
+        -- [保底4] 冻结检测：有输入但玩家位置不变 → 强制恢复
+        local hasInput = (moveX ~= 0 or moveY ~= 0)
+        if hasInput then
+            local px, py = Player.x, Player.y
+            if _lastPlayerX == px and _lastPlayerY == py then
+                _freezeFrames = (_freezeFrames or 0) + 1
+            else
+                _freezeFrames = 0
+            end
+            _lastPlayerX, _lastPlayerY = px, py
+        else
+            _freezeFrames = 0
+        end
+
+        -- 连续60帧(~1秒)有输入但玩家没动 → 核弹级恢复
+        if (_freezeFrames or 0) >= 60 then
+            print("[FAILSAFE] FREEZE DETECTED! 60 frames with input but no movement. Force-clearing all blocks.")
+            HUD.paused = false
+            SkillSelect.visible = false
+            SkillSelect.ultimateVisible = false
+            GiftAd.visible = false
+            BattleScene.state = BattleScene.STATE_PLAYING
+            _freezeFrames = 0
+        end
+
+        -- ====================================================================
+        -- 战斗更新（带保底玩家移动）
+        -- ====================================================================
+
         -- 暂停/技能选择/终极奖励选择/礼物盒弹窗期间不更新战斗
-        if not HUD.paused and not SkillSelect.visible and not SkillSelect.ultimateVisible and not GiftAd.visible then
-            local ok, err = pcall(BattleScene.Update, dt, moveX, moveY, DESIGN_W, DESIGN_H)
-            if not ok then
-                print("[ERROR] BattleScene.Update: " .. tostring(err))
-                -- 即使更新出错，也要确保相机跟随玩家（避免画面卡在错误位置）
-                local targetX = math.max(0, math.min(Config.WORLD_SIZE - DESIGN_W, Player.x - DESIGN_W / 2))
-                local targetY = math.max(0, math.min(Config.WORLD_SIZE - DESIGN_H, Player.y - DESIGN_H / 2))
-                BattleScene.camX = BattleScene.camX + (targetX - BattleScene.camX) * 0.1
-                BattleScene.camY = BattleScene.camY + (targetY - BattleScene.camY) * 0.1
+        local battleBlocked = HUD.paused or SkillSelect.visible or SkillSelect.ultimateVisible or GiftAd.visible
+        if not battleBlocked then
+            BattleScene.Update(dt, moveX, moveY, DESIGN_W, DESIGN_H)
+        else
+            -- [保底6] 即使战斗被阻塞（暂停/技能选择），如果冻结计数>30帧，
+            -- 仍然偷偷移动玩家（让玩家感觉不到卡顿）
+            if (_freezeFrames or 0) >= 30 and hasInput then
+                pcall(Player.Update, dt, moveX, moveY)
             end
         end
 
@@ -1085,6 +1220,7 @@ function HandleUpdate(eventType, eventData)
         -- 详情弹窗计时（暂停时也更新，不影响战斗）
         HUD.UpdateDetailPopup(dt)
     end
+
 end
 
 -- ============================================================================
@@ -1097,128 +1233,179 @@ function HandleNanoVGRender(eventType, eventData)
     -- 使用物理分辨率开始帧，手动缩放到设计分辨率
     nvgBeginFrame(vg, physW, physH, 1.0)
 
-    -- 设置字体
-    nvgFontFaceId(vg, zpix)
-
-    -- 缩放到设计分辨率
-    nvgSave(vg)
-    nvgTranslate(vg, offsetX, offsetY)
-    nvgScale(vg, scale, scale)
-
-    if gameState == STATE_NICKNAME then
-        RenderNickname()
-    elseif gameState == STATE_TITLE then
-        RenderTitle()
-    elseif gameState == STATE_LEADERBOARD then
-        RenderLeaderboard()
-    elseif gameState == STATE_ACHIEVEMENT then
-        Achievement.RenderPage(vg, DESIGN_W, DESIGN_H, zpix)
-    elseif gameState == STATE_RELIC_SHOP then
-        RelicShop.Render(vg, zpix, DESIGN_W, DESIGN_H)
-    elseif gameState == STATE_TOTEM_SHOP then
-        TotemShop.Render(vg, zpix, DESIGN_W, DESIGN_H)
-    elseif gameState == STATE_RUNE_SHOP then
-        RuneShop.Render(vg, zpix, DESIGN_W, DESIGN_H)
-    elseif gameState == STATE_SKIN_SHOP then
-        SkinShop.Render(vg, zpix, DESIGN_W, DESIGN_H)
-    elseif gameState == STATE_CODEX then
-        Codex.RenderPage(vg, DESIGN_W, DESIGN_H, zpix)
-    elseif gameState == STATE_WEEKLY then
-        WeeklyChallenge.RenderPage(vg, DESIGN_W, DESIGN_H, zpix)
-    elseif gameState == STATE_CHAR_SELECT then
-        RenderCharSelect()
-    elseif gameState == STATE_PLAYING then
-        -- 战斗场景
-        BattleScene.Render(vg, DESIGN_W, DESIGN_H)
-
-        -- 伤害跳字（在场景之上、HUD 之下）
-        DamageNumber.Render(vg, BattleScene.camX, BattleScene.camY, DESIGN_W, DESIGN_H)
-
-        -- HUD
-        HUD.Render(vg, DESIGN_W, DESIGN_H, zpix)
-
-        -- 技能/图腾/符文详情弹窗
-        HUD.RenderDetailPopup(vg, DESIGN_W, DESIGN_H, zpix)
-
-        -- 技能选择（如果显示）
-        SkillSelect.Render(vg, DESIGN_W, DESIGN_H, zpix)
-
-        -- 终极奖励选择（如果显示）
-        SkillSelect.RenderUltimate(vg, DESIGN_W, DESIGN_H, zpix)
-
-        -- 礼物盒广告弹窗（如果显示）
-        GiftAd.Render(vg, DESIGN_W, DESIGN_H, zpix)
-
-        -- 暂停遮罩
-        if HUD.paused then
-            HUD.RenderPauseOverlay(vg, DESIGN_W, DESIGN_H, zpix)
-        end
-
-        -- FPS 计数器（右下角）
-        FPSMonitor.Render(vg, DESIGN_W, DESIGN_H, zpix)
-    elseif gameState == STATE_OVER then
-        -- 仍然渲染战斗场景（作为背景）
-        BattleScene.Render(vg, DESIGN_W, DESIGN_H)
-        -- 设置是否显示复活按钮
-        HUD.showReviveBtn = (not gameOverVictory and not hasUsedRevive)
-        -- 同步遗言输入状态
-        HUD.tombLastWords = tombLastWords
-        HUD.tombEditMode = tombEditMode
-        -- 游戏结束覆盖
-        HUD.RenderGameOver(vg, DESIGN_W, DESIGN_H, zpix, gameOverVictory, gameOverStats)
-    end
-
-    -- 成就解锁通知（叠在所有UI之上）
-    Achievement.RenderNotifications(vg, DESIGN_W, DESIGN_H, zpix)
-
-    -- 图鉴发现通知
-    Codex.RenderNotifications(vg, DESIGN_W, DESIGN_H, zpix)
-
-    -- Tab+Q 调试日志窗口
-    if debugLogEnabled and #debugLogLines > 0 then
-        local logFontSize = 11
-        local lineH = 14
-        local pad = 8
-        local maxVisible = math.min(#debugLogLines, 30)
-        local panelH = maxVisible * lineH + pad * 2 + 20
-        local panelW = DESIGN_W - 20
-        local px, py = 10, DESIGN_H - panelH - 10
-
-        -- 半透明背景
-        nvgBeginPath(vg)
-        nvgRoundedRect(vg, px, py, panelW, panelH, 6)
-        nvgFillColor(vg, nvgRGBA(0, 0, 0, 200))
-        nvgFill(vg)
-
-        -- 标题
+    -- 🔴 关键修复：整个渲染逻辑包裹在 pcall 中，确保 nvgEndFrame 总是执行
+    -- 如果任何渲染函数崩溃，nvgEndFrame 不执行会导致永久黑屏/冻结
+    local renderAllOk, renderAllErr = pcall(function()
+        -- 设置字体
         nvgFontFaceId(vg, zpix)
-        nvgFontSize(vg, 13)
-        nvgFillColor(vg, nvgRGBA(100, 255, 100, 255))
-        nvgTextAlign(vg, NVG_ALIGN_LEFT + NVG_ALIGN_TOP)
-        nvgText(vg, px + pad, py + pad, "[SaveData Log] Tab+Q close | lines: " .. #debugLogLines)
 
-        -- 日志内容（从最新往前显示）
-        nvgFontSize(vg, logFontSize)
-        nvgFillColor(vg, nvgRGBA(220, 220, 220, 255))
-        local startIdx = math.max(1, #debugLogLines - maxVisible + 1)
-        for i = startIdx, #debugLogLines do
-            local row = i - startIdx
-            local text = debugLogLines[i]
-            -- 截断过长行
-            if #text > 120 then text = text:sub(1, 120) .. "..." end
-            -- 根据内容上色
-            if text:find("CRITICAL") or text:find("WARN") then
-                nvgFillColor(vg, nvgRGBA(255, 100, 100, 255))
-            elseif text:find("restored") or text:find("merged") then
-                nvgFillColor(vg, nvgRGBA(100, 200, 255, 255))
-            else
-                nvgFillColor(vg, nvgRGBA(220, 220, 220, 255))
+        -- 缩放到设计分辨率
+        nvgSave(vg)
+        nvgTranslate(vg, offsetX, offsetY)
+        nvgScale(vg, scale, scale)
+
+        if gameState == STATE_NICKNAME then
+            RenderNickname()
+        elseif gameState == STATE_TITLE then
+            RenderTitle()
+        elseif gameState == STATE_LEADERBOARD then
+            RenderLeaderboard()
+        elseif gameState == STATE_ACHIEVEMENT then
+            Achievement.RenderPage(vg, DESIGN_W, DESIGN_H, zpix)
+        elseif gameState == STATE_RELIC_SHOP then
+            RelicShop.Render(vg, zpix, DESIGN_W, DESIGN_H)
+        elseif gameState == STATE_TOTEM_SHOP then
+            TotemShop.Render(vg, zpix, DESIGN_W, DESIGN_H)
+        elseif gameState == STATE_RUNE_SHOP then
+            RuneShop.Render(vg, zpix, DESIGN_W, DESIGN_H)
+        elseif gameState == STATE_SKIN_SHOP then
+            SkinShop.Render(vg, zpix, DESIGN_W, DESIGN_H)
+        elseif gameState == STATE_CODEX then
+            Codex.RenderPage(vg, DESIGN_W, DESIGN_H, zpix)
+        elseif gameState == STATE_WEEKLY then
+            WeeklyChallenge.RenderPage(vg, DESIGN_W, DESIGN_H, zpix)
+        elseif gameState == STATE_CHAR_SELECT then
+            RenderCharSelect()
+        elseif gameState == STATE_PLAYING then
+            -- 战斗场景
+            local renderOk, renderErr = pcall(BattleScene.Render, vg, DESIGN_W, DESIGN_H)
+            if not renderOk then
+                print("[ERROR] BattleScene.Render: " .. tostring(renderErr))
             end
-            nvgText(vg, px + pad, py + pad + 18 + row * lineH, text)
+
+            -- 伤害跳字（在场景之上、HUD 之下）
+            local dnOk, dnErr = pcall(DamageNumber.Render, vg, BattleScene.camX, BattleScene.camY, DESIGN_W, DESIGN_H)
+            if not dnOk then
+                print("[ERROR] DamageNumber.Render: " .. tostring(dnErr))
+            end
+
+            -- HUD
+            local hudOk, hudErr = pcall(HUD.Render, vg, DESIGN_W, DESIGN_H, zpix)
+            if not hudOk then
+                print("[ERROR] HUD.Render: " .. tostring(hudErr))
+            end
+
+            -- 技能/图腾/符文详情弹窗
+            local dpOk, dpErr = pcall(HUD.RenderDetailPopup, vg, DESIGN_W, DESIGN_H, zpix)
+            if not dpOk then
+                print("[ERROR] HUD.RenderDetailPopup: " .. tostring(dpErr))
+            end
+
+            -- 技能选择（如果显示）
+            local ssOk, ssErr = pcall(SkillSelect.Render, vg, DESIGN_W, DESIGN_H, zpix)
+            if not ssOk then
+                print("[ERROR] SkillSelect.Render: " .. tostring(ssErr))
+            end
+
+            -- 终极奖励选择（如果显示）
+            local suOk, suErr = pcall(SkillSelect.RenderUltimate, vg, DESIGN_W, DESIGN_H, zpix)
+            if not suOk then
+                print("[ERROR] SkillSelect.RenderUltimate: " .. tostring(suErr))
+            end
+
+            -- 礼物盒广告弹窗（如果显示）
+            local gaOk, gaErr = pcall(GiftAd.Render, vg, DESIGN_W, DESIGN_H, zpix)
+            if not gaOk then
+                print("[ERROR] GiftAd.Render: " .. tostring(gaErr))
+            end
+
+            -- 暂停遮罩
+            if HUD.paused then
+                local poOk, poErr = pcall(HUD.RenderPauseOverlay, vg, DESIGN_W, DESIGN_H, zpix)
+                if not poOk then
+                    print("[ERROR] HUD.RenderPauseOverlay: " .. tostring(poErr))
+                end
+            end
+
+            -- FPS 计数器（右下角）
+            local fpOk, fpErr = pcall(FPSMonitor.Render, vg, DESIGN_W, DESIGN_H, zpix)
+            if not fpOk then
+                print("[ERROR] FPSMonitor.Render: " .. tostring(fpErr))
+            end
+
+            -- 子系统错误指示器（左上角小红字，仅有错误时显示）
+            local errSummary = BattleScene.GetErrorSummary()
+            if errSummary then
+                nvgFontFaceId(vg, zpix)
+                nvgFontSize(vg, 10)
+                nvgFillColor(vg, nvgRGBA(255, 60, 60, 200))
+                nvgTextAlign(vg, NVG_ALIGN_LEFT + NVG_ALIGN_TOP)
+                nvgText(vg, 4, DESIGN_H - 14, "[ERR] " .. errSummary)
+            end
+        elseif gameState == STATE_OVER then
+            -- 仍然渲染战斗场景（作为背景）
+            local renderOk2, renderErr2 = pcall(BattleScene.Render, vg, DESIGN_W, DESIGN_H)
+            if not renderOk2 then
+                print("[ERROR] BattleScene.Render(OVER): " .. tostring(renderErr2))
+            end
+            -- 设置是否显示复活按钮
+            HUD.showReviveBtn = (not gameOverVictory and not hasUsedRevive)
+            -- 同步遗言输入状态
+            HUD.tombLastWords = tombLastWords
+            HUD.tombEditMode = tombEditMode
+            -- 游戏结束覆盖
+            HUD.RenderGameOver(vg, DESIGN_W, DESIGN_H, zpix, gameOverVictory, gameOverStats)
         end
+
+        -- 成就解锁通知（叠在所有UI之上）
+        Achievement.RenderNotifications(vg, DESIGN_W, DESIGN_H, zpix)
+
+        -- 图鉴发现通知
+        Codex.RenderNotifications(vg, DESIGN_W, DESIGN_H, zpix)
+
+        -- Tab+Q 调试日志窗口
+        if debugLogEnabled and #debugLogLines > 0 then
+            local logFontSize = 11
+            local lineH = 14
+            local pad = 8
+            local maxVisible = math.min(#debugLogLines, 30)
+            local panelH = maxVisible * lineH + pad * 2 + 20
+            local panelW = DESIGN_W - 20
+            local px, py = 10, DESIGN_H - panelH - 10
+
+            -- 半透明背景
+            nvgBeginPath(vg)
+            nvgRoundedRect(vg, px, py, panelW, panelH, 6)
+            nvgFillColor(vg, nvgRGBA(0, 0, 0, 200))
+            nvgFill(vg)
+
+            -- 标题
+            nvgFontFaceId(vg, zpix)
+            nvgFontSize(vg, 13)
+            nvgFillColor(vg, nvgRGBA(100, 255, 100, 255))
+            nvgTextAlign(vg, NVG_ALIGN_LEFT + NVG_ALIGN_TOP)
+            nvgText(vg, px + pad, py + pad, "[SaveData Log] Tab+Q close | lines: " .. #debugLogLines)
+
+            -- 日志内容（从最新往前显示）
+            nvgFontSize(vg, logFontSize)
+            nvgFillColor(vg, nvgRGBA(220, 220, 220, 255))
+            local startIdx = math.max(1, #debugLogLines - maxVisible + 1)
+            for i = startIdx, #debugLogLines do
+                local row = i - startIdx
+                local text = debugLogLines[i]
+                -- 截断过长行
+                if #text > 120 then text = text:sub(1, 120) .. "..." end
+                -- 根据内容上色
+                if text:find("CRITICAL") or text:find("WARN") then
+                    nvgFillColor(vg, nvgRGBA(255, 100, 100, 255))
+                elseif text:find("restored") or text:find("merged") then
+                    nvgFillColor(vg, nvgRGBA(100, 200, 255, 255))
+                else
+                    nvgFillColor(vg, nvgRGBA(220, 220, 220, 255))
+                end
+                nvgText(vg, px + pad, py + pad + 18 + row * lineH, text)
+            end
+        end
+
+        nvgRestore(vg)
+    end)
+
+    -- 无论渲染是否成功，nvgEndFrame 必须执行，否则画面永久冻结
+    if not renderAllOk then
+        print("[CRITICAL] HandleNanoVGRender crashed: " .. tostring(renderAllErr))
+        pcall(nvgRestore, vg)
     end
 
-    nvgRestore(vg)
     nvgEndFrame(vg)
 end
 
@@ -1441,10 +1628,6 @@ local titleSkinShopBtn    = { x = 0, y = 0, w = 0, h = 0 }
 local titleCodexBtn       = { x = 0, y = 0, w = 0, h = 0 }
 local titleWeeklyBtn      = { x = 0, y = 0, w = 0, h = 0 }
 local achievementBackBtn = { x = 0, y = 0, w = 0, h = 0 }
-
--- 标题页点击闪光特效
-local titleFlash = 0.0
-local titleFlashX, titleFlashY = DESIGN_W / 2, DESIGN_H / 2
 
 function RenderTitle()
     local bg = Config.COLORS.bg
@@ -3354,6 +3537,11 @@ function HandleTouchMove(eventType, eventData)
         SkinShop.HandleDragMove(dy)
         return
     end
+    if gameState == STATE_ACHIEVEMENT then
+        local _, dy = ScreenToDesign(tx, ty)
+        Achievement.HandleDragMove(dy)
+        return
+    end
     LbDragMove(tx, ty)
 end
 
@@ -3376,6 +3564,10 @@ function HandleTouchEnd(eventType, eventData)
     end
     if gameState == STATE_SKIN_SHOP then
         SkinShop.HandleDragEnd()
+        return
+    end
+    if gameState == STATE_ACHIEVEMENT then
+        Achievement.HandleDragEnd()
         return
     end
     LbDragEnd()
@@ -3417,6 +3609,13 @@ function HandleMouseMove(eventType, eventData)
         SkinShop.HandleDragMove(dy)
         return
     end
+    if gameState == STATE_ACHIEVEMENT then
+        local mx = input.mousePosition.x
+        local my = input.mousePosition.y
+        local _, dy = ScreenToDesign(mx, my)
+        Achievement.HandleDragMove(dy)
+        return
+    end
     if not lbDragStartY then return end
     local mx = input.mousePosition.x
     local my = input.mousePosition.y
@@ -3442,6 +3641,10 @@ function HandleMouseUp(eventType, eventData)
     end
     if gameState == STATE_SKIN_SHOP then
         SkinShop.HandleDragEnd()
+        return
+    end
+    if gameState == STATE_ACHIEVEMENT then
+        Achievement.HandleDragEnd()
         return
     end
     LbDragEnd()
@@ -3687,9 +3890,12 @@ function HandleScreenTouch(screenX, screenY)
     if gameState == STATE_ACHIEVEMENT then
         local backRect = Achievement.GetBackButtonRect(DESIGN_W, DESIGN_H)
         if dx >= backRect.x and dx <= backRect.x + backRect.w and dy >= backRect.y and dy <= backRect.y + backRect.h then
+            Achievement._scrollY = 0
+            Achievement._scrollVel = 0
             gameState = STATE_TITLE
             return
         end
+        Achievement.HandleDragBegin(dy)
         return
     end
 

@@ -31,6 +31,36 @@ local WeeklyChallenge = require("meta.WeeklyChallenge")
 
 local BattleScene = {}
 
+-- 子系统错误追踪（防止单个子系统崩溃导致整个战斗卡停）
+BattleScene._errors = {}        -- { [subsystem] = { msg=string, count=number, lastTime=number } }
+BattleScene._errorTotal = 0     -- 总错误计数
+
+--- 安全调用子系统，崩溃时记录错误但不中断其他系统
+---@param name string 子系统名称
+---@param fn function 要调用的函数
+---@return any ...
+local function safeCall(name, fn, ...)
+    local results = { pcall(fn, ...) }
+    if not results[1] then
+        local msg = tostring(results[2])
+        BattleScene._errorTotal = BattleScene._errorTotal + 1
+        local entry = BattleScene._errors[name]
+        if not entry then
+            entry = { msg = msg, count = 0, lastTime = 0 }
+            BattleScene._errors[name] = entry
+        end
+        entry.msg = msg
+        entry.count = entry.count + 1
+        entry.lastTime = os.clock()
+        -- 仅首次和每100次打印，避免日志轰炸
+        if entry.count == 1 or entry.count % 100 == 0 then
+            print(string.format("[BATTLE ERROR] %s (#%d): %s", name, entry.count, msg))
+        end
+        return false
+    end
+    return true, table.unpack(results, 2)
+end
+
 -- 战斗状态
 BattleScene.STATE_PLAYING = 1
 BattleScene.STATE_SKILL_SELECT = 2
@@ -500,11 +530,13 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
     dt = math.min(dt, 0.05)
 
     -- 1. 波次管理
-    local prevBoss = Enemy.currentBoss
-    Wave.Update(dt, Player.x, Player.y)
-    -- Boss 出场检测（新 Boss 刷出时触发震动）
-    if Enemy.currentBoss and Enemy.currentBoss ~= prevBoss then
-        ScreenShake.Trigger("boss_spawn")
+    do
+        local prevBoss = Enemy.currentBoss
+        safeCall("Wave", Wave.Update, dt, Player.x, Player.y)
+        -- Boss 出场检测（新 Boss 刷出时触发震动）
+        if Enemy.currentBoss and Enemy.currentBoss ~= prevBoss then
+            ScreenShake.Trigger("boss_spawn")
+        end
     end
 
     -- 检查通关
@@ -518,7 +550,7 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
     end
 
     -- 1.5 地图事件更新
-    MapEvent.Update(dt, Player.x, Player.y, Player, Wave.waveNum,
+    safeCall("MapEvent", MapEvent.Update, dt, Player.x, Player.y, Player, Wave.waveNum,
         -- 商人购买回调：花费局内金币获得随机技能升级
         function(cost)
             if BattleScene.sessionGold >= cost then
@@ -545,7 +577,7 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
     )
 
     -- 1.6 特别地形更新
-    SpecialTerrain.Update(dt, Player.x, Player.y, Player, Wave.waveNum,
+    safeCall("SpecialTerrain", SpecialTerrain.Update, dt, Player.x, Player.y, Player, Wave.waveNum,
         BattleScene.camX, BattleScene.camY, viewW, viewH,
         -- 经验奖励
         function(amount)
@@ -591,194 +623,267 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
     )
 
     -- 2. 玩家更新（含地图事件速度加成 + 特别地形速度加成）
-    local mapSpeedBonus = MapEvent.GetSpeedBonus(Player)
-    local stSpeedMult   = SpecialTerrain.GetSpeedMult()
-    local origMoveSpeed
-    if mapSpeedBonus > 0 or stSpeedMult ~= 1.0 then
-        origMoveSpeed = Player.speed
-        Player.speed = math.floor(Player.speed * (1 + mapSpeedBonus) * stSpeedMult)
-    end
+    -- 🔴 玩家移动是整个游戏最关键逻辑，三重保护确保必定执行
     local wasOverload = Player.overloadActive
-    Player.Update(dt, moveX, moveY)
-    if origMoveSpeed then
-        Player.speed = origMoveSpeed
+    do
+        local mapSpeedBonus = 0
+        local stSpeedMult = 1.0
+        pcall(function()
+            mapSpeedBonus = MapEvent.GetSpeedBonus(Player)
+            stSpeedMult = SpecialTerrain.GetSpeedMult()
+        end)
+        local origMoveSpeed
+        if mapSpeedBonus > 0 or stSpeedMult ~= 1.0 then
+            origMoveSpeed = Player.speed
+            Player.speed = math.floor(Player.speed * (1 + mapSpeedBonus) * stSpeedMult)
+        end
+        -- 🔴 Player.Update 用独立 pcall 保护
+        -- 即使崩溃，也不影响后续子系统，且 main.lua 的冻结检测会兜底
+        local pOk, pErr = pcall(Player.Update, dt, moveX, moveY)
+        if not pOk then
+            print("[BATTLE ERROR] Player.Update: " .. tostring(pErr))
+            -- 最后手段：直接移动坐标（绕过所有复杂逻辑）
+            if moveX ~= 0 or moveY ~= 0 then
+                local len = math.sqrt(moveX * moveX + moveY * moveY)
+                local spd = (Player.speed or 200) * dt
+                Player.x = Player.x + (moveX / len) * spd
+                Player.y = Player.y + (moveY / len) * spd
+                Player.x = math.max(20, math.min(Config.WORLD_SIZE - 20, Player.x))
+                Player.y = math.max(20, math.min(Config.WORLD_SIZE - 20, Player.y))
+            end
+        end
+        if origMoveSpeed then
+            Player.speed = origMoveSpeed
+        end
     end
 
     -- 2.5 每日挑战：红心DoT渐进回血
-    if #BattleScene.healDots > 0 then
-        local i = 1
-        while i <= #BattleScene.healDots do
-            local dot = BattleScene.healDots[i]
-            dot.tickTimer = dot.tickTimer + dt
-            if dot.tickTimer >= 0.5 then  -- 每0.5秒回复一次，共10次=5秒
-                dot.tickTimer = dot.tickTimer - 0.5
-                dot.remaining = dot.remaining - 1
-                if not WeeklyChallenge.GetMod("noHeal") then
-                    Player.hp = math.min(Player.maxHp, Player.hp + dot.tickAmt)
-                    DamageNumber.Spawn(Player.x, Player.y - 20, "+" .. dot.tickAmt, "heal")
+    safeCall("HealDots", function()
+        if #BattleScene.healDots > 0 then
+            local i = 1
+            local healLoopCap = 200  -- 安全上限防卡死
+            while i <= #BattleScene.healDots and healLoopCap > 0 do
+                healLoopCap = healLoopCap - 1
+                local dot = BattleScene.healDots[i]
+                dot.tickTimer = dot.tickTimer + dt
+                if dot.tickTimer >= 0.5 then  -- 每0.5秒回复一次，共10次=5秒
+                    dot.tickTimer = dot.tickTimer - 0.5
+                    dot.remaining = dot.remaining - 1
+                    if not WeeklyChallenge.GetMod("noHeal") then
+                        Player.hp = math.min(Player.maxHp, Player.hp + dot.tickAmt)
+                        DamageNumber.Spawn(Player.x, Player.y - 20, "+" .. dot.tickAmt, "heal")
+                    end
+                end
+                if dot.remaining <= 0 then
+                    table.remove(BattleScene.healDots, i)
+                else
+                    i = i + 1
                 end
             end
-            if dot.remaining <= 0 then
-                table.remove(BattleScene.healDots, i)
-            else
-                i = i + 1
-            end
         end
-    end
+    end)
 
     -- 3. 自动攻击
-    HandleAutoAttack()
+    safeCall("HandleAutoAttack", HandleAutoAttack)
 
     -- 4. 子弹更新 + 碰撞
-    local bulletKills = Projectile.Update(dt, Enemy.active)
-    HandleKills(bulletKills)
+    do
+        local ok, kills = safeCall("Projectile", Projectile.Update, dt, Enemy.active)
+        if ok and kills then HandleKills(kills) end
+    end
 
     -- 5. 技能更新
-    local skillKills = Skill.Update(dt, Player.skills, Player.x, Player.y,
-        Player.GetEffectiveAtk(), Enemy.active)
-    HandleKills(skillKills)
+    do
+        local ok, kills = safeCall("Skill", Skill.Update, dt, Player.skills, Player.x, Player.y,
+            Player.GetEffectiveAtk(), Enemy.active)
+        if ok and kills then HandleKills(kills) end
+    end
 
     -- 5.5 符文效果每帧更新（定时器/被动效果）
-    RuneEffects.Update(dt, Enemy.active)
+    safeCall("RuneEffects", RuneEffects.Update, dt, Enemy.active)
 
     -- 5.6 过载激活检测（击杀后 AddKill 可能触发过载）
-    if Player.overloadActive and not wasOverload then
-        Particle.SpawnShockWave(Player.x, Player.y, 180, 0.5, 255, 150, 0, 4)
-        Particle.Spawn(Player.x, Player.y, "level_up")
-        Particle.SpawnFlash(255, 180, 0, 0.2, 80)
-        ScreenShake.Trigger("overload")
-    end
+    pcall(function()
+        if Player.overloadActive and not wasOverload then
+            Particle.SpawnShockWave(Player.x, Player.y, 180, 0.5, 255, 150, 0, 4)
+            Particle.Spawn(Player.x, Player.y, "level_up")
+            Particle.SpawnFlash(255, 180, 0, 0.2, 80)
+            ScreenShake.Trigger("overload")
+        end
+    end)
 
     -- 6. 敌人更新
-    Enemy.Update(dt, Player.x, Player.y)
+    safeCall("Enemy", Enemy.Update, dt, Player.x, Player.y)
 
     -- 6.5 敌方弹幕更新（ranger子弹 + Boss技能弹幕/范围攻击）
-    -- 构建阻挡者列表（象+魅惑敌人，可阻挡敌方子弹）
-    local blockers = {}
-    for _, el in ipairs(Skill.GetElephants()) do
-        blockers[#blockers + 1] = el  -- 象自带 x,y，radius 用默认 20
-    end
-    for _, ce in ipairs(Skill.GetCharmedEnemies()) do
-        if ce.alive then
-            blockers[#blockers + 1] = ce  -- 魅惑敌人有 x,y,radius
+    safeCall("EnemyBulletPhase", function()
+        -- 构建阻挡者列表（象+魅惑敌人，可阻挡敌方子弹）
+        local blockers = {}
+        for _, el in ipairs(Skill.GetElephants()) do
+            blockers[#blockers + 1] = el
         end
-    end
-    local charmedBulletKills = {}
-    local bulletDmg = EnemyBullet.Update(dt, Player.x, Player.y, Player.radius, blockers, Enemy.active, charmedBulletKills)
-    if #charmedBulletKills > 0 then
-        HandleKills(charmedBulletKills)
-    end
-    if bulletDmg > 0 then
-        local wasInv = Player.invTimer > 0
-        local dead = Player.TakeDamage(bulletDmg)
-        if not wasInv then
-            GameAudio.PlaySFX("player_hurt")
-            DamageNumber.SpawnDamage(Player.x, Player.y - 20, bulletDmg, false)
-            Particle.Spawn(Player.x, Player.y, "player_hit")
-            ScreenShake.Trigger("player_hit")
-        end
-        if dead then
-            CommitSessionGold()
-            BattleScene.state = BattleScene.STATE_GAME_OVER
-            if BattleScene.onGameOver then
-                BattleScene.onGameOver(false, BattleScene.GetStats())
+        for _, ce in ipairs(Skill.GetCharmedEnemies()) do
+            if ce.alive then
+                blockers[#blockers + 1] = ce
             end
-            return
         end
-    end
+        local charmedBulletKills = {}
+        local ok, dmg = safeCall("EnemyBullet", EnemyBullet.Update, dt, Player.x, Player.y, Player.radius, blockers, Enemy.active, charmedBulletKills)
+        local bulletDmg = (ok and dmg) or 0
+        if #charmedBulletKills > 0 then
+            HandleKills(charmedBulletKills)
+        end
+        if bulletDmg > 0 then
+            local wasInv = Player.invTimer > 0
+            local dead = Player.TakeDamage(bulletDmg)
+            if not wasInv then
+                GameAudio.PlaySFX("player_hurt")
+                DamageNumber.SpawnDamage(Player.x, Player.y - 20, bulletDmg, false)
+                Particle.Spawn(Player.x, Player.y, "player_hit")
+                ScreenShake.Trigger("player_hit")
+            end
+            if dead then
+                CommitSessionGold()
+                BattleScene.state = BattleScene.STATE_GAME_OVER
+                if BattleScene.onGameOver then
+                    BattleScene.onGameOver(false, BattleScene.GetStats())
+                end
+                return
+            end
+        end
+    end)
 
     -- 6.6 魅惑Boss冲刺碰撞检测（伤害敌人）
-    local charmedDashKills = Enemy.CheckCharmedBossDashCollision()
-    if #charmedDashKills > 0 then
-        HandleKills(charmedDashKills)
+    do
+        local ok, kills = safeCall("EnemyCharmedDash", Enemy.CheckCharmedBossDashCollision)
+        if ok and kills and #kills > 0 then
+            HandleKills(kills)
+        end
     end
 
     -- 6.7 Boss 冲刺碰撞检测（伤害玩家）
-    local dashDmg = Enemy.CheckBossDashCollision(Player.x, Player.y, Player.radius)
-    if dashDmg > 0 then
-        local wasInv = Player.invTimer > 0
-        local dead = Player.TakeDamage(dashDmg)
-        if not wasInv then
-            DamageNumber.SpawnDamage(Player.x, Player.y - 20, dashDmg, false)
-            Particle.Spawn(Player.x, Player.y, "player_hit")
-            ScreenShake.Trigger("player_hit")
-        end
-        if dead then
-            CommitSessionGold()
-            BattleScene.state = BattleScene.STATE_GAME_OVER
-            if BattleScene.onGameOver then
-                BattleScene.onGameOver(false, BattleScene.GetStats())
+    do
+        local ok, dmg = safeCall("EnemyBossDash", Enemy.CheckBossDashCollision, Player.x, Player.y, Player.radius)
+        local dashDmg = (ok and dmg) or 0
+        if dashDmg > 0 then
+            local wasInv = Player.invTimer > 0
+            local dead = Player.TakeDamage(dashDmg)
+            if not wasInv then
+                DamageNumber.SpawnDamage(Player.x, Player.y - 20, dashDmg, false)
+                Particle.Spawn(Player.x, Player.y, "player_hit")
+                ScreenShake.Trigger("player_hit")
             end
-            return
+            if dead then
+                CommitSessionGold()
+                BattleScene.state = BattleScene.STATE_GAME_OVER
+                if BattleScene.onGameOver then
+                    BattleScene.onGameOver(false, BattleScene.GetStats())
+                end
+                return
+            end
         end
     end
 
     -- 7. 敌人碰撞玩家（造成接触伤害，无敌帧内不受伤也不弹数字）
-    local hits = Enemy.CheckPlayerCollision(Player.x, Player.y, Player.radius)
-    for _, e in ipairs(hits) do
-        local wasInv = Player.invTimer > 0
-        local dead = Player.TakeDamage(e.atk)
-        if not wasInv then
-            -- 实际受到伤害（非无敌状态），才弹出伤害数字和受伤粒子
-            DamageNumber.SpawnDamage(Player.x, Player.y - 20, e.atk, false)
-            Particle.Spawn(Player.x, Player.y, "player_hit")
-            ScreenShake.Trigger("player_hit")
-        end
-        if dead then
-            CommitSessionGold()
-            BattleScene.state = BattleScene.STATE_GAME_OVER
-            if BattleScene.onGameOver then
-                BattleScene.onGameOver(false, BattleScene.GetStats())
-            end
-            return
-        end
-    end
-
-    -- 8. 掉落物拾取（含磁铁增益 + 特别地形磁力加成）
-    local baseMagnet = Player.GetMagnetRange() * SpecialTerrain.GetMagnetMult()
-    local effectiveMagnet = Loot.GetEffectiveMagnetRange(baseMagnet)
-    local expGained = Loot.Update(dt, Player.x, Player.y, effectiveMagnet)
-    -- 周挑战：经验倍率
-    local wcExpMul = WeeklyChallenge.GetMod("expMul")
-    if wcExpMul and expGained > 0 then expGained = expGained * wcExpMul end
-    if expGained > 0 then
-        GameAudio.PlaySFX("pickup")
-        DamageNumber.Spawn(Player.x, Player.y + 15, "+" .. math.floor(expGained) .. "EXP", "exp")
-        Particle.Spawn(Player.x, Player.y, "exp_pickup")
-        local leveledUp = Player.AddExp(expGained)
-        if leveledUp then
-            GameAudio.PlaySFX("levelup")
-            DamageNumber.Spawn(Player.x, Player.y - 40, "LEVEL UP!", "levelup")
-            Particle.Spawn(Player.x, Player.y, "level_up")
-            -- 符文升级触发
-            RuneEffects.OnLevelUp(Player.level, Enemy.active)
-            -- 弹出技能选择
-            BattleScene.skillChoices = Skill.RandomChoices(Player.skills, Player.charId)
-            if #BattleScene.skillChoices > 0 then
-                -- 周挑战 roulette：自动随机选技能，不弹UI
-                if WeeklyChallenge.GetMod("roulette") then
-                    local ri = math.random(1, #BattleScene.skillChoices)
-                    BattleScene.SelectSkill(ri)
-                    DamageNumber.Spawn(Player.x, Player.y - 60, "🎰 轮盘!", "pickup")
-                else
-                    BattleScene.state = BattleScene.STATE_SKILL_SELECT
-                    if BattleScene.onLevelUp then
-                        BattleScene.onLevelUp(BattleScene.skillChoices)
+    do
+        local ok, hits = safeCall("EnemyCollision", Enemy.CheckPlayerCollision, Player.x, Player.y, Player.radius)
+        if ok and hits then
+            for _, e in ipairs(hits) do
+                local wasInv = Player.invTimer > 0
+                local dead = Player.TakeDamage(e.atk)
+                if not wasInv then
+                    DamageNumber.SpawnDamage(Player.x, Player.y - 20, e.atk, false)
+                    Particle.Spawn(Player.x, Player.y, "player_hit")
+                    ScreenShake.Trigger("player_hit")
+                end
+                if dead then
+                    CommitSessionGold()
+                    BattleScene.state = BattleScene.STATE_GAME_OVER
+                    if BattleScene.onGameOver then
+                        BattleScene.onGameOver(false, BattleScene.GetStats())
                     end
+                    return
                 end
             end
         end
     end
 
+    -- 8. 掉落物拾取（含磁铁增益 + 特别地形磁力加成）
+    safeCall("LootPickup", function()
+        local magnetOk, baseMagnet = pcall(function()
+            return Player.GetMagnetRange() * SpecialTerrain.GetMagnetMult()
+        end)
+        if not magnetOk then baseMagnet = 60 end  -- 保底磁铁范围
+        local emOk, effectiveMagnet = pcall(Loot.GetEffectiveMagnetRange, baseMagnet)
+        if not emOk then effectiveMagnet = baseMagnet end
+        local ok, exp = safeCall("Loot", Loot.Update, dt, Player.x, Player.y, effectiveMagnet)
+        local expGained = (ok and exp) or 0
+        -- 周挑战：经验倍率
+        local wcExpMul = WeeklyChallenge.GetMod("expMul")
+        if wcExpMul and expGained > 0 then expGained = expGained * wcExpMul end
+        if expGained > 0 then
+            GameAudio.PlaySFX("pickup")
+            DamageNumber.Spawn(Player.x, Player.y + 15, "+" .. math.floor(expGained) .. "EXP", "exp")
+            Particle.Spawn(Player.x, Player.y, "exp_pickup")
+            local leveledUp = Player.AddExp(expGained)
+            if leveledUp then
+                GameAudio.PlaySFX("levelup")
+                DamageNumber.Spawn(Player.x, Player.y - 40, "LEVEL UP!", "levelup")
+                Particle.Spawn(Player.x, Player.y, "level_up")
+                -- 符文升级触发
+                RuneEffects.OnLevelUp(Player.level, Enemy.active)
+                -- 弹出技能选择
+                BattleScene.skillChoices = Skill.RandomChoices(Player.skills, Player.charId)
+                if #BattleScene.skillChoices > 0 then
+                    -- 周挑战 roulette：自动随机选技能，不弹UI
+                    if WeeklyChallenge.GetMod("roulette") then
+                        local ri = math.random(1, #BattleScene.skillChoices)
+                        BattleScene.SelectSkill(ri)
+                        DamageNumber.Spawn(Player.x, Player.y - 60, "🎰 轮盘!", "pickup")
+                    else
+                        BattleScene.state = BattleScene.STATE_SKILL_SELECT
+                        if BattleScene.onLevelUp then
+                            BattleScene.onLevelUp(BattleScene.skillChoices)
+                        end
+                    end
+                end
+            end
+        end
+    end)
+
     -- 9. 墓碑交互检测
-    Tombstone.Update(dt, Player.x, Player.y)
-    Tombstone.AutoInteract()
+    safeCall("Tombstone", Tombstone.Update, dt, Player.x, Player.y)
+    safeCall("TombstoneInteract", Tombstone.AutoInteract)
 
     -- 10. 屏幕震动
-    ScreenShake.Update(dt)
+    pcall(ScreenShake.Update, dt)
 
-    -- 11. 相机
-    UpdateCamera(viewW, viewH)
+    -- 11. 相机（必须执行，否则画面不跟随）
+    local camOk, camErr = pcall(UpdateCamera, viewW, viewH)
+    if not camOk then
+        -- 相机崩溃时用最简单逻辑兜底
+        local targetX = math.max(0, math.min(Config.WORLD_SIZE - viewW, Player.x - viewW / 2))
+        local targetY = math.max(0, math.min(Config.WORLD_SIZE - viewH, Player.y - viewH / 2))
+        BattleScene.camX = BattleScene.camX + (targetX - BattleScene.camX) * 0.1
+        BattleScene.camY = BattleScene.camY + (targetY - BattleScene.camY) * 0.1
+    end
+end
+
+--- 获取子系统错误摘要（用于调试 HUD 显示）
+---@return string|nil 有错误时返回摘要文本，无错误返回nil
+function BattleScene.GetErrorSummary()
+    if BattleScene._errorTotal == 0 then return nil end
+    local lines = {}
+    for name, entry in pairs(BattleScene._errors) do
+        lines[#lines + 1] = string.format("%s(x%d)", name, entry.count)
+    end
+    return table.concat(lines, ", ")
+end
+
+--- 重置错误计数（战斗开始/重试时调用）
+function BattleScene.ResetErrors()
+    BattleScene._errors = {}
+    BattleScene._errorTotal = 0
 end
 
 --- 选择技能（被UI回调调用）

@@ -14,6 +14,15 @@ local SaveData = require("SaveData")
 local RelicSystem = require("meta.RelicSystem")
 local DailyChallenge = require("meta.DailyChallenge")
 local DamageStats = require("ui.DamageStats")
+local SpatialHash = require("utils.SpatialHash")
+
+-- 帧预算：单帧最大碰撞检测次数，超出后跳过本帧剩余碰撞
+local FRAME_COLLISION_BUDGET = 2000
+local _frameCollisions = 0
+
+-- 持久化空间哈希（避免每帧 New 产生 GC 压力）
+local _persistentSkillHash = SpatialHash.New(200)
+local _nearby = {}  -- 复用查询结果表
 
 local Skill = {}
 
@@ -302,6 +311,12 @@ end
 function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
     local killed = {}
 
+    -- 构建空间哈希（Otto Box、Charmed、Drone 等共用，避免重复 O(n) 全量遍历）
+    local skillHash = _persistentSkillHash
+    skillHash:Clear()
+    skillHash:InsertAll(enemies)
+    _frameCollisions = 0  -- 重置帧预算
+
     -- 攻击无人机
     local droneLevel = playerSkills["atk_drone"] or 0
     if droneLevel > 0 then
@@ -313,7 +328,10 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
             local dmg = SM.mulFloor(playerAtk, 0.5 * droneLevel)
             local nearest = nil
             local nearDist = 400 * 400
-            for _, e in ipairs(enemies) do
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(playerX, playerY, 400, _nearby)
+            for ni = 1, #_nearby do
+                local e = _nearby[ni]
                 if e.alive and not e.charmed then
                     local dx = e.x - playerX
                     local dy = e.y - playerY
@@ -351,22 +369,35 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
             local dmg = SM.mulFloor(playerAtk, 2.0)
             local radius = 80 + 20 * grenadeLevel
             local grenadeCount = grenadeLevel  -- 等级 = 同时投掷数量
-            -- 收集最近的 grenadeCount 个不同目标
-            local targets = {}
-            for _, e in ipairs(enemies) do
-                if e.alive then
-                    local dx = e.x - playerX
-                    local dy = e.y - playerY
-                    table.insert(targets, { e = e, d2 = dx * dx + dy * dy })
+            -- 用空间哈希找最近的 grenadeCount 个目标（避免全量遍历+排序+临时表GC）
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(playerX, playerY, 500, _nearby)
+            -- 简单选择排序取前 grenadeCount 个最近的（_nearby通常很小）
+            local nCount = #_nearby
+            local sortCount = math.min(grenadeCount, nCount)
+            for si = 1, sortCount do
+                local bestIdx = si
+                local bestD2 = math.huge
+                for sj = si, nCount do
+                    local e = _nearby[sj]
+                    if e.alive then
+                        local dx2 = e.x - playerX
+                        local dy2 = e.y - playerY
+                        local d2 = dx2 * dx2 + dy2 * dy2
+                        if d2 < bestD2 then
+                            bestD2 = d2
+                            bestIdx = sj
+                        end
+                    end
                 end
+                _nearby[si], _nearby[bestIdx] = _nearby[bestIdx], _nearby[si]
             end
-            table.sort(targets, function(a, b) return a.d2 < b.d2 end)
             for gi = 1, grenadeCount do
-                local t = targets[gi] or targets[1]  -- 不够目标则重复最近的
-                if t then
+                local t = _nearby[gi] or _nearby[1]
+                if t and t.alive then
                     table.insert(flyingGrenades, {
                         x = playerX, y = playerY,
-                        tx = t.e.x, ty = t.e.y,
+                        tx = t.x, ty = t.y,
                         dmg = dmg, radius = radius,
                         speed = GRENADE_SPEED,
                         rotation = 0,
@@ -385,15 +416,19 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
         local dist = math.sqrt(dx * dx + dy * dy)
         g.rotation = g.rotation + dt * 12  -- 旋转动画
 
-        -- 检测飞行途中碰到敌人
+        -- 检测飞行途中碰到敌人（空间哈希加速）
         local exploded = false
         local explodeX, explodeY = g.x, g.y
-        for _, e in ipairs(enemies) do
+        local gHitR = g.hitRadius or 18
+        for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+        skillHash:QueryInto(g.x, g.y, gHitR + 20, _nearby)
+        for ni = 1, #_nearby do
+            local e = _nearby[ni]
             if e.alive and not e.charmed then
                 local ex = e.x - g.x
                 local ey = e.y - g.y
                 local eR = e.radius or 15
-                local hitDist = (g.hitRadius or 18) + eR
+                local hitDist = gHitR + eR
                 if ex * ex + ey * ey <= hitDist * hitDist then
                     exploded = true
                     explodeX, explodeY = g.x, g.y
@@ -409,8 +444,11 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
         end
 
         if exploded then
-            -- 爆炸：对范围内敌人造成伤害 + 击退（方向 = 远离玩家）
-            for _, e in ipairs(enemies) do
+            -- 爆炸：对范围内敌人造成伤害 + 击退（空间哈希加速）
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(explodeX, explodeY, g.radius, _nearby)
+            for ni = 1, #_nearby do
+                local e = _nearby[ni]
                 if e.alive and not e.charmed then
                     local edx = e.x - explodeX
                     local edy = e.y - explodeY
@@ -516,9 +554,12 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
         if w.lifetime <= 0 then
             table.remove(taichiWaves, i)
         else
-            -- 碰撞检测（穿透所有敌人 + 必暴击 + 击退）
+            -- 碰撞检测（穿透所有敌人 + 必暴击 + 击退，空间哈希加速）
             local waveR = 14 * w.scale  -- 基础碰撞半径 × 膨胀
-            for _, e in ipairs(enemies) do
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(w.x, w.y, waveR + 20, _nearby)
+            for ni = 1, #_nearby do
+                local e = _nearby[ni]
                 if e.alive and not e.charmed and not w.hitEnemies[e] then
                     local edx = e.x - w.x
                     local edy = e.y - w.y
@@ -583,36 +624,35 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                     starVerts[i] = { x = playerX + math.cos(a) * r, y = playerY + math.sin(a) * r }
                 end
 
-                -- 对五角星内敌人造成伤害
-                for _, e in ipairs(enemies) do
+                -- 对五角星内敌人造成伤害（空间哈希预筛选 outerR 范围）
+                for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                skillHash:QueryInto(playerX, playerY, outerR, _nearby)
+                for ni = 1, #_nearby do
+                    local e = _nearby[ni]
                     if e.alive and not e.charmed then
-                        local edx = e.x - playerX
-                        local edy = e.y - playerY
-                        if edx * edx + edy * edy <= outerR * outerR then
-                            local inside = false
-                            local n = #starVerts
-                            local j = n
-                            for vi = 1, n do
-                                local vi_y = starVerts[vi].y
-                                local vj_y = starVerts[j].y
-                                if (vi_y > e.y) ~= (vj_y > e.y) then
-                                    local vi_x = starVerts[vi].x
-                                    local vj_x = starVerts[j].x
-                                    local intersectX = vj_x + (e.y - vj_y) / (vi_y - vj_y) * (vi_x - vj_x)
-                                    if e.x < intersectX then
-                                        inside = not inside
-                                    end
+                        local inside = false
+                        local n = #starVerts
+                        local j = n
+                        for vi = 1, n do
+                            local vi_y = starVerts[vi].y
+                            local vj_y = starVerts[j].y
+                            if (vi_y > e.y) ~= (vj_y > e.y) then
+                                local vi_x = starVerts[vi].x
+                                local vj_x = starVerts[j].x
+                                local intersectX = vj_x + (e.y - vj_y) / (vi_y - vj_y) * (vi_x - vj_x)
+                                if e.x < intersectX then
+                                    inside = not inside
                                 end
-                                j = vi
                             end
-                            if inside then
-                                DamageStats._currentSource = "cat_scratch"
-                                local killed2, finalAmount, isFrozenHit = Enemy.Damage(e, dmg)
-                                DamageNumber.SpawnDamage(e.x, e.y - 10, finalAmount, false, isFrozenHit)
-                                Particle.Spawn(e.x, e.y, "hit")
-                                if killed2 then
-                                    table.insert(killed, e)
-                                end
+                            j = vi
+                        end
+                        if inside then
+                            DamageStats._currentSource = "cat_scratch"
+                            local killed2, finalAmount, isFrozenHit = Enemy.Damage(e, dmg)
+                            DamageNumber.SpawnDamage(e.x, e.y - 10, finalAmount, false, isFrozenHit)
+                            Particle.Spawn(e.x, e.y, "hit")
+                            if killed2 then
+                                table.insert(killed, e)
                             end
                         end
                     end
@@ -668,42 +708,43 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                 triggered = false,
             })
         end
-        -- 更新陷阱：寿命 + 触发检测
+        -- 更新陷阱：寿命 + 触发检测（空间哈希加速）
         for i = #beanTraps, 1, -1 do
             local trap = beanTraps[i]
             trap.life = trap.life - dt
             if trap.life <= 0 then
                 table.remove(beanTraps, i)
             elseif not trap.triggered then
-                -- 检查是否有敌人踩到
-                for _, e in ipairs(enemies) do
+                -- 用空间哈希检查触发范围内是否有敌人
+                for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                skillHash:QueryInto(trap.x, trap.y, BEAN_TRAP_TRIGGER_R, _nearby)
+                local triggered = false
+                for ni = 1, #_nearby do
+                    local e = _nearby[ni]
                     if e.alive and not e.charmed then
-                        local tdx = e.x - trap.x
-                        local tdy = e.y - trap.y
-                        if tdx * tdx + tdy * tdy <= BEAN_TRAP_TRIGGER_R * BEAN_TRAP_TRIGGER_R then
-                            -- 触发爆炸！
-                            trap.triggered = true
-                            trap.life = 0.3  -- 短暂保留做爆炸动画
-                            -- 对范围内所有敌人造成伤害
-                            for _, e2 in ipairs(enemies) do
-                                if e2.alive and not e2.charmed then
-                                    local ddx = e2.x - trap.x
-                                    local ddy = e2.y - trap.y
-                                    if ddx * ddx + ddy * ddy <= trap.radius * trap.radius then
-                                        DamageStats._currentSource = "bean_sprout"
-                                        local killed2, finalAmount, isFrozenHit = Enemy.Damage(e2, trap.dmg)
-                                        DamageNumber.SpawnDamage(e2.x, e2.y - 10, finalAmount, false, isFrozenHit)
-                                        if killed2 then
-                                            table.insert(killed, e2)
-                                        end
-                                    end
-                                end
+                        triggered = true
+                        break
+                    end
+                end
+                if triggered then
+                    trap.triggered = true
+                    trap.life = 0.3
+                    -- 对爆炸范围内敌人造成伤害（空间哈希查询）
+                    for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                    skillHash:QueryInto(trap.x, trap.y, trap.radius, _nearby)
+                    for ni = 1, #_nearby do
+                        local e2 = _nearby[ni]
+                        if e2.alive and not e2.charmed then
+                            DamageStats._currentSource = "bean_sprout"
+                            local killed2, finalAmount, isFrozenHit = Enemy.Damage(e2, trap.dmg)
+                            DamageNumber.SpawnDamage(e2.x, e2.y - 10, finalAmount, false, isFrozenHit)
+                            if killed2 then
+                                table.insert(killed, e2)
                             end
-                            Particle.SpawnShockWave(trap.x, trap.y, trap.radius, 0.3, 100, 220, 50, 3)
-                            Particle.Spawn(trap.x, trap.y, "bomb")
-                            break
                         end
                     end
+                    Particle.SpawnShockWave(trap.x, trap.y, trap.radius, 0.3, 100, 220, 50, 3)
+                    Particle.Spawn(trap.x, trap.y, "bomb")
                 end
             end
         end
@@ -716,10 +757,11 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
         Skill.thumbUpTimer = Skill.thumbUpTimer + dt
         thumbUpAngle = thumbUpAngle + 0.5 * dt
 
-        -- CD 到了积攒 level 轮
+        -- CD 到了积攒 level 轮（上限防无限增长导致性能问题）
         if Skill.thumbUpTimer >= interval then
             Skill.thumbUpTimer = 0
-            Skill.thumbUpPending = Skill.thumbUpPending + thumbUpLevel
+            local maxPending = thumbUpLevel * 3
+            Skill.thumbUpPending = math.min(Skill.thumbUpPending + thumbUpLevel, maxPending)
         end
 
         -- 连续释放：每0.3s释放一轮
@@ -849,7 +891,10 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                 c.attackTimer = 0
                 local nearest = nil
                 local nearDist = CLONE_ATTACK_RANGE * CLONE_ATTACK_RANGE
-                for _, e in ipairs(enemies) do
+                for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                skillHash:QueryInto(c.x, c.y, CLONE_ATTACK_RANGE, _nearby)
+                for ni = 1, #_nearby do
+                    local e = _nearby[ni]
                     if e.alive and not e.charmed then
                         local edx = e.x - c.x
                         local edy = e.y - c.y
@@ -880,21 +925,20 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                 c.mimicTimer = 0
                 local mimicDmg = SM.mulFloor(playerAtk, 0.2)
 
-                -- 模仿手雷（如果玩家有手雷技能）
+                -- 模仿手雷（空间哈希加速）
                 local grenadeLv = playerSkills["grenade"] or 0
                 if grenadeLv > 0 then
                     local gRadius = 60 + 10 * grenadeLv
-                    for _, e in ipairs(enemies) do
+                    for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                    skillHash:QueryInto(c.x, c.y, gRadius, _nearby)
+                    for ni = 1, #_nearby do
+                        local e = _nearby[ni]
                         if e.alive and not e.charmed then
-                            local gdx = e.x - c.x
-                            local gdy = e.y - c.y
-                            if gdx * gdx + gdy * gdy <= gRadius * gRadius then
-                                DamageStats._currentSource = "clone_strike"
-                                local killed2, finalAmount, isFrozenHit = Enemy.Damage(e, mimicDmg)
-                                DamageNumber.SpawnDamage(e.x, e.y - 10, finalAmount, false, isFrozenHit)
-                                if killed2 then
-                                    table.insert(killed, e)
-                                end
+                            DamageStats._currentSource = "clone_strike"
+                            local killed2, finalAmount, isFrozenHit = Enemy.Damage(e, mimicDmg)
+                            DamageNumber.SpawnDamage(e.x, e.y - 10, finalAmount, false, isFrozenHit)
+                            if killed2 then
+                                table.insert(killed, e)
                             end
                         end
                     end
@@ -903,12 +947,15 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
 
                 -- 太极拳是被动反击技能，分身不模仿
 
-                -- 模仿无人机（对最近敌人造成一次伤害）
+                -- 模仿无人机（空间哈希加速）
                 local dLv = playerSkills["atk_drone"] or 0
                 if dLv > 0 then
                     local dNearest = nil
                     local dNearDist = 300 * 300
-                    for _, e in ipairs(enemies) do
+                    for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                    skillHash:QueryInto(c.x, c.y, 300, _nearby)
+                    for ni = 1, #_nearby do
+                        local e = _nearby[ni]
                         if e.alive and not e.charmed then
                             local ddx = e.x - c.x
                             local ddy = e.y - c.y
@@ -968,12 +1015,17 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
         local hitR = 28 + 4 * xmasTreeLevel
 
         for ti = 1, treeCount do
+            if _frameCollisions >= FRAME_COLLISION_BUDGET then break end
             local treeAngle = Skill.xmasTreeAngle + (ti - 1) * angleStep
             local treeX = playerX + math.cos(treeAngle) * orbitR
             local treeY = playerY + math.sin(treeAngle) * orbitR
 
-            -- 接触伤害（per-enemy 命中冷却，所有树共享）
-            for _, e in ipairs(enemies) do
+            -- 接触伤害（per-enemy 命中冷却，空间哈希加速）
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(treeX, treeY, hitR + 20, _nearby)
+            for ni = 1, #_nearby do
+                _frameCollisions = _frameCollisions + 1
+                local e = _nearby[ni]
                 if e.alive and not e.charmed and not Skill.xmasTreeHitMap[e] then
                     local edx = e.x - treeX
                     local edy = e.y - treeY
@@ -1021,10 +1073,13 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
             local shootAngle = Skill.xmasTreeAngle + (Skill.xmasTreeIceIndex - 1) * angleStep
             local shootX = playerX + math.cos(shootAngle) * orbitR
             local shootY = playerY + math.sin(shootAngle) * orbitR
-            -- 寻找最近敌人
+            -- 寻找最近敌人（空间哈希加速）
             local nearestE = nil
-            local nearDist2 = math.huge
-            for _, e in ipairs(enemies) do
+            local nearDist2 = 500 * 500
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(shootX, shootY, 500, _nearby)
+            for ni = 1, #_nearby do
+                local e = _nearby[ni]
                 if e.alive and not e.charmed then
                     local edx = e.x - shootX
                     local edy = e.y - shootY
@@ -1059,12 +1114,17 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
         Skill.leafStormTimer = Skill.leafStormTimer + dt
         Skill.leafStormAngle = Skill.leafStormAngle + 2.0 * dt
 
-        -- 可能一帧内触发多次（高等级时）
-        while Skill.leafStormTimer >= hitInterval do
+        -- 可能一帧内触发多次（高等级时），加安全上限防卡死
+        local leafLoopCap = 10
+        while Skill.leafStormTimer >= hitInterval and leafLoopCap > 0 do
+            leafLoopCap = leafLoopCap - 1
             Skill.leafStormTimer = Skill.leafStormTimer - hitInterval
-            -- AoE：对范围内所有敌人造成伤害 + 叠加冰冻
+            -- AoE：对范围内所有敌人造成伤害 + 叠加冰冻（空间哈希加速）
             local hitAny = false
-            for _, e in ipairs(enemies) do
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(playerX, playerY, radius, _nearby)
+            for ni = 1, #_nearby do
+                local e = _nearby[ni]
                 if e.alive and not e.charmed then
                     local edx = e.x - playerX
                     local edy = e.y - playerY
@@ -1102,11 +1162,14 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
             end
         end
 
-        -- 大象缓慢接近最近敌人
+        -- 大象缓慢接近最近敌人（空间哈希加速寻敌）
         for _, el in ipairs(elephants) do
             local nearE = nil
             local nearD2 = math.huge
-            for _, e in ipairs(enemies) do
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(el.x, el.y, 400, _nearby)
+            for ni = 1, #_nearby do
+                local e = _nearby[ni]
                 if e.alive and not e.charmed then
                     local dx = e.x - el.x
                     local dy = e.y - el.y
@@ -1147,8 +1210,11 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                         el.y = el.y + (dy / dist) * shift
                     end
                 end
-                -- AoE伤害
-                for _, e in ipairs(enemies) do
+                -- AoE伤害（空间哈希加速）
+                for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                skillHash:QueryInto(el.x, el.y, stompRadius, _nearby)
+                for ni = 1, #_nearby do
+                    local e = _nearby[ni]
                     if e.alive and not e.charmed then
                         local edx = e.x - el.x
                         local edy = e.y - el.y
@@ -1193,7 +1259,10 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                 -- 索敌：距离自身最近的、血量为正的、未被魅惑的唯一敌人
                 local nearTarget = nil
                 local nearTargetD2 = math.huge
-                for _, e in ipairs(enemies) do
+                for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                skillHash:QueryInto(ce.x, ce.y, 400, _nearby)
+                for ni = 1, #_nearby do
+                    local e = _nearby[ni]
                     if e.alive and not e.charmed and e.hp > 0 then
                         local dx = e.x - ce.x
                         local dy = e.y - ce.y
@@ -1249,7 +1318,10 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                         if dist <= contactDist and Skill.charmDamageTimer >= charmTickInterval then
                             local tickDmg = math.max(1, SM.floor(ce.atk))
                             -- 对范围内所有非魅惑敌人造成伤害
-                            for _, e in ipairs(enemies) do
+                            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                            skillHash:QueryInto(ce.x, ce.y, contactDist + 20, _nearby)
+                            for ni = 1, #_nearby do
+                                local e = _nearby[ni]
                                 if e.alive and not e.charmed and e.hp > 0 then
                                     local edx = e.x - ce.x
                                     local edy = e.y - ce.y
@@ -1276,7 +1348,11 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                 if ce.alive and ce.isBoss then
                     local ceR = ce.radius or 15
                     local tickDmg = math.max(1, SM.floor(ce.atk))
-                    for _, e in ipairs(enemies) do
+                    local bossContactR = ceR + 35  -- 最大可能的接触距离
+                    for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                    skillHash:QueryInto(ce.x, ce.y, bossContactR, _nearby)
+                    for ni = 1, #_nearby do
+                        local e = _nearby[ni]
                         if e.alive and not e.charmed and e.hp > 0 then
                             local edx = e.x - ce.x
                             local edy = e.y - ce.y
@@ -1321,10 +1397,13 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
         -- 发射马匹子弹
         if Skill.slowRiderTimer >= fireInterval then
             Skill.slowRiderTimer = Skill.slowRiderTimer - fireInterval
-            -- 找最近敌人
+            -- 找最近敌人（空间哈希加速）
             local nearE = nil
             local nearD2 = math.huge
-            for _, e in ipairs(enemies) do
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(playerX, playerY, 600, _nearby)
+            for ni = 1, #_nearby do
+                local e = _nearby[ni]
                 if e.alive and not e.charmed then
                     local dx = e.x - playerX
                     local dy = e.y - playerY
@@ -1349,11 +1428,14 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
         for i = #horseProjectiles, 1, -1 do
             local hp = horseProjectiles[i]
             local target = hp.targetEnemy
-            -- 如果目标死亡，重新锁定最近敌人
+            -- 如果目标死亡，重新锁定最近敌人（空间哈希加速）
             if not target or not target.alive then
                 local nearE = nil
                 local nearD2 = math.huge
-                for _, e in ipairs(enemies) do
+                for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                skillHash:QueryInto(hp.x, hp.y, 600, _nearby)
+                for ni = 1, #_nearby do
+                    local e = _nearby[ni]
                     if e.alive and not e.charmed then
                         local dx = e.x - hp.x
                         local dy = e.y - hp.y
@@ -1407,18 +1489,17 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                 if ww.tickTimer >= whirlwindTickInterval then
                     ww.tickTimer = ww.tickTimer - whirlwindTickInterval
                     local whirlRadius = 60
-                    for _, e in ipairs(enemies) do
+                    for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                    skillHash:QueryInto(ww.x, ww.y, whirlRadius, _nearby)
+                    for ni = 1, #_nearby do
+                        local e = _nearby[ni]
                         if e.alive and not e.charmed then
-                            local edx = e.x - ww.x
-                            local edy = e.y - ww.y
-                            if edx * edx + edy * edy <= whirlRadius * whirlRadius then
-                                DamageStats._currentSource = "slow_rider"
-                                local killed2, finalAmount, isFrozenHit = Enemy.Damage(e, ww.dmg)
-                                DamageNumber.SpawnDamage(e.x, e.y - 10, finalAmount, false, isFrozenHit)
-                                Particle.Spawn(e.x, e.y, "hit")
-                                if killed2 then
-                                    table.insert(killed, e)
-                                end
+                            DamageStats._currentSource = "slow_rider"
+                            local killed2, finalAmount, isFrozenHit = Enemy.Damage(e, ww.dmg)
+                            DamageNumber.SpawnDamage(e.x, e.y - 10, finalAmount, false, isFrozenHit)
+                            Particle.Spawn(e.x, e.y, "hit")
+                            if killed2 then
+                                table.insert(killed, e)
                             end
                         end
                     end
@@ -1530,7 +1611,10 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                     local dmg = SM.mulFloor(playerAtk, 0.5 * droneLv * DMG_MULT)
                     local nearest = nil
                     local nearDist = 400 * 400
-                    for _, e in ipairs(enemies) do
+                    for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                    skillHash:QueryInto(box.x, box.y, 400, _nearby)
+                    for ni = 1, #_nearby do
+                        local e = _nearby[ni]
                         if e.alive and not e.charmed then
                             local dx = e.x - box.x
                             local dy = e.y - box.y
@@ -1568,10 +1652,15 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                         local collisionR = Skill.droneVisualSize + 12
                         local colDmg = SM.mulFloor(Player.droneCollisionDmg, DMG_MULT)
                         for i = 1, droneCount do
+                            if _frameCollisions >= FRAME_COLLISION_BUDGET then break end
                             local a = (box.droneAngle or 0) + (i - 1) * angleStep
                             local drX = box.x + math.cos(a) * Skill.droneOrbitRadius
                             local drY = box.y + math.sin(a) * Skill.droneOrbitRadius
-                            for _, e in ipairs(enemies) do
+                            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                            skillHash:QueryInto(drX, drY, collisionR + 20, _nearby)
+                            for ni = 1, #_nearby do
+                                _frameCollisions = _frameCollisions + 1
+                                local e = _nearby[ni]
                                 if e.alive and not e.charmed then
                                     local edx = e.x - drX
                                     local edy = e.y - drY
@@ -1673,7 +1762,10 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                         c.attackTimer = 0
                         local nearest = nil
                         local nearDist = CLONE_ATTACK_RANGE * CLONE_ATTACK_RANGE
-                        for _, e in ipairs(enemies) do
+                        for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                        skillHash:QueryInto(c.x, c.y, CLONE_ATTACK_RANGE, _nearby)
+                        for ni = 1, #_nearby do
+                            local e = _nearby[ni]
                             if e.alive and not e.charmed then
                                 local edx = e.x - c.x
                                 local edy = e.y - c.y
@@ -1729,12 +1821,17 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                 end
 
                 for ti = 1, treeCount do
+                    if _frameCollisions >= FRAME_COLLISION_BUDGET then break end
                     local treeAngle = (box.xmasAngle or 0) + (ti - 1) * xmasAngleStep
                     local treeX = box.x + math.cos(treeAngle) * xmasOrbitR
                     local treeY = box.y + math.sin(treeAngle) * xmasOrbitR
 
-                    -- 接触伤害（per-enemy 命中冷却）
-                    for _, e in ipairs(enemies) do
+                    -- 接触伤害（per-enemy 命中冷却，空间哈希加速）
+                    for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                    skillHash:QueryInto(treeX, treeY, hitR + 20, _nearby)
+                    for ni = 1, #_nearby do
+                        _frameCollisions = _frameCollisions + 1
+                        local e = _nearby[ni]
                         if e.alive and not e.charmed and not box.xmasHitMap[e] then
                             local edx = e.x - treeX
                             local edy = e.y - treeY
@@ -1783,7 +1880,10 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                     local shootY = box.y + math.sin(shootAngle) * xmasOrbitR
                     local nearestE = nil
                     local nearDist2 = math.huge
-                    for _, e in ipairs(enemies) do
+                    for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                    skillHash:QueryInto(shootX, shootY, 400, _nearby)
+                    for ni = 1, #_nearby do
+                        local e = _nearby[ni]
                         if e.alive and not e.charmed then
                             local edx = e.x - shootX
                             local edy = e.y - shootY
@@ -1817,10 +1917,15 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                     local dmgCollision = SM.mulFloor(Player.atk, DMG_MULT)
                     local gAngleStep = (math.pi * 2) / greenDroneLv
                     for i = 1, greenDroneLv do
+                        if _frameCollisions >= FRAME_COLLISION_BUDGET then break end
                         local a = (box.greenDroneAngle or 0) + (i - 1) * gAngleStep
                         local drX = box.x + math.cos(a) * greenOrbitR
                         local drY = box.y + math.sin(a) * greenOrbitR
-                        for _, e in ipairs(enemies) do
+                        for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                        skillHash:QueryInto(drX, drY, collisionR + 20, _nearby)
+                        for ni = 1, #_nearby do
+                            _frameCollisions = _frameCollisions + 1
+                            local e = _nearby[ni]
                             if e.alive and not e.charmed then
                                 local edx = e.x - drX
                                 local edy = e.y - drY
@@ -1847,7 +1952,10 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
                     local dmg = SM.mulFloor(playerAtk, 0.25 * greenDroneLv * DMG_MULT)
                     local nearest = nil
                     local nearDist = 400 * 400
-                    for _, e in ipairs(enemies) do
+                    for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                    skillHash:QueryInto(box.x, box.y, 400, _nearby)
+                    for ni = 1, #_nearby do
+                        local e = _nearby[ni]
                         if e.alive and not e.charmed then
                             local dx = e.x - box.x
                             local dy = e.y - box.y
@@ -1910,10 +2018,15 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
             local collisionR = Skill.droneVisualSize + 12 -- 碰撞检测半径
             local dmg = SM.floor(Player.droneCollisionDmg)
             for i = 1, droneCount do
+                if _frameCollisions >= FRAME_COLLISION_BUDGET then break end
                 local a = Skill.droneAngle + (i - 1) * angleStep
                 local drX = playerX + math.cos(a) * Skill.droneOrbitRadius
                 local drY = playerY + math.sin(a) * Skill.droneOrbitRadius
-                for _, e in ipairs(enemies) do
+                for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                skillHash:QueryInto(drX, drY, collisionR + 20, _nearby)
+                for ni = 1, #_nearby do
+                    _frameCollisions = _frameCollisions + 1
+                    local e = _nearby[ni]
                     if e.alive and not e.charmed then
                         local edx = e.x - drX
                         local edy = e.y - drY
@@ -1965,10 +2078,15 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
             local dmgCollision = SM.floor(Player.atk)
             local angleStep = (math.pi * 2) / greenDroneLevel
             for i = 1, greenDroneLevel do
+                if _frameCollisions >= FRAME_COLLISION_BUDGET then break end
                 local a = Skill.greenDroneAngle + (i - 1) * angleStep
                 local drX = playerX + math.cos(a) * Skill.greenDroneOrbitRadius
                 local drY = playerY + math.sin(a) * Skill.greenDroneOrbitRadius
-                for _, e in ipairs(enemies) do
+                for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+                skillHash:QueryInto(drX, drY, collisionR + 20, _nearby)
+                for ni = 1, #_nearby do
+                    _frameCollisions = _frameCollisions + 1
+                    local e = _nearby[ni]
                     if e.alive and not e.charmed then
                         local edx = e.x - drX
                         local edy = e.y - drY
@@ -1996,7 +2114,10 @@ function Skill.Update(dt, playerSkills, playerX, playerY, playerAtk, enemies)
             local dmg = SM.mulFloor(playerAtk, 0.25 * greenDroneLevel)
             local nearest = nil
             local nearDist = 400 * 400
-            for _, e in ipairs(enemies) do
+            for ni = #_nearby, 1, -1 do _nearby[ni] = nil end
+            skillHash:QueryInto(playerX, playerY, 400, _nearby)
+            for ni = 1, #_nearby do
+                local e = _nearby[ni]
                 if e.alive and not e.charmed then
                     local dx = e.x - playerX
                     local dy = e.y - playerY

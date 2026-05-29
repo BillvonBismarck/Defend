@@ -72,11 +72,30 @@ Loot._SPAWN_MERGE_RADIUS_SQ = 40 * 40  -- 40 像素内合并
 
 --- 生成经验芯片（就近合并：附近已有经验球则叠加，减少对象数量）
 function Loot.Spawn(x, y, exp)
-    -- 就近合并检查：在附近找一个已完成生成动画的经验球
+    -- 硬上限：场上掉落物过多时直接合并到最近的或丢弃（防炸弹清怪单帧爆炸）
+    if #Loot.active >= 200 then
+        -- 找最近的经验球合并
+        local bestL, bestD2 = nil, math.huge
+        for i = math.max(1, #Loot.active - 30), #Loot.active do
+            local l = Loot.active[i]
+            if l and l.alive and l.lootType == "xp" then
+                local dx2 = x - l.x
+                local dy2 = y - l.y
+                local d2 = dx2 * dx2 + dy2 * dy2
+                if d2 < bestD2 then bestD2 = d2; bestL = l end
+            end
+        end
+        if bestL then bestL.exp = bestL.exp + exp end
+        return
+    end
+
+    -- 就近合并检查：只检查最近的20个（避免O(n)全量扫描）
     local mergeR2 = Loot._SPAWN_MERGE_RADIUS_SQ
     local nx = x + (math.random() - 0.5) * 20
     local ny = y + (math.random() - 0.5) * 20
-    for _, l in ipairs(Loot.active) do
+    local scanStart = math.max(1, #Loot.active - 20)
+    for i = scanStart, #Loot.active do
+        local l = Loot.active[i]
         if l.alive and l.lootType == "xp" and l.spawnTimer <= 0 then
             local dx = nx - l.x
             local dy = ny - l.y

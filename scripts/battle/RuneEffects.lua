@@ -12,6 +12,16 @@ local RuneResonance = require("battle.RuneResonance")
 
 local RuneEffects = {}
 
+-- ── 帧级防级联守卫 ──
+local _frameGuard = {
+    demonBurstFired = false,   -- 本帧是否已触发恶魔爆发（防止同帧多次级联）
+    onKillBudget = 0,          -- 本帧 OnKill 剩余预算
+}
+local ON_KILL_BUDGET_PER_FRAME = 8  -- 每帧最多处理 8 次 OnKill 的高耗逻辑
+
+-- 复用查询表（避免每次 QueryInto 分配新表）
+local _runeNearby = {}
+
 -- ============================================================================
 -- 运行时状态（每局重置）
 -- ============================================================================
@@ -103,6 +113,10 @@ end
 ---@param dt number
 ---@param enemies table 当前活跃敌人列表
 function RuneEffects.Update(dt, enemies)
+    -- 重置帧级守卫
+    _frameGuard.demonBurstFired = false
+    _frameGuard.onKillBudget = ON_KILL_BUDGET_PER_FRAME
+
     -- CD 递减
     if state.policeCD > 0 then state.policeCD = state.policeCD - dt end
     if state.chefCD > 0 then state.chefCD = state.chefCD - dt end
@@ -162,30 +176,33 @@ function RuneEffects.Update(dt, enemies)
         state.gentlemanNoHitTimer = state.gentlemanNoHitTimer + dt
     end
 
-    -- ── 🎵 节拍风暴：定时AOE ──
+    -- ── 🎵 节拍风暴：定时AOE（空间哈希加速）──
     local rDj = getRune("rune_dj")
     if rDj then
         state.djTimer = state.djTimer + dt
         if state.djTimer >= rDj.interval then
             state.djTimer = state.djTimer - rDj.interval
-            -- AOE 伤害 + 击退 + 减速
+            -- AOE 伤害 + 击退 + 减速（空间哈希查询范围内敌人）
             local aoeDmg = SM.mulFloor(Player.atk, rDj.aoeDmgPercent)
             local hitCount = 0
             local Enemy = require("battle.Enemy")
-            for _, e in ipairs(enemies) do
-                if e.alive and not e.charmed then
-                    local dx = e.x - Player.x
-                    local dy = e.y - Player.y
-                    local dist = math.sqrt(dx * dx + dy * dy)
-                    if dist < rDj.aoeRadius then
-                        DamageStats._currentSource = "rune"
-                        Enemy.Damage(e, aoeDmg)
-                        -- 减速
-                        if e.alive then
-                            e.speedMult = (e.speedMult or 1) * (1 - rDj.slowPercent)
-                            e.slowTimer = rDj.slowDuration
+            local hash = Enemy._spatialHash
+            if hash then
+                for ni = #_runeNearby, 1, -1 do _runeNearby[ni] = nil end
+                hash:QueryInto(Player.x, Player.y, rDj.aoeRadius, _runeNearby)
+                for _, e in ipairs(_runeNearby) do
+                    if e.alive and not e.charmed then
+                        local dx = e.x - Player.x
+                        local dy = e.y - Player.y
+                        if dx * dx + dy * dy < rDj.aoeRadius * rDj.aoeRadius then
+                            DamageStats._currentSource = "rune"
+                            Enemy.Damage(e, aoeDmg)
+                            if e.alive then
+                                e.speedMult = (e.speedMult or 1) * (1 - rDj.slowPercent)
+                                e.slowTimer = rDj.slowDuration
+                            end
+                            hitCount = hitCount + 1
                         end
-                        hitCount = hitCount + 1
                     end
                 end
             end
@@ -228,23 +245,28 @@ function RuneEffects.Update(dt, enemies)
         DamageNumber.Spawn(Player.x, Player.y - 30, "💊+" .. healAmt, "heal")
     end
 
-    -- ── 🔥 浴火重生：低血量触发（使用同一快照，不受急救回血影响）──
+    -- ── 🔥 浴火重生：低血量触发（空间哈希加速，使用同一快照，不受急救回血影响）──
     local rFire = getRune("rune_firefighter")
     if rFire and state.firefighterCD <= 0 and state.firefighterImmuneTimer <= 0 and isLowHp then
         -- 免疫
         state.firefighterImmuneTimer = rFire.immuneDuration
         Player.invTimer = math.max(Player.invTimer, rFire.immuneDuration)
         state.firefighterCD = rFire.cooldown
-        -- AOE 火焰伤害
+        -- AOE 火焰伤害（空间哈希查询）
         local aoeDmg = SM.mulFloor(Player.atk, rFire.aoeDmgPercent)
-        for _, e in ipairs(enemies) do
-            if e.alive and not e.charmed then
-                local dx = e.x - Player.x
-                local dy = e.y - Player.y
-                if dx * dx + dy * dy < rFire.aoeRadius * rFire.aoeRadius then
-                    local Enemy = require("battle.Enemy")
-                    DamageStats._currentSource = "rune"
-                    Enemy.Damage(e, aoeDmg)
+        local Enemy = require("battle.Enemy")
+        local hash = Enemy._spatialHash
+        if hash then
+            for ni = #_runeNearby, 1, -1 do _runeNearby[ni] = nil end
+            hash:QueryInto(Player.x, Player.y, rFire.aoeRadius, _runeNearby)
+            for _, e in ipairs(_runeNearby) do
+                if e.alive and not e.charmed then
+                    local dx = e.x - Player.x
+                    local dy = e.y - Player.y
+                    if dx * dx + dy * dy < rFire.aoeRadius * rFire.aoeRadius then
+                        DamageStats._currentSource = "rune"
+                        Enemy.Damage(e, aoeDmg)
+                    end
                 end
             end
         end
@@ -263,7 +285,9 @@ function RuneEffects.Update(dt, enemies)
         end
     end
 
-    -- ── 👤 影分身：更新已有分身 ──
+    -- ── 👤 影分身：更新已有分身（空间哈希加速 find-nearest + AOE）──
+    local Enemy = require("battle.Enemy")
+    local cloneHash = Enemy._spatialHash
     for i = #state.clones, 1, -1 do
         local c = state.clones[i]
         c.timer = c.timer - dt
@@ -277,29 +301,34 @@ function RuneEffects.Update(dt, enemies)
                 c.atkTimer = 0
                 local bestDist = 200 * 200
                 local bestE = nil
-                for _, e in ipairs(enemies) do
-                    if e.alive and not e.charmed then
-                        local dx = e.x - c.x
-                        local dy = e.y - c.y
-                        local d2 = dx * dx + dy * dy
-                        if d2 < bestDist then
-                            bestDist = d2
-                            bestE = e
+                if cloneHash then
+                    for ni = #_runeNearby, 1, -1 do _runeNearby[ni] = nil end
+                    cloneHash:QueryInto(c.x, c.y, 200, _runeNearby)
+                    for _, e in ipairs(_runeNearby) do
+                        if e.alive and not e.charmed then
+                            local dx = e.x - c.x
+                            local dy = e.y - c.y
+                            local d2 = dx * dx + dy * dy
+                            if d2 < bestDist then
+                                bestDist = d2
+                                bestE = e
+                            end
                         end
                     end
                 end
                 if bestE then
                     local cloneDmg = SM.mulFloor(Player.atk, c.atkPercent)
-                    local Enemy = require("battle.Enemy")
                     DamageStats._currentSource = "rune"
                     Enemy.Damage(bestE, cloneDmg)
                     Particle.Spawn(bestE.x, bestE.y, "hit")
                     DamageNumber.SpawnDamage(bestE.x, bestE.y - 10, cloneDmg, false, false)
-                    -- 共鸣：幻影风暴 - 分身释放迷你AOE
+                    -- 共鸣：幻影风暴 - 分身释放迷你AOE（空间哈希）
                     local cloneAoeR, cloneAoeDmgP = RuneResonance.GetCloneAoeParams()
-                    if cloneAoeR then
+                    if cloneAoeR and cloneHash then
                         local cAoeDmg = SM.mulFloor(Player.atk, cloneAoeDmgP)
-                        for _, ae in ipairs(enemies) do
+                        for ni = #_runeNearby, 1, -1 do _runeNearby[ni] = nil end
+                        cloneHash:QueryInto(c.x, c.y, cloneAoeR, _runeNearby)
+                        for _, ae in ipairs(_runeNearby) do
                             if ae.alive and not ae.charmed and ae ~= bestE then
                                 local adx = ae.x - c.x
                                 local ady = ae.y - c.y
@@ -458,38 +487,45 @@ end
 ---@param enemyY number
 ---@param isBoss boolean
 function RuneEffects.OnKill(enemyX, enemyY, isBoss, enemies)
+    -- ── 帧预算守卫：防止单帧 OnKill 过多导致卡死 ──
+    _frameGuard.onKillBudget = _frameGuard.onKillBudget - 1
+    local budgetOk = _frameGuard.onKillBudget > 0
+
     -- ── 🩸 血族契约（已在 HandleKills 中实现，此处添加特效）──
     -- 特效由 HandleKills 直接处理
 
-    -- ── 🔄 递归循环：击杀触发连锁闪电 ──
+    -- ── 🔄 递归循环：击杀触发连锁闪电（空间哈希 + 帧预算）──
     local rProg = getRune("rune_programmer")
-    if rProg and state.programmerCD <= 0 then
+    if rProg and state.programmerCD <= 0 and budgetOk then
         if math.random() < rProg.killChance then
             state.programmerCD = rProg.cooldown
             local chainDmg = SM.mulFloor(Player.atk, rProg.chainDmgPercent)
             local Enemy = require("battle.Enemy")
-            local hitSet = {}  -- 已命中的敌人索引（避免重复弹射）
+            local hash = Enemy._spatialHash
+            local hitSet = {}  -- 已命中的敌人（避免重复弹射）
             local cx, cy = enemyX, enemyY
             local hitCount = 0
             for bounce = 1, rProg.chainCount do
-                -- 寻找范围内最近的未命中敌人
+                -- 寻找范围内最近的未命中敌人（空间哈希加速）
                 local bestDist = rProg.chainRange * rProg.chainRange
                 local bestE = nil
-                local bestIdx = nil
-                for idx, e in ipairs(enemies or {}) do
-                    if e.alive and not e.charmed and not hitSet[idx] then
-                        local dx = e.x - cx
-                        local dy = e.y - cy
-                        local d2 = dx * dx + dy * dy
-                        if d2 < bestDist then
-                            bestDist = d2
-                            bestE = e
-                            bestIdx = idx
+                if hash then
+                    for ni = #_runeNearby, 1, -1 do _runeNearby[ni] = nil end
+                    hash:QueryInto(cx, cy, rProg.chainRange, _runeNearby)
+                    for _, e in ipairs(_runeNearby) do
+                        if e.alive and not e.charmed and not hitSet[e] then
+                            local dx = e.x - cx
+                            local dy = e.y - cy
+                            local d2 = dx * dx + dy * dy
+                            if d2 < bestDist then
+                                bestDist = d2
+                                bestE = e
+                            end
                         end
                     end
                 end
                 if not bestE then break end
-                hitSet[bestIdx] = true
+                hitSet[bestE] = true
                 -- 伤害 + 减速
                 DamageStats._currentSource = "rune"
                 Enemy.Damage(bestE, chainDmg)
@@ -515,7 +551,7 @@ function RuneEffects.OnKill(enemyX, enemyY, isBoss, enemies)
         end
     end
 
-    -- ── 👁️ 深渊王权：击杀叠加暗影 ──
+    -- ── 👁️ 深渊王权：击杀叠加暗影（帧守卫防级联）──
     local rDemon = getRune("rune_demon_king")
     if rDemon then
         if state.demonStacks < rDemon.maxStacks then
@@ -526,18 +562,24 @@ function RuneEffects.OnKill(enemyX, enemyY, isBoss, enemies)
                 Particle.Spawn(Player.x, Player.y, "hit")
             end
         end
-        -- 满层爆发
-        if state.demonStacks >= rDemon.maxStacks then
+        -- 满层爆发（同帧最多触发一次，防止级联）
+        if state.demonStacks >= rDemon.maxStacks and not _frameGuard.demonBurstFired then
+            _frameGuard.demonBurstFired = true  -- 本帧锁定，防止级联
             state.demonStacks = 0
-            -- 全屏伤害
+            -- AOE 伤害（空间哈希查询玩家周围 500px 范围代替全量遍历）
             local burstDmg = SM.mulFloor(Player.atk, rDemon.burstDmgPercent)
             local Enemy = require("battle.Enemy")
+            local hash = Enemy._spatialHash
             local hitCount = 0
             DamageStats._currentSource = "rune"
-            for _, e in ipairs(enemies or {}) do
-                if e.alive and not e.charmed then
-                    Enemy.Damage(e, burstDmg)
-                    hitCount = hitCount + 1
+            if hash then
+                for ni = #_runeNearby, 1, -1 do _runeNearby[ni] = nil end
+                hash:QueryInto(Player.x, Player.y, 500, _runeNearby)
+                for _, e in ipairs(_runeNearby) do
+                    if e.alive and not e.charmed then
+                        Enemy.Damage(e, burstDmg)
+                        hitCount = hitCount + 1
+                    end
                 end
             end
             -- 全属性 buff（如果已有旧buff先移除）

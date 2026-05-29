@@ -23,6 +23,7 @@ Enemy.currentBossDef = nil
 
 -- 空间哈希（用于加速碰撞/范围查询）
 Enemy._spatialHash = SpatialHash.New(200)
+local _enemyNearby = {}  -- 复用查询缓冲区
 
 --- 从池中取出或新建敌人
 local function GetFromPool()
@@ -449,10 +450,28 @@ end
 -- 更新所有敌人
 -- ============================================================================
 
+-- 预收集列表（复用，避免 GC）
+local _auraElites = {}
+
 function Enemy.Update(dt, playerX, playerY)
     -- 重建空间哈希（每帧一次，InsertAll 只插入 alive 的）
     Enemy._spatialHash:Clear()
     Enemy._spatialHash:InsertAll(Enemy.active)
+
+    -- 预收集 aura_speed 精英位置（O(n) 一次，替代 O(n²) 逐个查找）
+    local auraCount = 0
+    for _, e in ipairs(Enemy.active) do
+        if e.alive and not e.dying and e.eliteMod == "aura_speed" then
+            auraCount = auraCount + 1
+            local ae = _auraElites[auraCount]
+            if not ae then
+                ae = {}
+                _auraElites[auraCount] = ae
+            end
+            ae.x = e.x
+            ae.y = e.y
+        end
+    end
 
     for i = #Enemy.active, 1, -1 do
         local e = Enemy.active[i]
@@ -482,11 +501,16 @@ function Enemy.Update(dt, playerX, playerY)
                 goto continue
             end
 
-            -- 魅惑Boss：重新计算目标为最近的非魅惑敌人
+            -- 魅惑Boss：重新计算目标为最近的非魅惑敌人（空间哈希加速）
+            -- 🔴 修复：使用 per-entity 局部目标，不再覆写函数参数 playerX/playerY
+            local targetX, targetY = playerX, playerY
             if e.charmed and e.isBoss then
-                local nearDist2 = math.huge
+                local nearDist2 = 600 * 600  -- 搜索半径 600px
                 local foundTarget = false
-                for _, other in ipairs(Enemy.active) do
+                for ni = #_enemyNearby, 1, -1 do _enemyNearby[ni] = nil end
+                Enemy._spatialHash:QueryInto(e.x, e.y, 600, _enemyNearby)
+                for ni = 1, #_enemyNearby do
+                    local other = _enemyNearby[ni]
                     if other.alive and not other.charmed and other ~= e then
                         local odx = other.x - e.x
                         local ody = other.y - e.y
@@ -496,14 +520,13 @@ function Enemy.Update(dt, playerX, playerY)
                             dx = other.x - e.x
                             dy = other.y - e.y
                             dist = math.sqrt(od2)
-                            playerX = other.x  -- 局部覆盖，仅影响本轮循环
-                            playerY = other.y
+                            targetX = other.x
+                            targetY = other.y
                             foundTarget = true
                         end
                     end
                 end
                 if not foundTarget then
-                    -- 没有目标时原地待命
                     if e.hitFlash > 0 then e.hitFlash = e.hitFlash - dt end
                     goto continue
                 end
@@ -551,16 +574,15 @@ function Enemy.Update(dt, playerX, playerY)
             -- 冰冻减速倍率
             local freezeMult = Enemy.GetFreezeSpeedMult(e)
 
-            -- 精英光环加速被动：被附近 aura_speed 精英加速40%
-            if not e.isBoss and freezeMult > 0 then
-                for _, other in ipairs(Enemy.active) do
-                    if other ~= e and other.alive and not other.dying and other.eliteMod == "aura_speed" then
-                        local adx = e.x - other.x
-                        local ady = e.y - other.y
-                        if adx * adx + ady * ady <= 150 * 150 then
-                            freezeMult = freezeMult * 1.4
-                            break  -- 不叠加
-                        end
+            -- 精英光环加速被动：被附近 aura_speed 精英加速40%（预收集 O(k) 替代 O(n²)）
+            if not e.isBoss and freezeMult > 0 and auraCount > 0 then
+                for ai = 1, auraCount do
+                    local ae = _auraElites[ai]
+                    local adx = e.x - ae.x
+                    local ady = e.y - ae.y
+                    if adx * adx + ady * ady <= 150 * 150 then
+                        freezeMult = freezeMult * 1.4
+                        break  -- 不叠加
                     end
                 end
             end
@@ -607,7 +629,7 @@ function Enemy.Update(dt, playerX, playerY)
                         e.bossSkillTimers[si] = (e.bossSkillTimers[si] or sk.interval) - dt
                         if e.bossSkillTimers[si] <= 0 then
                             e.bossSkillTimers[si] = sk.interval
-                            ExecBossSkill(e, sk, playerX, playerY)
+                            ExecBossSkill(e, sk, targetX, targetY)
                         end
                     end
                 end
@@ -655,7 +677,7 @@ function Enemy.Update(dt, playerX, playerY)
                     if e.shootTimer >= (rDef.shootInterval or 2.0) and dist <= (rDef.shootRange or 250) then
                         e.shootTimer = 0
                         local bSpeed = rDef.bulletSpeed or 280
-                        EnemyBullet.Spawn(e.x, e.y, playerX, playerY,
+                        EnemyBullet.Spawn(e.x, e.y, targetX, targetY,
                             e.atk, bSpeed, "🔸", { 255, 150, 0 })
                     end
                 end
@@ -721,8 +743,8 @@ function Enemy.Update(dt, playerX, playerY)
                     if e.blinkTimer <= 0 and freezeMult > 0 then
                         local blinkAngle = math.random() * 6.28
                         local blinkDist = 150 + math.random() * 80
-                        e.x = playerX + math.cos(blinkAngle) * blinkDist
-                        e.y = playerY + math.sin(blinkAngle) * blinkDist
+                        e.x = targetX + math.cos(blinkAngle) * blinkDist
+                        e.y = targetY + math.sin(blinkAngle) * blinkDist
                         e.x = math.max(50, math.min(Config.WORLD_SIZE - 50, e.x))
                         e.y = math.max(50, math.min(Config.WORLD_SIZE - 50, e.y))
                         e.blinkTimer = 2.5 + math.random() * 2.0
@@ -966,7 +988,12 @@ function Enemy.CheckCharmedBossDashCollision()
     local killed = {}
     for _, e in ipairs(Enemy.active) do
         if e.alive and e.isBoss and e.bossDashing and e.charmed then
-            for _, target in ipairs(Enemy.active) do
+            -- 空间哈希加速：只查询冲刺半径内的敌人
+            local searchR = e.bossDashRadius + 30
+            for ni = #_enemyNearby, 1, -1 do _enemyNearby[ni] = nil end
+            Enemy._spatialHash:QueryInto(e.x, e.y, searchR, _enemyNearby)
+            for ni = 1, #_enemyNearby do
+                local target = _enemyNearby[ni]
                 if target.alive and not target.charmed and target ~= e then
                     local ddx = e.x - target.x
                     local ddy = e.y - target.y

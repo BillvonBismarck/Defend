@@ -216,7 +216,7 @@ function RuneResonance.GetDoctorCooldown(baseCooldown)
     return baseCooldown
 end
 
---- 暗影爆发时额外裂变弹幕（暗影裂变共鸣）
+--- 暗影爆发时额外裂变弹幕（暗影裂变共鸣，空间哈希加速）
 ---@param enemies table
 function RuneResonance.OnDemonBurst(enemies)
     if activeCombo and activeCombo.id == "shadow_fission" then
@@ -224,26 +224,30 @@ function RuneResonance.OnDemonBurst(enemies)
         local dmg = SM.mulFloor(Player.atk, activeCombo.burstSplitDmg)
         local Enemy = require("battle.Enemy")
         local DamageStats = require("ui.DamageStats")
-        -- 向周围 8 个方向发射裂变弹（每个敌人只受一次伤害）
+        local hash = Enemy._spatialHash
+        -- 空间哈希查询 200px 内敌人，一次查询 + 去重伤害（替代 count×n 遍历）
         local hitEnemies = {}
-        for i = 1, count do
-            local angle = (i - 1) * (2 * math.pi / count)
-            local dist = 100 + math.random(50)
-            local tx = Player.x + math.cos(angle) * dist
-            local ty = Player.y + math.sin(angle) * dist
-            -- 对该方向扇区内的敌人造成伤害（去重）
-            for _, e in ipairs(enemies) do
+        if hash then
+            local nearby = {}
+            hash:QueryInto(Player.x, Player.y, 200, nearby)
+            for _, e in ipairs(nearby) do
                 if e.alive and not e.charmed and not hitEnemies[e] then
                     local dx = e.x - Player.x
                     local dy = e.y - Player.y
-                    local d = math.sqrt(dx * dx + dy * dy)
-                    if d < 200 then
+                    if dx * dx + dy * dy < 200 * 200 then
                         hitEnemies[e] = true
                         DamageStats._currentSource = "rune"
                         Enemy.Damage(e, dmg)
                     end
                 end
             end
+        end
+        -- 视觉特效：8方向粒子
+        for i = 1, count do
+            local angle = (i - 1) * (2 * math.pi / count)
+            local dist = 100 + math.random(50)
+            local tx = Player.x + math.cos(angle) * dist
+            local ty = Player.y + math.sin(angle) * dist
             Particle.Spawn(tx, ty, "crit_hit")
         end
         Particle.SpawnShockWave(Player.x, Player.y, 200, 0.6, 120, 0, 200, 5)

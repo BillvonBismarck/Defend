@@ -849,7 +849,7 @@ function HUD.RenderPauseOverlay(vg, viewW, viewH, font)
     nvgFillColor(vg, nvgRGBA(200, 200, 200, 200))
     nvgText(vg, viewW / 2, optY, I18n.t("pause_joystick"))
 
-    local options = { { key = "left", label = I18n.t("pause_joy_left") }, { key = "center", label = I18n.t("pause_joy_center") }, { key = "right", label = I18n.t("pause_joy_right") } }
+    local options = { { key = "left", label = I18n.t("pause_joy_left") }, { key = "center", label = I18n.t("pause_joy_center") }, { key = "right", label = I18n.t("pause_joy_right") }, { key = "hide", label = I18n.t("pause_joy_hide") } }
     local optBtnW = 72
     local optBtnH = 36
     local optGap = 12
@@ -1198,7 +1198,7 @@ function HUD.LoadSettings()
         local ok2, data = pcall(cjson.decode, file:ReadString())
         file:Close()
         if ok2 and data then
-            if data.joystickPos == "left" or data.joystickPos == "center" or data.joystickPos == "right" then
+            if data.joystickPos == "left" or data.joystickPos == "center" or data.joystickPos == "right" or data.joystickPos == "hide" then
                 HUD.joystickPos = data.joystickPos
             end
             if data.eightDirMode ~= nil then

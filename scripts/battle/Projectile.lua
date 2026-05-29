@@ -15,9 +15,10 @@ local PerfQuality = require("utils.PerfQuality")
 
 local Projectile = {}
 
--- 空间哈希实例（每帧由外部重建）
+-- 空间哈希实例（持久化复用，避免每帧 New 造成 GC 压力）
 ---@type table|nil
 Projectile.spatialHash = nil
+local _persistentHash = nil  -- 持久化空间哈希（复用）
 
 Projectile.pool = {}
 Projectile.active = {}
@@ -130,10 +131,9 @@ local function Recycle(p)
     p.isHoming = false
     p.homingTimer = 0
     p.isIceBullet = false
-    -- 清空拖尾（保留表避免 GC）
-    for i = #p.trail, 1, -1 do
-        p.trail[i] = nil
-    end
+    -- 重置环形拖尾
+    p.trailHead = 0
+    p.trailCount = 0
     p.trailTimer = 0
     table.insert(Projectile.pool, p)
 end
@@ -166,7 +166,8 @@ function Projectile.Spawn(x, y, targetX, targetY, damage, pierceCount, bulletTyp
     -- 弹射/穿透每级 +0.2s 存活时间
     p.lifetime = Config.BULLET.lifetime + (p.pierceLeft + p.bounceLeft) * 0.2
     p.hitEnemies = {}
-    for i = #p.trail, 1, -1 do p.trail[i] = nil end
+    p.trailHead = 0
+    p.trailCount = 0
     p.trailTimer = 0
 
     -- 子弹类型：手动指定 > 自动判定
@@ -253,7 +254,8 @@ function Projectile.SpawnIceBullet(x, y, targetX, targetY, applyEnhancements)
     p.alive = true
     p.pierceLeft = 9999    -- 无限穿透
     p.hitEnemies = {}
-    for i = #p.trail, 1, -1 do p.trail[i] = nil end
+    p.trailHead = 0
+    p.trailCount = 0
     p.trailTimer = 0
     p.bulletType = "normal"
     p.spawnTime = time.elapsedTime
@@ -286,10 +288,14 @@ end
 function Projectile.Update(dt, enemies)
     local killed = {}
 
-    -- 构建空间哈希（cell 200px，覆盖追踪400px + 碰撞半径）
-    local hash = SpatialHash.New(200)
-    hash:InsertAll(enemies)
-    Projectile.spatialHash = hash
+    -- 构建空间哈希（持久化复用，Clear + InsertAll 替代每帧 New）
+    if not _persistentHash then
+        _persistentHash = SpatialHash.New(200)
+    end
+    _persistentHash:Clear()
+    _persistentHash:InsertAll(enemies)
+    Projectile.spatialHash = _persistentHash
+    local hash = _persistentHash
     -- 复用查询结果表，避免每次分配
     local _nearby = {}
 
@@ -307,14 +313,21 @@ function Projectile.Update(dt, enemies)
                 p.trailTimer = p.trailTimer + dt
                 if p.trailTimer >= trailInterval then
                     p.trailTimer = p.trailTimer - trailInterval
-                    table.insert(p.trail, { p.x, p.y })
-                    while #p.trail > trailMax do
-                        table.remove(p.trail, 1)
+                    -- 环形写入：复用 trail 槽位避免 GC 压力
+                    local tHead = (p.trailHead or 0) % trailMax + 1
+                    local entry = p.trail[tHead]
+                    if entry then
+                        entry[1] = p.x; entry[2] = p.y
+                    else
+                        p.trail[tHead] = { p.x, p.y }
                     end
+                    p.trailHead = tHead
+                    p.trailCount = math.min((p.trailCount or 0) + 1, trailMax)
                 end
             else
-                -- 拖尾禁用时清空已有拖尾
-                for ti = #p.trail, 1, -1 do p.trail[ti] = nil end
+                -- 拖尾禁用时重置环形缓冲
+                p.trailHead = 0
+                p.trailCount = 0
                 p.trailTimer = 0
             end
 
@@ -435,10 +448,10 @@ function Projectile.Update(dt, enemies)
                                     p.bounceLeft = p.bounceLeft - 1
                                     local bestDist = 250 * 250  -- 弹射搜索半径 250px
                                     local bestTarget = nil
-                                    local _bounceNear = {}
-                                    hash:QueryInto(p.x, p.y, 250, _bounceNear)
-                                    for bi = 1, #_bounceNear do
-                                        local e2 = _bounceNear[bi]
+                                    for ni2 = #_nearby, 1, -1 do _nearby[ni2] = nil end
+                                    hash:QueryInto(p.x, p.y, 250, _nearby)
+                                    for bi = 1, #_nearby do
+                                        local e2 = _nearby[bi]
                                         if e2.alive and e2 ~= e and not p.hitEnemies[e2] and not e2.charmed then
                                             local bdx = e2.x - p.x
                                             local bdy = e2.y - p.y
@@ -460,7 +473,7 @@ function Projectile.Update(dt, enemies)
                                         end
                                         p.lifetime = Config.BULLET.lifetime * 0.5  -- 弹射后缩短寿命
                                         -- 清空拖尾制造折线效果
-                                        for ti = #p.trail, 1, -1 do p.trail[ti] = nil end
+                                        p.trailHead = 0; p.trailCount = 0
                                     else
                                         -- 找不到弹射目标，当作一次穿透（保持方向继续飞行）
                                         -- 弹射次数减一，不清空
@@ -483,7 +496,8 @@ function Projectile.Update(dt, enemies)
                                             sp.bounceLeft = 0
                                             sp.lifetime = 0.8
                                             sp.hitEnemies = {}
-                                            for ti = #sp.trail, 1, -1 do sp.trail[ti] = nil end
+                                            sp.trailHead = 0
+                                            sp.trailCount = 0
                                             sp.trailTimer = 0
                                             sp.bulletType = "spread"
                                             sp.visualStyle = "pierce"
@@ -525,21 +539,32 @@ function Projectile.Render(vg, camX, camY, viewW, viewH)
                 if p.isIceBullet then
                     local iceR = baseR * 1.2
                     local trail = p.trail
-                    local trailLen = #trail
+                    local trailLen = p.trailCount or 0
+                    local trailMax = TRAIL_MAX_BASE  -- 冰弹用基准值
+                    local trailHead = p.trailHead or 0
 
-                    -- 冰弹拖尾（淡蓝色）
+                    -- 冰弹拖尾（淡蓝色）- 环形缓冲区迭代
                     if trailLen >= 1 then
                         for ti = 1, trailLen do
+                            local idx = ((trailHead - trailLen + ti - 1) % trailMax) + 1
+                            local entry = trail[idx]
+                            if not entry then break end
                             local nx, ny
                             if ti < trailLen then
-                                nx = trail[ti + 1][1] - camX
-                                ny = trail[ti + 1][2] - camY
+                                local nIdx = ((trailHead - trailLen + ti) % trailMax) + 1
+                                local nEntry = trail[nIdx]
+                                if nEntry then
+                                    nx = nEntry[1] - camX
+                                    ny = nEntry[2] - camY
+                                else
+                                    nx = sx; ny = sy
+                                end
                             else
                                 nx = sx
                                 ny = sy
                             end
-                            local tx = trail[ti][1] - camX
-                            local ty = trail[ti][2] - camY
+                            local tx = entry[1] - camX
+                            local ty = entry[2] - camY
                             local t = ti / (trailLen + 1)
                             local alpha = math.floor(20 + 100 * t)
                             local width = iceR * (0.5 + 1.5 * t)
@@ -582,24 +607,36 @@ function Projectile.Render(vg, camX, camY, viewW, viewH)
                 local gc = style.glowColor
                 local r = baseR * style.size * p.bigScale
                 local trail = p.trail
-                local trailLen = #trail
+                local trailLen = p.trailCount or 0
+                local trailMax, _ = GetTrailParams()
+                trailMax = math.max(2, math.floor(trailMax * PerfQuality.TrailLenMult()))
+                local trailHead = p.trailHead or 0
 
                 -- =====================
-                -- 拖尾（类型专属颜色）
+                -- 拖尾（类型专属颜色）- 环形缓冲区迭代
                 -- =====================
                 if trailLen >= 1 then
                     for i = 1, trailLen do
+                        local idx = ((trailHead - trailLen + i - 1) % trailMax) + 1
+                        local entry = trail[idx]
+                        if not entry then break end
                         local nx, ny
                         if i < trailLen then
-                            nx = trail[i + 1][1] - camX
-                            ny = trail[i + 1][2] - camY
+                            local nIdx = ((trailHead - trailLen + i) % trailMax) + 1
+                            local nEntry = trail[nIdx]
+                            if nEntry then
+                                nx = nEntry[1] - camX
+                                ny = nEntry[2] - camY
+                            else
+                                nx = sx; ny = sy
+                            end
                         else
                             nx = sx
                             ny = sy
                         end
 
-                        local tx = trail[i][1] - camX
-                        local ty = trail[i][2] - camY
+                        local tx = entry[1] - camX
+                        local ty = entry[2] - camY
 
                         local t = i / (trailLen + 1)
                         local alpha = math.floor(20 + 140 * t)
@@ -616,12 +653,16 @@ function Projectile.Render(vg, camX, camY, viewW, viewH)
 
                     -- 尾端小粒子点（最旧位置画一个渐隐小圆）
                     if trailLen >= 3 then
-                        local oldX = trail[1][1] - camX
-                        local oldY = trail[1][2] - camY
-                        nvgBeginPath(vg)
-                        nvgCircle(vg, oldX, oldY, r * 0.5)
-                        nvgFillColor(vg, nvgRGBA(tc[1], tc[2], tc[3], 30))
-                        nvgFill(vg)
+                        local oldIdx = ((trailHead - trailLen) % trailMax) + 1
+                        local oldEntry = trail[oldIdx]
+                        if oldEntry then
+                            local oldX = oldEntry[1] - camX
+                            local oldY = oldEntry[2] - camY
+                            nvgBeginPath(vg)
+                            nvgCircle(vg, oldX, oldY, r * 0.5)
+                            nvgFillColor(vg, nvgRGBA(tc[1], tc[2], tc[3], 30))
+                            nvgFill(vg)
+                        end
                     end
                 end
 

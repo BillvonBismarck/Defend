@@ -5,8 +5,12 @@
 
 local Config = require("Config")
 local SM = require("utils.SafeMath")
+local SpatialHash = require("utils.SpatialHash")
 
 local EnemyBullet = {}
+
+-- 魅惑子弹空间查询复用表
+local _charmedNearby = {}
 
 EnemyBullet.pool = {}
 EnemyBullet.active = {}
@@ -170,17 +174,19 @@ function EnemyBullet.Update(dt, playerX, playerY, playerRadius, blockers, enemie
                 end
                 b.alive = false
             elseif b.charmedBullet then
-                -- ── 魅惑子弹：只碰撞非魅惑敌人，不打玩家，不被阻挡者消除 ──
-                if enemies then
-                    for _, e in ipairs(enemies) do
+                -- ── 魅惑子弹：空间哈希查询附近敌人（替代全量遍历）──
+                local EnemyMod = require("battle.Enemy")
+                local hash = EnemyMod._spatialHash
+                if hash then
+                    for ni = #_charmedNearby, 1, -1 do _charmedNearby[ni] = nil end
+                    hash:QueryInto(b.x, b.y, 60, _charmedNearby)
+                    for _, e in ipairs(_charmedNearby) do
                         if e.alive and not e.dying and not e.charmed and e.hp > 0 then
                             local edx = b.x - e.x
                             local edy = b.y - e.y
                             local ed2 = edx * edx + edy * edy
                             local er = b.radius + (e.radius or 15)
                             if ed2 <= er * er then
-                                -- 使用 Enemy.Damage 以尊重护盾、冰冻加成、死亡事件
-                                local EnemyMod = require("battle.Enemy")
                                 local dmg = math.max(1, SM.floor(b.damage))
                                 EnemyMod.Damage(e, dmg)
                                 if e.dying and killedList then

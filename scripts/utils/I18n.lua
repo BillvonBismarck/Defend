@@ -21,6 +21,7 @@ local strings = {
     pause_joy_left        = { zh = "靠左",              en = "Left" },
     pause_joy_center      = { zh = "居中",              en = "Center" },
     pause_joy_right       = { zh = "靠右",              en = "Right" },
+    pause_joy_hide        = { zh = "隐藏",              en = "Hide" },
     pause_move_mode       = { zh = "🎮 移动模式",       en = "🎮 Move Mode" },
     pause_free_dir        = { zh = "自由方向",           en = "Free" },
     pause_eight_dir       = { zh = "八向移动",           en = "8-Way" },
@@ -201,7 +202,7 @@ local strings = {
     -- ===== 主界面标题 =====
     game_title            = { zh = "Emoji幸存者",         en = "Emoji Survivors" },
     game_welcome          = { zh = "欢迎来到Emoji幸存者！", en = "Welcome to Emoji Survivors!" },
-    game_version          = { zh = "v1.0 - Emoji幸存者",  en = "v1.0 - Emoji Survivors" },
+    game_version          = { zh = "v2.0 - Emoji幸存者",  en = "v2.0 - Emoji Survivors" },
 
     -- ===== 角色选择 =====
     charsel_start         = { zh = "开始战斗！",           en = "Start Battle!" },

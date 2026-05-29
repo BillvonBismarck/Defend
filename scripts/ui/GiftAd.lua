@@ -11,6 +11,8 @@ GiftAd.visible = false
 GiftAd.onSelect = nil   -- function(watchAd: boolean)
 GiftAd.adReward = 0     -- 当前看广告奖励值
 GiftAd.giveUpReward = 0 -- 当前放弃奖励值
+GiftAd.showTimer = 0    -- 显示计时器（超时自动关闭防卡死）
+GiftAd.TIMEOUT = 30     -- 超时秒数
 
 -- 布局常量（放大版）
 local PANEL_W = 440
@@ -28,12 +30,29 @@ function GiftAd.Show(onSelect, adReward, giveUpReward)
     GiftAd.onSelect = onSelect
     GiftAd.adReward = adReward or Config.GIFT_BOX.adExpReward
     GiftAd.giveUpReward = giveUpReward or Config.GIFT_BOX.giveUpExpReward
+    GiftAd.showTimer = 0  -- 重置超时计时器
 end
 
 --- 隐藏弹窗
 function GiftAd.Hide()
     GiftAd.visible = false
     GiftAd.onSelect = nil
+    GiftAd.showTimer = 0
+end
+
+--- 超时更新（每帧调用，防止广告SDK回调丢失导致卡死）
+---@param dt number
+function GiftAd.Update(dt)
+    if not GiftAd.visible then return end
+    GiftAd.showTimer = GiftAd.showTimer + dt
+    if GiftAd.showTimer >= GiftAd.TIMEOUT then
+        print("[GiftAd] 超时自动关闭（" .. GiftAd.TIMEOUT .. "s无响应）")
+        local cb = GiftAd.onSelect
+        GiftAd.Hide()
+        if cb then
+            cb(false)  -- 超时视为放弃
+        end
+    end
 end
 
 --- 渲染弹窗

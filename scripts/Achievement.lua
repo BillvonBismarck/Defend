@@ -828,6 +828,33 @@ end
 -- 通知更新与渲染
 -- ============================================================================
 
+-- ── 滚动状态 ──
+Achievement._scrollY = 0
+Achievement._scrollVel = 0
+Achievement._dragStartY = nil
+Achievement._dragLastY = nil
+Achievement._dragScrollStart = 0
+
+function Achievement.HandleDragBegin(dy)
+    Achievement._dragStartY = dy
+    Achievement._dragLastY = dy
+    Achievement._dragScrollStart = Achievement._scrollY
+    Achievement._scrollVel = 0
+end
+
+function Achievement.HandleDragMove(dy)
+    if Achievement._dragStartY then
+        Achievement._scrollY = Achievement._dragScrollStart + (Achievement._dragStartY - dy)
+        Achievement._scrollVel = (Achievement._dragLastY - dy) * 8
+        Achievement._dragLastY = dy
+    end
+end
+
+function Achievement.HandleDragEnd()
+    Achievement._dragStartY = nil
+    Achievement._dragLastY = nil
+end
+
 --- 更新通知计时器（在 HandleUpdate 中调用）
 ---@param dt number
 function Achievement.Update(dt)
@@ -839,6 +866,26 @@ function Achievement.Update(dt)
             table.remove(Achievement.notifications, i)
         else
             i = i + 1
+        end
+    end
+
+    -- 滚动惯性
+    if not Achievement._dragStartY then
+        if math.abs(Achievement._scrollVel) > 0.5 then
+            Achievement._scrollY = Achievement._scrollY + Achievement._scrollVel * dt
+            Achievement._scrollVel = Achievement._scrollVel * 0.92
+        else
+            Achievement._scrollVel = 0
+        end
+        -- 边界回弹
+        local rowH = 70
+        local maxScroll = math.max(0, #Achievement.DEFS * rowH - 400)
+        if Achievement._scrollY < 0 then
+            Achievement._scrollY = Achievement._scrollY * 0.85
+            Achievement._scrollVel = 0
+        elseif Achievement._scrollY > maxScroll then
+            Achievement._scrollY = maxScroll + (Achievement._scrollY - maxScroll) * 0.85
+            Achievement._scrollVel = 0
         end
     end
 end
@@ -949,15 +996,20 @@ function Achievement.RenderPage(vg, viewW, viewH, fontId)
         nvgFill(vg)
     end
 
-    -- 成就列表
+    -- 成就列表（带滚动）
     local startY = 140
     local rowH = 70
     local cardW = viewW - 60
     local cardX = 30
+    local scrollY = Achievement._scrollY
+
+    nvgSave(vg)
+    nvgScissor(vg, 0, startY - 4, viewW, viewH - startY - 70)
 
     for i, def in ipairs(Achievement.DEFS) do
-        local y = startY + (i - 1) * rowH
-        if y > viewH - 80 then break end  -- 简单裁剪
+        local y = startY + (i - 1) * rowH - scrollY
+        if y > viewH then break end  -- 超出底部不渲染
+        if y + rowH < startY - 4 then goto continue end  -- 超出顶部跳过
 
         local isUnlocked = Achievement.IsUnlocked(def.id)
 
@@ -1019,7 +1071,10 @@ function Achievement.RenderPage(vg, viewW, viewH, fontId)
             nvgFillColor(vg, nvgRGBA(100, 200, 80, 200))
             nvgText(vg, cardX + cardW - 16, midY, "✅")
         end
+        ::continue::
     end
+
+    nvgRestore(vg)  -- 恢复 scissor
 
     -- 返回按钮
     local backW = 200
