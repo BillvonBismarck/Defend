@@ -1,0 +1,6119 @@
+{
+  "{0}达到50级": {
+    "key": "t_n423JSGCmviPGNAY",
+    "locations": [
+      "Achievement.lua:38"
+    ]
+  },
+  "{0} / {1} 已解锁": {
+    "key": "t_112daEzM510aMJuV6J",
+    "locations": [
+      "Achievement.lua:932"
+    ]
+  },
+  "出师未捷": {
+    "key": "t_1HukhyfFh1HQxXvNst",
+    "locations": [
+      "Achievement.lua:49"
+    ]
+  },
+  "第一波就阵亡": {
+    "key": "t_zO7L3t0ozVWpOHlI",
+    "locations": [
+      "Achievement.lua:50"
+    ]
+  },
+  "爆破专家": {
+    "key": "t_NVxF0JeENM7sVzFs",
+    "locations": [
+      "Achievement.lua:56"
+    ]
+  },
+  "单次炸弹清除20个敌怪": {
+    "key": "t_18T4Yt3cM17zHKGYOu",
+    "locations": [
+      "Achievement.lua:57"
+    ]
+  },
+  "淡泊名利": {
+    "key": "t_VP6mkUcQVXjGXijg",
+    "locations": [
+      "Achievement.lua:63"
+    ]
+  },
+  "放弃广告宝箱奖励": {
+    "key": "t_zAnnErbdyhuxep8J",
+    "locations": [
+      "Achievement.lua:64"
+    ]
+  },
+  "🏆 成就解锁": {
+    "key": "t_K6hCiORkKb5o8vRe",
+    "locations": [
+      "Achievement.lua:938"
+    ]
+  },
+  "🏆 成就": {
+    "key": "t_umG7IYpzuHYkZT0r",
+    "locations": [
+      "Achievement.lua:972"
+    ]
+  },
+  "← 返回": {
+    "key": "t_186LXYxgR18HO29BM5",
+    "locations": [
+      "Achievement.lua:1096",
+      "meta/Codex.lua:710",
+      "meta/WeeklyChallenge.lua:622",
+      "utils/I18n.lua:227"
+    ]
+  },
+  "小猫咪": {
+    "key": "t_iveQvhAdiTybPpyz",
+    "locations": [
+      "Config.lua:182"
+    ]
+  },
+  "灵敏敏捷，弹幕高手": {
+    "key": "t_1C9rCgM5H1BiU7HLwP",
+    "locations": [
+      "Config.lua:183"
+    ]
+  },
+  "小猫倒下了": {
+    "key": "t_YgwDkfapYVILpQrh",
+    "locations": [
+      "Config.lua:209"
+    ]
+  },
+  "下次一定能行喵！": {
+    "key": "t_VQHi3DZ3Vbd1r7t1",
+    "locations": [
+      "Config.lua:210"
+    ]
+  },
+  "大获全胜！": {
+    "key": "t_zoCkWDk5zJoD1uEd",
+    "locations": [
+      "Config.lua:211",
+      "ui/HUD.lua:1327",
+      "utils/I18n.lua:36"
+    ]
+  },
+  "BOSS已被小猫击败喵~": {
+    "key": "t_JIQArcoeIpXGCSl8",
+    "locations": [
+      "Config.lua:212"
+    ]
+  },
+  "再来一局喵~": {
+    "key": "t_1C5EQWkO31BwbsffbJ",
+    "locations": [
+      "Config.lua:213"
+    ]
+  },
+  "黄豆勇士": {
+    "key": "t_RGeQzpgNR5uoS86r",
+    "locations": [
+      "Config.lua:217"
+    ]
+  },
+  "生命顽强，爆炸专家": {
+    "key": "t_P3vNkzLaPYK7CfEe",
+    "locations": [
+      "Config.lua:218"
+    ]
+  },
+  "黄豆碎了": {
+    "key": "t_x5OVpyAhwtRlHtIH",
+    "locations": [
+      "Config.lua:239"
+    ]
+  },
+  "下次再战！豆力全开！": {
+    "key": "t_AyTH9T9TAq9d7T7h",
+    "locations": [
+      "Config.lua:240"
+    ]
+  },
+  "豆气冲天！": {
+    "key": "t_1BNOnqHOv1BFNyy4fr",
+    "locations": [
+      "Config.lua:241"
+    ]
+  },
+  "BOSS被黄豆碾碎啦！": {
+    "key": "t_13HHv5Mie136qztUuU",
+    "locations": [
+      "Config.lua:242"
+    ]
+  },
+  "再豆一局！": {
+    "key": "t_56OYUqYW5Y4Xf5pS",
+    "locations": [
+      "Config.lua:243"
+    ]
+  },
+  "灵猴大圣": {
+    "key": "t_ouiEsvGvokZznMxP",
+    "locations": [
+      "Config.lua:248"
+    ]
+  },
+  "极速连击，闪避大师": {
+    "key": "t_17adXwd9817lytOq8C",
+    "locations": [
+      "Config.lua:249"
+    ]
+  },
+  "猴子摔下来了": {
+    "key": "t_5HsFhTg25ROprzWu",
+    "locations": [
+      "Config.lua:270"
+    ]
+  },
+  "大圣还会归来！": {
+    "key": "t_16ZJNiDYj1640aJvCF",
+    "locations": [
+      "Config.lua:271"
+    ]
+  },
+  "齐天大胜！": {
+    "key": "t_NVm02KqYNMFJbVrw",
+    "locations": [
+      "Config.lua:272"
+    ]
+  },
+  "BOSS被猴哥一棒打飞！": {
+    "key": "t_fz2jXvdtgQiZ4wDz",
+    "locations": [
+      "Config.lua:273"
+    ]
+  },
+  "再战一回合！": {
+    "key": "t_13tCRTu7vZXEsV3",
+    "locations": [
+      "Config.lua:274"
+    ]
+  },
+  "无敌巨掌": {
+    "key": "t_F9ZKsanMFKJAOJJK",
+    "locations": [
+      "Config.lua:279"
+    ]
+  },
+  "力大无穷，范围碾压": {
+    "key": "t_7wxkQofy7mE0Weuy",
+    "locations": [
+      "Config.lua:280"
+    ]
+  },
+  "巨掌倒下了": {
+    "key": "t_AjdUyOltBEdjjT3X",
+    "locations": [
+      "Config.lua:301"
+    ]
+  },
+  "下次用更大的力量！": {
+    "key": "t_2fbpRu592pRJMYLR",
+    "locations": [
+      "Config.lua:302"
+    ]
+  },
+  "一掌定乾坤！": {
+    "key": "t_Rkdu8oDsRwHuYwmo",
+    "locations": [
+      "Config.lua:303"
+    ]
+  },
+  "BOSS被拍成肉饼啦！": {
+    "key": "t_RVn2ZiCDRwYY4P4d",
+    "locations": [
+      "Config.lua:304"
+    ]
+  },
+  "再拍一局！": {
+    "key": "t_EK94phURDtNNNd5o",
+    "locations": [
+      "Config.lua:305"
+    ]
+  },
+  "自然之灵": {
+    "key": "t_cQR07wVXcGIu23Rs",
+    "locations": [
+      "Config.lua:310"
+    ]
+  },
+  "冰霜控制，自然之力": {
+    "key": "t_zjqhAfotzEXhDbp2",
+    "locations": [
+      "Config.lua:311"
+    ]
+  },
+  "叶子枯萎了": {
+    "key": "t_11hwpF17r12BRAiDQC",
+    "locations": [
+      "Config.lua:332"
+    ]
+  },
+  "春风吹又生！": {
+    "key": "t_dCu7YM8Hcj72dVOY",
+    "locations": [
+      "Config.lua:333"
+    ]
+  },
+  "万物复苏！": {
+    "key": "t_5zUj63Pn5pf8uZzo",
+    "locations": [
+      "Config.lua:334"
+    ]
+  },
+  "BOSS被自然之力净化啦！": {
+    "key": "t_Hpf212JUHdiLytE7",
+    "locations": [
+      "Config.lua:335"
+    ]
+  },
+  "再绽放一次！": {
+    "key": "t_L9Up497kKijB41uN",
+    "locations": [
+      "Config.lua:336"
+    ]
+  },
+  "召唤大军，以众克敌": {
+    "key": "t_Bj4lmmqxBGC1MGg0",
+    "locations": [
+      "Config.lua:342"
+    ]
+  },
+  "OTTO倒下了": {
+    "key": "t_1BdAqSi8t1B9Naf2K0",
+    "locations": [
+      "Config.lua:363"
+    ]
+  },
+  "召唤师永不言败！": {
+    "key": "t_aAJNOzZnZgDMwtbU",
+    "locations": [
+      "Config.lua:364"
+    ]
+  },
+  "召唤大胜！": {
+    "key": "t_IwEenexCJ6yLGQgz",
+    "locations": [
+      "Config.lua:365"
+    ]
+  },
+  "BOSS被大军碾碎啦！": {
+    "key": "t_fJv8hpJoflax6NeZ",
+    "locations": [
+      "Config.lua:366"
+    ]
+  },
+  "再召一局！": {
+    "key": "t_Az1RGxi0ApUlR1Lv",
+    "locations": [
+      "Config.lua:367"
+    ]
+  },
+  "巡逻警官": {
+    "key": "t_CCWwC3YZC265XFn2",
+    "locations": [
+      "Config.lua:397"
+    ]
+  },
+  "警笛弹幕": {
+    "key": "t_nda9CfYdnlIEXBEG",
+    "locations": [
+      "Config.lua:407"
+    ]
+  },
+  "追击封锁": {
+    "key": "t_EQiamQH0EsOTgPYf",
+    "locations": [
+      "Config.lua:418"
+    ]
+  },
+  "全域通缉": {
+    "key": "t_qpjvPwbDqehYGYEm",
+    "locations": [
+      "Config.lua:429"
+    ]
+  },
+  "重装工头": {
+    "key": "t_12RVeJSgZ12vuA6kVU",
+    "locations": [
+      "Config.lua:444"
+    ]
+  },
+  "砖块投掷": {
+    "key": "t_u1324Vcsts7xCr8L",
+    "locations": [
+      "Config.lua:454"
+    ]
+  },
+  "钻头冲刺": {
+    "key": "t_8uwUDBHr94T9PY8O",
+    "locations": [
+      "Config.lua:465"
+    ]
+  },
+  "建筑崩塌": {
+    "key": "t_14gedad8g14CG2me7N",
+    "locations": [
+      "Config.lua:476"
+    ]
+  },
+  "地狱厨神": {
+    "key": "t_3Qu5Zo973YJePaeY",
+    "locations": [
+      "Config.lua:493"
+    ]
+  },
+  "飞刀投射": {
+    "key": "t_1EU8jOYOw1Ec9nYtlF",
+    "locations": [
+      "Config.lua:503"
+    ]
+  },
+  "火焰喷射": {
+    "key": "t_hyt4bY81Cg9VDOB",
+    "locations": [
+      "Config.lua:514"
+    ]
+  },
+  "致命料理": {
+    "key": "t_UB0PXR7yUM2zoCUv",
+    "locations": [
+      "Config.lua:525"
+    ]
+  },
+  "代码狂魔": {
+    "key": "t_8zUGNKr499caecrF",
+    "locations": [
+      "Config.lua:541"
+    ]
+  },
+  "Bug弹幕": {
+    "key": "t_10ocPxJ0t10emw4qbk",
+    "locations": [
+      "Config.lua:551"
+    ]
+  },
+  "递归炸弹": {
+    "key": "t_E957wfzCDzYJbpG5",
+    "locations": [
+      "Config.lua:562"
+    ]
+  },
+  "蓝屏死机": {
+    "key": "t_12jGigXwK12Z8SSa6t",
+    "locations": [
+      "Config.lua:574"
+    ]
+  },
+  "烈焰战士": {
+    "key": "t_Ht49co1GHk8zA6o5",
+    "locations": [
+      "Config.lua:589"
+    ]
+  },
+  "水枪喷射": {
+    "key": "t_X8xzmk5KXd3rAkYf",
+    "locations": [
+      "Config.lua:599"
+    ]
+  },
+  "消防斧冲击": {
+    "key": "t_WvIT031eWlAEOiZ3",
+    "locations": [
+      "Config.lua:610"
+    ]
+  },
+  "灭世大火": {
+    "key": "t_LubNZg53MNmxHgT0",
+    "locations": [
+      "Config.lua:621"
+    ]
+  },
+  "暗夜伯爵": {
+    "key": "t_118SdooS711a8Sm2bw",
+    "locations": [
+      "Config.lua:638"
+    ]
+  },
+  "蝙蝠群": {
+    "key": "t_1D5neBjm01DH8tSaVn",
+    "locations": [
+      "Config.lua:648"
+    ]
+  },
+  "暗影传送": {
+    "key": "t_3TglVF113Lfj1PJM",
+    "locations": [
+      "Config.lua:659"
+    ]
+  },
+  "鲜血狂宴": {
+    "key": "t_ScYrw83VS9ylxZzC",
+    "locations": [
+      "Config.lua:670"
+    ]
+  },
+  "暗影绅士": {
+    "key": "t_ETxpBmhCEyy5ZWPR",
+    "locations": [
+      "Config.lua:686"
+    ]
+  },
+  "扑克飞弹": {
+    "key": "t_ae68kI7XaWgiuhtc",
+    "locations": [
+      "Config.lua:696"
+    ]
+  },
+  "魔术消失": {
+    "key": "t_ImrB1H9PJGLX1UNg",
+    "locations": [
+      "Config.lua:707"
+    ]
+  },
+  "终极礼花": {
+    "key": "t_1436IM1lvQm3yp8",
+    "locations": [
+      "Config.lua:718"
+    ]
+  },
+  "疯狂博士": {
+    "key": "t_8oXQ5xw09FuYxQ1n",
+    "locations": [
+      "Config.lua:733"
+    ]
+  },
+  "试管投射": {
+    "key": "t_qh6jOS2Pqs9KAXz0",
+    "locations": [
+      "Config.lua:743"
+    ]
+  },
+  "基因裂变": {
+    "key": "t_1D5ADQr0z1DWXQHIDu",
+    "locations": [
+      "Config.lua:754"
+    ]
+  },
+  "核聚变": {
+    "key": "t_x3gM54E3wv41rqPQ",
+    "locations": [
+      "Config.lua:766"
+    ]
+  },
+  "深海船长": {
+    "key": "t_HzShY5qYHU9vFPJh",
+    "locations": [
+      "Config.lua:781"
+    ]
+  },
+  "加农炮": {
+    "key": "t_md1YvS9umCFqvpmz",
+    "locations": [
+      "Config.lua:791"
+    ]
+  },
+  "船锚冲击": {
+    "key": "t_1CTlIuFlZ1CdtON4Hu",
+    "locations": [
+      "Config.lua:802"
+    ]
+  },
+  "暴风骤雨": {
+    "key": "t_dL7PJBYcdqQHHFOL",
+    "locations": [
+      "Config.lua:813"
+    ]
+  },
+  "电音狂魔": {
+    "key": "t_1FtufhQ4a1FSqQ6PZb",
+    "locations": [
+      "Config.lua:830"
+    ]
+  },
+  "音波冲击": {
+    "key": "t_hgK92CbZhELPFjde",
+    "locations": [
+      "Config.lua:840"
+    ]
+  },
+  "低音重炮": {
+    "key": "t_1FqRpvvZG1Fg0lZzJJ",
+    "locations": [
+      "Config.lua:851"
+    ]
+  },
+  "终极混音": {
+    "key": "t_hb7iPd4xh9kiinOq",
+    "locations": [
+      "Config.lua:862"
+    ]
+  },
+  "暗黑医师": {
+    "key": "t_106sObfG110GhyjK3G",
+    "locations": [
+      "Config.lua:877"
+    ]
+  },
+  "注射针": {
+    "key": "t_sKUQi1sVspUWuwrw",
+    "locations": [
+      "Config.lua:887"
+    ]
+  },
+  "瘟疫扩散": {
+    "key": "t_14g9Xe88R14Cy1uV6K",
+    "locations": [
+      "Config.lua:898"
+    ]
+  },
+  "起死回生": {
+    "key": "t_gchtlo22go3FBG3V",
+    "locations": [
+      "Config.lua:910"
+    ]
+  },
+  "暗影忍者": {
+    "key": "t_ascnJxZKbNvZaSAn",
+    "locations": [
+      "Config.lua:926"
+    ]
+  },
+  "手里剑": {
+    "key": "t_150vC2myH15CGRrnVO",
+    "locations": [
+      "Config.lua:936"
+    ]
+  },
+  "影分身": {
+    "key": "t_19PMHzIUB19XypncB6",
+    "locations": [
+      "Config.lua:947"
+    ]
+  },
+  "千本樱": {
+    "key": "t_VoclqkiGVMwsOidD",
+    "locations": [
+      "Config.lua:958"
+    ]
+  },
+  "歼灭者T-X": {
+    "key": "t_1FIIcQXKw1Ep72kioD",
+    "locations": [
+      "Config.lua:975"
+    ]
+  },
+  "激光扫射": {
+    "key": "t_xJxpTa9axpGlQZu9",
+    "locations": [
+      "Config.lua:985"
+    ]
+  },
+  "火箭弹": {
+    "key": "t_1GDJNQIVl1GOxKQfLi",
+    "locations": [
+      "Config.lua:996"
+    ]
+  },
+  "终极歼灭": {
+    "key": "t_2A96URA02JyetNup",
+    "locations": [
+      "Config.lua:1008"
+    ]
+  },
+  "深渊魔王": {
+    "key": "t_pe0onOzBpV5jyzws",
+    "locations": [
+      "Config.lua:1023"
+    ]
+  },
+  "地狱火扇": {
+    "key": "t_z4JVUEAuyZuufhaN",
+    "locations": [
+      "Config.lua:1033"
+    ]
+  },
+  "暗影冲锋": {
+    "key": "t_qTBovPEvqwNYs6dS",
+    "locations": [
+      "Config.lua:1044"
+    ]
+  },
+  "末日审判": {
+    "key": "t_dXSIvvxodinY8zgN",
+    "locations": [
+      "Config.lua:1055"
+    ]
+  },
+  "攻击无人机": {
+    "key": "t_12U9z2rNy12eauE8RJ",
+    "locations": [
+      "Config.lua:1197",
+      "meta/TotemSystem.lua:89"
+    ]
+  },
+  "召唤蓝色无人机自动攻击": {
+    "key": "t_CkONgvWiCtJdFs7T",
+    "locations": [
+      "Config.lua:1198"
+    ]
+  },
+  "绿色无人机": {
+    "key": "t_U7goD6NOUZ3p6gcv",
+    "locations": [
+      "Config.lua:1208"
+    ]
+  },
+  "更大轨道的绿色无人机，碰撞伤害=100%子弹，远程=50%蓝色": {
+    "key": "t_1S6FiD7R1d8pJA3a",
+    "locations": [
+      "Config.lua:1209"
+    ]
+  },
+  "手雷": {
+    "key": "t_wEh4CqzywPjQG0VR",
+    "locations": [
+      "Config.lua:1217"
+    ]
+  },
+  "碰敌即炸+击退，升级连投": {
+    "key": "t_W9fqkUG8WH5BvNrb",
+    "locations": [
+      "Config.lua:1218"
+    ]
+  },
+  "力场护盾": {
+    "key": "t_l3iir2cElBjhxrYb",
+    "locations": [
+      "Config.lua:1226"
+    ]
+  },
+  "定期生成护盾抵挡伤害": {
+    "key": "t_3deOVLz13BfkOs5U",
+    "locations": [
+      "Config.lua:1227"
+    ]
+  },
+  "生命恢复": {
+    "key": "t_6VsRCeYu6dak6aMN",
+    "locations": [
+      "Config.lua:1235"
+    ]
+  },
+  "每秒恢复生命值": {
+    "key": "t_MrQ9Ci3JMgNibxKc",
+    "locations": [
+      "Config.lua:1236"
+    ]
+  },
+  "攻击提升": {
+    "key": "t_D9fL5HjCDefNvjVp",
+    "locations": [
+      "Config.lua:1245",
+      "meta/TotemSystem.lua:85"
+    ]
+  },
+  "全局攻击+10%": {
+    "key": "t_ofevfd6Dp9SAsPAg",
+    "locations": [
+      "Config.lua:1246"
+    ]
+  },
+  "生命提升": {
+    "key": "t_JPAOUtO5JtZ8Oa4c",
+    "locations": [
+      "Config.lua:1254"
+    ]
+  },
+  "全局生命+10%": {
+    "key": "t_7qre1uHr7iXqHiDM",
+    "locations": [
+      "Config.lua:1255"
+    ]
+  },
+  "移速提升": {
+    "key": "t_SSbVsHbOSJz1PqHd",
+    "locations": [
+      "Config.lua:1263",
+      "meta/TotemSystem.lua:86"
+    ]
+  },
+  "全局移速+5%": {
+    "key": "t_B0tIs4K2AsZeFny1",
+    "locations": [
+      "Config.lua:1264"
+    ]
+  },
+  "暴击提升": {
+    "key": "t_pyUFrJcKqQA0GR7r",
+    "locations": [
+      "Config.lua:1272"
+    ]
+  },
+  "暴击率+5%": {
+    "key": "t_ZEFf0LIHZMsDP0BC",
+    "locations": [
+      "Config.lua:1273"
+    ]
+  },
+  "磁力增强": {
+    "key": "t_WDpwmC0nW3P0xqQA",
+    "locations": [
+      "Config.lua:1281",
+      "meta/TotemSystem.lua:87"
+    ]
+  },
+  "拾取范围+30%": {
+    "key": "t_q7npouRiqGj3iz4z",
+    "locations": [
+      "Config.lua:1282"
+    ]
+  },
+  "射速提升": {
+    "key": "t_Oc32JSIoOky8qXFZ",
+    "locations": [
+      "Config.lua:1290"
+    ]
+  },
+  "攻击间隔-15%": {
+    "key": "t_hiH1nlZyiDH3UlNd",
+    "locations": [
+      "Config.lua:1291"
+    ]
+  },
+  "多重射击": {
+    "key": "t_1DaBA1aBh1E2SUHhpq",
+    "locations": [
+      "Config.lua:1299"
+    ]
+  },
+  "同时发射额外子弹": {
+    "key": "t_1ADCPVLbY1A4HAzIYl",
+    "locations": [
+      "Config.lua:1300"
+    ]
+  },
+  "穿透弹": {
+    "key": "t_1CTskEScx1Cdi6kTNA",
+    "locations": [
+      "Config.lua:1308"
+    ]
+  },
+  "子弹可穿透敌人": {
+    "key": "t_1Do5CQM7a1DyDMVijJ",
+    "locations": [
+      "Config.lua:1309",
+      "Config.lua:1385"
+    ]
+  },
+  "弹射弹": {
+    "key": "t_5cFkpNiC57FedZRv",
+    "locations": [
+      "Config.lua:1317"
+    ]
+  },
+  "子弹命中后弹射至附近敌人": {
+    "key": "t_7xs4jtNr7WnoWO2O",
+    "locations": [
+      "Config.lua:1318",
+      "Config.lua:1348"
+    ]
+  },
+  "星爆猫爪": {
+    "key": "t_DUJLkP49DJsHxeXK",
+    "locations": [
+      "Config.lua:1327"
+    ]
+  },
+  "200%范围星爆，连击积攒，爆红心叠攻速": {
+    "key": "t_Fica3CQgGAIZFe1h",
+    "locations": [
+      "Config.lua:1328"
+    ]
+  },
+  "豆芽陷阱": {
+    "key": "t_hGzw6frshP0zldWR",
+    "locations": [
+      "Config.lua:1337"
+    ]
+  },
+  "种下豆芽，踩到大范围爆炸": {
+    "key": "t_SC7jpy6zSfJSd97u",
+    "locations": [
+      "Config.lua:1338"
+    ]
+  },
+  "连击拳": {
+    "key": "t_OuTvoJmtOSVC2vM4",
+    "locations": [
+      "Config.lua:1347"
+    ]
+  },
+  "闪避翻滚": {
+    "key": "t_BeX0iWzoBUOh3jJH",
+    "locations": [
+      "Config.lua:1356"
+    ]
+  },
+  "移速+7%，暴击率+2%": {
+    "key": "t_183u7S6C318YIeJtFs",
+    "locations": [
+      "Config.lua:1357"
+    ]
+  },
+  "分身打击": {
+    "key": "t_AzLkkW9hApDdWCuM",
+    "locations": [
+      "Config.lua:1365"
+    ]
+  },
+  "召唤分身发射射弹，继承弹幕加成": {
+    "key": "t_8uVPsoOm94wGccAp",
+    "locations": [
+      "Config.lua:1366"
+    ]
+  },
+  "极速爆发": {
+    "key": "t_oGXRbHJxoNwzI8D8",
+    "locations": [
+      "Config.lua:1374"
+    ]
+  },
+  "攻击间隔-20%": {
+    "key": "t_4S01MzUH4x046qdK",
+    "locations": [
+      "Config.lua:1375"
+    ]
+  },
+  "掌风波": {
+    "key": "t_C74aRB2hCHClaXvI",
+    "locations": [
+      "Config.lua:1384"
+    ]
+  },
+  "太极拳": {
+    "key": "t_P6LrkRYlPakYHjtw",
+    "locations": [
+      "Config.lua:1393"
+    ]
+  },
+  "化劲：消除来袭敌弹并释放6倍掌风波": {
+    "key": "t_Wwrrud90WUtHG5MT",
+    "locations": [
+      "Config.lua:1394"
+    ]
+  },
+  "弹指神功": {
+    "key": "t_EqtYsAfyENPE0sP7",
+    "locations": [
+      "Config.lua:1409"
+    ]
+  },
+  "暴击率+6%": {
+    "key": "t_13NN6bnWB13FM2QMZ6",
+    "locations": [
+      "Config.lua:1410"
+    ]
+  },
+  "铁拳": {
+    "key": "t_3A2lwxuP3fLlJAp0",
+    "locations": [
+      "Config.lua:1418"
+    ]
+  },
+  "全局攻击+12%": {
+    "key": "t_mrD6ozUznIHUxfK6",
+    "locations": [
+      "Config.lua:1419"
+    ]
+  },
+  "点赞弹幕": {
+    "key": "t_XxWh2tzIY8s1L3cp",
+    "locations": [
+      "Config.lua:1428"
+    ]
+  },
+  "瞄准弹幕连射，受子弹与散射加成": {
+    "key": "t_grDbfqj18prkwpy",
+    "locations": [
+      "Config.lua:1429"
+    ]
+  },
+  "巨弹强袭": {
+    "key": "t_vuuYCixivU92fGWn",
+    "locations": [
+      "Config.lua:1438"
+    ]
+  },
+  "2%概率发射3倍大子弹，附加敌人最大生命0.2%伤害": {
+    "key": "t_6UxOdLf56eU3wrFA",
+    "locations": [
+      "Config.lua:1439"
+    ]
+  },
+  "击退冲击": {
+    "key": "t_r7btP1qGrcJB0lYp",
+    "locations": [
+      "Config.lua:1448",
+      "meta/TotemSystem.lua:88"
+    ]
+  },
+  "子弹命中5%概率击退敌人0.2秒": {
+    "key": "t_11u57itZN124DJS1L8",
+    "locations": [
+      "Config.lua:1449"
+    ]
+  },
+  "藤蔓穿刺": {
+    "key": "t_K12aYAIHKS6yhvFS",
+    "locations": [
+      "Config.lua:1458"
+    ]
+  },
+  "子弹+2穿透（上限3层）": {
+    "key": "t_KFglLhvnKN6F83Lg",
+    "locations": [
+      "Config.lua:1459"
+    ]
+  },
+  "自然追踪": {
+    "key": "t_tolw4ejetzVWtfvd",
+    "locations": [
+      "Config.lua:1467"
+    ]
+  },
+  "25%概率子弹0.3s后追踪敌人": {
+    "key": "t_11ZaCSVT4114HH5oEr",
+    "locations": [
+      "Config.lua:1468"
+    ]
+  },
+  "圣诞之树": {
+    "key": "t_4LjJxFtF3sqOiquQ",
+    "locations": [
+      "Config.lua:1476"
+    ]
+  },
+  "召唤圣诞树环绕，发射冰弹冻结敌人": {
+    "key": "t_pWWZswAjpOCu3qv8",
+    "locations": [
+      "Config.lua:1477"
+    ]
+  },
+  "四叶幸运": {
+    "key": "t_HLThkP4PGsavXLhK",
+    "locations": [
+      "Config.lua:1485"
+    ]
+  },
+  "掉落物品概率+15%": {
+    "key": "t_xNaCo9kTxqSxq3a6",
+    "locations": [
+      "Config.lua:1486"
+    ]
+  },
+  "霜瑟风暴": {
+    "key": "t_ITurs94GIJmmSc4J",
+    "locations": [
+      "Config.lua:1494"
+    ]
+  },
+  "冰霜风暴AoE，对范围内全体敌人造成1/3伤害并叠加冰冻": {
+    "key": "t_nPOsAZGwnuhrUaKH",
+    "locations": [
+      "Config.lua:1495"
+    ]
+  },
+  "大象踩背": {
+    "key": "t_tgF83GjUu8DlYv4d",
+    "locations": [
+      "Config.lua:1504"
+    ]
+  },
+  "2%射击概率召唤大象(10s)，每秒AoE踩踏1.5倍伤害": {
+    "key": "t_pkDPXssrpFDJyXry",
+    "locations": [
+      "Config.lua:1505"
+    ]
+  },
+  "我喜欢你你喜欢我": {
+    "key": "t_xb5QRuxjxmjMOJ7o",
+    "locations": [
+      "Config.lua:1520"
+    ]
+  },
+  "击杀敌人时魅惑，上限=等级，近战6次/秒，远程射魅惑弹": {
+    "key": "t_QRdpyKy5QaZ8x1DG",
+    "locations": [
+      "Config.lua:1521"
+    ]
+  },
+  "慢行者": {
+    "key": "t_dXv9Y5sPdiM9wDTq",
+    "locations": [
+      "Config.lua:1531"
+    ]
+  },
+  "发射骑马子弹锁定敌人，制造旋风每秒2次伤害": {
+    "key": "t_DKT2WoxgDTzqsjDf",
+    "locations": [
+      "Config.lua:1532"
+    ]
+  },
+  "盒子": {
+    "key": "t_12BjXV1ok11hdcE9ZR",
+    "locations": [
+      "Config.lua:1547"
+    ]
+  },
+  "每5s部署/拆除盒子，复制僚机技能，伤害50%，上限=等级": {
+    "key": "t_10hjtceZ710qMRxQZK",
+    "locations": [
+      "Config.lua:1548"
+    ]
+  },
+  "冲刺": {
+    "key": "t_1AHGLXLnd1A5JjYWLu",
+    "locations": [
+      "Config.lua:1561"
+    ]
+  },
+  "移速+15%，可叠加（上限3层=45%）": {
+    "key": "t_KZb4U6noK8DzgVqZ",
+    "locations": [
+      "Config.lua:1562"
+    ]
+  },
+  "玩家{0}": {
+    "key": "t_g1o7k4SXg9WM9B82",
+    "locations": [
+      "MockCloud.lua:317"
+    ]
+  },
+  "勇敢猫猫": {
+    "key": "t_qEw2LpZHq4nmhb1c",
+    "locations": [
+      "MockCloud.lua:47"
+    ]
+  },
+  "无敌大王": {
+    "key": "t_QWWACDzLQfRKeLZI",
+    "locations": [
+      "MockCloud.lua:47"
+    ]
+  },
+  "暴走忍者": {
+    "key": "t_IOsG77bAIYhjxO95",
+    "locations": [
+      "MockCloud.lua:47"
+    ]
+  },
+  "闪亮英雄": {
+    "key": "t_FlBmJKYpGCYrdvuy",
+    "locations": [
+      "MockCloud.lua:47"
+    ]
+  },
+  "元气骑士": {
+    "key": "t_1DVr237pk1D0qrJjUJ",
+    "locations": [
+      "MockCloud.lua:47"
+    ]
+  },
+  "酷炫玩家": {
+    "key": "t_J6DRnhRwIwzVzfKJ",
+    "locations": [
+      "MockCloud.lua:48"
+    ]
+  },
+  "幸运高手": {
+    "key": "t_cgYsTKZEcEaNRyhj",
+    "locations": [
+      "MockCloud.lua:48"
+    ]
+  },
+  "狂野勇士": {
+    "key": "t_OB6REh04O1Gr3AvH",
+    "locations": [
+      "MockCloud.lua:48"
+    ]
+  },
+  "超级法师": {
+    "key": "t_2I1PRlFB27Hk45uA",
+    "locations": [
+      "MockCloud.lua:48"
+    ]
+  },
+  "疾风剑客": {
+    "key": "t_TGU6Gc9CSlTuwuHl",
+    "locations": [
+      "MockCloud.lua:48"
+    ]
+  },
+  "星光猎人": {
+    "key": "t_pCRuSMqPohRj5tME",
+    "locations": [
+      "MockCloud.lua:49"
+    ]
+  },
+  "暗影挑战者": {
+    "key": "t_VuyqWVjhWMLvzLQQ",
+    "locations": [
+      "MockCloud.lua:49"
+    ]
+  },
+  "冰霜战神": {
+    "key": "t_En9BMrH6EfjnJFY7",
+    "locations": [
+      "MockCloud.lua:49"
+    ]
+  },
+  "烈焰幸存者": {
+    "key": "t_i9AW2gRwi0qitt5v",
+    "locations": [
+      "MockCloud.lua:49"
+    ]
+  },
+  "钢铁小萌新": {
+    "key": "t_AOfpho9eAFRlTsGv",
+    "locations": [
+      "MockCloud.lua:49"
+    ]
+  },
+  "我": {
+    "key": "t_J8ONOasrIzlx03Uc",
+    "locations": [
+      "MockCloud.lua:310"
+    ]
+  },
+  "勇敢": {
+    "key": "t_18SwDSbx317zRirUwY",
+    "locations": [
+      "SaveData.lua:87"
+    ]
+  },
+  "无敌": {
+    "key": "t_fAJM6FEWefupDqLn",
+    "locations": [
+      "SaveData.lua:87",
+      "battle/SpecialTerrain.lua:590"
+    ]
+  },
+  "闪亮": {
+    "key": "t_bQ4hcQhOavNDa9DB",
+    "locations": [
+      "SaveData.lua:87"
+    ]
+  },
+  "暴走": {
+    "key": "t_BLYrU26IBnEbM7ft",
+    "locations": [
+      "SaveData.lua:87"
+    ]
+  },
+  "元气": {
+    "key": "t_e6BS8ZD16gQZ5aa",
+    "locations": [
+      "SaveData.lua:87"
+    ]
+  },
+  "快乐": {
+    "key": "t_5MlQJFMX5CvzE1Ek",
+    "locations": [
+      "SaveData.lua:88"
+    ]
+  },
+  "酷炫": {
+    "key": "t_HxeGkayoHVyMBm0D",
+    "locations": [
+      "SaveData.lua:88"
+    ]
+  },
+  "幸运": {
+    "key": "t_a47tA9UzZckpTqKw",
+    "locations": [
+      "SaveData.lua:88",
+      "meta/TotemSystem.lua:83"
+    ]
+  },
+  "狂野": {
+    "key": "t_1E7ru8b4M1DeNQgPgD",
+    "locations": [
+      "SaveData.lua:88"
+    ]
+  },
+  "超级": {
+    "key": "t_cURQfrtccLor9Pn1",
+    "locations": [
+      "SaveData.lua:88"
+    ]
+  },
+  "神秘": {
+    "key": "t_TdT8yqevTnbK9LGg",
+    "locations": [
+      "SaveData.lua:89"
+    ]
+  },
+  "暗影": {
+    "key": "t_E9oerjFEDym9Bowd",
+    "locations": [
+      "SaveData.lua:89"
+    ]
+  },
+  "闪电": {
+    "key": "t_3Lx0KmRL3TMY63lo",
+    "locations": [
+      "SaveData.lua:89"
+    ]
+  },
+  "烈焰": {
+    "key": "t_pEjiRiXTpg6nmKQm",
+    "locations": [
+      "SaveData.lua:89"
+    ]
+  },
+  "冰霜": {
+    "key": "t_mmdfbla7nHwX5cAW",
+    "locations": [
+      "SaveData.lua:89"
+    ]
+  },
+  "星光": {
+    "key": "t_H9mRrykdHIhbrXum",
+    "locations": [
+      "SaveData.lua:90"
+    ]
+  },
+  "疾风": {
+    "key": "t_lELKEGlol61Zw1Ln",
+    "locations": [
+      "SaveData.lua:90"
+    ]
+  },
+  "钢铁": {
+    "key": "t_fUen3euOffhIllfT",
+    "locations": [
+      "SaveData.lua:90"
+    ]
+  },
+  "暴风": {
+    "key": "t_PrFBCRW9Q0T2Q80Q",
+    "locations": [
+      "SaveData.lua:90"
+    ]
+  },
+  "极速": {
+    "key": "t_19Ry9BCeG19aHy1dRf",
+    "locations": [
+      "SaveData.lua:90"
+    ]
+  },
+  "猫猫": {
+    "key": "t_AVyMsVpGA35NdYlN",
+    "locations": [
+      "SaveData.lua:94"
+    ]
+  },
+  "勇士": {
+    "key": "t_qpTWhl1Bqf2bVvGc",
+    "locations": [
+      "SaveData.lua:94"
+    ]
+  },
+  "大王": {
+    "key": "t_w9GaahCpwa2FDsV6",
+    "locations": [
+      "SaveData.lua:94"
+    ]
+  },
+  "英雄": {
+    "key": "t_sgkwoVVPsXphDxHs",
+    "locations": [
+      "SaveData.lua:94"
+    ]
+  },
+  "小萌新": {
+    "key": "t_Y48tJI71XsUnDmiC",
+    "locations": [
+      "SaveData.lua:94"
+    ]
+  },
+  "挑战者": {
+    "key": "t_4WiiVNAC4ifLbVT9",
+    "locations": [
+      "SaveData.lua:95"
+    ]
+  },
+  "幸存者": {
+    "key": "t_36VB2Bv72dJekQ62",
+    "locations": [
+      "SaveData.lua:95"
+    ]
+  },
+  "战神": {
+    "key": "t_KuOnpAftL2iSzYcs",
+    "locations": [
+      "SaveData.lua:95"
+    ]
+  },
+  "忍者": {
+    "key": "t_5dMNOHxq66qiDKaT",
+    "locations": [
+      "SaveData.lua:95"
+    ]
+  },
+  "骑士": {
+    "key": "t_E7IbnOftDwYvvSss",
+    "locations": [
+      "SaveData.lua:95"
+    ]
+  },
+  "猎人": {
+    "key": "t_3yDaYwnN46XFooeg",
+    "locations": [
+      "SaveData.lua:96"
+    ]
+  },
+  "法师": {
+    "key": "t_rk6aroCDsF6bwJ5O",
+    "locations": [
+      "SaveData.lua:96"
+    ]
+  },
+  "剑客": {
+    "key": "t_IZ82uoIPIOOR0ghG",
+    "locations": [
+      "SaveData.lua:96"
+    ]
+  },
+  "玩家": {
+    "key": "t_Fng8oM5qFvONCNhd",
+    "locations": [
+      "MockCloud.lua:317",
+      "SaveData.lua:96",
+      "main.lua:509",
+      "main.lua:524",
+      "main.lua:541",
+      "utils/I18n.lua:224"
+    ]
+  },
+  "高手": {
+    "key": "t_uShRYGxnub1Eh5Nc",
+    "locations": [
+      "SaveData.lua:96"
+    ]
+  },
+  "背包已满!": {
+    "key": "t_2kbiLkLD2u8O7L36",
+    "locations": [
+      "battle/BattleScene.lua:466"
+    ]
+  },
+  "👁️暗影x{0}": {
+    "key": "t_xATFBq4owjOn7YSL",
+    "locations": [
+      "battle/RuneEffects.lua:525"
+    ]
+  },
+  "👁️暗影爆发!x{0}": {
+    "key": "t_1C3lrOqVY1BtKr1p6Z",
+    "locations": [
+      "battle/RuneEffects.lua:556"
+    ]
+  },
+  "🔥浴火重生!": {
+    "key": "t_W7DY4caRWEvqS8fs",
+    "locations": [
+      "battle/RuneEffects.lua:278"
+    ]
+  },
+  "🪖抵挡!": {
+    "key": "t_WxcufnaAWU8ZDhwn",
+    "locations": [
+      "battle/RuneEffects.lua:386"
+    ]
+  },
+  "🚨加速!": {
+    "key": "t_bQ9pJUwCavSJalb5",
+    "locations": [
+      "battle/RuneEffects.lua:416"
+    ]
+  },
+  "👤影分身!": {
+    "key": "t_HfeNBLKOHnxxJNNj",
+    "locations": [
+      "battle/RuneEffects.lua:465"
+    ]
+  },
+  "⚡超频!": {
+    "key": "t_FEnr9IHUFOdREmLj",
+    "locations": [
+      "battle/RuneEffects.lua:619"
+    ]
+  },
+  "💰宝箱!": {
+    "key": "t_TOVymcnrTsuigM9E",
+    "locations": [
+      "battle/RuneEffects.lua:641"
+    ]
+  },
+  "最高 Wave {0}": {
+    "key": "t_wAMeHxC7wdqvBwiK",
+    "locations": [
+      "main.lua:1599"
+    ]
+  },
+  "本地 W{0} Lv{1}": {
+    "key": "t_145Qgtr8X13d9RjSIE",
+    "locations": [
+      "main.lua:1607"
+    ]
+  },
+  "{0}/{1} 已解锁": {
+    "key": "t_XecznygZXCLg73tY",
+    "locations": [
+      "main.lua:1631",
+      "main.lua:1674"
+    ]
+  },
+  "{0}/3 装备 · {1} 持有": {
+    "key": "t_FSJ7juoNF1XcFDOe",
+    "locations": [
+      "main.lua:1728"
+    ]
+  },
+  "{0}/3 图腾": {
+    "key": "t_erH2jst5eygQo3JI",
+    "locations": [
+      "main.lua:1771"
+    ]
+  },
+  "{0}/{1} 已收集": {
+    "key": "t_lPmMdhLTkuTVEmZk",
+    "locations": [
+      "main.lua:1806"
+    ]
+  },
+  "装备 {0}/{1}": {
+    "key": "t_3z5qkxfs4AjwHov1",
+    "locations": [
+      "main.lua:1809"
+    ]
+  },
+  "{0}/{1} 符文": {
+    "key": "t_n1avw7wAmtH8riIv",
+    "locations": [
+      "main.lua:1816"
+    ]
+  },
+  "{0}/{1} 已拥有": {
+    "key": "t_1B0hYRSFb1AWIt21OS",
+    "locations": [
+      "main.lua:1837"
+    ]
+  },
+  "{0}/{1} 皮肤": {
+    "key": "t_NGPehJFPNS3WYfgW",
+    "locations": [
+      "main.lua:1846"
+    ]
+  },
+  "今日挑战 · {0}": {
+    "key": "t_ERCUWiyMEry45JFR",
+    "locations": [
+      "main.lua:2050"
+    ]
+  },
+  "{0} · 共 {1} 人": {
+    "key": "t_L5ijHpOcKcpk2JEb",
+    "locations": [
+      "main.lua:2057"
+    ]
+  },
+  "加载中{0}": {
+    "key": "t_1ETIUWUgi1Ed7z3enf",
+    "locations": [
+      "main.lua:2074"
+    ]
+  },
+  "{0} (我)": {
+    "key": "t_VdzImaCRVSe7XvIq",
+    "locations": [
+      "main.lua:2165"
+    ]
+  },
+  "加载更多{0}": {
+    "key": "t_1HbRZcQyP1Hk47OaTW",
+    "locations": [
+      "main.lua:2199"
+    ]
+  },
+  "Emoji幸存者": {
+    "key": "t_6mbknEjq6HuO4Aa5",
+    "locations": [
+      "main.lua:234",
+      "utils/I18n.lua:203"
+    ]
+  },
+  "更新排行榜": {
+    "key": "t_ri9dXsxnsCFcG9h6",
+    "locations": [
+      "main.lua:399",
+      "main.lua:418"
+    ]
+  },
+  "联网不可用": {
+    "key": "t_mJHFV936mQzJkWih",
+    "locations": [
+      "main.lua:427",
+      "utils/I18n.lua:56"
+    ]
+  },
+  "加载失败": {
+    "key": "t_Q3UvhQHDPt3upYjE",
+    "locations": [
+      "main.lua:557",
+      "utils/I18n.lua:57"
+    ]
+  },
+  "上传每日挑战": {
+    "key": "t_11NJZYxz711V1inRd0",
+    "locations": [
+      "main.lua:623"
+    ]
+  },
+  "欢迎来到Emoji幸存者！": {
+    "key": "t_FtJW1SXUG4M6pENP",
+    "locations": [
+      "utils/I18n.lua:204"
+    ]
+  },
+  "用键盘输入你的名字（回车确认）": {
+    "key": "t_qFi8tiV8q44HWauT",
+    "locations": [
+      "utils/I18n.lua:236"
+    ]
+  },
+  "为自己取一个名字吧": {
+    "key": "t_DBFxeyfN0jqh4o",
+    "locations": [
+      "utils/I18n.lua:235",
+      "utils/I18n.lua:50"
+    ]
+  },
+  "输入昵称...": {
+    "key": "t_hY3zEVjUhMidk8QZ",
+    "locations": [
+      "utils/I18n.lua:237",
+      "utils/I18n.lua:51"
+    ]
+  },
+  "取消": {
+    "key": "t_OisureGXOZ3ZXL5a",
+    "locations": [
+      "utils/I18n.lua:238",
+      "utils/I18n.lua:52"
+    ]
+  },
+  "✅ 完成": {
+    "key": "t_6jns2lPS6G0gnoWv",
+    "locations": [
+      "utils/I18n.lua:239"
+    ]
+  },
+  "🎲 随机": {
+    "key": "t_qZSAWZ8xr4kxTODA",
+    "locations": [
+      "utils/I18n.lua:240"
+    ]
+  },
+  "✏️ 自定义": {
+    "key": "t_1G7jLxeBy1GZPBSQqU",
+    "locations": [
+      "utils/I18n.lua:241"
+    ]
+  },
+  "✅ 就这个": {
+    "key": "t_19TI0FduD19dis6iTh",
+    "locations": [
+      "utils/I18n.lua:242"
+    ]
+  },
+  "▶️ 继续游戏": {
+    "key": "t_MS1bkQCvM036iVmT",
+    "locations": [
+      "utils/I18n.lua:214"
+    ]
+  },
+  "🎮 新游戏": {
+    "key": "t_BbWJc8Q6BSb425AI",
+    "locations": [
+      "utils/I18n.lua:215"
+    ]
+  },
+  "全球排行榜": {
+    "key": "t_AZVPvTIPA4VOscd7",
+    "locations": [
+      "utils/I18n.lua:245",
+      "utils/I18n.lua:45"
+    ]
+  },
+  "查看全球战绩": {
+    "key": "t_l8we7YdXlGM7FiiZ",
+    "locations": [
+      "utils/I18n.lua:246",
+      "utils/I18n.lua:46"
+    ]
+  },
+  "成就": {
+    "key": "t_sPvY9PdsstieFwUW",
+    "locations": [
+      "utils/I18n.lua:247",
+      "utils/I18n.lua:47"
+    ]
+  },
+  "遗物商店": {
+    "key": "t_OBnzHCPfO0SrTuTH",
+    "locations": [
+      "utils/I18n.lua:248"
+    ]
+  },
+  "Wave10 后解锁": {
+    "key": "t_z2Jv3ZXOyqN4q4gk",
+    "locations": [
+      "main.lua:1703"
+    ]
+  },
+  "图腾商店": {
+    "key": "t_DzaYewyjE97JfXMD",
+    "locations": [
+      "utils/I18n.lua:249"
+    ]
+  },
+  "Wave20 后解锁": {
+    "key": "t_tB97tzECtIrL7NFs",
+    "locations": [
+      "main.lua:1765",
+      "main.lua:1849"
+    ]
+  },
+  "空": {
+    "key": "t_aQTxlovxaacGofsH",
+    "locations": [
+      "ui/RuneShop.lua:207",
+      "utils/I18n.lua:253",
+      "utils/I18n.lua:79"
+    ]
+  },
+  "符文管理": {
+    "key": "t_1EN66o4eq1EUoCdMkG",
+    "locations": [
+      "utils/I18n.lua:250"
+    ]
+  },
+  "皮肤商店": {
+    "key": "t_QA6rVH2fPhWhRF9F",
+    "locations": [
+      "utils/I18n.lua:251"
+    ]
+  },
+  "更换角色外观": {
+    "key": "t_14C2aIOgy14h2bwcP2",
+    "locations": [
+      "utils/I18n.lua:254"
+    ]
+  },
+  "v1.0 - Emoji幸存者": {
+    "key": "t_U2CDooGgUUmSsWUk",
+    "locations": [
+      "utils/I18n.lua:204"
+    ]
+  },
+  "🌐 全球排行榜": {
+    "key": "t_6x6AqIvE7RnfOQtA",
+    "locations": [
+      "utils/I18n.lua:261"
+    ]
+  },
+  "⚔️ 波次": {
+    "key": "t_EzTG5o8lFUAazZfz",
+    "locations": [
+      "utils/I18n.lua:270"
+    ]
+  },
+  "💀 击杀": {
+    "key": "t_1ALzs2XpR19qgw7kTJ",
+    "locations": [
+      "utils/I18n.lua:271"
+    ]
+  },
+  "📅 每日": {
+    "key": "t_yvdmfRy2ynKBzM34",
+    "locations": [
+      "utils/I18n.lua:272"
+    ]
+  },
+  "累计击杀排名": {
+    "key": "t_RfKTmMQmRn2ZhBh6",
+    "locations": [
+      "utils/I18n.lua:265"
+    ]
+  },
+  "最高波次排名": {
+    "key": "t_fnp5GuHIfMS4Q4WG",
+    "locations": [
+      "utils/I18n.lua:264"
+    ]
+  },
+  "请检查网络后重试": {
+    "key": "t_e0DmrEKIeVWnLrHm",
+    "locations": [
+      "utils/I18n.lua:232"
+    ]
+  },
+  "排名": {
+    "key": "t_gQE8iZtofzSVENLk",
+    "locations": [
+      "utils/I18n.lua:223"
+    ]
+  },
+  "波次": {
+    "key": "t_dvzk3kXsdU1B0Blc",
+    "locations": [
+      "utils/I18n.lua:225"
+    ]
+  },
+  "击杀": {
+    "key": "t_uWEVVIS3uNuphpQh",
+    "locations": [
+      "utils/I18n.lua:226"
+    ]
+  },
+  "— 已加载全部 —": {
+    "key": "t_JbFHCQKLJmHeLFSv",
+    "locations": [
+      "utils/I18n.lua:229"
+    ]
+  },
+  "暂无排行数据": {
+    "key": "t_XiD9rxulXDVek5el",
+    "locations": [
+      "utils/I18n.lua:230"
+    ]
+  },
+  "完成一局游戏后你的成绩将自动上传": {
+    "key": "t_98lEM0E490RU0RgG",
+    "locations": [
+      "utils/I18n.lua:231"
+    ]
+  },
+  "选择你的角色": {
+    "key": "t_ncCrVnrenmdiollS",
+    "locations": [
+      "utils/I18n.lua:211"
+    ]
+  },
+  "每个角色拥有独特技能和风格": {
+    "key": "t_69vLQm0J5fDuG9lz",
+    "locations": [
+      "utils/I18n.lua:212"
+    ]
+  },
+  "专属技能": {
+    "key": "t_TAkTQ8fAT0v3W0wi",
+    "locations": [
+      "utils/I18n.lua:213"
+    ]
+  },
+  "解锁方式：评价 / 看广告": {
+    "key": "t_wU1GPOnRwKBks2tt",
+    "locations": [
+      "SaveData.lua:712"
+    ]
+  },
+  "评价解锁全部 · 广告解锁当前角色": {
+    "key": "t_NG6kJREeNgsE61RI",
+    "locations": [
+      "utils/I18n.lua:218",
+      "utils/I18n.lua:276"
+    ]
+  },
+  "🔗 评价解锁全部": {
+    "key": "t_1669QhXhB16XDksshV",
+    "locations": [
+      "utils/I18n.lua:216"
+    ]
+  },
+  "🎬 广告解锁当前": {
+    "key": "t_3BIcSQHu3eBWWkJy",
+    "locations": [
+      "utils/I18n.lua:217"
+    ]
+  },
+  "开始战斗！": {
+    "key": "t_11N2Oo1ta11VM7OBhq",
+    "locations": [
+      "utils/I18n.lua:208"
+    ]
+  },
+  "📅 每日挑战": {
+    "key": "t_L5mB0XRRKctKJC2L",
+    "locations": [
+      "main.lua:2783"
+    ]
+  },
+  "◀ ▶ 切换角色 · 点击按钮开始": {
+    "key": "t_3yU9vhBu46V0ULIc",
+    "locations": [
+      "utils/I18n.lua:210"
+    ]
+  },
+  "经验膨胀": {
+    "key": "t_xUUf5BlIxeveLUXg",
+    "locations": [
+      "meta/DailyChallenge.lua:41"
+    ]
+  },
+  "升级经验需求 ×1.5": {
+    "key": "t_CQeFann1BxlKw9A3",
+    "locations": [
+      "meta/DailyChallenge.lua:43"
+    ]
+  },
+  "敌怪狂暴": {
+    "key": "t_34A5qgvL2afcTSwN",
+    "locations": [
+      "meta/DailyChallenge.lua:47"
+    ]
+  },
+  "敌怪攻击力翻倍": {
+    "key": "t_12k4YWtwt12YQU5e8d",
+    "locations": [
+      "meta/DailyChallenge.lua:49"
+    ]
+  },
+  "敌怪迅捷": {
+    "key": "t_uNcc0tYOuWXw7zJg",
+    "locations": [
+      "meta/DailyChallenge.lua:53"
+    ]
+  },
+  "敌怪移速翻倍": {
+    "key": "t_jBvPOequjJKt7f1M",
+    "locations": [
+      "meta/DailyChallenge.lua:55"
+    ]
+  },
+  "敌怪坚韧": {
+    "key": "t_7wZpOZQx7mRdjpRr",
+    "locations": [
+      "meta/DailyChallenge.lua:59"
+    ]
+  },
+  "敌怪血量翻倍": {
+    "key": "t_uS4uCa0yubuTorAy",
+    "locations": [
+      "meta/DailyChallenge.lua:61"
+    ]
+  },
+  "Boss倍增": {
+    "key": "t_mMIpPdW2mXe5AC4k",
+    "locations": [
+      "meta/DailyChallenge.lua:65"
+    ]
+  },
+  "Boss出现间隔减半": {
+    "key": "t_1Gt854cMl1H3GF7Dxb",
+    "locations": [
+      "meta/DailyChallenge.lua:67"
+    ]
+  },
+  "专精之路": {
+    "key": "t_14vOetKAe15Mloseom",
+    "locations": [
+      "meta/DailyChallenge.lua:77"
+    ]
+  },
+  "仅1个可获取技能，无等级上限": {
+    "key": "t_1GI1VyVnm1GTyCYENm",
+    "locations": [
+      "meta/DailyChallenge.lua:79"
+    ]
+  },
+  "缩小药水": {
+    "key": "t_iUWZubOoigTKyaww",
+    "locations": [
+      "meta/DailyChallenge.lua:83"
+    ]
+  },
+  "体积和血量 -50%": {
+    "key": "t_1AJEJD4LR19opdjDBJ",
+    "locations": [
+      "meta/DailyChallenge.lua:85"
+    ]
+  },
+  "巨大化": {
+    "key": "t_1GqyJIFWB1H0nkHyfX",
+    "locations": [
+      "meta/DailyChallenge.lua:89"
+    ]
+  },
+  "体积和血量 +100%": {
+    "key": "t_R08z78AvRRDNFEpZ",
+    "locations": [
+      "meta/DailyChallenge.lua:91"
+    ]
+  },
+  "暴击本能": {
+    "key": "t_1Fi2qN7Fr1FtO2nS7n",
+    "locations": [
+      "meta/DailyChallenge.lua:95"
+    ]
+  },
+  "伤害 -4 点，暴击率翻倍": {
+    "key": "t_AybBxj9YApymdj3s",
+    "locations": [
+      "meta/DailyChallenge.lua:97"
+    ]
+  },
+  "拾金者": {
+    "key": "t_cXtO75M9cNSSpj5t",
+    "locations": [
+      "meta/DailyChallenge.lua:101"
+    ]
+  },
+  "金币掉率 ×2，道具掉率 ×0.5": {
+    "key": "t_BDZDoY1EAkgFkCzk",
+    "locations": [
+      "meta/DailyChallenge.lua:103"
+    ]
+  },
+  "缓释回复": {
+    "key": "t_12fYJxRiF12Y8lfifb",
+    "locations": [
+      "meta/DailyChallenge.lua:107"
+    ]
+  },
+  "红心改为5s渐进回复": {
+    "key": "t_JP2FZcUHJtjcDjpl",
+    "locations": [
+      "meta/DailyChallenge.lua:109"
+    ]
+  },
+  "危险炸弹": {
+    "key": "t_kSQp01POkcYvfeME",
+    "locations": [
+      "meta/DailyChallenge.lua:113"
+    ]
+  },
+  "炸弹掉率 ×2，自伤10点": {
+    "key": "t_1GkvBGUlz1HBgf95r5",
+    "locations": [
+      "meta/DailyChallenge.lua:115"
+    ]
+  },
+  "广域拾取": {
+    "key": "t_rfpXea5qrDY8FUqY",
+    "locations": [
+      "meta/DailyChallenge.lua:119"
+    ]
+  },
+  "拾取范围 ×2，经验值 ×0.2": {
+    "key": "t_4dE4m8LG4lqOuxNO",
+    "locations": [
+      "meta/DailyChallenge.lua:121"
+    ]
+  },
+  "普通怪": {
+    "key": "t_fEwI3VQEfgur8iQ2",
+    "locations": [
+      "meta/Codex.lua:41",
+      "meta/DailyChallenge.lua:227"
+    ]
+  },
+  "速敏怪": {
+    "key": "t_dbGPQRjSdjsxoVn4",
+    "locations": [
+      "meta/Codex.lua:41",
+      "meta/DailyChallenge.lua:227"
+    ]
+  },
+  "坦克怪": {
+    "key": "t_PWSQxX7TP19f98AN",
+    "locations": [
+      "meta/Codex.lua:41",
+      "meta/DailyChallenge.lua:227"
+    ]
+  },
+  "蜂群怪": {
+    "key": "t_vpcyW92VveHrrHfr",
+    "locations": [
+      "meta/Codex.lua:42",
+      "meta/DailyChallenge.lua:227"
+    ]
+  },
+  "冲锋怪": {
+    "key": "t_VQi8dCvsVb93I5PA",
+    "locations": [
+      "meta/Codex.lua:42",
+      "meta/DailyChallenge.lua:228"
+    ]
+  },
+  "幽灵怪": {
+    "key": "t_p5TxPEaqoeiSSbeO",
+    "locations": [
+      "meta/Codex.lua:42",
+      "meta/DailyChallenge.lua:228"
+    ]
+  },
+  "巫师怪": {
+    "key": "t_164ZXAaG016YfRtOV6",
+    "locations": [
+      "meta/Codex.lua:43",
+      "meta/DailyChallenge.lua:228"
+    ]
+  },
+  "远程怪": {
+    "key": "t_18SzR54if17zUwTMwz",
+    "locations": [
+      "meta/Codex.lua:43",
+      "meta/DailyChallenge.lua:228"
+    ]
+  },
+  "精英怪": {
+    "key": "t_xZnuIFlOxjKVbhdm",
+    "locations": [
+      "meta/Codex.lua:43",
+      "meta/DailyChallenge.lua:229"
+    ]
+  },
+  "力量遗物": {
+    "key": "t_1GeFJ76m21GCZZLbIg",
+    "locations": [
+      "meta/RelicSystem.lua:18"
+    ]
+  },
+  "每级全局攻击+0.2%": {
+    "key": "t_igEnMJ4wiUtce84s",
+    "locations": [
+      "meta/RelicSystem.lua:20"
+    ]
+  },
+  "敏捷遗物": {
+    "key": "t_FtzYJnwVG3otfCFD",
+    "locations": [
+      "meta/RelicSystem.lua:25"
+    ]
+  },
+  "每级暴击率+0.2%": {
+    "key": "t_ursnbpD8vMaDArfm",
+    "locations": [
+      "meta/RelicSystem.lua:27"
+    ]
+  },
+  "生命遗物": {
+    "key": "t_Cf6lVssrCowL5S93",
+    "locations": [
+      "meta/RelicSystem.lua:32"
+    ]
+  },
+  "每级基础生命+0.25%": {
+    "key": "t_LHDgUQygLlcMyO0Q",
+    "locations": [
+      "meta/RelicSystem.lua:34"
+    ]
+  },
+  "速度遗物": {
+    "key": "t_WOMcVBznVxb3VFsp",
+    "locations": [
+      "meta/RelicSystem.lua:39"
+    ]
+  },
+  "每级攻击间隔-0.5%，移速+0.5%": {
+    "key": "t_LLaslL2ELqtpI8sY",
+    "locations": [
+      "meta/RelicSystem.lua:41"
+    ]
+  },
+  "守护遗物": {
+    "key": "t_jXIGabATj2tfetEz",
+    "locations": [
+      "meta/RelicSystem.lua:74"
+    ]
+  },
+  "每波开始获得N次护卫充能，将单次受伤降为1点（N=遗物等级）": {
+    "key": "t_1B3qwOm2a1BYr7C18i",
+    "locations": [
+      "meta/RelicSystem.lua:76"
+    ]
+  },
+  "飞行遗物": {
+    "key": "t_UHUIMKzcUPCWnfiu",
+    "locations": [
+      "meta/RelicSystem.lua:81"
+    ]
+  },
+  "解锁绿色无人机技能，轨道更大，等级上限=遗物等级+3（需1级以上）": {
+    "key": "t_o0PGldQloUCVwEEp",
+    "locations": [
+      "meta/RelicSystem.lua:83"
+    ]
+  },
+  "传说": {
+    "key": "t_FywfSDTlFp7IsM2b",
+    "locations": [
+      "meta/RuneSystem.lua:15"
+    ]
+  },
+  "警戒反射": {
+    "key": "t_56vDpqh15Xgx3viV",
+    "locations": [
+      "meta/RuneSystem.lua:41"
+    ]
+  },
+  "受伤后3秒内移速+40%，攻速+25%（CD 4秒）": {
+    "key": "t_i9zwUiQbi0ANTHt3",
+    "locations": [
+      "meta/RuneSystem.lua:43"
+    ]
+  },
+  "钢铁壁垒": {
+    "key": "t_xXN4iB7axgtpdn1u",
+    "locations": [
+      "meta/RuneSystem.lua:52"
+    ]
+  },
+  "每6秒获得1层护盾（上限3层），可抵挡致命伤害": {
+    "key": "t_JGHoMnYZImnXNqYV",
+    "locations": [
+      "meta/RuneSystem.lua:54"
+    ]
+  },
+  "饕餮盛宴": {
+    "key": "t_BBmDEyOjAhgRZhYT",
+    "locations": [
+      "meta/RuneSystem.lua:61"
+    ]
+  },
+  "暴击40%概率回复8%最大HP并使下次必定暴击（CD 3秒）": {
+    "key": "t_zxrahBhy10PXM99cw",
+    "locations": [
+      "meta/RuneSystem.lua:63"
+    ]
+  },
+  "递归循环": {
+    "key": "t_vQwop5a4ux9dcIQK",
+    "locations": [
+      "meta/RuneSystem.lua:71"
+    ]
+  },
+  "击杀敌人15%概率释放连锁闪电，弹射4次（每次80%ATK+30%减速2秒，CD 2秒）": {
+    "key": "t_q8bCgFtuqG0fq5Kg",
+    "locations": [
+      "meta/RuneSystem.lua:73"
+    ]
+  },
+  "浴火重生": {
+    "key": "t_1TjSI09W1bRWXNDq",
+    "locations": [
+      "meta/RuneSystem.lua:85"
+    ]
+  },
+  "HP<35%时3秒免疫+AOE火焰伤害120%ATK（CD 15秒）": {
+    "key": "t_oUeu7HgVnzxSv2E3",
+    "locations": [
+      "meta/RuneSystem.lua:87"
+    ]
+  },
+  "血族契约": {
+    "key": "t_10xESRq4L10WA3DWgX",
+    "locations": [
+      "meta/RuneSystem.lua:97"
+    ]
+  },
+  "满血时攻击力+25%；击杀15%概率回复5%最大HP": {
+    "key": "t_1EPf0BxFr1EX4TK7Kt",
+    "locations": [
+      "meta/RuneSystem.lua:99"
+    ]
+  },
+  "完美主义": {
+    "key": "t_XyNZ9EB5Y7u9N3gl",
+    "locations": [
+      "meta/RuneSystem.lua:107"
+    ]
+  },
+  "2秒未受伤：伤害+80%+穿透+2；5秒未受伤：额外击退": {
+    "key": "t_1Go4tfCOp1HIAgQ7o3",
+    "locations": [
+      "meta/RuneSystem.lua:109"
+    ]
+  },
+  "裂变弹头": {
+    "key": "t_GaJRNaJDGOMcGpA7",
+    "locations": [
+      "meta/RuneSystem.lua:118"
+    ]
+  },
+  "穿透后40%概率分裂2颗子弹（75%伤害）": {
+    "key": "t_17U9IR9lf17dymKACN",
+    "locations": [
+      "meta/RuneSystem.lua:120"
+    ]
+  },
+  "夺宝奇兵": {
+    "key": "t_19O740y3H19Z9d8pSd",
+    "locations": [
+      "meta/RuneSystem.lua:129"
+    ]
+  },
+  "Boss击杀+80%金币；每击杀15个敌人召唤宝箱（CD 20秒）": {
+    "key": "t_19L0OXYTL19m4sJRs3",
+    "locations": [
+      "meta/RuneSystem.lua:131"
+    ]
+  },
+  "节拍风暴": {
+    "key": "t_GALAbBukFifHggCY",
+    "locations": [
+      "meta/RuneSystem.lua:139"
+    ]
+  },
+  "每3秒AOE击退+100%ATK伤害+40%减速2秒": {
+    "key": "t_18U7A7PvW1832i0uNO",
+    "locations": [
+      "meta/RuneSystem.lua:141"
+    ]
+  },
+  "急救协议": {
+    "key": "t_1FBowj0IR1F0TgyP55",
+    "locations": [
+      "meta/RuneSystem.lua:151"
+    ]
+  },
+  "HP<35%时回复40%HP+3秒减伤50%（CD 15秒）": {
+    "key": "t_i4rhWT9Khvdhp1gk",
+    "locations": [
+      "meta/RuneSystem.lua:153"
+    ]
+  },
+  "影分身术": {
+    "key": "t_yKRwwnpOy96pkx8Q",
+    "locations": [
+      "meta/RuneSystem.lua:163"
+    ]
+  },
+  "暴击40%概率召唤影分身（8秒，100%ATK，上限2）": {
+    "key": "t_1GHpFnSfb1GPEb62Vn",
+    "locations": [
+      "meta/RuneSystem.lua:165"
+    ]
+  },
+  "超频核心": {
+    "key": "t_1320Ru9BK13Vng0lmc",
+    "locations": [
+      "meta/RuneSystem.lua:174"
+    ]
+  },
+  "每8击杀触发超频（攻速×3，伤害+80%，5秒）": {
+    "key": "t_FfrSZPdQG88hjq0G",
+    "locations": [
+      "meta/RuneSystem.lua:176"
+    ]
+  },
+  "深渊王权": {
+    "key": "t_41S9T3VC4D66W9Eg",
+    "locations": [
+      "meta/RuneSystem.lua:188"
+    ]
+  },
+  "击杀敌人叠加暗影（上限30层），满层消耗全部层数释放暗影爆发（300%ATK全屏+全属性每层+1%持续10秒）": {
+    "key": "t_110rOcJdv10XN74D7X",
+    "locations": [
+      "meta/RuneSystem.lua:190"
+    ]
+  },
+  "未知符文": {
+    "key": "t_AiGI95KWBB98qP4O",
+    "locations": [
+      "meta/RuneSystem.lua:257"
+    ]
+  },
+  "暗影猫": {
+    "key": "t_HUBNAkK5HzBSlB3t",
+    "locations": [
+      "meta/SkinSystem.lua:18"
+    ]
+  },
+  "恋爱猫": {
+    "key": "t_MdYK9nhpMpV1qENl",
+    "locations": [
+      "meta/SkinSystem.lua:36"
+    ]
+  },
+  "墨镜豆": {
+    "key": "t_1D38s1DJc1DYRjyjWO",
+    "locations": [
+      "meta/SkinSystem.lua:56"
+    ]
+  },
+  "大厨豆": {
+    "key": "t_XxHxdc7BY8vuiwpx",
+    "locations": [
+      "meta/SkinSystem.lua:74"
+    ]
+  },
+  "水果猴王": {
+    "key": "t_hwQq29gTi3qFq7H3",
+    "locations": [
+      "meta/SkinSystem.lua:94"
+    ]
+  },
+  "赛博猴": {
+    "key": "t_gL5U6GZvfq5IA6XD",
+    "locations": [
+      "meta/SkinSystem.lua:112"
+    ]
+  },
+  "摇滚之手": {
+    "key": "t_OkBqntIdOcmMQAMR",
+    "locations": [
+      "meta/SkinSystem.lua:132"
+    ]
+  },
+  "魔法之手": {
+    "key": "t_k3P0oamLjcKcA3wT",
+    "locations": [
+      "meta/SkinSystem.lua:150"
+    ]
+  },
+  "樱花之灵": {
+    "key": "t_zpnfUp1q0N8sn5",
+    "locations": [
+      "meta/SkinSystem.lua:170"
+    ]
+  },
+  "冰晶之叶": {
+    "key": "t_161dCAg8J15arXVrfn",
+    "locations": [
+      "meta/SkinSystem.lua:188"
+    ]
+  },
+  "黄金战车": {
+    "key": "t_vRoMnnHcvx7M7Fdw",
+    "locations": [
+      "meta/SkinSystem.lua:208"
+    ]
+  },
+  "机甲OTTO": {
+    "key": "t_sA32Hsd12IM6mZb",
+    "locations": [
+      "meta/SkinSystem.lua:226"
+    ]
+  },
+  "{0}图腾": {
+    "key": "t_O8yDsunbNyXJEbxL",
+    "locations": [
+      "meta/TotemSystem.lua:246"
+    ]
+  },
+  "垃圾": {
+    "key": "t_IHUiOFynIRKDSPUD",
+    "locations": [
+      "meta/TotemSystem.lua:33",
+      "utils/I18n.lua:108"
+    ]
+  },
+  "普通": {
+    "key": "t_ZqewiAUAZzt0QkFy",
+    "locations": [
+      "Config.lua:137",
+      "meta/TotemSystem.lua:34",
+      "utils/I18n.lua:109"
+    ]
+  },
+  "稀有": {
+    "key": "t_UHSZKXWLUPAjp7aj",
+    "locations": [
+      "meta/TotemSystem.lua:35",
+      "utils/I18n.lua:110"
+    ]
+  },
+  "罕见": {
+    "key": "t_1Et64JoU81FNnPHQ6e",
+    "locations": [
+      "meta/TotemSystem.lua:36",
+      "utils/I18n.lua:111"
+    ]
+  },
+  "生命": {
+    "key": "t_YhN3X1PgYZeuq5Cu",
+    "locations": [
+      "meta/TotemSystem.lua:77"
+    ]
+  },
+  "初始HP": {
+    "key": "t_zyoMH5zC10A9U5QOU",
+    "locations": [
+      "meta/TotemSystem.lua:77"
+    ]
+  },
+  "攻击": {
+    "key": "t_paHQI9FbpPEuf26N",
+    "locations": [
+      "meta/TotemSystem.lua:78"
+    ]
+  },
+  "初始ATK": {
+    "key": "t_CQm511tfBxaZqZWx",
+    "locations": [
+      "meta/TotemSystem.lua:78"
+    ]
+  },
+  "速度": {
+    "key": "t_l3ITCtYrlCDldT8n",
+    "locations": [
+      "meta/TotemSystem.lua:79"
+    ]
+  },
+  "初始SPD": {
+    "key": "t_KrhVnAtcL0cbhl04",
+    "locations": [
+      "meta/TotemSystem.lua:79"
+    ]
+  },
+  "暴击": {
+    "key": "t_o6Tfq2FZoXqpngSr",
+    "locations": [
+      "meta/TotemSystem.lua:80"
+    ]
+  },
+  "暴击率": {
+    "key": "t_2bE8wM8T33VPjz2D",
+    "locations": [
+      "meta/TotemSystem.lua:80"
+    ]
+  },
+  "射速": {
+    "key": "t_rxPQB1dfs6dGrAhD",
+    "locations": [
+      "meta/TotemSystem.lua:81"
+    ]
+  },
+  "攻击间隔降低": {
+    "key": "t_TBFfDdnqT0W3LB1q",
+    "locations": [
+      "meta/TotemSystem.lua:81"
+    ]
+  },
+  "掘金": {
+    "key": "t_sIbUReoCrqKApiQS",
+    "locations": [
+      "meta/TotemSystem.lua:82"
+    ]
+  },
+  "金币掉取率": {
+    "key": "t_V0EeJE3IUr0kJPUC",
+    "locations": [
+      "meta/TotemSystem.lua:82"
+    ]
+  },
+  "掉落率提升": {
+    "key": "t_krxzqgXWlIjhEteQ",
+    "locations": [
+      "meta/TotemSystem.lua:83"
+    ]
+  },
+  "开局携带一级攻击提升": {
+    "key": "t_LyzBkPhPMT4yVvLL",
+    "locations": [
+      "meta/TotemSystem.lua:85"
+    ]
+  },
+  "开局携带一级移速提升": {
+    "key": "t_13CjjKYAn13L3TfaHF",
+    "locations": [
+      "meta/TotemSystem.lua:86"
+    ]
+  },
+  "开局携带一级磁力增强": {
+    "key": "t_p490eJCzobGGB44H",
+    "locations": [
+      "meta/TotemSystem.lua:87"
+    ]
+  },
+  "开局携带一级击退冲击": {
+    "key": "t_LD9lqaLTKjy32HSt",
+    "locations": [
+      "meta/TotemSystem.lua:88"
+    ]
+  },
+  "开局携带一级攻击无人机": {
+    "key": "t_CEsGm224C4RQ3sUK",
+    "locations": [
+      "meta/TotemSystem.lua:89"
+    ]
+  },
+  "异界天赋": {
+    "key": "t_d8ifoFkkcx4ikbOg",
+    "locations": [
+      "meta/TotemSystem.lua:91",
+      "utils/I18n.lua:115"
+    ]
+  },
+  "未毕业即可学习其他角色技能": {
+    "key": "t_5LIvpybl59evKvld",
+    "locations": [
+      "meta/TotemSystem.lua:91"
+    ]
+  },
+  "未知图腾": {
+    "key": "t_15PRUS04Z14xSuoAVH",
+    "locations": [
+      "meta/TotemSystem.lua:245"
+    ]
+  },
+  "存活 {0}": {
+    "key": "t_i2uPBtTRhsmAeP5h",
+    "locations": [
+      "social/Tombstone.lua:437"
+    ]
+  },
+  "我倒在了黎明前…": {
+    "key": "t_fXer2aVxfO8BoYqT",
+    "locations": [
+      "social/Tombstone.lua:57"
+    ]
+  },
+  "别踩我的坟！": {
+    "key": "t_xQSavQXxxsRAVPQH",
+    "locations": [
+      "social/Tombstone.lua:58"
+    ]
+  },
+  "下次一定能过…": {
+    "key": "t_txmdIn01tlpvZ2bV",
+    "locations": [
+      "social/Tombstone.lua:59"
+    ]
+  },
+  "这波敌人太多了😭": {
+    "key": "t_SjPhg2NATDoOCEWS",
+    "locations": [
+      "social/Tombstone.lua:60"
+    ]
+  },
+  "差一点就赢了…": {
+    "key": "t_dMdSLo5zdouqYc4Z",
+    "locations": [
+      "social/Tombstone.lua:61"
+    ]
+  },
+  "替我报仇！": {
+    "key": "t_UPkYUlHhUGpENi6v",
+    "locations": [
+      "social/Tombstone.lua:62"
+    ]
+  },
+  "我的装备掉了吗？": {
+    "key": "t_eeYDb1Tzf6pcyywZ",
+    "locations": [
+      "social/Tombstone.lua:63"
+    ]
+  },
+  "又是被Boss带走的": {
+    "key": "t_39ChGSVr3bU2dpkl",
+    "locations": [
+      "social/Tombstone.lua:64"
+    ]
+  },
+  "建议削弱第%d波": {
+    "key": "t_7zFIAuTJ7VS44Hnt",
+    "locations": [
+      "social/Tombstone.lua:65"
+    ]
+  },
+  "第%d波是我的极限": {
+    "key": "t_OW5XSw9MOh7u5Iya",
+    "locations": [
+      "social/Tombstone.lua:66"
+    ]
+  },
+  "希望你比我走得更远": {
+    "key": "t_RhPEfoTfRpisgiFT",
+    "locations": [
+      "social/Tombstone.lua:67"
+    ]
+  },
+  "有缘再见👋": {
+    "key": "t_aURssVnvagOUv9oR",
+    "locations": [
+      "social/Tombstone.lua:68"
+    ]
+  },
+  "上传墓碑": {
+    "key": "t_8ryzGSIX9M4ybmRB",
+    "locations": [
+      "social/Tombstone.lua:139"
+    ]
+  },
+  "旅人": {
+    "key": "t_H7EpbgwHHGSf8LoT",
+    "locations": [
+      "social/Tombstone.lua:223",
+      "social/Tombstone.lua:230",
+      "social/Tombstone.lua:358",
+      "social/Tombstone.lua:431",
+      "utils/I18n.lua:280"
+    ]
+  },
+  "💬 靠近查看遗言": {
+    "key": "t_2NzEfCMm1wc4el00",
+    "locations": [
+      "social/Tombstone.lua:364",
+      "utils/I18n.lua:279"
+    ]
+  },
+  "%s %s · 第%d波 · %d击杀": {
+    "key": "t_BsGOXJXlCMMNIKA5",
+    "locations": [
+      "social/Tombstone.lua:430"
+    ]
+  },
+  "观看广告可获得 {0} EXP": {
+    "key": "t_96c9TAR68xh2riF6",
+    "locations": [
+      "ui/GiftAd.lua:94"
+    ]
+  },
+  "放弃（仅获得 {0} EXP）": {
+    "key": "t_15yIY7ggG15UVVvh2i",
+    "locations": [
+      "ui/GiftAd.lua:129"
+    ]
+  },
+  "发现神秘礼物！": {
+    "key": "t_kww2u6lolSEqNuBA",
+    "locations": [
+      "ui/GiftAd.lua:111"
+    ]
+  },
+  "🎬 看广告领取": {
+    "key": "t_oRFZfg0knyfYDfYM",
+    "locations": [
+      "ui/GiftAd.lua:141"
+    ]
+  },
+  "存活时间  {0}": {
+    "key": "t_hxDKJIsgi7wzhXKA",
+    "locations": [
+      "ui/HUD.lua:1164"
+    ]
+  },
+  "击杀数    {0}": {
+    "key": "t_kExnx7kNkgKwnTe3",
+    "locations": [
+      "ui/HUD.lua:1165"
+    ]
+  },
+  "到达等级  {0}": {
+    "key": "t_Qm6MdRKgQL1xzQOc",
+    "locations": [
+      "ui/HUD.lua:1166"
+    ]
+  },
+  "到达波次  {0}": {
+    "key": "t_t8u4bJd8tGJXGNFW",
+    "locations": [
+      "ui/HUD.lua:1167"
+    ]
+  },
+  "点击屏幕{0}": {
+    "key": "t_PFWL6aHTPMvksIp9",
+    "locations": [
+      "ui/HUD.lua:1386"
+    ]
+  },
+  "▶ 继续游戏": {
+    "key": "t_jfefGj6Rk9kQORRj",
+    "locations": [
+      "ui/HUD.lua:696"
+    ]
+  },
+  "🕹 摇杆位置": {
+    "key": "t_9ArjD68Y939YkjSM",
+    "locations": [
+      "utils/I18n.lua:20"
+    ]
+  },
+  "靠左": {
+    "key": "t_ZCOGgkNfZK6QUPkx",
+    "locations": [
+      "utils/I18n.lua:21"
+    ]
+  },
+  "居中": {
+    "key": "t_H1OLJHSqHCjVwX6m",
+    "locations": [
+      "utils/I18n.lua:22"
+    ]
+  },
+  "靠右": {
+    "key": "t_1DQYQQ1Ys1CwSVisg2",
+    "locations": [
+      "utils/I18n.lua:23"
+    ]
+  },
+  "🎮 移动模式": {
+    "key": "t_6YsA68Gn6Qr7bk0H",
+    "locations": [
+      "utils/I18n.lua:25"
+    ]
+  },
+  "自由方向": {
+    "key": "t_Dq1azIW2EIbaog4Y",
+    "locations": [
+      "utils/I18n.lua:26"
+    ]
+  },
+  "八向移动": {
+    "key": "t_kSYHUI34kcNcszPa",
+    "locations": [
+      "utils/I18n.lua:27"
+    ]
+  },
+  "📊 结算退出": {
+    "key": "t_IbQhdg9XI7dT0cqV",
+    "locations": [
+      "utils/I18n.lua:33"
+    ]
+  },
+  "倒下了": {
+    "key": "t_13PIt8RAM13DM7RQCc",
+    "locations": [
+      "ui/HUD.lua:1344",
+      "utils/I18n.lua:37"
+    ]
+  },
+  "本局获得图腾": {
+    "key": "t_XoSfgn7EYHwvTTJU",
+    "locations": [
+      "ui/HUD.lua:1543",
+      "utils/I18n.lua:42"
+    ]
+  },
+  "🎬 看广告复活": {
+    "key": "t_rWMwUAA3rN8wE1wN",
+    "locations": [
+      "ui/HUD.lua:1624"
+    ]
+  },
+  "再来一局！": {
+    "key": "t_j0BAjkjUjVBGzyuC",
+    "locations": [
+      "ui/HUD.lua:1644",
+      "ui/HUD.lua:1666"
+    ]
+  },
+  "通过第 {0} 波后可开启": {
+    "key": "t_lT32qGERlx8paf4Z",
+    "locations": [
+      "ui/RelicShop.lua:97"
+    ]
+  },
+  "当前最高波次：{0} / {1}": {
+    "key": "t_16BMzHpCX16gNF95bx",
+    "locations": [
+      "ui/RelicShop.lua:103"
+    ]
+  },
+  "今日剩余 {0}/10 次": {
+    "key": "t_1DKZ8rL601DCFUlWW8",
+    "locations": [
+      "ui/RelicShop.lua:340"
+    ]
+  },
+  "◀ 返回": {
+    "key": "t_KVjULR1eK2FEYkN0",
+    "locations": [
+      "ui/RelicShop.lua:145",
+      "ui/RelicShop.lua:82",
+      "ui/RuneShop.lua:132",
+      "ui/SkinShop.lua:111",
+      "ui/TotemShop.lua:222",
+      "utils/I18n.lua:72"
+    ]
+  },
+  "遗物商店未解锁": {
+    "key": "t_BAsv69IGAibWqYkq",
+    "locations": [
+      "ui/RelicShop.lua:95"
+    ]
+  },
+  "🛒 遗物商店": {
+    "key": "t_19EtjF4VQ19iO8itkK",
+    "locations": [
+      "ui/RelicShop.lua:151"
+    ]
+  },
+  "升级 ▲": {
+    "key": "t_RAQIj0P3R2POGMiv",
+    "locations": [
+      "ui/RelicShop.lua:312"
+    ]
+  },
+  "📺 观看广告 +500🪙": {
+    "key": "t_tArepFKXtJBRyaqL",
+    "locations": [
+      "ui/RelicShop.lua:348",
+      "utils/I18n.lua:179"
+    ]
+  },
+  "📺 今日广告已达上限": {
+    "key": "t_6Bh3KvX85iChtNSk",
+    "locations": [
+      "ui/RelicShop.lua:356"
+    ]
+  },
+  "明天再来吧 (0/10)": {
+    "key": "t_14YkVWkWn14PDhE5ij",
+    "locations": [
+      "ui/RelicShop.lua:359",
+      "utils/I18n.lua:181"
+    ]
+  },
+  "遗物加成在每局开始时生效 · 金币从局内拾取🪙获得": {
+    "key": "t_1DOF0AN4o1DDCUXDjK",
+    "locations": [
+      "ui/RelicShop.lua:368"
+    ]
+  },
+  "来源: 击败Boss · {0}": {
+    "key": "t_Pdrz6zCPQ9Am3lfJ",
+    "locations": [
+      "ui/RuneShop.lua:348"
+    ]
+  },
+  "🔮 符文管理": {
+    "key": "t_W2V8f1V2W9ucRv16",
+    "locations": [
+      "ui/RuneShop.lua:137",
+      "utils/I18n.lua:96"
+    ]
+  },
+  "已装备": {
+    "key": "t_1H223Zmbg1GuJxhAGe",
+    "locations": [
+      "ui/RuneShop.lua:163",
+      "ui/TotemShop.lua:255",
+      "utils/I18n.lua:75"
+    ]
+  },
+  "符文收藏": {
+    "key": "t_174yIBb7116xYu953P",
+    "locations": [
+      "ui/RuneShop.lua:226",
+      "utils/I18n.lua:97"
+    ]
+  },
+  "🔒 击败对应Boss后有概率掉落": {
+    "key": "t_QnEqNhv0QK37cBfO",
+    "locations": [
+      "utils/I18n.lua:100"
+    ]
+  },
+  "卸下符文": {
+    "key": "t_INS26DVsIVALc8BY",
+    "locations": [
+      "utils/I18n.lua:102"
+    ]
+  },
+  "装备符文": {
+    "key": "t_9jZfXV4L9a2rhTTl",
+    "locations": [
+      "utils/I18n.lua:101"
+    ]
+  },
+  "槽位已满": {
+    "key": "t_WTqLG0j5WxwHB5J5",
+    "locations": [
+      "utils/I18n.lua:166",
+      "utils/I18n.lua:78"
+    ]
+  },
+  "还没有符文，击败Boss有概率掉落": {
+    "key": "t_q0BBOzb7qA0l1Ip7",
+    "locations": [
+      "utils/I18n.lua:103",
+      "utils/I18n.lua:165"
+    ]
+  },
+  "装备成功！": {
+    "key": "t_TDwUk2v1SjEzc7wF",
+    "locations": [
+      "ui/RuneShop.lua:448",
+      "ui/SkinShop.lua:437",
+      "ui/TotemShop.lua:824",
+      "utils/I18n.lua:125"
+    ]
+  },
+  "装备失败": {
+    "key": "t_1EONj3Jna1EYW2i5xO",
+    "locations": [
+      "ui/RuneShop.lua:450",
+      "ui/SkinShop.lua:439"
+    ]
+  },
+  "已卸下符文": {
+    "key": "t_SXdtpZc1SOiaDs0v",
+    "locations": [
+      "ui/RuneShop.lua:456"
+    ]
+  },
+  "最高叠加{0}层": {
+    "key": "t_LDDK13m8Kk1otKpg",
+    "locations": [
+      "ui/SkillSelect.lua:179"
+    ]
+  },
+  "选择一项强化义体": {
+    "key": "t_18JsNQEC8188XHL7CD",
+    "locations": [
+      "utils/I18n.lua:60"
+    ]
+  },
+  "武器": {
+    "key": "t_fU9IAR9Zfg63pFC0",
+    "locations": [
+      "utils/I18n.lua:61"
+    ]
+  },
+  "防御": {
+    "key": "t_8AxshYt68dqnzmxd",
+    "locations": [
+      "utils/I18n.lua:62"
+    ]
+  },
+  "属性": {
+    "key": "t_eMuEH8DteDgOE2i4",
+    "locations": [
+      "utils/I18n.lua:63"
+    ]
+  },
+  "选择你的终极奖励": {
+    "key": "t_4O2WRYH14rX0Ql8Y",
+    "locations": [
+      "utils/I18n.lua:65"
+    ]
+  },
+  "满血 + 无敌": {
+    "key": "t_6LcVsopC6ntvF9ah",
+    "locations": [
+      "utils/I18n.lua:66"
+    ]
+  },
+  "完全恢复HP并获得10秒无敌": {
+    "key": "t_tUwg2zAtt4B7f0LO",
+    "locations": [
+      "utils/I18n.lua:67"
+    ]
+  },
+  "狂暴模式": {
+    "key": "t_1DyZyKsNlOYPjJq",
+    "locations": [
+      "utils/I18n.lua:68"
+    ]
+  },
+  "20秒内攻击力x3": {
+    "key": "t_11e0Px29V119bphhpU",
+    "locations": [
+      "utils/I18n.lua:69"
+    ]
+  },
+  "当前: {0}": {
+    "key": "t_Wqb13WjpWgAAuc6q",
+    "locations": [
+      "ui/SkinShop.lua:213"
+    ]
+  },
+  "📺 看广告免费获取  或  🪙{0}": {
+    "key": "t_1AstWffcA1Aj3x65oR",
+    "locations": [
+      "ui/SkinShop.lua:308"
+    ]
+  },
+  "🪙 {0} 金币": {
+    "key": "t_11sbsfFx7120cmekSK",
+    "locations": [
+      "ui/SkinShop.lua:311"
+    ]
+  },
+  "购买成功！-🪙{0}": {
+    "key": "t_UZUDsHk3U7Ct1NGs",
+    "locations": [
+      "ui/SkinShop.lua:430"
+    ]
+  },
+  "🎨 皮肤商店": {
+    "key": "t_f6Xnp94teeZ5Dq7m",
+    "locations": [
+      "ui/SkinShop.lua:116",
+      "utils/I18n.lua:82"
+    ]
+  },
+  "待机": {
+    "key": "t_PvKIektvPmhpNz9u",
+    "locations": [
+      "ui/SkinShop.lua:208",
+      "utils/I18n.lua:88"
+    ]
+  },
+  "移动": {
+    "key": "t_n6lSsALUmxqAOGVx",
+    "locations": [
+      "ui/SkinShop.lua:208",
+      "utils/I18n.lua:89"
+    ]
+  },
+  "受伤": {
+    "key": "t_lG2Nlv3Bl4OIHmAi",
+    "locations": [
+      "ui/SkinShop.lua:208",
+      "utils/I18n.lua:90"
+    ]
+  },
+  "过载": {
+    "key": "t_EKnmO8BmDsWMxxGt",
+    "locations": [
+      "ui/SkinShop.lua:208",
+      "utils/I18n.lua:91"
+    ]
+  },
+  "护盾": {
+    "key": "t_xvg9oSw3xSBsq566",
+    "locations": [
+      "ui/SkinShop.lua:208",
+      "utils/I18n.lua:92"
+    ]
+  },
+  "默认外观": {
+    "key": "t_sMpUGdaFsrpaP9GM",
+    "locations": [
+      "ui/SkinShop.lua:217",
+      "utils/I18n.lua:83"
+    ]
+  },
+  "恢复默认": {
+    "key": "t_3ssmcfNg4Llcicev",
+    "locations": [
+      "ui/SkinShop.lua:235",
+      "utils/I18n.lua:85"
+    ]
+  },
+  "可用皮肤": {
+    "key": "t_ZPgusUwkZGT0nAP5",
+    "locations": [
+      "ui/SkinShop.lua:255",
+      "utils/I18n.lua:86"
+    ]
+  },
+  "暂无皮肤": {
+    "key": "t_XTZiDfHrXIX7zfPa",
+    "locations": [
+      "ui/SkinShop.lua:268",
+      "utils/I18n.lua:87"
+    ]
+  },
+  "✦ 使用中": {
+    "key": "t_av3rVXOZbQMqtw6Q",
+    "locations": [
+      "ui/SkinShop.lua:310"
+    ]
+  },
+  "✓ 已拥有": {
+    "key": "t_13rUh5lYP140ibAZb6",
+    "locations": [
+      "ui/SkinShop.lua:313",
+      "utils/I18n.lua:77"
+    ]
+  },
+  "装备": {
+    "key": "t_piVfxxCSpH8XDcmv",
+    "locations": [
+      "ui/SkinShop.lua:351",
+      "utils/I18n.lua:158",
+      "utils/I18n.lua:73"
+    ]
+  },
+  "📺 免费": {
+    "key": "t_1BDlnGqJc1BP78kjGD",
+    "locations": [
+      "utils/I18n.lua:170"
+    ]
+  },
+  "已恢复默认外观": {
+    "key": "t_P1NTykSHPW4u4IPw",
+    "locations": [
+      "ui/SkinShop.lua:416"
+    ]
+  },
+  "金币不足": {
+    "key": "t_PPr3bBQHPHEU5EDA",
+    "locations": [
+      "ui/SkinShop.lua:449"
+    ]
+  },
+  "广告解锁成功！": {
+    "key": "t_gvzaWMxggUcR8xPJ",
+    "locations": [
+      "ui/SkinShop.lua:460"
+    ]
+  },
+  "广告未完成": {
+    "key": "t_7223SbPn7D4Q0c8A",
+    "locations": [
+      "ui/SkinShop.lua:462"
+    ]
+  },
+  "开发模式：已解锁": {
+    "key": "t_ifSmG6ZPiVdIPqYs",
+    "locations": [
+      "ui/SkinShop.lua:468"
+    ]
+  },
+  "全部合成完成 ×{0}": {
+    "key": "t_5DK0mQ8Y5MXzIlFj",
+    "locations": [
+      "ui/TotemShop.lua:112"
+    ]
+  },
+  "合成完成 ×{0}": {
+    "key": "t_1F6QOI8JU1FFLTe5Jx",
+    "locations": [
+      "ui/TotemShop.lua:117"
+    ]
+  },
+  "暴击+{0}%": {
+    "key": "t_fsbZPDSTgNbaYflQ",
+    "locations": [
+      "ui/TotemShop.lua:309"
+    ]
+  },
+  "射速+{0}%": {
+    "key": "t_5WvDC6le52pQSI9D",
+    "locations": [
+      "ui/TotemShop.lua:310"
+    ]
+  },
+  "再生+{0}": {
+    "key": "t_xEmIec1ywk4rP2qx",
+    "locations": [
+      "ui/TotemShop.lua:311"
+    ]
+  },
+  "掉落+{0}%": {
+    "key": "t_p7PZ1M70oci7lEu3",
+    "locations": [
+      "ui/TotemShop.lua:312"
+    ]
+  },
+  "品质: {0}": {
+    "key": "t_TQ758tRFTrUA21RM",
+    "locations": [
+      "ui/TotemShop.lua:559"
+    ]
+  },
+  "出售 🪙{0}": {
+    "key": "t_H9JP4pSOHJ8tVvUD",
+    "locations": [
+      "ui/TotemShop.lua:583"
+    ]
+  },
+  "卖垃圾×{0}": {
+    "key": "t_1H3ywdLwq1GsdlzY8D",
+    "locations": [
+      "ui/TotemShop.lua:589"
+    ]
+  },
+  "出售 +🪙{0}": {
+    "key": "t_18hkFz3In199ivIs0O",
+    "locations": [
+      "ui/TotemShop.lua:823"
+    ]
+  },
+  "批量出售 ×{0} +🪙{1}": {
+    "key": "t_iXcqABagii3hz4pT",
+    "locations": [
+      "ui/TotemShop.lua:829"
+    ]
+  },
+  "全部": {
+    "key": "t_17iO3OsFN17ZSjs6TI",
+    "locations": [
+      "utils/I18n.lua:107"
+    ]
+  },
+  "🏺 图腾背包": {
+    "key": "t_121YHvBVL11riiIuPy",
+    "locations": [
+      "ui/TotemShop.lua:227",
+      "utils/I18n.lua:106"
+    ]
+  },
+  "🌀异界天赋": {
+    "key": "t_vZZ0dW3cw3xWOZQX",
+    "locations": [
+      "ui/TotemShop.lua:322"
+    ]
+  },
+  "加成: ": {
+    "key": "t_HIgjZukOH9lZ0dM5",
+    "locations": [
+      "utils/I18n.lua:152"
+    ]
+  },
+  "合成中… 点击可打断": {
+    "key": "t_18qX0C4Bp190xvx5fY",
+    "locations": [
+      "ui/TotemShop.lua:435",
+      "utils/I18n.lua:120"
+    ]
+  },
+  "松手：全部合成": {
+    "key": "t_tRcV2t3TsxpTPXZS",
+    "locations": [
+      "ui/TotemShop.lua:439",
+      "utils/I18n.lua:119"
+    ]
+  },
+  "按住中…": {
+    "key": "t_APL2GVjrAEbQJ75C",
+    "locations": [
+      "ui/TotemShop.lua:439",
+      "utils/I18n.lua:118"
+    ]
+  },
+  "⚡ 一键合成（短按一组|长按全部）": {
+    "key": "t_uVaGduWvuczfFcK8",
+    "locations": [
+      "ui/TotemShop.lua:439"
+    ]
+  },
+  "背包为空\n击败Boss可获得图腾": {
+    "key": "t_dUn2G30TdgjnxbT6",
+    "locations": [
+      "utils/I18n.lua:116",
+      "utils/I18n.lua:161"
+    ]
+  },
+  "该分类下没有图腾": {
+    "key": "t_8U1vSsPz8Knvkqmo",
+    "locations": [
+      "utils/I18n.lua:117"
+    ]
+  },
+  "卸下": {
+    "key": "t_KNcHGdLrKFIfz7As",
+    "locations": [
+      "utils/I18n.lua:157",
+      "utils/I18n.lua:74"
+    ]
+  },
+  "无可合成图腾": {
+    "key": "t_I7Uc1Jm0IbHijmq5",
+    "locations": [
+      "ui/TotemShop.lua:785",
+      "ui/TotemShop.lua:801",
+      "utils/I18n.lua:124"
+    ]
+  },
+  "装备栏已满": {
+    "key": "t_Q8ksO7A1Pe3WKpuS",
+    "locations": [
+      "ui/TotemShop.lua:827",
+      "utils/I18n.lua:126"
+    ]
+  },
+  "已卸下图腾": {
+    "key": "t_d6kI9fdqcz2DtisN",
+    "locations": [
+      "ui/TotemShop.lua:831",
+      "utils/I18n.lua:127"
+    ]
+  },
+  "已打断合成": {
+    "key": "t_15GtsCKvH156ACH75K",
+    "locations": [
+      "ui/TotemShop.lua:881",
+      "ui/TotemShop.lua:892",
+      "utils/I18n.lua:123"
+    ]
+  },
+  "习近平": {
+    "key": "t_fpa1FZX0fKsXDie5",
+    "locations": [
+      "social/Tombstone.lua:14"
+    ]
+  },
+  "毛泽东": {
+    "key": "t_9PFCTgRp9uY94BQA",
+    "locations": [
+      "social/Tombstone.lua:14"
+    ]
+  },
+  "共产党": {
+    "key": "t_j646nHA9jYwy7FRm",
+    "locations": [
+      "social/Tombstone.lua:14"
+    ]
+  },
+  "国民党": {
+    "key": "t_la5NDcP7m4U6YYVW",
+    "locations": [
+      "social/Tombstone.lua:14"
+    ]
+  },
+  "六四": {
+    "key": "t_17neAox1Y17KSSfE27",
+    "locations": [
+      "social/Tombstone.lua:14"
+    ]
+  },
+  "天安门": {
+    "key": "t_18eezAdxl1989JRU6M",
+    "locations": [
+      "social/Tombstone.lua:14"
+    ]
+  },
+  "法轮功": {
+    "key": "t_JS3X2l0CJvXmq7qJ",
+    "locations": [
+      "social/Tombstone.lua:14"
+    ]
+  },
+  "台独": {
+    "key": "t_Gq3QySD3GNAV6bjS",
+    "locations": [
+      "social/Tombstone.lua:14"
+    ]
+  },
+  "藏独": {
+    "key": "t_NV2xvBlaNN1t7fyn",
+    "locations": [
+      "social/Tombstone.lua:15"
+    ]
+  },
+  "疆独": {
+    "key": "t_mYxNBvSbm6g1GI4M",
+    "locations": [
+      "social/Tombstone.lua:15"
+    ]
+  },
+  "文革": {
+    "key": "t_GQCIDZWOGYW5KrkB",
+    "locations": [
+      "social/Tombstone.lua:15"
+    ]
+  },
+  "反共": {
+    "key": "t_YpIernITYMiRSowM",
+    "locations": [
+      "social/Tombstone.lua:15"
+    ]
+  },
+  "反党": {
+    "key": "t_5JPBq9xZ5BONVNio",
+    "locations": [
+      "social/Tombstone.lua:15"
+    ]
+  },
+  "颠覆": {
+    "key": "t_1HtD76inb1HSRdmuJo",
+    "locations": [
+      "social/Tombstone.lua:15"
+    ]
+  },
+  "政变": {
+    "key": "t_P7QIQqZAPZhc7ri7",
+    "locations": [
+      "social/Tombstone.lua:15"
+    ]
+  },
+  "独裁": {
+    "key": "t_wkZpmggfxE47mjuk",
+    "locations": [
+      "social/Tombstone.lua:15"
+    ]
+  },
+  "专制": {
+    "key": "t_qaPvQcVcr3bSCTcd",
+    "locations": [
+      "social/Tombstone.lua:15"
+    ]
+  },
+  "操你": {
+    "key": "t_Qc9KjOp8QQCjuTkj",
+    "locations": [
+      "social/Tombstone.lua:17"
+    ]
+  },
+  "草你": {
+    "key": "t_15hLc16vh15qGjAoI2",
+    "locations": [
+      "social/Tombstone.lua:17"
+    ]
+  },
+  "日你": {
+    "key": "t_Uu2T6qenV23HwgmM",
+    "locations": [
+      "social/Tombstone.lua:17"
+    ]
+  },
+  "他妈": {
+    "key": "t_17x1lxb1i18QW5exRJ",
+    "locations": [
+      "social/Tombstone.lua:18"
+    ]
+  },
+  "妈的": {
+    "key": "t_152aiAcDh15AbX4aCk",
+    "locations": [
+      "social/Tombstone.lua:18"
+    ]
+  },
+  "傻逼": {
+    "key": "t_WRxlgI0bVz4sgvKs",
+    "locations": [
+      "social/Tombstone.lua:18"
+    ]
+  },
+  "煞笔": {
+    "key": "t_IhCys485IG8ft5pq",
+    "locations": [
+      "social/Tombstone.lua:18"
+    ]
+  },
+  "尼玛": {
+    "key": "t_v4pKF5MevEM5EzDT",
+    "locations": [
+      "social/Tombstone.lua:18"
+    ]
+  },
+  "你妈": {
+    "key": "t_DbTCvyyLD7yoaBRK",
+    "locations": [
+      "social/Tombstone.lua:18"
+    ]
+  },
+  "逼": {
+    "key": "t_1HiLPOQi51HYVw0cIs",
+    "locations": [
+      "social/Tombstone.lua:19"
+    ]
+  },
+  "屌": {
+    "key": "t_ZtZbivdza1tMXWXM",
+    "locations": [
+      "social/Tombstone.lua:19"
+    ]
+  },
+  "鸡巴": {
+    "key": "t_3XmWCVI13MRCyBpG",
+    "locations": [
+      "social/Tombstone.lua:19"
+    ]
+  },
+  "阴茎": {
+    "key": "t_XvLBvB7YY64zlOMR",
+    "locations": [
+      "social/Tombstone.lua:19"
+    ]
+  },
+  "阴道": {
+    "key": "t_poZnFCe4pKmZ7e0R",
+    "locations": [
+      "social/Tombstone.lua:19"
+    ]
+  },
+  "性交": {
+    "key": "t_daR8L40ydksEQPNb",
+    "locations": [
+      "social/Tombstone.lua:19"
+    ]
+  },
+  "做爱": {
+    "key": "t_PvobjAGEPmHvNQZt",
+    "locations": [
+      "social/Tombstone.lua:19"
+    ]
+  },
+  "自慰": {
+    "key": "t_hYPpudqIh7eKMUh7",
+    "locations": [
+      "social/Tombstone.lua:19"
+    ]
+  },
+  "杀人": {
+    "key": "t_F48q7IkSFZRouAv9",
+    "locations": [
+      "social/Tombstone.lua:21"
+    ]
+  },
+  "自杀": {
+    "key": "t_bTqiQWJGbxLBmFYj",
+    "locations": [
+      "social/Tombstone.lua:21"
+    ]
+  },
+  "去死": {
+    "key": "t_8S0d71198IBDlzcC",
+    "locations": [
+      "social/Tombstone.lua:21"
+    ]
+  },
+  "弄死": {
+    "key": "t_gpPPotaFggBRp9no",
+    "locations": [
+      "social/Tombstone.lua:21"
+    ]
+  },
+  "砍死": {
+    "key": "t_Ig4MLEjdICa2ZBwI",
+    "locations": [
+      "social/Tombstone.lua:21"
+    ]
+  },
+  "打死": {
+    "key": "t_6D8iTbJw5llcSW1H",
+    "locations": [
+      "social/Tombstone.lua:21"
+    ]
+  },
+  "毒死": {
+    "key": "t_ZLAdc28uZBLEnj0p",
+    "locations": [
+      "social/Tombstone.lua:21"
+    ]
+  },
+  "智障": {
+    "key": "t_17SrtOJCO17twGusmx",
+    "locations": [
+      "social/Tombstone.lua:23"
+    ]
+  },
+  "弱智": {
+    "key": "t_yH94lW32y7cJH5sx",
+    "locations": [
+      "social/Tombstone.lua:23"
+    ]
+  },
+  "脑残": {
+    "key": "t_1F13JcsX71FBBXbI8I",
+    "locations": [
+      "social/Tombstone.lua:23"
+    ]
+  },
+  "废物": {
+    "key": "t_AoKGc53tB0GuLOsk",
+    "locations": [
+      "social/Tombstone.lua:23"
+    ]
+  },
+  "垃圾人": {
+    "key": "t_1DWuIgAVp1D4d3UFKE",
+    "locations": [
+      "social/Tombstone.lua:23"
+    ]
+  },
+  "人渣": {
+    "key": "t_vGJKbX32v7gwTd8J",
+    "locations": [
+      "social/Tombstone.lua:23"
+    ]
+  },
+  "畜生": {
+    "key": "t_JutIdyHTJSbqSttk",
+    "locations": [
+      "social/Tombstone.lua:23"
+    ]
+  },
+  "贱人": {
+    "key": "t_dLrqeDJ9dpexskiu",
+    "locations": [
+      "social/Tombstone.lua:23"
+    ]
+  },
+  "加微信": {
+    "key": "t_QQOF36CBQc2Ey04K",
+    "locations": [
+      "social/Tombstone.lua:25"
+    ]
+  },
+  "加qq": {
+    "key": "t_cMSNvmLqcTrjkNob",
+    "locations": [
+      "social/Tombstone.lua:25"
+    ]
+  },
+  "私聊": {
+    "key": "t_V1ySR73YUtxbrTdX",
+    "locations": [
+      "social/Tombstone.lua:25"
+    ]
+  },
+  "免费领": {
+    "key": "t_dOWqaMw5driO1kqU",
+    "locations": [
+      "social/Tombstone.lua:25"
+    ]
+  },
+  "扫码": {
+    "key": "t_y8U5vYu8yGCJ97Tz",
+    "locations": [
+      "social/Tombstone.lua:25"
+    ]
+  },
+  "代练": {
+    "key": "t_YB4NMhHjY01tKxc8",
+    "locations": [
+      "social/Tombstone.lua:25"
+    ]
+  },
+  "外挂": {
+    "key": "t_14ZmSk6wu14O8VlX19",
+    "locations": [
+      "social/Tombstone.lua:25"
+    ]
+  },
+  "开挂": {
+    "key": "t_JHdfLLjRIqGa04n4",
+    "locations": [
+      "social/Tombstone.lua:25"
+    ]
+  },
+  "中文": {
+    "key": "t_meRp2WDYmAemLHpn",
+    "locations": [
+      "utils/I18n.lua:13"
+    ]
+  },
+  "继续游戏": {
+    "key": "t_kRSYWRO9kdPGEOzq",
+    "locations": [
+      "utils/I18n.lua:19"
+    ]
+  },
+  "✨ 辉光效果": {
+    "key": "t_WDuu2q24W3BEisIR",
+    "locations": [
+      "utils/I18n.lua:28"
+    ]
+  },
+  "关闭": {
+    "key": "t_I5vwsD2LHc8jJp3y",
+    "locations": [
+      "utils/I18n.lua:30"
+    ]
+  },
+  "开启": {
+    "key": "t_b34hR2NgbDVgdsUF",
+    "locations": [
+      "utils/I18n.lua:31"
+    ]
+  },
+  "🌐 语言": {
+    "key": "t_OOQq3BRtOtjgM1ak",
+    "locations": [
+      "utils/I18n.lua:32"
+    ]
+  },
+  "存活时间": {
+    "key": "t_10tVcWLqM10jNX5rDh",
+    "locations": [
+      "ui/HUD.lua:1427",
+      "utils/I18n.lua:38"
+    ]
+  },
+  "击杀数": {
+    "key": "t_uhbkptSduCbhzXxc",
+    "locations": [
+      "ui/HUD.lua:1428",
+      "utils/I18n.lua:39"
+    ]
+  },
+  "到达等级": {
+    "key": "t_j5omzl6PjZ0I3kmk",
+    "locations": [
+      "ui/HUD.lua:1429",
+      "utils/I18n.lua:40"
+    ]
+  },
+  "到达波次": {
+    "key": "t_10shi0K2I10kO1d0HR",
+    "locations": [
+      "ui/HUD.lua:1430",
+      "utils/I18n.lua:41"
+    ]
+  },
+  "已解锁": {
+    "key": "t_1BPLbiDYQ1BDOovfSn",
+    "locations": [
+      "utils/I18n.lua:48"
+    ]
+  },
+  "本地 W": {
+    "key": "t_Q6G6F2d2PbrKdK1L",
+    "locations": [
+      "utils/I18n.lua:49"
+    ]
+  },
+  "就这个": {
+    "key": "t_mdmxX7uEmBVdpphV",
+    "locations": [
+      "utils/I18n.lua:53"
+    ]
+  },
+  "随机": {
+    "key": "t_Zq536ho2a0W6Jran",
+    "locations": [
+      "utils/I18n.lua:54"
+    ]
+  },
+  "自定义": {
+    "key": "t_Zzu2O8ooZqfxVeKH",
+    "locations": [
+      "utils/I18n.lua:55"
+    ]
+  },
+  "最高叠加": {
+    "key": "t_16kviPNx717CbRi9Bi",
+    "locations": [
+      "utils/I18n.lua:64"
+    ]
+  },
+  "出售": {
+    "key": "t_1EgXGLoFN1EBX1cWL0",
+    "locations": [
+      "utils/I18n.lua:128",
+      "utils/I18n.lua:76"
+    ]
+  },
+  "当前:": {
+    "key": "t_1DZa95u3I1E2ltWQ6F",
+    "locations": [
+      "utils/I18n.lua:84"
+    ]
+  },
+  "看广告免费获取": {
+    "key": "t_1E6G9RrIs1DaxOHk3d",
+    "locations": [
+      "utils/I18n.lua:93"
+    ]
+  },
+  "来源:": {
+    "key": "t_2kzjCmem2tux6Rg7",
+    "locations": [
+      "utils/I18n.lua:98"
+    ]
+  },
+  "击败Boss · ": {
+    "key": "t_nEtLhgPBmknYsUB4",
+    "locations": [
+      "utils/I18n.lua:99"
+    ]
+  },
+  "品质:": {
+    "key": "t_lTh8L9AulwZzfONL",
+    "locations": [
+      "utils/I18n.lua:112"
+    ]
+  },
+  "卖垃圾": {
+    "key": "t_1BesjYCko1BCIWgEOn",
+    "locations": [
+      "utils/I18n.lua:113"
+    ]
+  },
+  "加成:": {
+    "key": "t_oFJLggO9oP8kQKD8",
+    "locations": [
+      "utils/I18n.lua:114"
+    ]
+  },
+  "合成完成": {
+    "key": "t_zNDMBk5tzWRPIF2A",
+    "locations": [
+      "utils/I18n.lua:121"
+    ]
+  },
+  "全部合成完成": {
+    "key": "t_yezpMlkhz8n2sxKm",
+    "locations": [
+      "utils/I18n.lua:122"
+    ]
+  },
+  "批量出售": {
+    "key": "t_IK9JwkCtITfvrTui",
+    "locations": [
+      "utils/I18n.lua:129"
+    ]
+  },
+  "暴击+": {
+    "key": "t_qZZ5hjsOr4ZJnQBz",
+    "locations": [
+      "utils/I18n.lua:132"
+    ]
+  },
+  "射速+": {
+    "key": "t_YgD9xyphYVmBMnuE",
+    "locations": [
+      "utils/I18n.lua:133"
+    ]
+  },
+  "再生+": {
+    "key": "t_7NTaWfaw6wP6eKdN",
+    "locations": [
+      "utils/I18n.lua:134"
+    ]
+  },
+  "掉落+": {
+    "key": "t_zHa3EJy5zlfq12Eo",
+    "locations": [
+      "utils/I18n.lua:135"
+    ]
+  },
+  "✏️ 留下你的遗言（点击输入）": {
+    "key": "t_h18I4lMmgZ9YHro7",
+    "locations": [
+      "utils/I18n.lua:281"
+    ]
+  },
+  "写点什么吧…": {
+    "key": "t_h76ayHpNhZ5Bdor4",
+    "locations": [
+      "utils/I18n.lua:282"
+    ]
+  },
+  "通关第{0}波解锁": {
+    "key": "t_10x3OB36h10WHxQzvF",
+    "locations": [
+      "SaveData.lua:714"
+    ]
+  },
+  "当前最高：第{0}波": {
+    "key": "t_juhDuQ7cjlANS2Pi",
+    "locations": [
+      "main.lua:2531"
+    ]
+  },
+  "🔒 需通关第{0}波": {
+    "key": "t_JGORJjDrImtt3s73",
+    "locations": [
+      "main.lua:2576"
+    ]
+  },
+  "简单": {
+    "key": "t_13EmeWipX13O0VYTv6",
+    "locations": [
+      "Config.lua:131"
+    ]
+  },
+  "敌人较弱，适合新手": {
+    "key": "t_14XVn04Gh14LYu7ilk",
+    "locations": [
+      "Config.lua:131"
+    ]
+  },
+  "标准难度，均衡体验": {
+    "key": "t_16KTZSaVC16SUfUvfR",
+    "locations": [
+      "Config.lua:137"
+    ]
+  },
+  "困难": {
+    "key": "t_6fYcxXHu6TuUycy1",
+    "locations": [
+      "Config.lua:143"
+    ]
+  },
+  "敌人凶猛，经验丰富": {
+    "key": "t_8rWK8jjm9MWfnr8z",
+    "locations": [
+      "Config.lua:143"
+    ]
+  },
+  "噩梦": {
+    "key": "t_HlHadIW0HwcbUK9L",
+    "locations": [
+      "Config.lua:149"
+    ]
+  },
+  "极限挑战，噩梦降临": {
+    "key": "t_esEcYGR7f2fQsGig",
+    "locations": [
+      "Config.lua:149"
+    ]
+  },
+  "难度选择": {
+    "key": "t_v471DpqovF9ajtT3",
+    "locations": [
+      "utils/I18n.lua:209",
+      "utils/I18n.lua:275"
+    ]
+  },
+  "初露锋芒": {
+    "key": "t_1GpHvl3nd1HGxi0qhm",
+    "locations": [
+      "Achievement.lua:71"
+    ]
+  },
+  "到达第10波": {
+    "key": "t_zCyiSR4Uzglh1nQ9",
+    "locations": [
+      "Achievement.lua:72"
+    ]
+  },
+  "身经百战": {
+    "key": "t_RtNTuhepRidYYmXE",
+    "locations": [
+      "Achievement.lua:78"
+    ]
+  },
+  "到达第20波": {
+    "key": "t_YvDmjVVeYQWYTukX",
+    "locations": [
+      "Achievement.lua:79"
+    ]
+  },
+  "战场老兵": {
+    "key": "t_dJQtqOMacr9PZ7tb",
+    "locations": [
+      "Achievement.lua:85"
+    ]
+  },
+  "到达第30波": {
+    "key": "t_10yxoOrRF10UGdVBmg",
+    "locations": [
+      "Achievement.lua:86"
+    ]
+  },
+  "传奇幸存者": {
+    "key": "t_10XNMO2zN110rXhqSs",
+    "locations": [
+      "Achievement.lua:92"
+    ]
+  },
+  "到达第50波": {
+    "key": "t_ELA2SaR7DsHKxFtC",
+    "locations": [
+      "Achievement.lua:93"
+    ]
+  },
+  "初窥门径": {
+    "key": "t_G7Bs3tGOFbtAk0C7",
+    "locations": [
+      "Achievement.lua:100"
+    ]
+  },
+  "单局击杀100个敌人": {
+    "key": "t_AKbsJgvgA9s2bZcJ",
+    "locations": [
+      "Achievement.lua:101"
+    ]
+  },
+  "杀戮机器": {
+    "key": "t_TAJCckzTT1NsXc64",
+    "locations": [
+      "Achievement.lua:107"
+    ]
+  },
+  "单局击杀500个敌人": {
+    "key": "t_10VmWMlAn10xSWRLsQ",
+    "locations": [
+      "Achievement.lua:108"
+    ]
+  },
+  "万夫莫敌": {
+    "key": "t_fTCpOHlGfcQe8EqL",
+    "locations": [
+      "Achievement.lua:114"
+    ]
+  },
+  "单局击杀1000个敌人": {
+    "key": "t_15vYp6O5T15SNM7UIK",
+    "locations": [
+      "Achievement.lua:115"
+    ]
+  },
+  "小有所成": {
+    "key": "t_3dupwgFX3Bdba2GG",
+    "locations": [
+      "Achievement.lua:122"
+    ]
+  },
+  "单局达到10级": {
+    "key": "t_xiq53jDnI5FpkC",
+    "locations": [
+      "Achievement.lua:123"
+    ]
+  },
+  "实力非凡": {
+    "key": "t_zpgbakWk10JTtTumj",
+    "locations": [
+      "Achievement.lua:129"
+    ]
+  },
+  "单局达到20级": {
+    "key": "t_vjnmJQsavtd6Rmtn",
+    "locations": [
+      "Achievement.lua:130"
+    ]
+  },
+  "登峰造极": {
+    "key": "t_6LoMd7Hh6nU4KDug",
+    "locations": [
+      "Achievement.lua:136"
+    ]
+  },
+  "单局达到30级": {
+    "key": "t_T6EkB9j2KUpVkC",
+    "locations": [
+      "Achievement.lua:137"
+    ]
+  },
+  "硬核玩家": {
+    "key": "t_LVgHeswsLh1Mqk7V",
+    "locations": [
+      "Achievement.lua:144"
+    ]
+  },
+  "困难难度到达第10波": {
+    "key": "t_Ao6ubKFDAvWEcS4y",
+    "locations": [
+      "Achievement.lua:145"
+    ]
+  },
+  "噩梦行者": {
+    "key": "t_1AnXbD8Xq1AecHBJN3",
+    "locations": [
+      "Achievement.lua:151"
+    ]
+  },
+  "噩梦难度到达第5波": {
+    "key": "t_1CheuagLQ1CZeA6z5X",
+    "locations": [
+      "Achievement.lua:152"
+    ]
+  },
+  "噩梦征服者": {
+    "key": "t_hsOmYdj7i38cIzYw",
+    "locations": [
+      "Achievement.lua:158"
+    ]
+  },
+  "噩梦难度到达第10波": {
+    "key": "t_SfMvTkuzSCBDjipS",
+    "locations": [
+      "Achievement.lua:159"
+    ]
+  },
+  "精英猎手": {
+    "key": "t_gZAnMhZch19bDs1H",
+    "locations": [
+      "Achievement.lua:166"
+    ]
+  },
+  "累计击杀10个精英怪": {
+    "key": "t_iBnLoeFghjob3wRb",
+    "locations": [
+      "Achievement.lua:167"
+    ]
+  },
+  "精英终结者": {
+    "key": "t_MELYg5h8M3uVy6uz",
+    "locations": [
+      "Achievement.lua:173"
+    ]
+  },
+  "累计击杀50个精英怪": {
+    "key": "t_7AXqVUMN7JA56Ls0",
+    "locations": [
+      "Achievement.lua:174"
+    ]
+  },
+  "屠龙勇士": {
+    "key": "t_1GFxC60Tf1GQzWq39Y",
+    "locations": [
+      "Achievement.lua:181"
+    ]
+  },
+  "击杀第一个Boss": {
+    "key": "t_8O8AdaPe8VXWnmqz",
+    "locations": [
+      "Achievement.lua:182"
+    ]
+  },
+  "Boss终结者": {
+    "key": "t_kvXHCBcWlOj5lict",
+    "locations": [
+      "Achievement.lua:188"
+    ]
+  },
+  "累计击杀10个Boss": {
+    "key": "t_LUi8plChLd1zqcJo",
+    "locations": [
+      "Achievement.lua:189"
+    ]
+  },
+  "小有积蓄": {
+    "key": "t_QBHO2w3ZPgZrKLB8",
+    "locations": [
+      "Achievement.lua:196"
+    ]
+  },
+  "累计获得1000金币": {
+    "key": "t_16U9HgS4Y16IoDOhLN",
+    "locations": [
+      "Achievement.lua:197"
+    ]
+  },
+  "富甲一方": {
+    "key": "t_y86v9SDzyGjEOSKG",
+    "locations": [
+      "Achievement.lua:203"
+    ]
+  },
+  "累计获得10000金币": {
+    "key": "t_13Nb3D4LD13EyU9znk",
+    "locations": [
+      "Achievement.lua:204"
+    ]
+  },
+  "每日打卡": {
+    "key": "t_EGxPeEkFDmrPKeE4",
+    "locations": [
+      "Achievement.lua:211"
+    ]
+  },
+  "完成1次每日挑战": {
+    "key": "t_qhwZ8ZLfqrAbKHma",
+    "locations": [
+      "Achievement.lua:212"
+    ]
+  },
+  "持之以恒": {
+    "key": "t_zcmI3N8szVMlv2M5",
+    "locations": [
+      "Achievement.lua:218"
+    ]
+  },
+  "完成5次每日挑战": {
+    "key": "t_48uOnbrF40tZpfpy",
+    "locations": [
+      "Achievement.lua:219"
+    ]
+  },
+  "全员集合": {
+    "key": "t_EvkXymnkESGI7QJL",
+    "locations": [
+      "Achievement.lua:226"
+    ]
+  },
+  "解锁全部角色": {
+    "key": "t_16F8wZnrm16O3wChbF",
+    "locations": [
+      "Achievement.lua:227"
+    ]
+  },
+  "遗物收藏家": {
+    "key": "t_1D3xYLM921DXka1C8B",
+    "locations": [
+      "Achievement.lua:233"
+    ]
+  },
+  "升级3个不同遗物": {
+    "key": "t_1GZxj766E1G74idxQH",
+    "locations": [
+      "Achievement.lua:234"
+    ]
+  },
+  "闪电突击": {
+    "key": "t_rBLSI4QsrdJrCmUD",
+    "locations": [
+      "Achievement.lua:241"
+    ]
+  },
+  "5分钟内到达第10波": {
+    "key": "t_gXezALS9h2fGLotK",
+    "locations": [
+      "Achievement.lua:242"
+    ]
+  },
+  "初级": {
+    "key": "t_nuvnZ7iMnUA6lMPm",
+    "locations": [
+      "meta/DailyChallenge.lua:241"
+    ]
+  },
+  "中级": {
+    "key": "t_irXME7LhiOLssqdF",
+    "locations": [
+      "meta/DailyChallenge.lua:242"
+    ]
+  },
+  "高级": {
+    "key": "t_4RpWMoqr4sbHb2AD",
+    "locations": [
+      "meta/DailyChallenge.lua:243"
+    ]
+  },
+  "精英": {
+    "key": "t_C4IxymTpCF2ZGEo1",
+    "locations": [
+      "meta/DailyChallenge.lua:244"
+    ]
+  },
+  "大师": {
+    "key": "t_HKtMu8ZDGtDP6BgJ",
+    "locations": [
+      "meta/DailyChallenge.lua:245"
+    ]
+  },
+  "🥇 冠军": {
+    "key": "t_W3lBsIgFWDarM0XH",
+    "locations": [
+      "meta/DailyChallenge.lua:250"
+    ]
+  },
+  "🥈 亚军": {
+    "key": "t_11v8V9GkM1239aFlBW",
+    "locations": [
+      "meta/DailyChallenge.lua:251"
+    ]
+  },
+  "🥉 季军": {
+    "key": "t_2j2CPAeK2r3F5WW0",
+    "locations": [
+      "meta/DailyChallenge.lua:252"
+    ]
+  },
+  "💰 +{0} 金币": {
+    "key": "t_15vo2VTmn15S16FEgr",
+    "locations": [
+      "ui/HUD.lua:1211"
+    ]
+  },
+  "达成: {0}": {
+    "key": "t_8llizoHa9DkYPNs6",
+    "locations": [
+      "ui/HUD.lua:1221"
+    ]
+  },
+  "{0} +{1} 金币": {
+    "key": "t_YyVQPcQbZSuEPa7p",
+    "locations": [
+      "ui/HUD.lua:1228"
+    ]
+  },
+  "🏆 每日挑战奖励": {
+    "key": "t_BKqudehZBo2LiQUT",
+    "locations": [
+      "ui/HUD.lua:1507",
+      "utils/I18n.lua:139"
+    ]
+  },
+  "基础射击": {
+    "key": "t_btH07ko85vXxce",
+    "locations": [
+      "ui/DamageStats.lua:87"
+    ]
+  },
+  "符文效果": {
+    "key": "t_47V3cyQM3xN1Xy2C",
+    "locations": [
+      "ui/DamageStats.lua:89"
+    ]
+  },
+  "总伤害": {
+    "key": "t_n1PwqUyfmthYm6Sx",
+    "locations": [
+      "ui/DamageStats.lua:193"
+    ]
+  },
+  "其他": {
+    "key": "t_j0Ho9h96jUzJKnTG",
+    "locations": [
+      "ui/DamageStats.lua:215"
+    ]
+  },
+  "⚔️ 伤害统计": {
+    "key": "t_8OT2yUii8a6w1D94",
+    "locations": [
+      "ui/HUD.lua:1488"
+    ]
+  },
+  "{0} {1} 共鸣激活!": {
+    "key": "t_Nj9KihdcNDqLhySM",
+    "locations": [
+      "battle/BattleScene.lua:129"
+    ]
+  },
+  "📦 宝箱开启!": {
+    "key": "t_d8Yc3Q0TcxDRStCR",
+    "locations": [
+      "battle/BattleScene.lua:438"
+    ]
+  },
+  "🪙{0} 升级技能": {
+    "key": "t_m6Bjgt8NmZNRvx6P",
+    "locations": [
+      "battle/MapEvent.lua:372"
+    ]
+  },
+  "宝箱守卫": {
+    "key": "t_WwBqodDIWkFDRyis",
+    "locations": [
+      "battle/MapEvent.lua:15"
+    ]
+  },
+  "击杀守卫获得大量金币": {
+    "key": "t_je9MVcM0k6Qg6yWM",
+    "locations": [
+      "battle/MapEvent.lua:17"
+    ]
+  },
+  "治疗泉": {
+    "key": "t_13Dms1rEM13Op6T8Wi",
+    "locations": [
+      "battle/MapEvent.lua:24"
+    ]
+  },
+  "站在泉水中持续回血": {
+    "key": "t_6xqY6wf57R1yBkld",
+    "locations": [
+      "battle/MapEvent.lua:26"
+    ]
+  },
+  "旅行商人": {
+    "key": "t_oA30DEKGoKmxDjL8",
+    "locations": [
+      "battle/MapEvent.lua:33"
+    ]
+  },
+  "花金币购买技能升级": {
+    "key": "t_11sszRImo120IcuiES",
+    "locations": [
+      "battle/MapEvent.lua:35"
+    ]
+  },
+  "毒雾区": {
+    "key": "t_coh6jBordGyYzrYF",
+    "locations": [
+      "battle/MapEvent.lua:42"
+    ]
+  },
+  "站在其中持续掉血": {
+    "key": "t_vWctkzhEw1vYBsLO",
+    "locations": [
+      "battle/MapEvent.lua:44"
+    ]
+  },
+  "加速领域": {
+    "key": "t_Nb0x4zshN7E1FpQH",
+    "locations": [
+      "battle/MapEvent.lua:51"
+    ]
+  },
+  "进入后短暂大幅加速": {
+    "key": "t_zhzZlnL6zGJuzxDm",
+    "locations": [
+      "battle/MapEvent.lua:53"
+    ]
+  },
+  "磁力漩涡": {
+    "key": "t_5Y9hVLMA56TkHVt2",
+    "locations": [
+      "battle/MapEvent.lua:60"
+    ]
+  },
+  "吸取周围所有掉落物": {
+    "key": "t_Wb2eTLNwX5RLVwFu",
+    "locations": [
+      "battle/MapEvent.lua:62"
+    ]
+  },
+  "已售罄": {
+    "key": "t_yjnCsxujyuEPNHa7",
+    "locations": [
+      "battle/MapEvent.lua:380"
+    ]
+  },
+  "✅ 已开启!": {
+    "key": "t_lsz5QwWkllZhQbPI",
+    "locations": [
+      "battle/MapEvent.lua:388"
+    ]
+  },
+  "🪖💊共鸣+{0}": {
+    "key": "t_C09tdEa1CT2ySdkh",
+    "locations": [
+      "battle/RuneResonance.lua:200"
+    ]
+  },
+  "烈焰重生": {
+    "key": "t_KerG9LwcL8eTrBAS",
+    "locations": [
+      "battle/RuneResonance.lua:23"
+    ]
+  },
+  "浴火触发时额外回复20%HP，击杀回血概率翻倍": {
+    "key": "t_dXDpaR08djAc1hWY",
+    "locations": [
+      "battle/RuneResonance.lua:25"
+    ]
+  },
+  "幻影风暴": {
+    "key": "t_zcCNgrNQzRA6zLCk",
+    "locations": [
+      "battle/RuneResonance.lua:35"
+    ]
+  },
+  "影分身也会释放迷你节拍冲击波（50%范围，60%伤害）": {
+    "key": "t_QNOAqTNuQolTw22O",
+    "locations": [
+      "battle/RuneResonance.lua:37"
+    ]
+  },
+  "铁壁医疗": {
+    "key": "t_Yqvxpk3tYPrqDhgJ",
+    "locations": [
+      "battle/RuneResonance.lua:46"
+    ]
+  },
+  "护盾叠满3层时自动回复15%HP，急救冷却-5秒": {
+    "key": "t_apeqCN4RaLGRjscv",
+    "locations": [
+      "battle/RuneResonance.lua:48"
+    ]
+  },
+  "暗影裂变": {
+    "key": "t_XND8JdCqXYY9XstG",
+    "locations": [
+      "battle/RuneResonance.lua:57"
+    ]
+  },
+  "暗影爆发时额外产生裂变弹幕（8颗，每颗60%ATK）": {
+    "key": "t_9rAn2ckp9NgAu3un",
+    "locations": [
+      "battle/RuneResonance.lua:59"
+    ]
+  },
+  "闪电掠夺": {
+    "key": "t_ZMDX1lomZAGiSa5C",
+    "locations": [
+      "battle/RuneResonance.lua:68"
+    ]
+  },
+  "连锁闪电击杀的敌人100%掉落金币，宝箱阈值-5": {
+    "key": "t_14sjYFL0O15KiPDncM",
+    "locations": [
+      "battle/RuneResonance.lua:70"
+    ]
+  },
+  "超频完美": {
+    "key": "t_tgadfuhvu7xzTDA1",
+    "locations": [
+      "battle/RuneResonance.lua:79"
+    ]
+  },
+  "超频期间完美主义伤害加成翻倍，未受伤时间减半触发": {
+    "key": "t_JjCrNMEDJZNSWC4R",
+    "locations": [
+      "battle/RuneResonance.lua:81"
+    ]
+  },
+  "🔥🩸共鸣!": {
+    "key": "t_G0CiwxnxFsnWjWa7",
+    "locations": [
+      "battle/RuneResonance.lua:164"
+    ]
+  },
+  "👁️⚛️暗影裂变!": {
+    "key": "t_qUjaolZFqzjp1mpr",
+    "locations": [
+      "battle/RuneResonance.lua:254"
+    ]
+  },
+  "幸运遗物": {
+    "key": "t_l922AIfAl1cpww4I",
+    "locations": [
+      "meta/RelicSystem.lua:46"
+    ]
+  },
+  "每级掉落物出现率+1%": {
+    "key": "t_ORVEGkuROvIGuIBl",
+    "locations": [
+      "meta/RelicSystem.lua:48"
+    ]
+  },
+  "护甲遗物": {
+    "key": "t_rM5JolMmrXQk1iEM",
+    "locations": [
+      "meta/RelicSystem.lua:53"
+    ]
+  },
+  "每级受伤减免+0.3%": {
+    "key": "t_tAUMhsiOtJiGXIsE",
+    "locations": [
+      "meta/RelicSystem.lua:55"
+    ]
+  },
+  "学识遗物": {
+    "key": "t_URYExFbdU0U54M9j",
+    "locations": [
+      "meta/RelicSystem.lua:60"
+    ]
+  },
+  "每级经验获取+0.3%": {
+    "key": "t_EjB0FwZPEZwo80mX",
+    "locations": [
+      "meta/RelicSystem.lua:62"
+    ]
+  },
+  "磁力遗物": {
+    "key": "t_mlMXIF79nEXxeZvB",
+    "locations": [
+      "meta/RelicSystem.lua:67"
+    ]
+  },
+  "每级拾取范围+1%": {
+    "key": "t_6grE54CW6XKHI5H0",
+    "locations": [
+      "meta/RelicSystem.lua:69"
+    ]
+  },
+  "赛博废墟": {
+    "key": "t_O0r4FBXUOBaXk0w5",
+    "locations": [
+      "battle/MapVariant.lua:16"
+    ]
+  },
+  "废弃终端": {
+    "key": "t_CZrPh7W4D3xF9ghV",
+    "locations": [
+      "battle/MapVariant.lua:31"
+    ]
+  },
+  "信号塔": {
+    "key": "t_5o7rkQC75w8bjTte",
+    "locations": [
+      "battle/MapVariant.lua:32"
+    ]
+  },
+  "翡翠草原": {
+    "key": "t_1E62CeA1W1DbKc9AHf",
+    "locations": [
+      "battle/MapVariant.lua:50"
+    ]
+  },
+  "大树": {
+    "key": "t_DjzdVtMIEEzgLj7T",
+    "locations": [
+      "battle/MapVariant.lua:64"
+    ]
+  },
+  "岩石": {
+    "key": "t_1yD4inlr2R5tXRhy",
+    "locations": [
+      "battle/MapVariant.lua:65"
+    ]
+  },
+  "幽暗洞穴": {
+    "key": "t_ntPJNcJ8nQpQUTdT",
+    "locations": [
+      "battle/MapVariant.lua:83"
+    ]
+  },
+  "石柱": {
+    "key": "t_CNpTCH7nBvXrOjlm",
+    "locations": [
+      "battle/MapVariant.lua:97"
+    ]
+  },
+  "矿车": {
+    "key": "t_SoyDO5FxTHrAy2ls",
+    "locations": [
+      "battle/MapVariant.lua:98"
+    ]
+  },
+  "天空浮岛": {
+    "key": "t_h7TrNG0ThYYAMouC",
+    "locations": [
+      "battle/MapVariant.lua:116"
+    ]
+  },
+  "浮岩": {
+    "key": "t_klcximzkkJLVHoLV",
+    "locations": [
+      "battle/MapVariant.lua:130"
+    ]
+  },
+  "气旋": {
+    "key": "t_HjohiCxdHtLM53fU",
+    "locations": [
+      "battle/MapVariant.lua:131"
+    ]
+  },
+  "博物学者": {
+    "key": "t_sMi17zjDss0yK9wo",
+    "locations": [
+      "Achievement.lua:249"
+    ]
+  },
+  "图鉴收录10个条目": {
+    "key": "t_a9PzEP3LZh8iGkms",
+    "locations": [
+      "Achievement.lua:250"
+    ]
+  },
+  "百科全书": {
+    "key": "t_Gg4XA9GSGX9Z69s5",
+    "locations": [
+      "Achievement.lua:256"
+    ]
+  },
+  "图鉴收录全部条目": {
+    "key": "t_NjN5d17ROENBM5qe",
+    "locations": [
+      "Achievement.lua:257"
+    ]
+  },
+  "赛季初体验": {
+    "key": "t_1173cUd5h11bkmDK8O",
+    "locations": [
+      "Achievement.lua:264"
+    ]
+  },
+  "完成1次周挑战": {
+    "key": "t_PPTflTKXPHlg12u8",
+    "locations": [
+      "Achievement.lua:265"
+    ]
+  },
+  "赛季全勤": {
+    "key": "t_uUqgHRYaudlg78rR",
+    "locations": [
+      "Achievement.lua:271"
+    ]
+  },
+  "累计完成7次周挑战": {
+    "key": "t_EUxM2maLExqT67oe",
+    "locations": [
+      "Achievement.lua:272"
+    ]
+  },
+  "宝箱猎人": {
+    "key": "t_155WkfNjL15HTgemv4",
+    "locations": [
+      "Achievement.lua:279"
+    ]
+  },
+  "击杀全部守卫开启宝箱": {
+    "key": "t_m8lBUQNambdxkeKh",
+    "locations": [
+      "Achievement.lua:280"
+    ]
+  },
+  "事件达人": {
+    "key": "t_jTPq4poGj1kDkLHp",
+    "locations": [
+      "Achievement.lua:286"
+    ]
+  },
+  "触发全部6种地图事件": {
+    "key": "t_wQjlkdXOwIPpcZaB",
+    "locations": [
+      "Achievement.lua:287"
+    ]
+  },
+  "环游世界": {
+    "key": "t_SKVAIN40SSDPFA2T",
+    "locations": [
+      "Achievement.lua:294"
+    ]
+  },
+  "在全部4种地图中通关": {
+    "key": "t_1ACac7gle1A4sDaNbb",
+    "locations": [
+      "Achievement.lua:295"
+    ]
+  },
+  "共鸣初现": {
+    "key": "t_197pjbbb118ewv9Xbi",
+    "locations": [
+      "Achievement.lua:302"
+    ]
+  },
+  "首次激活符文共鸣": {
+    "key": "t_12DKFXc9S11kkKszlH",
+    "locations": [
+      "Achievement.lua:303"
+    ]
+  },
+  "共鸣大师": {
+    "key": "t_41xYF21y4Ch1gt67",
+    "locations": [
+      "Achievement.lua:309"
+    ]
+  },
+  "激活全部6种符文共鸣": {
+    "key": "t_jUTWT7Q4j0gROW6r",
+    "locations": [
+      "Achievement.lua:310"
+    ]
+  },
+  "治疗无效!": {
+    "key": "t_eq23pf1Nf0ABTOQu",
+    "locations": [
+      "battle/BattleScene.lua:215"
+    ]
+  },
+  "🎰 轮盘!": {
+    "key": "t_1D06pxFK81DRmtaXIP",
+    "locations": [
+      "battle/BattleScene.lua:842",
+      "battle/BattleScene.lua:983"
+    ]
+  },
+  "{0}/{1} 已发现": {
+    "key": "t_UMlOnlq6UF3RwLa3",
+    "locations": [
+      "main.lua:1866"
+    ]
+  },
+  "今日: {0} {1}": {
+    "key": "t_ZwE3VfpvZkscpg1a",
+    "locations": [
+      "main.lua:1922"
+    ]
+  },
+  "剩余 {0} 天": {
+    "key": "t_1FDAwoVcb1F3wkUIq8",
+    "locations": [
+      "main.lua:1926"
+    ]
+  },
+  "{0} 积分 · {1}": {
+    "key": "t_19SYoHUsj19eVmKlpM",
+    "locations": [
+      "main.lua:1926"
+    ]
+  },
+  "图鉴收集册": {
+    "key": "t_BdyeY04KBUkbW9uz",
+    "locations": [
+      "utils/I18n.lua:252"
+    ]
+  },
+  "收集所有敌人·Boss·技能·符文·图腾·地图": {
+    "key": "t_94TcHtNl8uwhia9Q",
+    "locations": [
+      "utils/I18n.lua:197"
+    ]
+  },
+  "周挑战赛季": {
+    "key": "t_dlVGqguRdZrUiRjy",
+    "locations": [
+      "utils/I18n.lua:255"
+    ]
+  },
+  "最后一天": {
+    "key": "t_M9Ct8OlBMIjpWjLc",
+    "locations": [
+      "main.lua:1988"
+    ]
+  },
+  "技能: {0}": {
+    "key": "t_s6K6H2NfrxhtNvi2",
+    "locations": [
+      "meta/Codex.lua:82"
+    ]
+  },
+  "障碍: {0}": {
+    "key": "t_LFCsnOCvLizvPOJ2",
+    "locations": [
+      "meta/Codex.lua:151"
+    ]
+  },
+  "📖 图鉴发现: {0} {1}": {
+    "key": "t_uJDbvEAiukaTkMrt",
+    "locations": [
+      "meta/Codex.lua:471"
+    ]
+  },
+  "{0} / {1} 已发现": {
+    "key": "t_3VxYBzej3OF7Kauq",
+    "locations": [
+      "meta/Codex.lua:521"
+    ]
+  },
+  "最基础的敌人，数量众多": {
+    "key": "t_OJUUM0WBNsiyjBLi",
+    "locations": [
+      "meta/Codex.lua:46"
+    ]
+  },
+  "移速极快，血量较低": {
+    "key": "t_MikHtIZDMtmxgq3m",
+    "locations": [
+      "meta/Codex.lua:47"
+    ]
+  },
+  "血量极高，移速缓慢": {
+    "key": "t_9ujJsRYp9TxlWVNe",
+    "locations": [
+      "meta/Codex.lua:48"
+    ]
+  },
+  "大量出现的小型单位": {
+    "key": "t_fT998lAnfcNKsfRM",
+    "locations": [
+      "meta/Codex.lua:49"
+    ]
+  },
+  "会向玩家冲锋突进": {
+    "key": "t_15NbLTlhE14uPfcSif",
+    "locations": [
+      "meta/Codex.lua:50"
+    ]
+  },
+  "半透明，可穿越障碍": {
+    "key": "t_8f2p60Ac89k17Flv",
+    "locations": [
+      "meta/Codex.lua:51"
+    ]
+  },
+  "召唤其他敌人的施法者": {
+    "key": "t_17mKKkwpf17aNW9w18",
+    "locations": [
+      "meta/Codex.lua:52"
+    ]
+  },
+  "远距离攻击的射手": {
+    "key": "t_175Y7A9eO16wvQkDUf",
+    "locations": [
+      "meta/Codex.lua:53"
+    ]
+  },
+  "带有随机强化词缀的精英": {
+    "key": "t_R4D0MC1ZRDQkmTsK",
+    "locations": [
+      "meta/Codex.lua:54"
+    ]
+  },
+  "敌人": {
+    "key": "t_TqzchnKMTLgmvxhP",
+    "locations": [
+      "meta/Codex.lua:67"
+    ]
+  },
+  "技能": {
+    "key": "t_JodST2xoJdbBekWv",
+    "locations": [
+      "meta/Codex.lua:101"
+    ]
+  },
+  "符文": {
+    "key": "t_Z3kQeDDGZXXVa1tn",
+    "locations": [
+      "meta/Codex.lua:117"
+    ]
+  },
+  "图腾": {
+    "key": "t_glh0mwH6gtPIinHF",
+    "locations": [
+      "meta/Codex.lua:135",
+      "meta/TotemSystem.lua:246"
+    ]
+  },
+  "无障碍物": {
+    "key": "t_9Ms5i53E9sBBMdUn",
+    "locations": [
+      "meta/Codex.lua:151"
+    ]
+  },
+  "地图": {
+    "key": "t_UkHedlWIVBeWWCPD",
+    "locations": [
+      "meta/Codex.lua:155"
+    ]
+  },
+  "📖 图鉴收集册": {
+    "key": "t_19Ja0S77M19nMuB2sr",
+    "locations": [
+      "meta/Codex.lua:515"
+    ]
+  },
+  "尚未发现": {
+    "key": "t_1009wXf2m108maY1DR",
+    "locations": [
+      "meta/Codex.lua:667"
+    ]
+  },
+  "赛季剩余 {0} 天": {
+    "key": "t_3K7b4AXn3VSZpykk",
+    "locations": [
+      "meta/WeeklyChallenge.lua:150"
+    ]
+  },
+  "赛季积分: {0}": {
+    "key": "t_DdK62xfiDB2mKGvz",
+    "locations": [
+      "meta/WeeklyChallenge.lua:444"
+    ]
+  },
+  "下一奖励: {0} {1}": {
+    "key": "t_jf78wlLYkAPygg7F",
+    "locations": [
+      "meta/WeeklyChallenge.lua:480"
+    ]
+  },
+  " (还需 {0} 积分)": {
+    "key": "t_JyqTTtCBMdic4t",
+    "locations": [
+      "meta/WeeklyChallenge.lua:481"
+    ]
+  },
+  "{0} {1} ({2}积分)": {
+    "key": "t_QONrFLnnQZ7TdIH8",
+    "locations": [
+      "meta/WeeklyChallenge.lua:568"
+    ]
+  },
+  "📦 上赛季奖励: {0} 金币": {
+    "key": "t_WPZ4hBsNVwNDORfO",
+    "locations": [
+      "meta/WeeklyChallenge.lua:593"
+    ]
+  },
+  "极速狂潮": {
+    "key": "t_Sb8Ebg3SS6jnPhjH",
+    "locations": [
+      "meta/WeeklyChallenge.lua:34"
+    ]
+  },
+  "一切加速！敌人更快，玩家也更快": {
+    "key": "t_1H27zMulI1GuPqbzLd",
+    "locations": [
+      "meta/WeeklyChallenge.lua:36"
+    ]
+  },
+  "玻璃大炮": {
+    "key": "t_MenOW3C3Mo1RkoIc",
+    "locations": [
+      "meta/WeeklyChallenge.lua:42"
+    ]
+  },
+  "攻击力×3，但生命值只有1点": {
+    "key": "t_rRg6IdstrI9CEOpW",
+    "locations": [
+      "meta/WeeklyChallenge.lua:44"
+    ]
+  },
+  "虫潮来袭": {
+    "key": "t_12XLGWWuO12gGPMASb",
+    "locations": [
+      "meta/WeeklyChallenge.lua:50"
+    ]
+  },
+  "敌怪数量×3，但经验值也×2": {
+    "key": "t_Mus3qgbgMmYA0mjV",
+    "locations": [
+      "meta/WeeklyChallenge.lua:52"
+    ]
+  },
+  "Boss连战": {
+    "key": "t_jA3v1GEojL6dDIax",
+    "locations": [
+      "meta/WeeklyChallenge.lua:58"
+    ]
+  },
+  "每2波出Boss，Boss血量减半": {
+    "key": "t_z6yvWfMvybyaXvLA",
+    "locations": [
+      "meta/WeeklyChallenge.lua:60"
+    ]
+  },
+  "铁人模式": {
+    "key": "t_RGBj8C71R6MBERsk",
+    "locations": [
+      "meta/WeeklyChallenge.lua:66"
+    ]
+  },
+  "红心掉落全部变为经验宝石": {
+    "key": "t_W1oV217nWAR8x9Eg",
+    "locations": [
+      "meta/WeeklyChallenge.lua:68"
+    ]
+  },
+  "宝箱雨": {
+    "key": "t_q9tOI5Fgq0Mjcr7d",
+    "locations": [
+      "meta/WeeklyChallenge.lua:74"
+    ]
+  },
+  "掉落率×4，但敌怪攻击力×2": {
+    "key": "t_bnlza5GZbdL7DFc2",
+    "locations": [
+      "meta/WeeklyChallenge.lua:76"
+    ]
+  },
+  "命运轮盘": {
+    "key": "t_Q0xnIUMrPqpobxhk",
+    "locations": [
+      "meta/WeeklyChallenge.lua:82"
+    ]
+  },
+  "每升级随机正负效果，波次奖励×2": {
+    "key": "t_12QhmanZn12rmE6qw6",
+    "locations": [
+      "meta/WeeklyChallenge.lua:84"
+    ]
+  },
+  "新手冒险者": {
+    "key": "t_iRoEo93pissncGEO",
+    "locations": [
+      "meta/WeeklyChallenge.lua:96"
+    ]
+  },
+  "勇敢战士": {
+    "key": "t_1BPaKD1IH1BIAn0GsG",
+    "locations": [
+      "meta/WeeklyChallenge.lua:97"
+    ]
+  },
+  "精英挑战者": {
+    "key": "t_2PiKF2ps1v1207Jd",
+    "locations": [
+      "meta/WeeklyChallenge.lua:98"
+    ]
+  },
+  "赛季之星": {
+    "key": "t_1Dw0vdc0q1DlH7kN8j",
+    "locations": [
+      "meta/WeeklyChallenge.lua:99"
+    ]
+  },
+  "传奇勇者": {
+    "key": "t_1HVpp0FGr1Hfy89oq4",
+    "locations": [
+      "meta/WeeklyChallenge.lua:100"
+    ]
+  },
+  "今天是赛季最后一天！": {
+    "key": "t_T6xx2PoDSv1K0YV6",
+    "locations": [
+      "meta/WeeklyChallenge.lua:150"
+    ]
+  },
+  "周一": {
+    "key": "t_21oEXEwTOy7x3X",
+    "locations": [
+      "meta/WeeklyChallenge.lua:212"
+    ]
+  },
+  "周二": {
+    "key": "t_F9kClazHFKB4ZV5O",
+    "locations": [
+      "meta/WeeklyChallenge.lua:212"
+    ]
+  },
+  "周三": {
+    "key": "t_UAz8BQVOUM1VEt43",
+    "locations": [
+      "meta/WeeklyChallenge.lua:212"
+    ]
+  },
+  "周四": {
+    "key": "t_TAXSUEoxT1Ji3Ojq",
+    "locations": [
+      "meta/WeeklyChallenge.lua:212"
+    ]
+  },
+  "周五": {
+    "key": "t_14redO1RD15LkJULNG",
+    "locations": [
+      "meta/WeeklyChallenge.lua:212"
+    ]
+  },
+  "周六": {
+    "key": "t_bUjqMFaLbwPbldf2",
+    "locations": [
+      "meta/WeeklyChallenge.lua:212"
+    ]
+  },
+  "周日": {
+    "key": "t_S3E4DsTcRYpBjNwH",
+    "locations": [
+      "meta/WeeklyChallenge.lua:212"
+    ]
+  },
+  "🏆 周挑战赛季": {
+    "key": "t_ttc0CnGmtkzSxEmf",
+    "locations": [
+      "meta/WeeklyChallenge.lua:439"
+    ]
+  },
+  "🎉 所有赛季奖励已达成！": {
+    "key": "t_zLLhOFgkzmiZ2f9f",
+    "locations": [
+      "meta/WeeklyChallenge.lua:490"
+    ]
+  },
+  "📅 本周日程": {
+    "key": "t_Yij1QTtqYYIGQOM3",
+    "locations": [
+      "meta/WeeklyChallenge.lua:498"
+    ]
+  },
+  "挑战 →": {
+    "key": "t_13E4uauWs13OVoo8a3",
+    "locations": [
+      "meta/WeeklyChallenge.lua:549"
+    ]
+  },
+  "🎁 赛季奖励": {
+    "key": "t_LtD9BPIuMKHYMp1J",
+    "locations": [
+      "meta/WeeklyChallenge.lua:558"
+    ]
+  },
+  "[ 点击领取 ]": {
+    "key": "t_OVv5LbrNOhGW0Dxs",
+    "locations": [
+      "meta/WeeklyChallenge.lua:600"
+    ]
+  },
+  "达到50级": {
+    "key": "t_rHE3uFJQrSZTz3Td",
+    "locations": [
+      "Achievement.lua:38"
+    ]
+  },
+  " 已解锁": {
+    "key": "t_rcMJwRPer7Lx5iy3",
+    "locations": [
+      "Achievement.lua:979"
+    ]
+  },
+  "通关第": {
+    "key": "t_6ZzYCMf56PrYU6bi",
+    "locations": [
+      "SaveData.lua:714"
+    ]
+  },
+  "波解锁": {
+    "key": "t_ChXFN302CrMc5MNb",
+    "locations": [
+      "SaveData.lua:714"
+    ]
+  },
+  " 共鸣激活!": {
+    "key": "t_19u4yf7ZS1ANZaDDJ5",
+    "locations": [
+      "battle/BattleScene.lua:160"
+    ]
+  },
+  " 升级技能": {
+    "key": "t_RADGVVHdR2o14X3Q",
+    "locations": [
+      "battle/MapEvent.lua:376"
+    ]
+  },
+  "👁️暗影x": {
+    "key": "t_19uwrGIPq1AMcV1x8t",
+    "locations": [
+      "battle/RuneEffects.lua:561"
+    ]
+  },
+  "👁️暗影爆发!x": {
+    "key": "t_c78ene7zcZQHNLoU",
+    "locations": [
+      "battle/RuneEffects.lua:598"
+    ]
+  },
+  "🪖💊共鸣+": {
+    "key": "t_VVsNUMa6Vfi1S52t",
+    "locations": [
+      "battle/RuneResonance.lua:200"
+    ]
+  },
+  "最高 Wave ": {
+    "key": "t_mXsBrFRimMEIOVyq",
+    "locations": [
+      "main.lua:1625"
+    ]
+  },
+  "/3 装备 · ": {
+    "key": "t_qQsTWFWzLs0BD6",
+    "locations": [
+      "main.lua:1770"
+    ]
+  },
+  " 持有": {
+    "key": "t_YQQ81MYMYvQ2Njbk",
+    "locations": [
+      "main.lua:1770"
+    ]
+  },
+  "/3 图腾": {
+    "key": "t_1DdvbCgdn1E8KBzNmr",
+    "locations": [
+      "main.lua:1815"
+    ]
+  },
+  " 已收集": {
+    "key": "t_wDg9hGqHwfLpAFHf",
+    "locations": [
+      "main.lua:1854"
+    ]
+  },
+  "装备 ": {
+    "key": "t_DfIbL5UwDDvYIjBA",
+    "locations": [
+      "main.lua:1859"
+    ]
+  },
+  " 符文": {
+    "key": "t_12fLdE3cO12TOq3WOY",
+    "locations": [
+      "main.lua:1868"
+    ]
+  },
+  " 已拥有": {
+    "key": "t_bQxoonzKazIBckyi",
+    "locations": [
+      "main.lua:1891"
+    ]
+  },
+  " 皮肤": {
+    "key": "t_a3mC8ofrZrpNC9EH",
+    "locations": [
+      "main.lua:1902"
+    ]
+  },
+  " 已发现": {
+    "key": "t_P9HEg2gAPJPdG8Cq",
+    "locations": [
+      "meta/Codex.lua:524"
+    ]
+  },
+  "今日: ": {
+    "key": "t_nRkEa5lGnsVkJIkG",
+    "locations": [
+      "main.lua:1983"
+    ]
+  },
+  " 积分 · ": {
+    "key": "t_XP2NJPYeXWkfrHjm",
+    "locations": [
+      "main.lua:1988"
+    ]
+  },
+  "剩余 ": {
+    "key": "t_UwfedpnfUkiiqrtJ",
+    "locations": [
+      "main.lua:1988"
+    ]
+  },
+  " 天": {
+    "key": "t_1rQj2ks01NKdhIP0",
+    "locations": [
+      "meta/WeeklyChallenge.lua:152"
+    ]
+  },
+  "今日挑战 · ": {
+    "key": "t_zyFEUuXP10PJnncyT",
+    "locations": [
+      "main.lua:2117"
+    ]
+  },
+  " · 共 ": {
+    "key": "t_el2LCBnKevTFQic8",
+    "locations": [
+      "main.lua:2124"
+    ]
+  },
+  " 人": {
+    "key": "t_zLZMtDcdzmdlPJNF",
+    "locations": [
+      "main.lua:2124"
+    ]
+  },
+  "加载中": {
+    "key": "t_jCTbQoDZjNVpJoln",
+    "locations": [
+      "utils/I18n.lua:262"
+    ]
+  },
+  " (我)": {
+    "key": "t_5YVYQNza55veVCY0",
+    "locations": [
+      "utils/I18n.lua:269"
+    ]
+  },
+  "加载更多": {
+    "key": "t_QdznZ9oyQTGJS806",
+    "locations": [
+      "utils/I18n.lua:228",
+      "utils/I18n.lua:268"
+    ]
+  },
+  "当前最高：第": {
+    "key": "t_13zaXrahO13ndkaaxU",
+    "locations": [
+      "main.lua:2602"
+    ]
+  },
+  "波": {
+    "key": "t_O8ZJBoFkNz2pgVHu",
+    "locations": [
+      "main.lua:2602",
+      "main.lua:2649"
+    ]
+  },
+  "🔒 需通关第": {
+    "key": "t_6daGPHun6VsA4IZT",
+    "locations": [
+      "main.lua:2649"
+    ]
+  },
+  "技能: ": {
+    "key": "t_16hAvRuXy17BZc7eW8",
+    "locations": [
+      "meta/Codex.lua:82"
+    ]
+  },
+  "障碍: ": {
+    "key": "t_wao6pfQPw8Wgkj3L",
+    "locations": [
+      "meta/Codex.lua:151"
+    ]
+  },
+  "📖 图鉴发现: ": {
+    "key": "t_nBMHYPSImjgVJOWa",
+    "locations": [
+      "meta/Codex.lua:471"
+    ]
+  },
+  "赛季剩余 ": {
+    "key": "t_p7Pemhc9ociA4rSF",
+    "locations": [
+      "meta/WeeklyChallenge.lua:152"
+    ]
+  },
+  "赛季积分: ": {
+    "key": "t_g4XRKigFgGUOC5dJ",
+    "locations": [
+      "meta/WeeklyChallenge.lua:448"
+    ]
+  },
+  "下一奖励: ": {
+    "key": "t_1D3FEfvye1DYFJMbAE",
+    "locations": [
+      "meta/WeeklyChallenge.lua:484"
+    ]
+  },
+  " (还需 ": {
+    "key": "t_1HflKMP3n1HWEPg8lR",
+    "locations": [
+      "meta/WeeklyChallenge.lua:485"
+    ]
+  },
+  " 积分)": {
+    "key": "t_W0TLM0SIWBodCrIu",
+    "locations": [
+      "meta/WeeklyChallenge.lua:485"
+    ]
+  },
+  "积分)": {
+    "key": "t_MwbEAwiiMkxCyv0g",
+    "locations": [
+      "meta/WeeklyChallenge.lua:572"
+    ]
+  },
+  "📦 上赛季奖励: ": {
+    "key": "t_7Jk5B5DJ79uQy6Hn",
+    "locations": [
+      "meta/WeeklyChallenge.lua:597"
+    ]
+  },
+  " 金币": {
+    "key": "t_IGajWv8iISEcQS4w",
+    "locations": [
+      "meta/WeeklyChallenge.lua:597"
+    ]
+  },
+  "存活 ": {
+    "key": "t_xufPxghExTI4BwBW",
+    "locations": [
+      "social/Tombstone.lua:437"
+    ]
+  },
+  "观看广告可获得 ": {
+    "key": "t_GtPhVjG2HKn2thHw",
+    "locations": [
+      "ui/GiftAd.lua:97"
+    ]
+  },
+  "放弃（仅获得 ": {
+    "key": "t_16aXdKfK8167eYEnG2",
+    "locations": [
+      "ui/GiftAd.lua:136"
+    ]
+  },
+  "存活时间  ": {
+    "key": "t_17wbwsQMf18R0VHrnz",
+    "locations": [
+      "ui/HUD.lua:1423"
+    ]
+  },
+  "击杀数    ": {
+    "key": "t_NOMf4Vs6NYUoxrZE",
+    "locations": [
+      "ui/HUD.lua:1424"
+    ]
+  },
+  "到达等级  ": {
+    "key": "t_12BEP2H0A11i2zBJWe",
+    "locations": [
+      "ui/HUD.lua:1425"
+    ]
+  },
+  "到达波次  ": {
+    "key": "t_vTGekVm13mk38Nk",
+    "locations": [
+      "ui/HUD.lua:1426"
+    ]
+  },
+  "达成: ": {
+    "key": "t_sWFHOUDssdeu1tHq",
+    "locations": [
+      "ui/HUD.lua:1523"
+    ]
+  },
+  "点击屏幕": {
+    "key": "t_l3VFmAU7lC7vOgLp",
+    "locations": [
+      "ui/HUD.lua:1437"
+    ]
+  },
+  "通过第 ": {
+    "key": "t_A8XvVoOyAaDZUG2I",
+    "locations": [
+      "ui/RelicShop.lua:99"
+    ]
+  },
+  " 波后可开启": {
+    "key": "t_53qUomct5VpMCN7h",
+    "locations": [
+      "ui/RelicShop.lua:99"
+    ]
+  },
+  "当前最高波次：": {
+    "key": "t_2Z59TDJe313gz16C",
+    "locations": [
+      "ui/RelicShop.lua:106"
+    ]
+  },
+  "今日剩余 ": {
+    "key": "t_ZrT3EeEIZzBRNxy8",
+    "locations": [
+      "ui/RelicShop.lua:351"
+    ]
+  },
+  "/10 次": {
+    "key": "t_rbCCViJpr8c0QCIh",
+    "locations": [
+      "ui/RelicShop.lua:351"
+    ]
+  },
+  "来源: 击败Boss · ": {
+    "key": "t_gfeRchDvgpmsCNz7",
+    "locations": [
+      "ui/RuneShop.lua:352"
+    ]
+  },
+  "层": {
+    "key": "t_sw5jth4ssSIo7Vuy",
+    "locations": [
+      "ui/SkillSelect.lua:186"
+    ]
+  },
+  "当前: ": {
+    "key": "t_NUaqK02fNIe4XFxf",
+    "locations": [
+      "ui/SkinShop.lua:220"
+    ]
+  },
+  "📺 看广告免费获取  或  🪙": {
+    "key": "t_Nb17pR9HN7Dmmxf7",
+    "locations": [
+      "ui/SkinShop.lua:315"
+    ]
+  },
+  "购买成功！-🪙": {
+    "key": "t_qj6pLm4oqv3kowBE",
+    "locations": [
+      "ui/SkinShop.lua:447"
+    ]
+  },
+  "全部合成完成 ×": {
+    "key": "t_gJ8mWQMBfs4Aq2wH",
+    "locations": [
+      "ui/TotemShop.lua:114"
+    ]
+  },
+  "合成完成 ×": {
+    "key": "t_QuPOu3nKRNITLvFE",
+    "locations": [
+      "ui/TotemShop.lua:119"
+    ]
+  },
+  "品质: ": {
+    "key": "t_aaJEp4w6aQmZdsaW",
+    "locations": [
+      "ui/TotemShop.lua:569"
+    ]
+  },
+  "出售 🪙": {
+    "key": "t_8CvBkWNk8giGtaxW",
+    "locations": [
+      "ui/TotemShop.lua:593"
+    ]
+  },
+  "卖垃圾×": {
+    "key": "t_1muqvoMK1IDM9hvO",
+    "locations": [
+      "ui/TotemShop.lua:599"
+    ]
+  },
+  "出售 +🪙": {
+    "key": "t_pwFqHU2kqNcra3Am",
+    "locations": [
+      "ui/TotemShop.lua:838"
+    ]
+  },
+  "批量出售 ×": {
+    "key": "t_hwDgmnRpi4EPCX91",
+    "locations": [
+      "ui/TotemShop.lua:844"
+    ]
+  },
+  "✅ 已解锁全部角色！感谢评价支持": {
+    "key": "t_15lSOptQ315cX1HoV5",
+    "locations": [
+      "utils/I18n.lua:219"
+    ]
+  },
+  "科技加速：子弹更快，攻速提升": {
+    "key": "t_kYAnzrGvkN7dTrqZ",
+    "locations": [
+      "battle/MapVariant.lua:39"
+    ]
+  },
+  "生命涌泉：每秒回复少量生命，敌人移动较慢": {
+    "key": "t_6c0YMZX46SUHqpp6",
+    "locations": [
+      "battle/MapVariant.lua:80"
+    ]
+  },
+  "暗视强化：攻击+15%，但治疗效果减半": {
+    "key": "t_2iNpfw4Z2rcDk72n",
+    "locations": [
+      "battle/MapVariant.lua:122"
+    ]
+  },
+  "羽化：移速+15%，经验+25%，但敌人更强": {
+    "key": "t_dHUScoQbcoI6wVbf",
+    "locations": [
+      "battle/MapVariant.lua:164"
+    ]
+  },
+  "💥 全屏清怪!": {
+    "key": "t_FST13H0zF1PQYodM",
+    "locations": [
+      "battle/BattleScene.lua:616"
+    ]
+  },
+  "数据注射器": {
+    "key": "t_YVfFJKIqYgOGeAhl",
+    "locations": [
+      "battle/SpecialTerrain.lua:27"
+    ]
+  },
+  "⚡ 攻速+20%  25秒": {
+    "key": "t_Sur1gCyMT2FzKg9H",
+    "locations": [
+      "battle/SpecialTerrain.lua:32"
+    ]
+  },
+  "数据宝箱": {
+    "key": "t_1CAWjTUbS1BheYWBND",
+    "locations": [
+      "battle/SpecialTerrain.lua:35"
+    ]
+  },
+  "💾 获得大量经验": {
+    "key": "t_BhcN8h7VBVxzjX8u",
+    "locations": [
+      "battle/SpecialTerrain.lua:40"
+    ]
+  },
+  "激光炮台": {
+    "key": "t_jm7TdRg4jtoyMg1N",
+    "locations": [
+      "battle/SpecialTerrain.lua:43"
+    ]
+  },
+  "🔫 攻击+25%  30秒": {
+    "key": "t_Od35BXFaOogHvTIZ",
+    "locations": [
+      "battle/SpecialTerrain.lua:48"
+    ]
+  },
+  "治愈泉": {
+    "key": "t_174RcT1kB16t5vAtzG",
+    "locations": [
+      "battle/SpecialTerrain.lua:54"
+    ]
+  },
+  "💧 回复60%生命": {
+    "key": "t_5svHp1dt60wdL3Pw",
+    "locations": [
+      "battle/SpecialTerrain.lua:59"
+    ]
+  },
+  "精灵祝福": {
+    "key": "t_e6SD9Vk5eZ1vcVpU",
+    "locations": [
+      "battle/SpecialTerrain.lua:62"
+    ]
+  },
+  "🧚 磁力×3  15秒": {
+    "key": "t_1HCNRY2LB1Gk5fmozo",
+    "locations": [
+      "battle/SpecialTerrain.lua:67"
+    ]
+  },
+  "自然神龛": {
+    "key": "t_9C3KfnMy91vWWqof",
+    "locations": [
+      "battle/SpecialTerrain.lua:70"
+    ]
+  },
+  "🛕 随机技能升级": {
+    "key": "t_udrXvU3KuUx75ubv",
+    "locations": [
+      "battle/SpecialTerrain.lua:75"
+    ]
+  },
+  "古代水晶": {
+    "key": "t_pq2n8SumqK8CMfKD",
+    "locations": [
+      "battle/SpecialTerrain.lua:81"
+    ]
+  },
+  "💎 攻击+25%  40秒": {
+    "key": "t_Pk92YYTzQCRB1gEE",
+    "locations": [
+      "battle/SpecialTerrain.lua:86"
+    ]
+  },
+  "爆炸蘑菇": {
+    "key": "t_iOEbrslZirjSotSe",
+    "locations": [
+      "battle/SpecialTerrain.lua:89"
+    ]
+  },
+  "🍄 全屏清怪！": {
+    "key": "t_4jW3gSXe4at8J2kx",
+    "locations": [
+      "battle/SpecialTerrain.lua:94"
+    ]
+  },
+  "深渊宝藏": {
+    "key": "t_17gxBuiEF17WChkNic",
+    "locations": [
+      "battle/SpecialTerrain.lua:97"
+    ]
+  },
+  "🏺 大量经验+金币": {
+    "key": "t_QLJiv8KUQqd5s4QR",
+    "locations": [
+      "battle/SpecialTerrain.lua:102"
+    ]
+  },
+  "风之祭坛": {
+    "key": "t_2CbwPjCU234SvRtr",
+    "locations": [
+      "battle/SpecialTerrain.lua:108"
+    ]
+  },
+  "🌀 移速+30%  20秒": {
+    "key": "t_m0iW0XbBlZ33UXXw",
+    "locations": [
+      "battle/SpecialTerrain.lua:113"
+    ]
+  },
+  "星辰神殿": {
+    "key": "t_2ScOyIWD21YWJvK8",
+    "locations": [
+      "battle/SpecialTerrain.lua:116"
+    ]
+  },
+  "⭐ 无敌5秒+全屏AOE": {
+    "key": "t_WhzDsgg1WtdfriYO",
+    "locations": [
+      "battle/SpecialTerrain.lua:121"
+    ]
+  },
+  "云端宝箱": {
+    "key": "t_VV4Sb6BxVgQ5Li60",
+    "locations": [
+      "battle/SpecialTerrain.lua:124"
+    ]
+  },
+  "📦 获得大量经验": {
+    "key": "t_eAjXiEqOeLAuVswr",
+    "locations": [
+      "battle/SpecialTerrain.lua:129"
+    ]
+  },
+  "攻击+25%": {
+    "key": "t_1AqSJonhU1AgcSLANZ",
+    "locations": [
+      "battle/SpecialTerrain.lua:578"
+    ]
+  },
+  "移速+30%": {
+    "key": "t_nnf6JlFlnMuGWxoa",
+    "locations": [
+      "battle/SpecialTerrain.lua:581"
+    ]
+  },
+  "攻速+20%": {
+    "key": "t_GNTOl8qWGpjztCA5",
+    "locations": [
+      "battle/SpecialTerrain.lua:584"
+    ]
+  },
+  "磁力×3": {
+    "key": "t_flCdXJlqfKRR0Bmt",
+    "locations": [
+      "battle/SpecialTerrain.lua:587"
+    ]
+  },
+  "⚙️ 性能档位": {
+    "key": "t_w5JKSAV1wZ7EJTZa",
+    "locations": [
+      "utils/I18n.lua:29"
+    ]
+  },
+  "省电": {
+    "key": "t_kVfUk4uPkdzfMepU",
+    "locations": [
+      "utils/PerfQuality.lua:19"
+    ]
+  },
+  "流畅": {
+    "key": "t_quKuDODtqjtAnZxs",
+    "locations": [
+      "utils/PerfQuality.lua:28"
+    ]
+  },
+  "均衡": {
+    "key": "t_XsXXf1B8Y4Bv9dT5",
+    "locations": [
+      "utils/PerfQuality.lua:37"
+    ]
+  },
+  "精致": {
+    "key": "t_1CtQZdWWr1CSfju216",
+    "locations": [
+      "utils/PerfQuality.lua:47"
+    ]
+  },
+  "全量": {
+    "key": "t_13EiCrtbH13NvSoaaI",
+    "locations": [
+      "utils/PerfQuality.lua:57"
+    ]
+  },
+  "每日挑战": {
+    "key": "t_Fuz7A77rG2iTr3xo",
+    "locations": [
+      "utils/I18n.lua:220"
+    ]
+  },
+  "⚔ 武器": {
+    "key": "t_E9aRZ0UWDz8JFoiw",
+    "locations": [
+      "utils/I18n.lua:146"
+    ]
+  },
+  "🛡 防御": {
+    "key": "t_11W0WS2s911MUzAeGR",
+    "locations": [
+      "utils/I18n.lua:147"
+    ]
+  },
+  "✧ 属性": {
+    "key": "t_1EXcRocqD1EP1AnwLD",
+    "locations": [
+      "utils/I18n.lua:148"
+    ]
+  },
+  "最高叠加 ": {
+    "key": "t_11Wz01Wzo11LJr2AbG",
+    "locations": [
+      "ui/SkillSelect.lua:236"
+    ]
+  },
+  " 层": {
+    "key": "t_duuasnH8dQC2KC0q",
+    "locations": [
+      "ui/SkillSelect.lua:236"
+    ]
+  },
+  "💰 +%d 金币": {
+    "key": "t_vMgPNS6VurhRa3js",
+    "locations": [
+      "utils/I18n.lua:138"
+    ]
+  },
+  "达成: %s": {
+    "key": "t_1B445L9P21BYkIbkrP",
+    "locations": [
+      "utils/I18n.lua:140"
+    ]
+  },
+  "最高叠加 %d 层": {
+    "key": "t_Qe7yQpGEQT6gGGvR",
+    "locations": [
+      "utils/I18n.lua:144"
+    ]
+  },
+  "品质: %s": {
+    "key": "t_8mK3z2aS9D6qKq51",
+    "locations": [
+      "utils/I18n.lua:151"
+    ]
+  },
+  "暴击+%d%%": {
+    "key": "t_WVTRq1KUWwDsxId7",
+    "locations": [
+      "utils/I18n.lua:153"
+    ]
+  },
+  "射速+%d%%": {
+    "key": "t_l2dFLMHjlD323fKa",
+    "locations": [
+      "utils/I18n.lua:154"
+    ]
+  },
+  "再生+%.1f%%/s": {
+    "key": "t_REdSyDGkR3H4DeyX",
+    "locations": [
+      "utils/I18n.lua:155"
+    ]
+  },
+  "掉落+%d%%": {
+    "key": "t_G5zOuPUmFd5MM8S3",
+    "locations": [
+      "utils/I18n.lua:156"
+    ]
+  },
+  "出售 🪙%d": {
+    "key": "t_10YksXSay10zVJ6itT",
+    "locations": [
+      "utils/I18n.lua:159"
+    ]
+  },
+  "卖垃圾×%d": {
+    "key": "t_dG1mI6sFcl2nowXY",
+    "locations": [
+      "utils/I18n.lua:160"
+    ]
+  },
+  "来源: 击败Boss · %s": {
+    "key": "t_UWIGAtDIU5VUQRB1",
+    "locations": [
+      "utils/I18n.lua:164"
+    ]
+  },
+  "📺 看广告免费获取  或  🪙%d": {
+    "key": "t_ewZ73iMpeoZKzcNA",
+    "locations": [
+      "utils/I18n.lua:169"
+    ]
+  },
+  "🪙 %d 金币": {
+    "key": "t_kl6fwQLSkJkjTQvx",
+    "locations": [
+      "utils/I18n.lua:171"
+    ]
+  },
+  "观看广告可获得 %d EXP": {
+    "key": "t_Tu3koD11bW4QOq",
+    "locations": [
+      "utils/I18n.lua:175"
+    ]
+  },
+  "放弃（仅获得 %d EXP）": {
+    "key": "t_wRrRQkStwHPIjXxE",
+    "locations": [
+      "utils/I18n.lua:176"
+    ]
+  },
+  "今日剩余 %d/10 次": {
+    "key": "t_1CAvv38jn1Bh9xGdjw",
+    "locations": [
+      "utils/I18n.lua:180"
+    ]
+  },
+  "最高 Wave %d": {
+    "key": "t_GaEeWheNGOGl5vMm",
+    "locations": [
+      "utils/I18n.lua:184"
+    ]
+  },
+  "本地 W%d Lv%d": {
+    "key": "t_3tPPnLEA4L6Rf7ST",
+    "locations": [
+      "utils/I18n.lua:185"
+    ]
+  },
+  "%d/%d 已解锁": {
+    "key": "t_wfxu79bUwD6CoNM3",
+    "locations": [
+      "utils/I18n.lua:186",
+      "utils/I18n.lua:188"
+    ]
+  },
+  "Wave%d 后解锁": {
+    "key": "t_ImNplbs4JGlINEYB",
+    "locations": [
+      "utils/I18n.lua:187"
+    ]
+  },
+  "装备 %d/%d": {
+    "key": "t_14tXhV2ME15OZ0j3zt",
+    "locations": [
+      "utils/I18n.lua:189"
+    ]
+  },
+  "%d/%d 已收集": {
+    "key": "t_2UTZfgLz1zl0j8k4",
+    "locations": [
+      "utils/I18n.lua:190"
+    ]
+  },
+  "%d/%d 符文": {
+    "key": "t_W3zbGgEiWDCNbjtT",
+    "locations": [
+      "utils/I18n.lua:191"
+    ]
+  },
+  "%d/3 装备 · %d 持有": {
+    "key": "t_PqIg1d1mQ1MJyPFB",
+    "locations": [
+      "utils/I18n.lua:192"
+    ]
+  },
+  "%d/3 图腾": {
+    "key": "t_H04Yz3ACHSdVypTz",
+    "locations": [
+      "utils/I18n.lua:193"
+    ]
+  },
+  "%d/%d 已拥有": {
+    "key": "t_PAynA1WxPMdw2Xng",
+    "locations": [
+      "utils/I18n.lua:194"
+    ]
+  },
+  "%d/%d 皮肤": {
+    "key": "t_15CxERSxA155DsHt4Z",
+    "locations": [
+      "utils/I18n.lua:195"
+    ]
+  },
+  "%d/%d 已发现": {
+    "key": "t_13Bch913A13MLEZCxH",
+    "locations": [
+      "utils/I18n.lua:196"
+    ]
+  },
+  "当前最高：第%d波": {
+    "key": "t_11C4hVrsk11gS9vxhl",
+    "locations": [
+      "utils/I18n.lua:198"
+    ]
+  },
+  "🔒 需通关第%d波": {
+    "key": "t_tzRoUHHetozgKiT3",
+    "locations": [
+      "utils/I18n.lua:199"
+    ]
+  },
+  "今日: %s %s": {
+    "key": "t_1DxOsM5V51DonazAHA",
+    "locations": [
+      "utils/I18n.lua:256"
+    ]
+  },
+  "%d 积分 · 剩余 %d 天": {
+    "key": "t_ptlskQWTqLA9sgw2",
+    "locations": [
+      "utils/I18n.lua:257"
+    ]
+  },
+  "%d 积分 · 最后一天": {
+    "key": "t_6oWGyWNR6L0ihuYA",
+    "locations": [
+      "utils/I18n.lua:258"
+    ]
+  },
+  "今日挑战 · %s": {
+    "key": "t_ww8ygxcTx7T1yViw",
+    "locations": [
+      "utils/I18n.lua:266"
+    ]
+  },
+  " · 共 %d 人": {
+    "key": "t_b9AaOjScbHChQTOz",
+    "locations": [
+      "utils/I18n.lua:267"
+    ]
+  },
+  "v2.0 - Emoji幸存者": {
+    "key": "t_10vtlE4co10SgMM5W3",
+    "locations": [
+      "utils/I18n.lua:205"
+    ]
+  },
+  "隐藏": {
+    "key": "t_kdPAPMuEkRRcVW4N",
+    "locations": [
+      "utils/I18n.lua:24"
+    ]
+  }
+}
