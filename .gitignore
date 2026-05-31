@@ -15,3 +15,7 @@ lua-tools/
 tools/
 logs/
 *.meta
+
+# 视频和发布物料不入库
+assets/video/
+game_material/
