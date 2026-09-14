@@ -14,8 +14,8 @@ Player.y = 0
 Player.hp = 0
 Player.maxHp = 0
 Player.atk = 0
-Player.speed = 0
-Player.critRate = 0
+Player.speed = 0.0
+Player.critRate = 0.0
 Player.level = 1
 Player.exp = 0
 Player.expToNext = 0
@@ -578,7 +578,7 @@ function Player.GetEffectiveMaxLevel(skillDef)
     if skillDef.id == "atk_drone_green" then
         local RelicSystem = require("meta.RelicSystem")
         local SaveData = require("SaveData")
-        return RelicSystem.GetGreenDroneMaxLevel(SaveData.relicLevels)
+        return math.floor(RelicSystem.GetGreenDroneMaxLevel(SaveData.relicLevels))
     end
 
     if Player.graduationPhase < 1 then

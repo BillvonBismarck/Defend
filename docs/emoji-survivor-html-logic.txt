@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Emoji幸存者 - HTML完整逻辑复刻版</title>
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #05040d;
+      color: #f7f4ff;
+      font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      touch-action: none;
+      user-select: none;
+    }
+    #game {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      background: #05040d;
+    }
+    #tip {
+      position: fixed;
+      left: 8px;
+      bottom: 8px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.45);
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 12px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<div id="tip">.txt 后缀内置 HTML/Canvas/JS 复刻逻辑；如浏览器按纯文本打开，可复制为 .html 运行。</div>
+<script>
+(() => {
+  "use strict";
+
+  const DESIGN_W = 720;
+  const DESIGN_H = 1280;
+  const WORLD_SIZE = 12000;
+  const TAU = Math.PI * 2;
+
+  const STATE = {
+    TITLE: 0,
+    PLAYING: 1,
+    OVER: 2,
+    CHAR_SELECT: 3,
+    NICKNAME: 4,
+    LEADERBOARD: 5,
+    ACHIEVEMENT: 6,
+    RELIC_SHOP: 7,
+    TOTEM_SHOP: 8,
+    RUNE_SHOP: 9,
+    SKIN_SHOP: 10,
+    CODEX: 11,
+    WEEKLY: 12
+  };
+
+  const BATTLE = {
+    PLAYING: 1,
+    SKILL_SELECT: 2,
+    PAUSED: 3,
+    GAME_OVER: 4,
+    VICTORY: 5,
+    ULTIMATE_SELECT: 6,
+    GIFT_AD: 7
+  };
+
+  const C = {
+    bg: "#0a0819",
+    grid: "rgba(0,216,255,0.08)",
+    panel: "rgba(20,15,45,0.92)",
+    panel2: "rgba(34,24,72,0.94)",
+    cyan: "#00d8ff",
+    pink: "#ff4cae",
+    green: "#26ff9a",
+    yellow: "#fff15c",
+    orange: "#ff9d2e",
+    red: "#ff4b5f",
+    white: "#f7f4ff",
+    muted: "#b8addd"
+  };
+
+  const CONFIG = {
+    PLAYER: {
+      radius: 18,
+      baseHp: 35,
+      baseAtk: 6,
+      baseSpeed: 280,
+      baseCritRate: 0.05,
+      critDamage: 2.0,
+      attackInterval: 0.5,
+      attackRange: 350,
+      magnetRange: 80,
+      invincibleTime: 0.8
+    },
+    BULLET: { speed: 600, radius: 9, lifetime: 1.5 },
+    LOOT: {
+      radius: 6,
+      magnetSpeed: 500,
+      baseExp: 2,
+      heartChance: 0.04,
+      magnetChance: 0.03,
+      bombChance: 0.012,
+      coinChance: 0.36,
+      giftChance: 0.008
+    },
+    WAVE: {
+      interval: 30,
+      baseEnemyCount: 5,
+      countGrowth: 2,
+      maxEnemiesAlive: 60,
+      coeffGrowth: 0.08,
+      spawnRadius: 700,
+      spawnMinRadius: 500,
+      bossInterval: 10
+    },
+    LEVEL: {
+      expFormula(level) { return level * 20; },
+      hpGrowth: 0.03,
+      atkGrowth: 0.03,
+      critGrowth: 0.002
+    },
+    OVERLOAD: {
+      killsToFull: 100,
+      duration: 5,
+      atkMultiplier: 2,
+      speedBonus: 0.3,
+      cooldownReduction: 0.5
+    },
+    DIFFICULTY: [
+      { id: "easy", name: "简单", icon: "绿", enemyHpMult: 0.7, enemyAtkMult: 0.6, enemySpeedMult: 0.9, spawnMult: 0.8, expMult: 1.3, goldMult: 1.2, scoreWeight: 0.5 },
+      { id: "normal", name: "普通", icon: "黄", enemyHpMult: 1, enemyAtkMult: 1, enemySpeedMult: 1, spawnMult: 1, expMult: 1, goldMult: 1, scoreWeight: 1 },
+      { id: "hard", name: "困难", icon: "红", enemyHpMult: 1.5, enemyAtkMult: 1.4, enemySpeedMult: 1.15, spawnMult: 1.3, expMult: 0.8, goldMult: 1.5, scoreWeight: 1.8 },
+      { id: "nightmare", name: "噩梦", icon: "骷", enemyHpMult: 2.2, enemyAtkMult: 2, enemySpeedMult: 1.3, spawnMult: 1.6, expMult: 0.6, goldMult: 2, scoreWeight: 3 }
+    ]
+  };
+
+  const CHARACTERS = [
+    { id: "cat", name: "小猫咪", desc: "灵敏敏捷，弹幕高手", emoji: "😺", color: "#00d8ff", stats: { hp: 0.9, atk: 1.0, speed: 1.1, critRate: 1.2 }, exclusive: ["multi_shot", "piercing", "crit_up", "fire_rate", "cat_scratch"], death: "小猫倒下了", victory: "大获全胜" },
+    { id: "bean", name: "黄豆勇士", desc: "生命顽强，爆炸专家", emoji: "😆", color: "#ffd232", stats: { hp: 1.3, atk: 1.1, speed: 0.9, critRate: 0.8 }, exclusive: ["grenade", "shield", "hp_up", "hp_regen", "bean_sprout"], death: "黄豆碎了", victory: "豆气冲天" },
+    { id: "monkey", name: "灵猴大圣", desc: "极速连击，闪避大师", emoji: "🐵", color: "#ff8c32", stats: { hp: 0.8, atk: 0.9, speed: 1.35, critRate: 1.0 }, exclusive: ["combo_hit", "dodge_roll", "clone_strike", "speed_burst", "big_bullet"], death: "猴子摔下来了", victory: "齐天大胜" },
+    { id: "hand", name: "无敌巨掌", desc: "力大无穷，范围碾压", emoji: "🤚", color: "#dc50dc", stats: { hp: 1.1, atk: 1.3, speed: 0.8, critRate: 0.9 }, exclusive: ["palm_wave", "grab_smash", "finger_flick", "iron_fist", "thumb_up"], death: "巨掌倒下了", victory: "一掌定乾坤" },
+    { id: "leaf", name: "自然之灵", desc: "冰霜控制，自然之力", emoji: "🍃", color: "#3cc850", stats: { hp: 1.0, atk: 0.95, speed: 1.05, critRate: 1.0 }, exclusive: ["leaf_pierce", "leaf_homing", "xmas_tree", "clover_luck", "leaf_storm"], death: "叶子枯萎了", victory: "万物复苏" },
+    { id: "otto", name: "OTTO♿", desc: "召唤大军，以众克敌", emoji: "♿", color: "#64b4ff", stats: { hp: 1.2, atk: 0.85, speed: 0.85, critRate: 0.9 }, exclusive: ["elephant_stomp", "charm_enemy", "slow_rider", "otto_box", "otto_sprint"], death: "OTTO倒下了", victory: "召唤大胜" }
+  ];
+
+  const ENEMY_DEFS = {
+    normal:  { emoji: "👾", name: "普通怪", hp: 18, atk: 5, speed: 95, radius: 17, exp: 2, color: "#ff4b5f" },
+    fast:    { emoji: "🦇", name: "速敏怪", hp: 12, atk: 4, speed: 155, radius: 14, exp: 2, color: "#ff80d5" },
+    tank:    { emoji: "🪨", name: "坦克怪", hp: 55, atk: 9, speed: 58, radius: 24, exp: 5, color: "#d0a66a" },
+    swarm:   { emoji: "🦠", name: "蜂群怪", hp: 7, atk: 3, speed: 120, radius: 11, exp: 1, color: "#a6ff4b" },
+    charger: { emoji: "🐗", name: "冲锋怪", hp: 28, atk: 9, speed: 85, radius: 18, exp: 4, color: "#ff8c2a" },
+    ghost:   { emoji: "👻", name: "幽灵怪", hp: 20, atk: 6, speed: 110, radius: 16, exp: 3, color: "#c8c8ff" },
+    shaman:  { emoji: "🧙", name: "巫师怪", hp: 24, atk: 7, speed: 70, radius: 18, exp: 4, color: "#b464ff" },
+    ranger:  { emoji: "🏹", name: "远程怪", hp: 22, atk: 6, speed: 78, radius: 16, exp: 4, color: "#5cffda" },
+    elite:   { emoji: "👹", name: "精英怪", hp: 120, atk: 13, speed: 80, radius: 28, exp: 16, color: "#ffbf2e" }
+  };
+
+  const BOSSES = [
+    { id: "police", name: "巡逻警官", emoji: "👮", color: "#3d8cff", hp: 2000, skills: ["shoot_fan", "shoot_burst", "shoot_radial"] },
+    { id: "worker", name: "重装工头", emoji: "👷", color: "#ffb41e", hp: 2300, skills: ["shoot_target", "dash", "area_rain"] },
+    { id: "chef", name: "地狱厨神", emoji: "👨‍🍳", color: "#ff6432", hp: 2600, skills: ["shoot_fan", "area_circle", "shoot_split"] },
+    { id: "programmer", name: "代码狂魔", emoji: "👨‍💻", color: "#00e0ff", hp: 3000, skills: ["shoot_burst", "blink_attack", "shoot_radial"] },
+    { id: "firefighter", name: "烈焰战士", emoji: "👨‍🚒", color: "#ff3030", hp: 3400, skills: ["area_rain", "dash", "shoot_fan"] },
+    { id: "vampire", name: "暗夜伯爵", emoji: "🧛", color: "#bb33ff", hp: 3900, skills: ["blink_attack", "shoot_split", "area_circle"] },
+    { id: "gentleman", name: "暗影绅士", emoji: "🎩", color: "#d9c4ff", hp: 4400, skills: ["shoot_target", "shoot_burst", "blink_attack"] },
+    { id: "scientist", name: "疯狂博士", emoji: "👨‍🔬", color: "#26ff9a", hp: 5000, skills: ["shoot_split", "area_rain", "shoot_radial"] },
+    { id: "pirate", name: "深海船长", emoji: "🏴‍☠️", color: "#4bc6ff", hp: 5700, skills: ["shoot_fan", "shoot_target", "area_circle"] },
+    { id: "dj", name: "电音狂魔", emoji: "🎧", color: "#ff4cae", hp: 6500, skills: ["shoot_radial", "shoot_burst", "area_rain"] },
+    { id: "doctor", name: "暗黑医师", emoji: "🧑‍⚕️", color: "#9affff", hp: 7600, skills: ["shoot_split", "blink_attack", "area_circle"] },
+    { id: "ninja", name: "暗影忍者", emoji: "🥷", color: "#c0c0ff", hp: 9000, skills: ["dash", "blink_attack", "shoot_fan"] },
+    { id: "robot", name: "歼灭者T-X", emoji: "🤖", color: "#dddddd", hp: 11000, skills: ["shoot_radial", "shoot_burst", "area_rain"] },
+    { id: "demon_king", name: "深渊魔王", emoji: "😈", color: "#ff005d", hp: 15000, skills: ["shoot_radial", "shoot_split", "area_circle"] }
+  ];
+
+  const SHARED_SKILLS = ["atk_up", "hp_up", "speed_up", "crit_up", "magnet_up", "fire_rate", "atk_drone", "chain_lightning", "loot_up", "homing"];
+  const SKILLS = [
+    { id: "atk_up", name: "攻击强化", icon: "⚔️", max: 5, desc: "攻击 +15%/级", passive: p => p.atkBonus += 0.15 },
+    { id: "hp_up", name: "生命强化", icon: "❤️", max: 5, desc: "生命 +20%/级", passive: p => { p.hpBonus += 0.2; p.hp += Math.floor(p.maxHp * 0.2); } },
+    { id: "speed_up", name: "移速强化", icon: "👟", max: 5, desc: "移速 +10%/级", passive: p => p.speedBonus += 0.1 },
+    { id: "crit_up", name: "暴击强化", icon: "💥", max: 5, desc: "暴击 +6%/级", passive: p => p.critBonus += 0.06 },
+    { id: "magnet_up", name: "磁吸强化", icon: "🧲", max: 5, desc: "拾取范围 +30%/级", passive: p => p.magnetBonus += 0.3 },
+    { id: "fire_rate", name: "射速强化", icon: "⚡", max: 5, desc: "攻击间隔 -8%/级", passive: p => p.fireRateBonus += 0.08 },
+    { id: "atk_drone", name: "攻击无人机", icon: "🛸", max: 3, desc: "环绕并持续打击敌人", active: true },
+    { id: "chain_lightning", name: "连锁电击", icon: "🌩️", max: 4, desc: "周期性跳跃电击", active: true },
+    { id: "loot_up", name: "幸运掉落", icon: "🍀", max: 5, desc: "掉落概率 +12%/级", passive: p => p.lootBonus += 0.12 },
+    { id: "homing", name: "追踪弹", icon: "🎯", max: 4, desc: "子弹轻微追踪", passive: p => p.homingChance += 0.18 },
+
+    { id: "multi_shot", name: "多重射击", icon: "💫", max: 5, desc: "额外子弹 +1/级", passive: p => p.extraBullets += 1 },
+    { id: "piercing", name: "穿透", icon: "⭐", max: 5, desc: "穿透 +1/级", passive: p => p.pierceCount += 1 },
+    { id: "cat_scratch", name: "星爆猫爪", icon: "🐾", max: 4, desc: "周期性五角星斩击", active: true },
+
+    { id: "grenade", name: "手雷", icon: "💣", max: 5, desc: "周期性范围爆炸", active: true },
+    { id: "shield", name: "护盾", icon: "🛡️", max: 3, desc: "周期获得护盾充能", active: true },
+    { id: "hp_regen", name: "生命恢复", icon: "💚", max: 5, desc: "持续回血", passive: p => p.regenRate += 0.006 },
+    { id: "bean_sprout", name: "豆芽陷阱", icon: "🌱", max: 4, desc: "脚下生成触发陷阱", active: true },
+
+    { id: "combo_hit", name: "连击", icon: "🥊", max: 5, desc: "击杀积累攻击节奏", passive: p => p.comboBonus += 0.05 },
+    { id: "dodge_roll", name: "闪避", icon: "💨", max: 4, desc: "概率免疫伤害", passive: p => p.dodgeChance += 0.08 },
+    { id: "clone_strike", name: "分身打击", icon: "🙉", max: 3, desc: "召唤分身射击", active: true },
+    { id: "speed_burst", name: "疾跑爆发", icon: "🏃", max: 4, desc: "击杀后短暂加速", passive: p => p.killSpeedBonus += 0.04 },
+    { id: "big_bullet", name: "巨大弹", icon: "🔵", max: 4, desc: "概率发射大子弹", passive: p => p.bigBulletChance += 0.18 },
+
+    { id: "palm_wave", name: "掌风波", icon: "🫸", max: 4, desc: "子弹更大更痛", passive: p => { p.bigBulletChance += 0.12; p.atkBonus += 0.08; } },
+    { id: "grab_smash", name: "抓取重砸", icon: "✊", max: 5, desc: "近身范围砸击", active: true },
+    { id: "finger_flick", name: "弹指", icon: "🫰", max: 4, desc: "弹射 +1/级", passive: p => p.bounceCount += 1 },
+    { id: "iron_fist", name: "铁拳", icon: "👊", max: 5, desc: "攻击和击退提升", passive: p => { p.atkBonus += 0.12; p.knockback += 18; } },
+    { id: "thumb_up", name: "点赞弹幕", icon: "👍", max: 4, desc: "周期环形点赞弹幕", active: true },
+
+    { id: "leaf_pierce", name: "叶刃穿刺", icon: "🌿", max: 5, desc: "穿透和暴击提升", passive: p => { p.pierceCount += 1; p.critBonus += 0.03; } },
+    { id: "leaf_homing", name: "追踪落叶", icon: "🍁", max: 4, desc: "追踪概率提升", passive: p => p.homingChance += 0.25 },
+    { id: "xmas_tree", name: "圣诞树", icon: "🎄", max: 3, desc: "环绕树造成接触伤害", active: true },
+    { id: "clover_luck", name: "四叶草", icon: "🍀", max: 5, desc: "幸运和暴击提升", passive: p => { p.lootBonus += 0.1; p.critBonus += 0.04; } },
+    { id: "leaf_storm", name: "落叶风暴", icon: "🌪️", max: 4, desc: "周期性全向风暴", active: true },
+
+    { id: "elephant_stomp", name: "大象踩背", icon: "🐘", max: 4, desc: "随机敌人区域踩踏", active: true },
+    { id: "charm_enemy", name: "魅惑敌人", icon: "💞", max: 3, desc: "周期性转化小怪", active: true },
+    { id: "slow_rider", name: "慢行者", icon: "🐎", max: 4, desc: "减速领域和旋风", active: true },
+    { id: "otto_box", name: "OTTO盒子", icon: "📦", max: 3, desc: "放置自动射击盒子", active: true },
+    { id: "otto_sprint", name: "轮椅冲刺", icon: "♿", max: 4, desc: "移速和护盾提升", passive: p => { p.speedBonus += 0.1; p.shieldIntervalBonus += 0.08; } }
+  ];
+
+  const ACHIEVEMENTS = [
+    { id: "first_blood", name: "初次击破", desc: "击杀第一个敌人", test: () => Player.kills >= 1 },
+    { id: "hunter_100", name: "百斩", desc: "单局击杀100个敌人", test: () => Player.kills >= 100 },
+    { id: "wave_10", name: "坚持到第10波", desc: "到达Boss波", test: () => Wave.waveNum >= 10 },
+    { id: "rich_100", name: "小有积蓄", desc: "累计获得100金币", test: () => Save.data.totalGold >= 100 },
+    { id: "level_10", name: "渐入佳境", desc: "单局达到10级", test: () => Player.level >= 10 },
+    { id: "victory", name: "幸存者", desc: "击败最终Boss", test: () => BattleScene.state === BATTLE.VICTORY }
+  ];
+
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function rand(lo, hi) { return lo + Math.random() * (hi - lo); }
+  function randInt(lo, hi) { return Math.floor(rand(lo, hi + 1)); }
+  function distSq(ax, ay, bx, by) { const dx = ax - bx, dy = ay - by; return dx * dx + dy * dy; }
+  function len(x, y) { return Math.hypot(x, y); }
+  function norm(x, y) { const d = len(x, y) || 1; return [x / d, y / d]; }
+  function choose(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function nowScore() { return Math.floor(Wave.waveNum * 1000 + Player.kills * 8 + Wave.totalTime * 3 + BattleScene.sessionGold * 10); }
+
+  const Save = {
+    key: "emoji_survivor_html_logic_clone_v2",
+    data: null,
+    defaults() {
+      return {
+        nickname: "游客" + randInt(1000, 9999),
+        gold: 0,
+        totalGold: 0,
+        bestWave: 0,
+        bestScore: 0,
+        leaderboard: [],
+        achievements: {},
+        relics: { power: 0, life: 0, luck: 0, magnet: 0 },
+        totems: { hp: 0, atk: 0, speed: 0 },
+        runes: { vampire: 0, crossClass: 0, king: 0 },
+        skins: { neon: 1, gold: 0, dark: 0 },
+        selectedSkin: "neon",
+        difficulty: 1,
+        codex: { enemies: {}, bosses: {} }
+      };
+    },
+    load() {
+      try { this.data = Object.assign(this.defaults(), JSON.parse(localStorage.getItem(this.key) || "{}")); }
+      catch { this.data = this.defaults(); }
+      this.save();
+    },
+    save() { localStorage.setItem(this.key, JSON.stringify(this.data)); },
+    addGold(n) {
+      const amount = Math.max(0, Math.floor(n));
+      this.data.gold += amount;
+      this.data.totalGold += amount;
+      this.save();
+    },
+    recordRun(score, wave, victory) {
+      this.data.bestWave = Math.max(this.data.bestWave, wave);
+      this.data.bestScore = Math.max(this.data.bestScore, score);
+      this.data.leaderboard.push({ name: this.data.nickname, score, wave, victory, time: new Date().toLocaleDateString() });
+      this.data.leaderboard.sort((a, b) => b.score - a.score);
+      this.data.leaderboard = this.data.leaderboard.slice(0, 12);
+      this.save();
+    }
+  };
+
+  const Input = {
+    keys: new Set(),
+    moveX: 0,
+    moveY: 0,
+    pointer: { x: 0, y: 0, down: false, id: null },
+    joystick: { active: false, baseX: 120, baseY: 1080, x: 0, y: 0, knobX: 120, knobY: 1080 },
+    update() {
+      let kx = 0, ky = 0;
+      if (this.keys.has("w") || this.keys.has("arrowup")) ky -= 1;
+      if (this.keys.has("s") || this.keys.has("arrowdown")) ky += 1;
+      if (this.keys.has("a") || this.keys.has("arrowleft")) kx -= 1;
+      if (this.keys.has("d") || this.keys.has("arrowright")) kx += 1;
+      if (kx || ky) {
+        const n = norm(kx, ky);
+        this.moveX = n[0]; this.moveY = n[1];
+      } else {
+        this.moveX = this.joystick.x; this.moveY = this.joystick.y;
+      }
+    },
+    startJoystick(x, y) {
+      if (App.state !== STATE.PLAYING || BattleScene.state !== BATTLE.PLAYING) return;
+      if (x > DESIGN_W * 0.55) return;
+      this.joystick.active = true;
+      this.joystick.baseX = x;
+      this.joystick.baseY = y;
+      this.moveJoystick(x, y);
+    },
+    moveJoystick(x, y) {
+      if (!this.joystick.active) return;
+      const dx = x - this.joystick.baseX;
+      const dy = y - this.joystick.baseY;
+      const d = Math.min(70, Math.hypot(dx, dy));
+      const a = Math.atan2(dy, dx);
+      this.joystick.knobX = this.joystick.baseX + Math.cos(a) * d;
+      this.joystick.knobY = this.joystick.baseY + Math.sin(a) * d;
+      this.joystick.x = Math.cos(a) * (d / 70);
+      this.joystick.y = Math.sin(a) * (d / 70);
+    },
+    endJoystick() {
+      this.joystick.active = false;
+      this.joystick.x = 0;
+      this.joystick.y = 0;
+    }
+  };
+
+  const UI = {
+    hitboxes: [],
+    clear() { this.hitboxes.length = 0; },
+    hit(x, y, w, h, cb, label) { this.hitboxes.push({ x, y, w, h, cb, label }); },
+    click(x, y) {
+      for (let i = this.hitboxes.length - 1; i >= 0; i--) {
+        const h = this.hitboxes[i];
+        if (x >= h.x && x <= h.x + h.w && y >= h.y && y <= h.y + h.h) { h.cb(); return true; }
+      }
+      return false;
+    },
+    button(ctx, x, y, w, h, text, cb, opt = {}) {
+      ctx.save();
+      roundRect(ctx, x, y, w, h, opt.r || 18, opt.fill || "rgba(0,216,255,0.12)", opt.stroke || C.cyan, 2);
+      ctx.fillStyle = opt.color || C.white;
+      ctx.font = `${opt.size || 26}px Microsoft YaHei, Arial`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(text, x + w / 2, y + h / 2);
+      ctx.restore();
+      this.hit(x, y, w, h, cb, text);
+    }
+  };
+
+  function roundRect(ctx, x, y, w, h, r, fill, stroke, line = 1) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = line; ctx.stroke(); }
+  }
+
+  function drawText(ctx, text, x, y, size = 24, color = C.white, align = "left") {
+    ctx.fillStyle = color;
+    ctx.font = `${size}px Microsoft YaHei, PingFang SC, Arial`;
+    ctx.textAlign = align;
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, x, y);
+  }
+
+  const Player = {
+    init(charId) {
+      this.char = CHARACTERS.find(c => c.id === charId) || CHARACTERS[0];
+      this.x = WORLD_SIZE / 2;
+      this.y = WORLD_SIZE / 2;
+      this.level = 1;
+      this.exp = 0;
+      this.expToNext = CONFIG.LEVEL.expFormula(1);
+      this.kills = 0;
+      this.skills = {};
+      this.invTimer = 0;
+      this.attackTimer = 0;
+      this.overloadKills = 0;
+      this.overloadActive = false;
+      this.overloadTimer = 0;
+      this.shieldCharges = 0;
+      this.shieldTimer = 0;
+      this.magnetBoostTimer = 0;
+      this.killSpeedTimer = 0;
+      this.radius = CONFIG.PLAYER.radius;
+      this.resetBonuses();
+      this.recalc();
+      DailyChallenge.applyToPlayer();
+      RuneResonance.apply();
+      this.hp = this.maxHp;
+    },
+    resetBonuses() {
+      this.atkBonus = 0; this.hpBonus = 0; this.speedBonus = 0; this.critBonus = 0; this.magnetBonus = 0;
+      this.fireRateBonus = 0; this.extraBullets = 0; this.pierceCount = 0; this.bounceCount = 0;
+      this.knockback = 0; this.bigBulletChance = 0; this.homingChance = 0; this.lootBonus = 0;
+      this.regenRate = 0; this.dodgeChance = 0; this.comboBonus = 0; this.killSpeedBonus = 0; this.shieldIntervalBonus = 0;
+    },
+    applyMetaBonuses() {
+      const r = Save.data.relics, t = Save.data.totems, ru = Save.data.runes;
+      this.atkBonus += r.power * 0.04;
+      this.hpBonus += r.life * 0.05;
+      this.lootBonus += r.luck * 0.04;
+      this.magnetBonus += r.magnet * 0.06;
+      this.metaHpFlat = t.hp * 2;
+      this.metaAtkFlat = t.atk * 0.8;
+      this.metaSpeedFlat = t.speed * 8;
+      this.runeVampire = ru.vampire * 0.03;
+      this.runeKing = ru.king * 0.02;
+      if (Save.data.selectedSkin === "gold") this.lootBonus += 0.1;
+      if (Save.data.selectedSkin === "dark") this.critBonus += 0.05;
+    },
+    recalc() {
+      const P = CONFIG.PLAYER, L = CONFIG.LEVEL, s = this.char.stats;
+      const oldMax = this.maxHp || 1;
+      const hpRatio = this.hp ? this.hp / oldMax : 1;
+      this.metaHpFlat = 0; this.metaAtkFlat = 0; this.metaSpeedFlat = 0; this.runeVampire = 0; this.runeKing = 0;
+      const savedSkills = { ...this.skills };
+      this.resetBonuses();
+      this.skills = savedSkills;
+      this.applyMetaBonuses();
+      for (const id in this.skills) {
+        const def = SkillSystem.def(id);
+        if (def && def.passive) for (let i = 0; i < this.skills[id]; i++) def.passive(this);
+      }
+      const lvl = this.level;
+      const all = 1 + this.runeKing;
+      this.maxHp = Math.floor((P.baseHp * s.hp + this.metaHpFlat) * (1 + L.hpGrowth * (lvl - 1)) * (1 + this.hpBonus) * all);
+      this.atk = Math.floor((P.baseAtk * s.atk + this.metaAtkFlat) * (1 + L.atkGrowth * (lvl - 1)) * (1 + this.atkBonus) * all);
+      this.speed = (P.baseSpeed * s.speed + this.metaSpeedFlat) * (1 + this.speedBonus) * all;
+      this.critRate = P.baseCritRate * s.critRate + L.critGrowth * (lvl - 1) + this.critBonus;
+      this.attackInterval = Math.max(0.1, P.attackInterval * (1 - this.fireRateBonus));
+      if (this.hp !== undefined) this.hp = clamp(Math.floor(this.maxHp * hpRatio), 1, this.maxHp);
+    },
+    update(dt, mx, my) {
+      let speed = this.speed * SpecialTerrain.speedMult();
+      if (this.overloadActive) speed *= 1 + CONFIG.OVERLOAD.speedBonus;
+      if (this.killSpeedTimer > 0) speed *= 1 + this.killSpeedBonus * 4;
+      this.x = clamp(this.x + mx * speed * dt, 40, WORLD_SIZE - 40);
+      this.y = clamp(this.y + my * speed * dt, 40, WORLD_SIZE - 40);
+      this.attackTimer += dt;
+      this.invTimer = Math.max(0, this.invTimer - dt);
+      this.shieldTimer += dt;
+      this.magnetBoostTimer = Math.max(0, this.magnetBoostTimer - dt);
+      this.killSpeedTimer = Math.max(0, this.killSpeedTimer - dt);
+      if (this.regenRate > 0) this.heal(this.maxHp * this.regenRate * dt);
+      if (this.skills.shield) {
+        const interval = Math.max(4, 11 - this.skills.shield * 1.5 - this.shieldIntervalBonus * 10);
+        if (this.shieldTimer >= interval) {
+          this.shieldTimer = 0;
+          this.shieldCharges = Math.min(this.skills.shield, this.shieldCharges + 1);
+        }
+      }
+      if (this.overloadActive) {
+        this.overloadTimer -= dt;
+        if (this.overloadTimer <= 0) this.overloadActive = false;
+      }
+    },
+    effectiveAtk() {
+      let a = this.atk;
+      if (this.overloadActive) a *= CONFIG.OVERLOAD.atkMultiplier;
+      return Math.max(1, Math.floor(a));
+    },
+    effectiveInterval() {
+      let it = this.attackInterval;
+      if (this.overloadActive) it *= CONFIG.OVERLOAD.cooldownReduction;
+      if (this.comboBonus) it *= Math.max(0.45, 1 - Math.min(0.35, this.comboBonus * Math.min(10, this.kills % 10) / 10));
+      return it;
+    },
+    damage(amount) {
+      if (this.invTimer > 0 || BattleScene.state !== BATTLE.PLAYING) return false;
+      if (Math.random() < this.dodgeChance) { FX.floatText(this.x, this.y - 20, "闪避", C.cyan, 24); this.invTimer = 0.25; return false; }
+      if (this.shieldCharges > 0) { this.shieldCharges--; this.invTimer = 0.35; FX.floatText(this.x, this.y - 20, "护盾", C.cyan, 24); return false; }
+      const armor = Math.min(0.45, Save.data.relics.life * 0.015);
+      const dmg = Math.max(1, Math.floor(amount * (1 - armor)));
+      if (SpecialTerrain.invincible()) { FX.floatText(this.x, this.y - 20, "无敌", C.yellow, 22); return false; }
+      this.hp -= dmg;
+      this.invTimer = CONFIG.PLAYER.invincibleTime;
+      FX.floatText(this.x, this.y - 26, "-" + dmg, C.red, 24);
+      if (this.hp <= 0) BattleScene.finish(false);
+      return true;
+    },
+    heal(v) { this.hp = Math.min(this.maxHp, this.hp + v); },
+    addExp(v) {
+      this.exp += v;
+      let up = false;
+      while (this.exp >= this.expToNext) {
+        this.exp -= this.expToNext;
+        this.level++;
+        this.expToNext = CONFIG.LEVEL.expFormula(this.level);
+        this.recalc();
+        this.hp = Math.min(this.maxHp, this.hp + Math.max(3, Math.floor(this.maxHp * 0.15)));
+        up = true;
+      }
+      return up;
+    },
+    addKill(enemy) {
+      this.kills++;
+      this.overloadKills = Math.min(CONFIG.OVERLOAD.killsToFull, this.overloadKills + 1);
+      if (this.overloadKills >= CONFIG.OVERLOAD.killsToFull && !this.overloadActive) {
+        this.overloadActive = true;
+        this.overloadTimer = CONFIG.OVERLOAD.duration;
+        this.overloadKills = 0;
+      }
+      if (this.killSpeedBonus) this.killSpeedTimer = 1.5;
+      if (this.runeVampire && Math.random() < this.runeVampire) this.heal(this.maxHp * 0.04);
+      Achievement.check();
+    }
+  };
+
+  const Wave = {
+    reset() { this.waveNum = 0; this.timer = 0; this.totalTime = 0; this.waveCoeff = 1; this.bossAlive = false; this.spawnTimer = 0; this.gameOver = false; this.lastGiftWave = -99; },
+    pickEnemyType() {
+      const w = this.waveNum;
+      let pool;
+      if (w <= 2) pool = [["normal", 1]];
+      else if (w <= 4) pool = [["normal", .65], ["fast", .35]];
+      else if (w <= 6) pool = [["normal", .30], ["fast", .20], ["swarm", .18], ["tank", .15], ["ranger", .17]];
+      else if (w <= 9) pool = [["normal", .20], ["fast", .17], ["swarm", .13], ["tank", .10], ["charger", .13], ["ghost", .12], ["ranger", .15]];
+      else if (w <= 12) pool = [["normal", .12], ["fast", .12], ["swarm", .10], ["tank", .10], ["charger", .12], ["ghost", .10], ["shaman", .12], ["ranger", .12], ["elite", .10]];
+      else pool = [["normal", .08], ["fast", .10], ["swarm", .09], ["tank", .09], ["charger", .11], ["ghost", .11], ["shaman", .11], ["ranger", .13], ["elite", .18]];
+      let r = Math.random(), a = 0;
+      for (const e of pool) { a += e[1]; if (r <= a) return e[0]; }
+      return pool[pool.length - 1][0];
+    },
+    update(dt) {
+      this.totalTime += dt;
+      this.spawnTimer += dt;
+      const diff = CONFIG.DIFFICULTY[Save.data.difficulty];
+      let spawnInterval = this.waveNum <= 30 ? Math.max(0.8, 2 - this.waveNum * 0.05) : Math.max(0.3, 0.8 - (this.waveNum - 30) * 0.025);
+      const normalHp = ENEMY_DEFS.normal.hp * this.waveCoeff;
+      if (Player.atk * 2 > normalHp) spawnInterval *= 0.35;
+      if (this.spawnTimer >= spawnInterval) {
+        this.spawnTimer = 0;
+        if (Enemy.active.length < CONFIG.WAVE.maxEnemiesAlive * 0.5) {
+          const type = this.pickEnemyType();
+          const count = type === "swarm" ? randInt(2, 3) : 1;
+          for (let i = 0; i < count; i++) Enemy.spawnAround(Player.x, Player.y, type, this.waveCoeff);
+        }
+      }
+      this.timer += dt;
+      if (this.timer >= CONFIG.WAVE.interval) {
+        this.timer = 0;
+        this.waveNum++;
+        let baseCoeff = 1 + CONFIG.WAVE.coeffGrowth * this.waveNum;
+        if (this.waveNum >= 50) baseCoeff *= 2 * Math.pow(1.01, this.waveNum - 50);
+        else if (this.waveNum >= 40) baseCoeff *= 2;
+        else if (this.waveNum >= 30) baseCoeff *= Math.pow(1.03, this.waveNum - 30);
+        this.waveCoeff = baseCoeff * diff.enemyHpMult;
+        let count = Math.floor((CONFIG.WAVE.baseEnemyCount + CONFIG.WAVE.countGrowth * this.waveNum) * diff.spawnMult);
+        for (let i = 0; i < count; i++) Enemy.spawnAround(Player.x, Player.y, this.pickEnemyType(), this.waveCoeff);
+        Enemy.spawnAround(Player.x, Player.y, "elite", this.waveCoeff);
+        if (!this.bossAlive && this.waveNum % CONFIG.WAVE.bossInterval === 0) {
+          const idx = Math.floor(this.waveNum / CONFIG.WAVE.bossInterval) - 1;
+          const bossDef = BOSSES[idx % BOSSES.length];
+          Enemy.spawnBoss(Player.x, Player.y, bossDef, this.waveCoeff);
+          this.bossAlive = true;
+        }
+        Achievement.check();
+      }
+    }
+  };
+
+  const Enemy = {
+    active: [], nextId: 1,
+    reset() { this.active.length = 0; this.nextId = 1; },
+    spawnAround(px, py, type, coeff) {
+      const a = Math.random() * TAU, d = rand(CONFIG.WAVE.spawnMinRadius, CONFIG.WAVE.spawnRadius);
+      this.spawn(clamp(px + Math.cos(a) * d, 50, WORLD_SIZE - 50), clamp(py + Math.sin(a) * d, 50, WORLD_SIZE - 50), type, coeff);
+    },
+    spawn(x, y, type, coeff) {
+      const def = ENEMY_DEFS[type] || ENEMY_DEFS.normal;
+      const diff = CONFIG.DIFFICULTY[Save.data.difficulty];
+      const e = {
+        id: this.nextId++, type, emoji: def.emoji, name: def.name, color: def.color,
+        x, y, hp: Math.floor(def.hp * coeff), maxHp: Math.floor(def.hp * coeff), atk: Math.floor(def.atk * coeff * diff.enemyAtkMult),
+        speed: def.speed * diff.enemySpeedMult, radius: def.radius, expDrop: def.exp, alive: true,
+        isBoss: false, shootTimer: rand(0, 2), dashTimer: rand(2, 4), dashVX: 0, dashVY: 0, dashTime: 0, slowTimer: 0, charmed: false, charmHitTimer: 0
+      };
+      Save.data.codex.enemies[type] = true;
+      this.active.push(e);
+    },
+    spawnBoss(px, py, bossDef, coeff) {
+      const a = Math.random() * TAU, d = 620;
+      const e = {
+        id: this.nextId++, type: "boss", emoji: bossDef.emoji, name: bossDef.name, color: bossDef.color,
+        x: clamp(px + Math.cos(a) * d, 80, WORLD_SIZE - 80), y: clamp(py + Math.sin(a) * d, 80, WORLD_SIZE - 80),
+        hp: Math.floor(bossDef.hp * Math.max(1, coeff * 0.65)), maxHp: Math.floor(bossDef.hp * Math.max(1, coeff * 0.65)), atk: Math.floor(12 * coeff),
+        speed: 75, radius: 38, expDrop: 120, alive: true, isBoss: true, bossDef, skillTimers: [1.5, 3.5, 7], stunTimer: 0, dashTime: 0, dashVX: 0, dashVY: 0
+      };
+      Save.data.codex.bosses[bossDef.id] = true;
+      this.active.push(e);
+      FX.banner(`${bossDef.name} 出现`);
+    },
+    nearest(x, y, range, includeBoss = true) {
+      let best = null, bd = range * range;
+      for (const e of this.active) {
+        if (!e.alive || e.charmed || (!includeBoss && e.isBoss)) continue;
+        const d = distSq(x, y, e.x, e.y);
+        if (d < bd) { bd = d; best = e; }
+      }
+      return best;
+    },
+    nearestToEnemy(src, range) {
+      let best = null, bd = range * range;
+      for (const e of this.active) {
+        if (!e.alive || e === src || e.charmed) continue;
+        const d = distSq(src.x, src.y, e.x, e.y);
+        if (d < bd) { bd = d; best = e; }
+      }
+      return best;
+    },
+    damage(e, dmg, color = C.white) {
+      if (!e.alive) return false;
+      dmg = Math.max(1, Math.floor(dmg));
+      DamageStats.add("攻击/技能", dmg);
+      e.hp -= dmg;
+      FX.floatText(e.x, e.y - e.radius, String(Math.floor(dmg)), color, e.isBoss ? 26 : 18);
+      if (e.hp <= 0) { this.kill(e); return true; }
+      return false;
+    },
+    kill(e) {
+      if (!e.alive) return;
+      e.alive = false;
+      Player.addKill(e);
+      Loot.spawnFromEnemy(e.x, e.y, e.expDrop, e.isBoss);
+      FX.burst(e.x, e.y, e.color, e.isBoss ? 28 : 10);
+      if (e.isBoss) {
+        Wave.bossAlive = false;
+        if (BOSSES[BOSSES.length - 1].id === e.bossDef.id) BattleScene.finish(true);
+      }
+    },
+    update(dt) {
+      for (const e of this.active) {
+        if (!e.alive) continue;
+        if (e.slowTimer > 0) e.slowTimer -= dt;
+        const speedMul = e.slowTimer > 0 ? 0.45 : 1;
+
+        if (e.charmed) {
+          const t = this.nearestToEnemy(e, 900);
+          if (t) {
+            const [nx, ny] = norm(t.x - e.x, t.y - e.y);
+            e.x += nx * e.speed * 1.25 * dt;
+            e.y += ny * e.speed * 1.25 * dt;
+            e.charmHitTimer = (e.charmHitTimer || 0) + dt;
+            if (e.charmHitTimer > 0.4 && distSq(e.x, e.y, t.x, t.y) < (e.radius + t.radius + 12) ** 2) {
+              e.charmHitTimer = 0;
+              this.damage(t, Player.effectiveAtk() * 0.8, C.pink);
+            }
+          }
+          continue;
+        }
+
+        if (e.dashTime > 0) {
+          e.dashTime -= dt;
+          e.x += e.dashVX * dt; e.y += e.dashVY * dt;
+        } else {
+          const dx = Player.x - e.x, dy = Player.y - e.y;
+          const [nx, ny] = norm(dx, dy);
+          if (e.type === "charger") {
+            e.dashTimer -= dt;
+            if (e.dashTimer <= 0) { e.dashTimer = rand(3.2, 5); e.dashTime = 0.45; e.dashVX = nx * 420; e.dashVY = ny * 420; }
+          }
+          if (e.type === "ghost") {
+            e.x += nx * e.speed * speedMul * dt * (0.7 + 0.3 * Math.sin(Wave.totalTime * 4 + e.id));
+            e.y += ny * e.speed * speedMul * dt * (0.7 + 0.3 * Math.cos(Wave.totalTime * 3 + e.id));
+          } else {
+            e.x += nx * e.speed * speedMul * dt;
+            e.y += ny * e.speed * speedMul * dt;
+          }
+        }
+
+        if (e.type === "ranger" || e.type === "shaman") {
+          e.shootTimer -= dt;
+          if (e.shootTimer <= 0) {
+            e.shootTimer = e.type === "shaman" ? 3.2 : 2.4;
+            EnemyBullet.spawnTarget(e.x, e.y, Player.x, Player.y, e.type === "shaman" ? 180 : 240, e.atk, e.type === "shaman" ? "🔮" : "➹", e.color);
+          }
+        }
+
+        if (e.isBoss) this.updateBoss(e, dt);
+
+        if (!e.isBoss && distSq(e.x, e.y, Player.x, Player.y) < (e.radius + Player.radius) ** 2) {
+          Player.damage(e.atk);
+        }
+      }
+      this.active = this.active.filter(e => e.alive);
+    },
+    updateBoss(e, dt) {
+      if (e.stunTimer > 0) { e.stunTimer -= dt; return; }
+      for (let i = 0; i < e.skillTimers.length; i++) {
+        e.skillTimers[i] -= dt;
+        if (e.skillTimers[i] <= 0) {
+          e.skillTimers[i] = i === 0 ? 3.0 : i === 1 ? 5.5 : 12.0;
+          this.castBossSkill(e, e.bossDef.skills[i], i === 2);
+          if (i === 2) e.stunTimer = 2.2;
+        }
+      }
+    },
+    castBossSkill(e, type, ultimate) {
+      FX.floatText(e.x, e.y - 50, ultimate ? "大招" : e.name, e.color, 22);
+      const dmg = Math.floor(e.atk * (ultimate ? 1.5 : 1));
+      if (type === "shoot_fan") EnemyBullet.spawnFan(e.x, e.y, Player.x, Player.y, 7, 0.9, 250, dmg, "●", e.color);
+      else if (type === "shoot_burst") for (let i = 0; i < 4; i++) setTimeout(() => EnemyBullet.spawnTarget(e.x, e.y, Player.x, Player.y, 230, dmg, "◆", e.color), i * 140);
+      else if (type === "shoot_target") EnemyBullet.spawnTarget(e.x, e.y, Player.x, Player.y, 190, dmg + 4, "⬢", e.color, 15);
+      else if (type === "shoot_radial") EnemyBullet.spawnRadial(e.x, e.y, ultimate ? 24 : 14, 210, dmg, "●", e.color);
+      else if (type === "shoot_split") EnemyBullet.spawnSplit(e.x, e.y, Player.x, Player.y, 180, dmg, e.color);
+      else if (type === "dash") { const [nx, ny] = norm(Player.x - e.x, Player.y - e.y); e.dashTime = 0.55; e.dashVX = nx * 480; e.dashVY = ny * 480; }
+      else if (type === "area_rain") for (let i = 0; i < 12; i++) EnemyBullet.spawnArea(Player.x + rand(-260, 260), Player.y + rand(-360, 360), 42, dmg, 0.9, e.color);
+      else if (type === "area_circle") EnemyBullet.spawnArea(Player.x, Player.y, ultimate ? 150 : 95, dmg + 3, 1.1, e.color);
+      else if (type === "blink_attack") { e.x = clamp(Player.x + rand(-180, 180), 80, WORLD_SIZE - 80); e.y = clamp(Player.y + rand(-180, 180), 80, WORLD_SIZE - 80); EnemyBullet.spawnRadial(e.x, e.y, 10, 190, dmg, "✦", e.color); }
+    },
+    killNonBoss() { for (const e of this.active) if (!e.isBoss) this.kill(e); }
+  };
+
+  const Projectile = {
+    active: [],
+    reset() { this.active.length = 0; },
+    spawn(x, y, tx, ty, dmg, pierce = 0, bounce = 0, opt = {}) {
+      const [nx, ny] = norm(tx - x, ty - y);
+      const big = opt.big || Math.random() < Player.bigBulletChance;
+      this.active.push({
+        x, y, vx: nx * CONFIG.BULLET.speed, vy: ny * CONFIG.BULLET.speed, dmg,
+        radius: CONFIG.BULLET.radius * (big ? 1.8 : 1), lifetime: CONFIG.BULLET.lifetime + (pierce + bounce) * 0.18,
+        pierce, bounce, hit: new Set(), color: opt.color || C.cyan, emoji: opt.emoji || (big ? "🔵" : "•"), homing: opt.homing || Math.random() < Player.homingChance, alive: true
+      });
+    },
+    spawnSpread(x, y, tx, ty, dmg, pierce, extra, bounce) {
+      const base = Math.atan2(ty - y, tx - x);
+      const total = extra + 1;
+      const spread = Math.min(0.9, 0.18 * extra);
+      for (let i = 0; i < total; i++) {
+        const a = base + (i - (total - 1) / 2) * (spread / Math.max(1, total - 1));
+        this.spawn(x, y, x + Math.cos(a) * 100, y + Math.sin(a) * 100, dmg, pierce, bounce, { emoji: "•" });
+      }
+    },
+    update(dt) {
+      const kills = [];
+      for (const p of this.active) {
+        if (!p.alive) continue;
+        if (p.homing) {
+          const t = Enemy.nearest(p.x, p.y, 240);
+          if (t) {
+            const [nx, ny] = norm(t.x - p.x, t.y - p.y);
+            p.vx = p.vx * 0.92 + nx * CONFIG.BULLET.speed * 0.08;
+            p.vy = p.vy * 0.92 + ny * CONFIG.BULLET.speed * 0.08;
+          }
+        }
+        p.x += p.vx * dt; p.y += p.vy * dt; p.lifetime -= dt;
+        if (p.lifetime <= 0 || p.x < -100 || p.x > WORLD_SIZE + 100 || p.y < -100 || p.y > WORLD_SIZE + 100) { p.alive = false; continue; }
+        for (const e of Enemy.active) {
+          if (!e.alive || e.charmed || p.hit.has(e.id)) continue;
+          if (distSq(p.x, p.y, e.x, e.y) <= (p.radius + e.radius) ** 2) {
+            p.hit.add(e.id);
+            let damage = p.dmg;
+            const crit = Math.random() < Player.critRate;
+            if (crit) damage *= CONFIG.PLAYER.critDamage;
+            if (Enemy.damage(e, damage, crit ? C.yellow : p.color)) kills.push(e);
+            if (p.bounce > 0) {
+              p.bounce--;
+              const t = Enemy.nearest(p.x, p.y, 360);
+              if (t) { const [nx, ny] = norm(t.x - p.x, t.y - p.y); p.vx = nx * CONFIG.BULLET.speed; p.vy = ny * CONFIG.BULLET.speed; }
+            } else if (p.pierce > 0) p.pierce--;
+            else { p.alive = false; break; }
+          }
+        }
+      }
+      this.active = this.active.filter(p => p.alive);
+      return kills;
+    }
+  };
+
+  const EnemyBullet = {
+    active: [], areas: [],
+    reset() { this.active.length = 0; this.areas.length = 0; },
+    spawnTarget(x, y, tx, ty, speed, dmg, emoji = "●", color = C.red, radius = 9) {
+      const [nx, ny] = norm(tx - x, ty - y);
+      this.active.push({ x, y, vx: nx * speed, vy: ny * speed, dmg, radius, life: 5, emoji, color, alive: true });
+    },
+    spawnFan(x, y, tx, ty, count, spread, speed, dmg, emoji, color) {
+      const base = Math.atan2(ty - y, tx - x);
+      for (let i = 0; i < count; i++) {
+        const a = base + (i - (count - 1) / 2) * spread / Math.max(1, count - 1);
+        this.active.push({ x, y, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, dmg, radius: 9, life: 5, emoji, color, alive: true });
+      }
+    },
+    spawnRadial(x, y, count, speed, dmg, emoji, color) {
+      for (let i = 0; i < count; i++) {
+        const a = i / count * TAU;
+        this.active.push({ x, y, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, dmg, radius: 9, life: 5, emoji, color, alive: true });
+      }
+    },
+    spawnSplit(x, y, tx, ty, speed, dmg, color) {
+      this.spawnFan(x, y, tx, ty, 5, 0.55, speed, dmg, "✦", color);
+    },
+    spawnArea(x, y, radius, dmg, delay, color) { this.areas.push({ x, y, radius, dmg, delay, maxDelay: delay, color, alive: true }); },
+    update(dt) {
+      for (const b of this.active) {
+        if (!b.alive) continue;
+        b.x += b.vx * dt; b.y += b.vy * dt; b.life -= dt;
+        if (b.life <= 0) b.alive = false;
+        if (distSq(b.x, b.y, Player.x, Player.y) <= (b.radius + Player.radius) ** 2) { b.alive = false; Player.damage(b.dmg); }
+      }
+      for (const a of this.areas) {
+        if (!a.alive) continue;
+        a.delay -= dt;
+        if (a.delay <= 0) { a.alive = false; if (distSq(a.x, a.y, Player.x, Player.y) <= (a.radius + Player.radius) ** 2) Player.damage(a.dmg); FX.burst(a.x, a.y, a.color, 18); }
+      }
+      this.active = this.active.filter(b => b.alive);
+      this.areas = this.areas.filter(a => a.alive);
+    }
+  };
+
+  const Loot = {
+    active: [], bigMagnet: 0,
+    reset() { this.active.length = 0; this.bigMagnet = 0; },
+    spawn(x, y, type, value = 1) {
+      const cfg = { exp: ["✦", C.green, CONFIG.LOOT.radius], heart: ["♥", C.red, 10], magnet: ["🧲", C.cyan, 10], bomb: ["💣", C.orange, 12], coin: ["●", C.yellow, 8], gift: ["🎁", C.pink, 14] }[type];
+      this.active.push({ x: x + rand(-12, 12), y: y + rand(-12, 12), type, value, emoji: cfg[0], color: cfg[1], radius: cfg[2], alive: true });
+    },
+    spawnFromEnemy(x, y, exp, boss) {
+      const diff = CONFIG.DIFFICULTY[Save.data.difficulty];
+      this.spawn(x, y, "exp", Math.max(1, Math.floor(exp * diff.expMult)));
+      if (boss) { this.spawn(x, y, "gift", 1); this.spawn(x + 20, y, "coin", 10); return; }
+      const luck = 1 + Player.lootBonus;
+      const r = Math.random();
+      if (r < CONFIG.LOOT.heartChance * luck) this.spawn(x, y, "heart");
+      else if (r < (CONFIG.LOOT.heartChance + CONFIG.LOOT.magnetChance) * luck) this.spawn(x, y, "magnet");
+      else if (r < (CONFIG.LOOT.heartChance + CONFIG.LOOT.magnetChance + CONFIG.LOOT.bombChance) * luck) this.spawn(x, y, "bomb");
+      else if (r < (CONFIG.LOOT.heartChance + CONFIG.LOOT.magnetChance + CONFIG.LOOT.bombChance + CONFIG.LOOT.coinChance) * luck) this.spawn(x, y, "coin", 1);
+      if (Wave.waveNum - Wave.lastGiftWave >= 5 && Math.random() < CONFIG.LOOT.giftChance * luck) { Wave.lastGiftWave = Wave.waveNum; this.spawn(x, y, "gift"); }
+    },
+    update(dt) {
+      this.bigMagnet = Math.max(0, this.bigMagnet - dt);
+      const pickups = [];
+      const range = (this.bigMagnet > 0 ? 420 : CONFIG.PLAYER.magnetRange) * (1 + Player.magnetBonus) * SpecialTerrain.magnetMult();
+      for (const it of this.active) {
+        if (!it.alive) continue;
+        const dx = Player.x - it.x, dy = Player.y - it.y, d = Math.hypot(dx, dy);
+        if (d < range) { it.x += dx / Math.max(1, d) * CONFIG.LOOT.magnetSpeed * dt; it.y += dy / Math.max(1, d) * CONFIG.LOOT.magnetSpeed * dt; }
+        if (d < Player.radius + it.radius + 4) { it.alive = false; pickups.push(it); }
+      }
+      this.active = this.active.filter(i => i.alive);
+      return pickups;
+    }
+  };
+
+  const SkillSystem = {
+    timers: {}, traps: [], clones: [], boxes: [], dronesAngle: 0, stormFlash: 0,
+    reset() { this.timers = {}; this.traps = []; this.clones = []; this.boxes = []; this.dronesAngle = 0; this.stormFlash = 0; },
+    def(id) { return SKILLS.find(s => s.id === id); },
+    allowed() {
+      const set = new Set([...SHARED_SKILLS, ...Player.char.exclusive]);
+      if (Save.data.runes.crossClass > 0) for (const c of CHARACTERS) for (const id of c.exclusive) set.add(id);
+      return [...set];
+    },
+    randomChoices() {
+      const ids = this.allowed().filter(id => (Player.skills[id] || 0) < (this.def(id)?.max || 1));
+      return shuffle(ids).slice(0, 3).map(id => ({ def: this.def(id), newLevel: (Player.skills[id] || 0) + 1 }));
+    },
+    apply(id) {
+      const def = this.def(id); if (!def) return;
+      Player.skills[id] = (Player.skills[id] || 0) + 1;
+      Player.recalc();
+      if (id === "clone_strike") this.ensureClones(Player.skills[id]);
+      BattleScene.state = BATTLE.PLAYING;
+    },
+    ensureClones(n) { while (this.clones.length < n) this.clones.push({ x: Player.x, y: Player.y, timer: rand(0, .5), angle: Math.random() * TAU }); },
+    update(dt) {
+      this.dronesAngle += dt * 3;
+      const kills = [];
+      const lv = id => Player.skills[id] || 0;
+      const tick = (id, interval) => { this.timers[id] = (this.timers[id] || 0) + dt; if (this.timers[id] >= interval) { this.timers[id] = 0; return true; } return false; };
+
+      if (lv("atk_drone")) {
+        const count = lv("atk_drone");
+        if (tick("atk_drone", 0.35)) for (let i = 0; i < count; i++) { const a = this.dronesAngle + i * TAU / count; const x = Player.x + Math.cos(a) * 70, y = Player.y + Math.sin(a) * 70; const e = Enemy.nearest(x, y, 110); if (e && Enemy.damage(e, Player.effectiveAtk() * 0.65, C.cyan)) kills.push(e); }
+      }
+      if (lv("chain_lightning") && tick("chain_lightning", Math.max(.8, 2.2 - lv("chain_lightning") * .25))) {
+        let e = Enemy.nearest(Player.x, Player.y, 460); const hit = new Set();
+        for (let i = 0; e && i < 2 + lv("chain_lightning"); i++) { hit.add(e.id); if (Enemy.damage(e, Player.effectiveAtk() * .9, C.yellow)) kills.push(e); FX.line(Player.x, Player.y, e.x, e.y, C.yellow); e = Enemy.active.find(n => n.alive && !n.charmed && !hit.has(n.id) && distSq(n.x, n.y, e.x, e.y) < 260 * 260); }
+      }
+      if (lv("grenade") && tick("grenade", Math.max(.8, 3.0 - lv("grenade") * .28))) {
+        const e = Enemy.nearest(Player.x, Player.y, 620); if (e) this.explode(e.x, e.y, 80 + lv("grenade") * 16, Player.effectiveAtk() * (1.5 + lv("grenade") * .25), C.orange, kills);
+      }
+      if (lv("bean_sprout") && tick("bean_sprout", Math.max(.9, 2.8 - lv("bean_sprout") * .25))) this.traps.push({ x: Player.x + rand(-60, 60), y: Player.y + rand(-60, 60), r: 32 + lv("bean_sprout") * 8, life: 8, dmg: Player.effectiveAtk() * (1 + lv("bean_sprout") * .35), color: C.green });
+      for (const t of this.traps) { t.life -= dt; for (const e of Enemy.active) if (e.alive && !e.charmed && distSq(t.x, t.y, e.x, e.y) < (t.r + e.radius) ** 2) { t.life = 0; this.explode(t.x, t.y, t.r * 1.7, t.dmg, t.color, kills); break; } }
+      this.traps = this.traps.filter(t => t.life > 0);
+      if (lv("cat_scratch") && tick("cat_scratch", Math.max(1.2, 4.5 - lv("cat_scratch") * .45))) { this.stormFlash = .25; this.explode(Player.x, Player.y, 160 + lv("cat_scratch") * 30, Player.effectiveAtk() * (1.8 + lv("cat_scratch") * .35), C.pink, kills); }
+      if (lv("grab_smash") && tick("grab_smash", Math.max(1.0, 3.6 - lv("grab_smash") * .3))) this.explode(Player.x, Player.y, 110 + lv("grab_smash") * 22, Player.effectiveAtk() * (1.5 + lv("grab_smash") * .25), "#dc50dc", kills);
+      if (lv("thumb_up") && tick("thumb_up", Math.max(1.0, 3.8 - lv("thumb_up") * .35))) for (let i = 0; i < 8 + lv("thumb_up") * 2; i++) { const a = i / (8 + lv("thumb_up") * 2) * TAU; Projectile.spawn(Player.x, Player.y, Player.x + Math.cos(a) * 100, Player.y + Math.sin(a) * 100, Player.effectiveAtk() * .8, 1, 0, { emoji: "👍", color: C.pink }); }
+      if (lv("leaf_storm") && tick("leaf_storm", Math.max(1.5, 5 - lv("leaf_storm") * .45))) { this.stormFlash = .4; for (let i = 0; i < 16; i++) { const a = i / 16 * TAU; Projectile.spawn(Player.x, Player.y, Player.x + Math.cos(a) * 100, Player.y + Math.sin(a) * 100, Player.effectiveAtk() * .9, 2, 0, { emoji: "🍃", color: C.green, homing: true }); } }
+      if (lv("xmas_tree")) { const count = lv("xmas_tree"); for (let i = 0; i < count; i++) { const a = this.dronesAngle * .8 + i * TAU / count; const x = Player.x + Math.cos(a) * 96, y = Player.y + Math.sin(a) * 96; if (tick("xmas" + i, .45)) { const e = Enemy.nearest(x, y, 70); if (e && Enemy.damage(e, Player.effectiveAtk() * .55, C.green)) kills.push(e); } } }
+      if (lv("elephant_stomp") && tick("elephant_stomp", Math.max(1.0, 3.8 - lv("elephant_stomp") * .35))) { const e = choose(Enemy.active.filter(e => e.alive && !e.charmed)); if (e) this.explode(e.x, e.y, 90 + lv("elephant_stomp") * 15, Player.effectiveAtk() * 1.4, "#9ed0ff", kills); }
+      if (lv("charm_enemy") && tick("charm_enemy", Math.max(2, 7 - lv("charm_enemy")))) { const e = Enemy.nearest(Player.x, Player.y, 430, false); if (e && !e.isBoss) { e.charmed = true; e.color = C.pink; FX.floatText(e.x, e.y - 30, "魅惑", C.pink, 22); } }
+      if (lv("slow_rider") && tick("slow_rider", .7)) for (const e of Enemy.active) if (e.alive && distSq(Player.x, Player.y, e.x, e.y) < (130 + lv("slow_rider") * 30) ** 2) e.slowTimer = .9;
+      if (lv("otto_box") && tick("otto_box_place", Math.max(2.5, 7 - lv("otto_box")))) this.boxes.push({ x: Player.x + rand(-120, 120), y: Player.y + rand(-120, 120), life: 14, timer: 0 });
+      for (const b of this.boxes) { b.life -= dt; b.timer += dt; if (b.timer > .65) { b.timer = 0; const e = Enemy.nearest(b.x, b.y, 440); if (e) Projectile.spawn(b.x, b.y, e.x, e.y, Player.effectiveAtk() * .55, 0, 0, { emoji: "📦", color: "#64b4ff" }); } }
+      this.boxes = this.boxes.filter(b => b.life > 0);
+      if (lv("clone_strike")) { this.ensureClones(lv("clone_strike")); for (const cl of this.clones) { cl.angle += dt; const tx = Player.x + Math.cos(cl.angle) * 76, ty = Player.y + Math.sin(cl.angle) * 76; cl.x += (tx - cl.x) * Math.min(1, dt * 4); cl.y += (ty - cl.y) * Math.min(1, dt * 4); cl.timer += dt; if (cl.timer > .85) { cl.timer = 0; const e = Enemy.nearest(cl.x, cl.y, 360); if (e) Projectile.spawn(cl.x, cl.y, e.x, e.y, Player.effectiveAtk() * .55, 0, 0, { emoji: "🙉", color: C.orange }); } } }
+      this.stormFlash = Math.max(0, this.stormFlash - dt);
+      return kills;
+    },
+    explode(x, y, r, dmg, color, kills) {
+      FX.burst(x, y, color, 20);
+      FX.rings.push({ x, y, r, life: .35, color });
+      for (const e of Enemy.active) if (e.alive && !e.charmed && distSq(x, y, e.x, e.y) < (r + e.radius) ** 2) if (Enemy.damage(e, dmg, color)) kills.push(e);
+    }
+  };
+
+
+  const MapVariant = {
+    variants: {
+      cyber: { name: "赛博废墟", emoji: "🌃", bg1: "#0a0819", bg2: "#121a3a", line: "rgba(0,216,255,.13)", obstacle: "▣", enemyTint: "#00d8ff" },
+      grass: { name: "翡翠草原", emoji: "🌿", bg1: "#07150e", bg2: "#123a22", line: "rgba(38,255,154,.12)", obstacle: "🌳", enemyTint: "#26ff9a" },
+      cave:  { name: "幽暗洞穴", emoji: "🕳️", bg1: "#080610", bg2: "#241a2a", line: "rgba(255,157,46,.11)", obstacle: "🪨", enemyTint: "#ff9d2e" },
+      sky:   { name: "天空浮岛", emoji: "☁️", bg1: "#081225", bg2: "#203b6a", line: "rgba(160,220,255,.13)", obstacle: "⭐", enemyTint: "#9ed0ff" }
+    },
+    currentId: "cyber",
+    obstacles: [],
+    init(seedValue = Date.now()) {
+      const keys = Object.keys(this.variants);
+      this.currentId = keys[Math.abs(Math.floor(seedValue)) % keys.length];
+      this.obstacles = [];
+      for (let i = 0; i < 90; i++) {
+        const x = rand(250, WORLD_SIZE - 250), y = rand(250, WORLD_SIZE - 250);
+        if (distSq(x, y, WORLD_SIZE / 2, WORLD_SIZE / 2) > 650 * 650) {
+          this.obstacles.push({ x, y, r: rand(22, 70), rot: rand(0, TAU), kind: randInt(0, 2) });
+        }
+      }
+    },
+    def() { return this.variants[this.currentId] || this.variants.cyber; },
+    renderBackground(ctx, camX, camY) {
+      const d = this.def();
+      const g = ctx.createRadialGradient(DESIGN_W / 2, DESIGN_H * .15, 0, DESIGN_W / 2, DESIGN_H / 2, DESIGN_H);
+      g.addColorStop(0, d.bg2); g.addColorStop(1, d.bg1);
+      ctx.fillStyle = g; ctx.fillRect(0, 0, DESIGN_W, DESIGN_H);
+      ctx.strokeStyle = d.line; ctx.lineWidth = 1;
+      for (let x = -(camX % 64); x < DESIGN_W; x += 64) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, DESIGN_H); ctx.stroke(); }
+      for (let y = -(camY % 64); y < DESIGN_H; y += 64) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(DESIGN_W, y); ctx.stroke(); }
+      drawText(ctx, `${d.emoji} ${d.name}`, DESIGN_W - 28, DESIGN_H - 28, 18, C.muted, "right");
+    },
+    renderObstacles(ctx, camX, camY) {
+      const d = this.def();
+      for (const o of this.obstacles) {
+        const x = o.x - camX, y = o.y - camY;
+        if (x < -100 || x > DESIGN_W + 100 || y < -100 || y > DESIGN_H + 100) continue;
+        ctx.globalAlpha = .32;
+        ctx.fillStyle = d.enemyTint;
+        ctx.beginPath(); ctx.arc(x, y, o.r, 0, TAU); ctx.fill();
+        ctx.globalAlpha = 1;
+        drawText(ctx, d.obstacle, x, y, Math.max(18, o.r * .8), C.white, "center");
+      }
+    }
+  };
+
+  const SpecialTerrain = {
+    defs: {
+      cyber: [
+        { emoji: "💉", name: "数据注射器", reward: "attack_rate_buff", val: 25, desc: "攻速+20% 25秒", color: C.cyan },
+        { emoji: "💾", name: "数据宝箱", reward: "exp", val: 180, desc: "获得大量经验", color: "#7850ff" },
+        { emoji: "🔫", name: "激光炮台", reward: "atk_buff", val: 30, desc: "攻击+25% 30秒", color: C.pink }
+      ],
+      grass: [
+        { emoji: "💧", name: "治愈泉", reward: "heal", val: .6, desc: "回复60%生命", color: C.green },
+        { emoji: "🧚", name: "精灵祝福", reward: "magnet_buff", val: 15, desc: "磁力×3 15秒", color: C.pink },
+        { emoji: "🛕", name: "自然神龛", reward: "skill_up", val: 1, desc: "随机技能升级", color: C.yellow }
+      ],
+      cave: [
+        { emoji: "💎", name: "古代水晶", reward: "atk_buff", val: 40, desc: "攻击+25% 40秒", color: C.cyan },
+        { emoji: "🍄", name: "爆炸蘑菇", reward: "bomb", val: 1, desc: "全屏清怪", color: C.orange },
+        { emoji: "🏺", name: "深渊宝藏", reward: "exp_coin", val: 220, desc: "大量经验+金币", color: C.yellow }
+      ],
+      sky: [
+        { emoji: "🌀", name: "风之祭坛", reward: "speed_buff", val: 20, desc: "移速+30% 20秒", color: C.cyan },
+        { emoji: "⭐", name: "星辰神殿", reward: "star_burst", val: 5, desc: "无敌5秒+AOE", color: C.yellow },
+        { emoji: "📦", name: "云端宝箱", reward: "exp", val: 200, desc: "获得大量经验", color: C.pink }
+      ]
+    },
+    spots: [], buffs: { atk: 0, speed: 0, rate: 0, magnet: 0, inv: 0 },
+    init() {
+      this.spots = [];
+      this.buffs = { atk: 0, speed: 0, rate: 0, magnet: 0, inv: 0 };
+      const defs = this.defs[MapVariant.currentId] || this.defs.cyber;
+      defs.forEach((def, i) => this.spots.push({ def, x: Player.x + rand(-900, 900), y: Player.y + rand(-900, 900), alive: true, respawn: 0, phase: i * 2 }));
+    },
+    update(dt) {
+      for (const k of Object.keys(this.buffs)) this.buffs[k] = Math.max(0, this.buffs[k] - dt);
+      for (const s of this.spots) {
+        if (!s.alive) { s.respawn -= dt; if (s.respawn <= 0) { s.alive = true; const a = rand(0, TAU), d = rand(750, 1100); s.x = clamp(Player.x + Math.cos(a) * d, 200, WORLD_SIZE - 200); s.y = clamp(Player.y + Math.sin(a) * d, 200, WORLD_SIZE - 200); } continue; }
+        if (distSq(s.x, s.y, Player.x, Player.y) < 70 * 70) this.claim(s);
+      }
+    },
+    claim(s) {
+      s.alive = false; s.respawn = rand(15, 35); FX.banner(`${s.def.name}: ${s.def.desc}`);
+      const r = s.def.reward;
+      if (r === "attack_rate_buff") this.buffs.rate = s.def.val;
+      else if (r === "atk_buff") this.buffs.atk = s.def.val;
+      else if (r === "speed_buff") this.buffs.speed = s.def.val;
+      else if (r === "magnet_buff") this.buffs.magnet = s.def.val;
+      else if (r === "heal") Player.heal(Player.maxHp * s.def.val);
+      else if (r === "exp") Player.addExp(s.def.val);
+      else if (r === "exp_coin") { Player.addExp(s.def.val); BattleScene.sessionGold += 12; }
+      else if (r === "bomb") Enemy.killNonBoss();
+      else if (r === "skill_up") { const c = SkillSystem.randomChoices()[0]; if (c) SkillSystem.apply(c.def.id); }
+      else if (r === "star_burst") { this.buffs.inv = s.def.val; SkillSystem.explode(Player.x, Player.y, 360, Player.effectiveAtk() * 4, C.yellow, []); }
+    },
+    atkMult() { return this.buffs.atk > 0 ? 1.25 : 1; },
+    speedMult() { return this.buffs.speed > 0 ? 1.3 : 1; },
+    rateMult() { return this.buffs.rate > 0 ? .8 : 1; },
+    magnetMult() { return this.buffs.magnet > 0 ? 3 : 1; },
+    invincible() { return this.buffs.inv > 0; },
+    render(ctx, camX, camY) {
+      for (const s of this.spots) {
+        if (!s.alive) continue;
+        const x = s.x - camX, y = s.y - camY + Math.sin(Wave.totalTime * 1.8 + s.phase) * 5;
+        if (x < -80 || x > DESIGN_W + 80 || y < -80 || y > DESIGN_H + 80) continue;
+        ctx.globalAlpha = .22; ctx.fillStyle = s.def.color; ctx.beginPath(); ctx.arc(x, y, 58 + Math.sin(Wave.totalTime * 2.2) * 5, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
+        drawText(ctx, s.def.emoji, x, y, 36, C.white, "center");
+      }
+    }
+  };
+
+  const MapEvent = {
+    events: [], timer: 0,
+    templates: [
+      { type: "chest_guard", emoji: "🎁", name: "守卫宝箱", color: C.yellow, duration: 25 },
+      { type: "healing_fountain", emoji: "⛲", name: "治疗泉", color: C.green, duration: 22 },
+      { type: "merchant", emoji: "🧙", name: "神秘商人", color: C.pink, duration: 25 },
+      { type: "poison_fog", emoji: "☠️", name: "毒雾区", color: C.red, duration: 18 },
+      { type: "speed_zone", emoji: "💨", name: "疾风区", color: C.cyan, duration: 18 },
+      { type: "magnet_vortex", emoji: "🌀", name: "磁力漩涡", color: C.cyan, duration: 20 }
+    ],
+    init() { this.events = []; this.timer = 8; },
+    spawn() {
+      const t = choose(this.templates), a = rand(0, TAU), d = rand(420, 780);
+      const e = { ...t, x: clamp(Player.x + Math.cos(a) * d, 120, WORLD_SIZE - 120), y: clamp(Player.y + Math.sin(a) * d, 120, WORLD_SIZE - 120), life: t.duration, radius: 95, triggered: false };
+      this.events.push(e); FX.banner(`地图事件：${e.name}`);
+      if (e.type === "chest_guard") for (let i = 0; i < 8; i++) Enemy.spawnAround(e.x, e.y, Wave.pickEnemyType(), Wave.waveCoeff * 1.15);
+    },
+    update(dt) {
+      this.timer -= dt; if (this.timer <= 0) { this.timer = rand(22, 38); if (this.events.length < 3) this.spawn(); }
+      for (const e of this.events) {
+        e.life -= dt;
+        const near = distSq(e.x, e.y, Player.x, Player.y) < e.radius * e.radius;
+        if (near) {
+          if (e.type === "healing_fountain") Player.heal(Player.maxHp * .12 * dt);
+          else if (e.type === "poison_fog") Player.damage(2 * dt);
+          else if (e.type === "speed_zone") Player.killSpeedTimer = .4;
+          else if (e.type === "magnet_vortex") Loot.bigMagnet = .5;
+          else if (e.type === "merchant" && !e.triggered) { e.triggered = true; BattleScene.sessionGold = Math.max(0, BattleScene.sessionGold - 3); Player.addExp(80 + Wave.waveNum * 8); FX.banner("商人交易：金币换经验"); }
+          else if (e.type === "chest_guard" && !e.triggered && Enemy.active.filter(n => distSq(n.x,n.y,e.x,e.y)<240*240).length < 3) { e.triggered = true; Loot.spawn(e.x, e.y, "gift"); }
+        }
+      }
+      this.events = this.events.filter(e => e.life > 0);
+    },
+    render(ctx, camX, camY) {
+      for (const e of this.events) {
+        const x = e.x - camX, y = e.y - camY;
+        if (x < -140 || x > DESIGN_W + 140 || y < -140 || y > DESIGN_H + 140) continue;
+        ctx.globalAlpha = .18; ctx.fillStyle = e.color; ctx.beginPath(); ctx.arc(x, y, e.radius, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
+        drawText(ctx, e.emoji, x, y, 34, e.color, "center");
+        drawText(ctx, e.name, x, y - 48, 16, e.color, "center");
+      }
+    }
+  };
+
+  const Tombstone = {
+    stones: [], detail: null,
+    blocked: ["fuck","shit","傻逼","外挂","扫码","加微信","加qq","去死","杀人"],
+    defaults: ["我倒在了黎明前…","别踩我的坟！","下次一定能过…","这波敌人太多了","差一点就赢了…","替我报仇！","又是被Boss带走的"],
+    init() {
+      const arr = Save.data.tombstones || [];
+      this.stones = arr.slice(-15).map(t => ({ ...t, x: t.x || rand(1000, WORLD_SIZE-1000), y: t.y || rand(1000, WORLD_SIZE-1000), phase: rand(0,TAU) }));
+      this.detail = null;
+    },
+    filter(msg) { let r = String(msg || choose(this.defaults)).slice(0, 60); for (const w of this.blocked) r = r.replaceAll(w, "*"); return r; },
+    upload(result) {
+      const msg = this.filter(prompt("留下遗言", choose(this.defaults)) || "");
+      const t = { msg, char: Player.char.id, emoji: Player.char.emoji, wave: result.wave, kills: result.kills, level: Player.level, x: Player.x, y: Player.y, name: Save.data.nickname };
+      Save.data.tombstones = Save.data.tombstones || []; Save.data.tombstones.push(t); Save.data.tombstones = Save.data.tombstones.slice(-30); Save.save();
+    },
+    update(dt) {
+      this.detail && (this.detail.timer -= dt);
+      if (this.detail && this.detail.timer <= 0) this.detail = null;
+      for (const t of this.stones) if (distSq(t.x,t.y,Player.x,Player.y)<80*80) this.detail = { stone:t, timer:3 };
+    },
+    render(ctx, camX, camY) {
+      for (const t of this.stones) {
+        const x=t.x-camX, y=t.y-camY+Math.sin(Wave.totalTime*1.5+t.phase)*3;
+        if (x<-80||x>DESIGN_W+80||y<-80||y>DESIGN_H+80) continue;
+        drawText(ctx,"🪦",x,y,30,C.muted,"center"); drawText(ctx,t.emoji||"👻",x,y-25,18,C.white,"center");
+      }
+      if (this.detail) {
+        const t=this.detail.stone; roundRect(ctx,90,190,540,125,18,"rgba(0,0,0,.68)",C.cyan);
+        drawText(ctx,`${t.name||"玩家"} ${t.emoji||"👻"} 倒在第${t.wave||0}波`,DESIGN_W/2,225,22,C.yellow,"center");
+        drawText(ctx,t.msg||"...",DESIGN_W/2,265,22,C.white,"center");
+        drawText(ctx,`击杀 ${t.kills||0}  等级 ${t.level||1}`,DESIGN_W/2,298,17,C.muted,"center");
+      }
+    }
+  };
+
+  const DailyChallenge = {
+    active: false, factors: [], seed: 0,
+    start() { const d = new Date(); this.seed = d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate(); this.active = true; this.factors = ["player_small","enemy_horde","dmg_crit","magnet_exp"].filter((_,i)=>(this.seed+i)%2===0); FX.banner("每日挑战开启"); App.startGame(choose(CHARACTERS).id); },
+    has(f) { return this.active && this.factors.includes(f); },
+    applyToPlayer() { if (!this.active) return; if (this.has("player_small")) { Player.radius *= .6; Player.maxHp = Math.max(1, Math.floor(Player.maxHp*.7)); } if (this.has("dmg_crit")) { Player.atk=Math.max(1,Player.atk-4); Player.critRate*=2; } if (this.has("magnet_exp")) Player.magnetBonus += 1; }
+  };
+
+  const WeeklyChallenge = {
+    active:false, score:0,
+    start() { this.active=true; FX.banner("周挑战：高分赛季"); App.state=STATE.CHAR_SELECT; },
+    finish(result) { if (!this.active) return; this.score = Math.floor(result.score + result.wave*250 + (result.victory?5000:0)); Save.data.weeklyBest = Math.max(Save.data.weeklyBest||0, this.score); this.active=false; Save.save(); }
+  };
+
+  const RuneResonance = {
+    active: [],
+    calc() { const r=Save.data.runes; this.active=[]; if ((r.vampire||0)>0 && (r.king||0)>0) this.active.push("血王共鸣：满血攻击提升"); if ((r.crossClass||0)>0 && (r.king||0)>0) this.active.push("异界王权：跨角色技能权重提升"); },
+    apply() { this.calc(); if (this.active[0]) { Player.atkBonus += .08; Player.recalc(); } }
+  };
+
+  const RuneEffects = {
+    clones: [], timer: 0,
+    init(){ this.clones=[]; this.timer=0; RuneResonance.apply(); },
+    update(dt){ this.timer+=dt; if ((Save.data.runes.crossClass||0)>0 && this.timer>6){ this.timer=0; const e=Enemy.nearest(Player.x,Player.y,500); if(e) Projectile.spawn(Player.x,Player.y,e.x,e.y,Player.effectiveAtk()*1.2,1,1,{emoji:"🔮",color:C.pink,homing:true}); } },
+    render(ctx,camX,camY){ if(RuneResonance.active.length) drawText(ctx,RuneResonance.active[0],DESIGN_W/2,145,16,C.pink,"center"); }
+  };
+
+  const DamageStats = {
+    total:{}, visible:false,
+    reset(){ this.total={}; },
+    add(source, dmg){ this.total[source]=(this.total[source]||0)+Math.max(0,Math.floor(dmg)); },
+    render(ctx){ if(!this.visible) return; const entries=Object.entries(this.total).sort((a,b)=>b[1]-a[1]).slice(0,8); roundRect(ctx,420,160,270,260,14,"rgba(0,0,0,.62)",C.cyan); drawText(ctx,"伤害统计",555,185,20,C.yellow,"center"); entries.forEach(([k,v],i)=>drawText(ctx,`${k}: ${v}`,440,220+i*24,16,C.white)); }
+  };
+
+  const PerfQuality = {
+    fps:60, quality:1, acc:0, frames:0,
+    update(dt){ this.acc+=dt; this.frames++; if(this.acc>=1){ this.fps=this.frames/this.acc; this.quality=this.fps<35?.6:this.fps<48?.8:1; this.acc=0; this.frames=0; } },
+    maxParticles(){ return Math.floor(220*this.quality); }
+  };
+
+  const SpatialHash = {
+    cell:200, map:new Map(),
+    key(x,y){ return `${Math.floor(x/this.cell)},${Math.floor(y/this.cell)}`; },
+    rebuild(list){ this.map.clear(); for(const e of list){ if(!e.alive) continue; const k=this.key(e.x,e.y); if(!this.map.has(k)) this.map.set(k,[]); this.map.get(k).push(e); } },
+    query(x,y,r){ const out=[]; const c=Math.ceil(r/this.cell); const gx=Math.floor(x/this.cell), gy=Math.floor(y/this.cell); for(let ix=-c;ix<=c;ix++) for(let iy=-c;iy<=c;iy++) out.push(...(this.map.get(`${gx+ix},${gy+iy}`)||[])); return out; }
+  };
+
+  const Minimap = {
+    render(ctx){ const x=560,y=1015,w=130,h=130; roundRect(ctx,x,y,w,h,10,"rgba(0,0,0,.45)",C.cyan); const sx=w/WORLD_SIZE, sy=h/WORLD_SIZE; ctx.fillStyle=C.green; ctx.fillRect(x+Player.x*sx-2,y+Player.y*sy-2,4,4); ctx.fillStyle=C.red; for(const e of Enemy.active.slice(0,60)) ctx.fillRect(x+e.x*sx-1,y+e.y*sy-1,e.isBoss?4:2,e.isBoss?4:2); ctx.fillStyle=C.yellow; for(const it of Loot.active.slice(0,30)) ctx.fillRect(x+it.x*sx,y+it.y*sy,2,2); }
+  };
+
+  const FX = {
+    particles: [], texts: [], rings: [], lines: [], bannerText: "", bannerTimer: 0,
+    reset() { this.particles.length = 0; this.texts.length = 0; this.rings.length = 0; this.lines.length = 0; this.bannerText = ""; this.bannerTimer = 0; },
+    burst(x, y, color, n) { for (let i = 0; i < n; i++) { const a = Math.random() * TAU, s = rand(40, 220); this.particles.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: rand(.25, .8), max: .8, color }); } },
+    floatText(x, y, text, color, size) { this.texts.push({ x, y, text, color, size, life: .8 }); },
+    line(x1, y1, x2, y2, color) { this.lines.push({ x1, y1, x2, y2, color, life: .12 }); },
+    banner(text) { this.bannerText = text; this.bannerTimer = 2.2; },
+    update(dt) {
+      for (const p of this.particles) { p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt; }
+      for (const t of this.texts) { t.y -= 45 * dt; t.life -= dt; }
+      for (const r of this.rings) r.life -= dt;
+      for (const l of this.lines) l.life -= dt;
+      this.bannerTimer = Math.max(0, this.bannerTimer - dt);
+      this.particles = this.particles.filter(p => p.life > 0);
+      this.texts = this.texts.filter(t => t.life > 0);
+      this.rings = this.rings.filter(r => r.life > 0);
+      this.lines = this.lines.filter(l => l.life > 0);
+    }
+  };
+
+  const Achievement = {
+    check() {
+      for (const a of ACHIEVEMENTS) {
+        if (!Save.data.achievements[a.id] && a.test()) {
+          Save.data.achievements[a.id] = true;
+          Save.addGold(10);
+          FX.banner(`成就解锁：${a.name}`);
+        }
+      }
+      Save.save();
+    }
+  };
+
+  const BattleScene = {
+    state: BATTLE.PLAYING,
+    camX: 0, camY: 0,
+    sessionGold: 0,
+    skillChoices: [],
+    result: null,
+    init(charId) {
+      Player.init(charId);
+      MapVariant.init(Date.now() + charId.length);
+      Wave.reset(); Enemy.reset(); Projectile.reset(); EnemyBullet.reset(); Loot.reset(); SkillSystem.reset(); MapEvent.init(); SpecialTerrain.init(); Tombstone.init(); RuneEffects.init(); DamageStats.reset(); FX.reset();
+      this.state = BATTLE.PLAYING;
+      this.sessionGold = 0;
+      this.result = null;
+      this.camX = Player.x - DESIGN_W / 2;
+      this.camY = Player.y - DESIGN_H / 2;
+      for (let i = 0; i < 16; i++) Enemy.spawnAround(Player.x, Player.y, Wave.pickEnemyType(), 1);
+    },
+    update(dt) {
+      if (this.state !== BATTLE.PLAYING) { FX.update(dt); return; }
+      PerfQuality.update(dt);
+      Wave.update(dt);
+      MapEvent.update(dt);
+      SpecialTerrain.update(dt);
+      Tombstone.update(dt);
+      RuneEffects.update(dt);
+      Player.update(dt, Input.moveX, Input.moveY);
+      this.autoAttack();
+      this.handleKills(Projectile.update(dt));
+      this.handleKills(SkillSystem.update(dt));
+      SpatialHash.rebuild(Enemy.active);
+      Enemy.update(dt);
+      EnemyBullet.update(dt);
+      this.handlePickups(Loot.update(dt));
+      FX.update(dt);
+      this.updateCamera();
+    },
+    autoAttack() {
+      const interval = Player.effectiveInterval();
+      if (Player.attackTimer < interval) return;
+      const target = Enemy.nearest(Player.x, Player.y, CONFIG.PLAYER.attackRange);
+      if (!target) return;
+      Player.attackTimer = 0;
+      const damage = Math.floor(Player.effectiveAtk() * SpecialTerrain.atkMult());
+      if (Player.extraBullets > 0) Projectile.spawnSpread(Player.x, Player.y, target.x, target.y, damage, Player.pierceCount, Player.extraBullets, Player.bounceCount);
+      else Projectile.spawn(Player.x, Player.y, target.x, target.y, damage, Player.pierceCount, Player.bounceCount);
+    },
+    handleKills(kills) {
+      if (!kills || !kills.length) return;
+      Achievement.check();
+    },
+    handlePickups(items) {
+      for (const it of items) {
+        if (it.type === "exp") {
+          if (Player.addExp(it.value)) {
+            this.skillChoices = SkillSystem.randomChoices();
+            if (this.skillChoices.length) this.state = BATTLE.SKILL_SELECT;
+          }
+        } else if (it.type === "heart") Player.heal(Player.maxHp * 0.15);
+        else if (it.type === "magnet") Loot.bigMagnet = 5;
+        else if (it.type === "bomb") Enemy.killNonBoss();
+        else if (it.type === "coin") { this.sessionGold += it.value; FX.floatText(Player.x, Player.y - 40, "+金币", C.yellow, 20); }
+        else if (it.type === "gift") this.state = BATTLE.GIFT_AD;
+      }
+    },
+    updateCamera() {
+      const tx = clamp(Player.x - DESIGN_W / 2, 0, WORLD_SIZE - DESIGN_W);
+      const ty = clamp(Player.y - DESIGN_H / 2, 0, WORLD_SIZE - DESIGN_H);
+      this.camX += (tx - this.camX) * 0.1;
+      this.camY += (ty - this.camY) * 0.1;
+    },
+    finish(victory) {
+      if (this.state === BATTLE.GAME_OVER || this.state === BATTLE.VICTORY) return;
+      this.state = victory ? BATTLE.VICTORY : BATTLE.GAME_OVER;
+      const diff = CONFIG.DIFFICULTY[Save.data.difficulty];
+      const gold = Math.floor((this.sessionGold + Player.kills * 0.04 + Wave.waveNum * 2) * diff.goldMult);
+      const score = Math.floor(nowScore() * diff.scoreWeight);
+      Save.addGold(gold);
+      Save.recordRun(score, Wave.waveNum, victory);
+      WeeklyChallenge.finish({score, wave:Wave.waveNum, victory});
+      Tombstone.upload({wave:Wave.waveNum,kills:Player.kills,score,victory});
+      Achievement.check();
+      this.result = { victory, gold, score, wave: Wave.waveNum, kills: Player.kills, time: Wave.totalTime };
+      App.state = STATE.OVER;
+    }
+  };
+
+  const App = {
+    canvas: document.getElementById("game"), ctx: null, state: STATE.TITLE, selectedChar: "cat", last: performance.now(), viewport: { scale: 1, offsetX: 0, offsetY: 0, dpr: 1 },
+    init() {
+      this.ctx = this.canvas.getContext("2d");
+      Save.load();
+      this.resize();
+      addEventListener("resize", () => this.resize());
+      addEventListener("keydown", e => { Input.keys.add(e.key.toLowerCase()); if (e.key === "Escape" && this.state === STATE.PLAYING) BattleScene.state = BattleScene.state === BATTLE.PAUSED ? BATTLE.PLAYING : BATTLE.PAUSED; });
+      addEventListener("keyup", e => Input.keys.delete(e.key.toLowerCase()));
+      this.canvas.addEventListener("pointerdown", e => this.pointerDown(e));
+      this.canvas.addEventListener("pointermove", e => this.pointerMove(e));
+      this.canvas.addEventListener("pointerup", e => this.pointerUp(e));
+      this.canvas.addEventListener("pointercancel", e => this.pointerUp(e));
+      requestAnimationFrame(t => this.loop(t));
+    },
+    resize() {
+      const dpr = Math.max(1, devicePixelRatio || 1);
+      const w = innerWidth, h = innerHeight;
+      this.canvas.width = Math.floor(w * dpr);
+      this.canvas.height = Math.floor(h * dpr);
+      this.canvas.style.width = w + "px";
+      this.canvas.style.height = h + "px";
+      const scale = Math.min(w / DESIGN_W, h / DESIGN_H);
+      this.viewport = { dpr, scale, offsetX: (w - DESIGN_W * scale) / 2, offsetY: (h - DESIGN_H * scale) / 2 };
+    },
+    toDesign(e) { return { x: (e.clientX - this.viewport.offsetX) / this.viewport.scale, y: (e.clientY - this.viewport.offsetY) / this.viewport.scale }; },
+    pointerDown(e) {
+      const p = this.toDesign(e);
+      if (UI.click(p.x, p.y)) return;
+      Input.startJoystick(p.x, p.y);
+    },
+    pointerMove(e) { const p = this.toDesign(e); Input.moveJoystick(p.x, p.y); },
+    pointerUp() { Input.endJoystick(); },
+    loop(t) {
+      let dt = Math.min(0.05, (t - this.last) / 1000); this.last = t;
+      Input.update();
+      if (this.state === STATE.PLAYING) BattleScene.update(dt);
+      else FX.update(dt);
+      this.render();
+      requestAnimationFrame(n => this.loop(n));
+    },
+    startGame(charId) { this.selectedChar = charId; BattleScene.init(charId); this.state = STATE.PLAYING; },
+    render() {
+      const ctx = this.ctx, vp = this.viewport;
+      ctx.setTransform(vp.dpr, 0, 0, vp.dpr, 0, 0);
+      ctx.clearRect(0, 0, this.canvas.width / vp.dpr, this.canvas.height / vp.dpr);
+      ctx.fillStyle = "#05040d";
+      ctx.fillRect(0, 0, innerWidth, innerHeight);
+      ctx.translate(vp.offsetX, vp.offsetY);
+      ctx.scale(vp.scale, vp.scale);
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, DESIGN_W, DESIGN_H); ctx.clip();
+      UI.clear();
+      if (this.state === STATE.TITLE) Render.title(ctx);
+      else if (this.state === STATE.CHAR_SELECT) Render.charSelect(ctx);
+      else if (this.state === STATE.PLAYING) Render.battle(ctx);
+      else if (this.state === STATE.OVER) Render.over(ctx);
+      else if (this.state === STATE.LEADERBOARD) Render.leaderboard(ctx);
+      else if (this.state === STATE.ACHIEVEMENT) Render.achievements(ctx);
+      else if (this.state === STATE.RELIC_SHOP) Render.shop(ctx, "遗物商店", Save.data.relics, { power: "力量遗物 攻击+4%", life: "生命遗物 生命+5%", luck: "幸运遗物 掉落+4%", magnet: "磁吸遗物 范围+6%" });
+      else if (this.state === STATE.TOTEM_SHOP) Render.shop(ctx, "图腾商店", Save.data.totems, { hp: "生命图腾 固定生命+2", atk: "攻击图腾 固定攻击+0.8", speed: "速度图腾 固定移速+8" });
+      else if (this.state === STATE.RUNE_SHOP) Render.shop(ctx, "符文商店", Save.data.runes, { vampire: "血族契约 击杀概率回血", crossClass: "异界天赋 解锁跨角色技能", king: "深渊王权 全属性+2%" });
+      else if (this.state === STATE.SKIN_SHOP) Render.skins(ctx);
+      else if (this.state === STATE.CODEX) Render.codex(ctx);
+      else if (this.state === STATE.WEEKLY) Render.weekly(ctx);
+      ctx.restore();
+    }
+  };
+
+  const Render = {
+    bg(ctx) {
+      const g = ctx.createRadialGradient(DESIGN_W / 2, 0, 0, DESIGN_W / 2, DESIGN_H / 2, DESIGN_H);
+      g.addColorStop(0, "#24154f"); g.addColorStop(.55, C.bg); g.addColorStop(1, "#05040d");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, DESIGN_W, DESIGN_H);
+      ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
+      for (let x = -((BattleScene.camX || 0) % 64); x < DESIGN_W; x += 64) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, DESIGN_H); ctx.stroke(); }
+      for (let y = -((BattleScene.camY || 0) % 64); y < DESIGN_H; y += 64) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(DESIGN_W, y); ctx.stroke(); }
+    },
+    title(ctx) {
+      this.bg(ctx);
+      drawText(ctx, "Emoji幸存者", DESIGN_W / 2, 140, 58, C.cyan, "center");
+      drawText(ctx, "HTML/Canvas 完整逻辑复刻版", DESIGN_W / 2, 200, 24, C.muted, "center");
+      drawText(ctx, `昵称：${Save.data.nickname}`, DESIGN_W / 2, 270, 24, C.white, "center");
+      drawText(ctx, `金币：${Save.data.gold}   最高波次：${Save.data.bestWave}   最高分：${Save.data.bestScore}`, DESIGN_W / 2, 310, 20, C.yellow, "center");
+      const diff = CONFIG.DIFFICULTY[Save.data.difficulty];
+      UI.button(ctx, 180, 380, 360, 70, "开始游戏", () => App.state = STATE.CHAR_SELECT, { fill: "rgba(0,216,255,0.18)", size: 30 });
+      UI.button(ctx, 180, 470, 360, 58, `难度：${diff.name}`, () => { Save.data.difficulty = (Save.data.difficulty + 1) % CONFIG.DIFFICULTY.length; Save.save(); });
+      UI.button(ctx, 180, 540, 170, 54, "改昵称", () => { const n = prompt("输入昵称", Save.data.nickname); if (n) { Save.data.nickname = n.slice(0, 12); Save.save(); } });
+      UI.button(ctx, 370, 540, 170, 54, "排行榜", () => App.state = STATE.LEADERBOARD);
+      UI.button(ctx, 80, 630, 170, 54, "成就", () => App.state = STATE.ACHIEVEMENT);
+      UI.button(ctx, 275, 630, 170, 54, "图鉴", () => App.state = STATE.CODEX);
+      UI.button(ctx, 470, 630, 170, 54, "周挑战", () => App.state = STATE.WEEKLY);
+      UI.button(ctx, 80, 710, 170, 54, "遗物", () => App.state = STATE.RELIC_SHOP);
+      UI.button(ctx, 275, 710, 170, 54, "图腾", () => App.state = STATE.TOTEM_SHOP);
+      UI.button(ctx, 470, 710, 170, 54, "符文", () => App.state = STATE.RUNE_SHOP);
+      UI.button(ctx, 275, 790, 170, 54, "皮肤", () => App.state = STATE.SKIN_SHOP);
+      this.logicNotes(ctx);
+    },
+    logicNotes(ctx) {
+      roundRect(ctx, 55, 910, 610, 230, 18, "rgba(0,0,0,.28)", "rgba(0,216,255,.25)");
+      drawText(ctx, "已复刻逻辑：状态机 / 角色 / 难度 / 波次 / Boss / 自动攻击 / 子弹", 75, 950, 18, C.muted);
+      drawText(ctx, "敌人AI / 敌方弹幕 / 掉落 / 磁吸 / 升级三选一 / 技能主动被动", 75, 985, 18, C.muted);
+      drawText(ctx, "过载 / 护盾 / 经验金币 / 商店养成 / 皮肤 / 成就 / 排行榜 / 图鉴", 75, 1020, 18, C.muted);
+      drawText(ctx, "操作：WASD/方向键或左侧拖动虚拟摇杆，角色自动攻击。", 75, 1070, 20, C.yellow);
+    },
+    charSelect(ctx) {
+      this.bg(ctx);
+      drawText(ctx, "选择角色", DESIGN_W / 2, 80, 42, C.cyan, "center");
+      CHARACTERS.forEach((ch, i) => {
+        const col = i % 2, row = Math.floor(i / 2), x = 55 + col * 330, y = 150 + row * 245;
+        roundRect(ctx, x, y, 280, 210, 18, "rgba(20,15,45,.86)", ch.color, 2);
+        drawText(ctx, ch.emoji, x + 140, y + 50, 48, C.white, "center");
+        drawText(ctx, ch.name, x + 140, y + 105, 26, ch.color, "center");
+        drawText(ctx, ch.desc, x + 140, y + 140, 18, C.muted, "center");
+        drawText(ctx, `HP×${ch.stats.hp} ATK×${ch.stats.atk} SPD×${ch.stats.speed}`, x + 140, y + 170, 16, C.yellow, "center");
+        UI.hit(x, y, 280, 210, () => App.startGame(ch.id), ch.name);
+      });
+      UI.button(ctx, 260, 1085, 200, 58, "返回", () => App.state = STATE.TITLE);
+    },
+    battle(ctx) {
+      this.drawWorld(ctx);
+      RuneEffects.render(ctx, BattleScene.camX, BattleScene.camY);
+      this.drawHUD(ctx);
+      Minimap.render(ctx);
+      DamageStats.render(ctx);
+      if (BattleScene.state === BATTLE.SKILL_SELECT) this.skillSelect(ctx);
+      if (BattleScene.state === BATTLE.PAUSED) this.pause(ctx);
+      if (BattleScene.state === BATTLE.GIFT_AD) this.gift(ctx);
+      if (Input.joystick.active && BattleScene.state === BATTLE.PLAYING) this.joystick(ctx);
+    },
+    drawWorld(ctx) {
+      const cx = BattleScene.camX, cy = BattleScene.camY;
+      MapVariant.renderBackground(ctx, cx, cy);
+      MapVariant.renderObstacles(ctx, cx, cy);
+      SpecialTerrain.render(ctx, cx, cy);
+      MapEvent.render(ctx, cx, cy);
+      Tombstone.render(ctx, cx, cy);
+      for (const t of SkillSystem.traps) { const x = t.x - cx, y = t.y - cy; ctx.globalAlpha = .35; ctx.fillStyle = t.color; ctx.beginPath(); ctx.arc(x, y, t.r, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; drawText(ctx, "🌱", x, y, 24, C.white, "center"); }
+      for (const it of Loot.active) { const x = it.x - cx, y = it.y - cy; if (x < -50 || x > DESIGN_W + 50 || y < -50 || y > DESIGN_H + 50) continue; drawText(ctx, it.emoji, x, y, it.type === "gift" ? 28 : 22, it.color, "center"); }
+      for (const e of Enemy.active) {
+        const x = e.x - cx, y = e.y - cy; if (x < -90 || x > DESIGN_W + 90 || y < -90 || y > DESIGN_H + 90) continue;
+        ctx.save(); ctx.shadowColor = e.color; ctx.shadowBlur = e.isBoss ? 22 : 10; ctx.fillStyle = e.charmed ? C.pink : e.color; ctx.beginPath(); ctx.arc(x, y, e.radius, 0, TAU); ctx.fill(); ctx.restore();
+        drawText(ctx, e.emoji, x, y + 1, e.isBoss ? 40 : 25, C.white, "center");
+        if (e.isBoss) { ctx.fillStyle = "rgba(0,0,0,.7)"; ctx.fillRect(x - 60, y - 62, 120, 8); ctx.fillStyle = C.red; ctx.fillRect(x - 60, y - 62, 120 * clamp(e.hp / e.maxHp, 0, 1), 8); drawText(ctx, e.name, x, y - 78, 16, e.color, "center"); }
+      }
+      for (const b of EnemyBullet.active) { drawText(ctx, b.emoji, b.x - cx, b.y - cy, b.radius * 2.1, b.color, "center"); }
+      for (const a of EnemyBullet.areas) { const x = a.x - cx, y = a.y - cy; ctx.globalAlpha = .18 + .22 * (1 - a.delay / a.maxDelay); ctx.fillStyle = a.color; ctx.beginPath(); ctx.arc(x, y, a.radius, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; ctx.strokeStyle = a.color; ctx.stroke(); }
+      for (const p of Projectile.active) { drawText(ctx, p.emoji, p.x - cx, p.y - cy, p.radius * 2.2, p.color, "center"); }
+      this.drawSkillVisuals(ctx, cx, cy);
+      const px = Player.x - cx, py = Player.y - cy;
+      ctx.save(); ctx.shadowColor = Player.char.color; ctx.shadowBlur = Player.overloadActive ? 28 : 16; ctx.fillStyle = Player.invTimer > 0 ? "rgba(255,255,255,.35)" : Player.char.color; ctx.beginPath(); ctx.arc(px, py, Player.radius + (Player.overloadActive ? 6 : 0), 0, TAU); ctx.fill(); ctx.restore();
+      drawText(ctx, Player.char.emoji, px, py + 1, 34, C.white, "center");
+      if (Player.shieldCharges > 0) { ctx.strokeStyle = C.cyan; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(px, py, Player.radius + 12, 0, TAU); ctx.stroke(); }
+      for (const r of FX.rings) { ctx.globalAlpha = Math.max(0, r.life / .35); ctx.strokeStyle = r.color; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(r.x - cx, r.y - cy, r.r * (1 + (.35 - r.life)), 0, TAU); ctx.stroke(); ctx.globalAlpha = 1; }
+      for (const l of FX.lines) { ctx.globalAlpha = l.life / .12; ctx.strokeStyle = l.color; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(l.x1 - cx, l.y1 - cy); ctx.lineTo(l.x2 - cx, l.y2 - cy); ctx.stroke(); ctx.globalAlpha = 1; }
+      for (const p of FX.particles) { ctx.globalAlpha = Math.max(0, p.life / p.max); ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x - cx, p.y - cy, 3, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; }
+      for (const t of FX.texts) { ctx.globalAlpha = Math.max(0, t.life / .8); drawText(ctx, t.text, t.x - cx, t.y - cy, t.size, t.color, "center"); ctx.globalAlpha = 1; }
+      if (FX.bannerTimer > 0) { ctx.globalAlpha = Math.min(1, FX.bannerTimer); drawText(ctx, FX.bannerText, DESIGN_W / 2, 220, 34, C.yellow, "center"); ctx.globalAlpha = 1; }
+    },
+    drawSkillVisuals(ctx, cx, cy) {
+      const lv = id => Player.skills[id] || 0;
+      if (lv("atk_drone")) for (let i = 0; i < lv("atk_drone"); i++) { const a = SkillSystem.dronesAngle + i * TAU / lv("atk_drone"); drawText(ctx, "🛸", Player.x + Math.cos(a) * 70 - cx, Player.y + Math.sin(a) * 70 - cy, 24, C.cyan, "center"); }
+      if (lv("xmas_tree")) for (let i = 0; i < lv("xmas_tree"); i++) { const a = SkillSystem.dronesAngle * .8 + i * TAU / lv("xmas_tree"); drawText(ctx, "🎄", Player.x + Math.cos(a) * 96 - cx, Player.y + Math.sin(a) * 96 - cy, 24, C.green, "center"); }
+      for (const cl of SkillSystem.clones) drawText(ctx, "🙉", cl.x - cx, cl.y - cy, 26, C.orange, "center");
+      for (const b of SkillSystem.boxes) drawText(ctx, "📦", b.x - cx, b.y - cy, 26, "#64b4ff", "center");
+    },
+    drawHUD(ctx) {
+      roundRect(ctx, 18, 18, 684, 112, 16, "rgba(0,0,0,.42)", "rgba(0,216,255,.25)");
+      drawText(ctx, `${Player.char.emoji} Lv.${Player.level}`, 42, 48, 24, C.white);
+      drawText(ctx, `波次 ${Wave.waveNum}  时间 ${Math.floor(Wave.totalTime)}s  击杀 ${Player.kills}  金币 ${BattleScene.sessionGold}`, 42, 88, 20, C.muted);
+      bar(ctx, 205, 36, 290, 16, Player.hp / Player.maxHp, C.green, "rgba(80,20,20,.8)");
+      bar(ctx, 205, 66, 290, 12, Player.exp / Player.expToNext, "#6696ff", "rgba(20,20,70,.8)");
+      bar(ctx, 205, 91, 290, 10, Player.overloadActive ? Player.overloadTimer / CONFIG.OVERLOAD.duration : Player.overloadKills / CONFIG.OVERLOAD.killsToFull, C.orange, "rgba(60,35,0,.8)");
+      UI.button(ctx, 500, 38, 82, 48, "统计", () => DamageStats.visible = !DamageStats.visible, { size: 18 });
+      UI.button(ctx, 590, 38, 82, 48, "暂停", () => BattleScene.state = BATTLE.PAUSED, { size: 18 });
+    },
+    skillSelect(ctx) {
+      overlay(ctx);
+      drawText(ctx, "升级！选择一个技能", DESIGN_W / 2, 230, 36, C.yellow, "center");
+      BattleScene.skillChoices.forEach((c, i) => {
+        const x = 70, y = 310 + i * 185, w = 580, h = 150;
+        roundRect(ctx, x, y, w, h, 20, "rgba(20,15,45,.96)", C.cyan, 2);
+        drawText(ctx, c.def.icon, x + 65, y + 72, 42, C.white, "center");
+        drawText(ctx, `${c.def.name}  Lv.${c.newLevel}/${c.def.max}`, x + 125, y + 48, 26, C.yellow);
+        drawText(ctx, c.def.desc, x + 125, y + 92, 20, C.muted);
+        UI.hit(x, y, w, h, () => SkillSystem.apply(c.def.id), c.def.name);
+      });
+    },
+    pause(ctx) { overlay(ctx); drawText(ctx, "暂停", DESIGN_W / 2, 360, 46, C.cyan, "center"); UI.button(ctx, 210, 470, 300, 70, "继续", () => BattleScene.state = BATTLE.PLAYING); UI.button(ctx, 210, 565, 300, 70, "回到标题", () => App.state = STATE.TITLE); },
+    gift(ctx) { overlay(ctx); drawText(ctx, "发现礼物盒", DESIGN_W / 2, 330, 42, C.pink, "center"); drawText(ctx, "模拟广告奖励：大量经验；放弃也给少量经验。", DESIGN_W / 2, 390, 22, C.muted, "center"); UI.button(ctx, 170, 470, 380, 70, "领取大奖", () => { Player.addExp(200 + Wave.waveNum * 20); BattleScene.state = BATTLE.PLAYING; }); UI.button(ctx, 170, 560, 380, 70, "放弃小奖", () => { Player.addExp(20 + Wave.waveNum * 2); BattleScene.state = BATTLE.PLAYING; }); },
+    joystick(ctx) { ctx.globalAlpha = .55; ctx.strokeStyle = C.cyan; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(Input.joystick.baseX, Input.joystick.baseY, 78, 0, TAU); ctx.stroke(); ctx.fillStyle = C.cyan; ctx.beginPath(); ctx.arc(Input.joystick.knobX, Input.joystick.knobY, 30, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; },
+    over(ctx) {
+      this.bg(ctx);
+      const r = BattleScene.result || { victory: false, gold: 0, score: 0, wave: 0, kills: 0, time: 0 };
+      drawText(ctx, r.victory ? Player.char.victory : Player.char.death, DESIGN_W / 2, 200, 46, r.victory ? C.yellow : C.red, "center");
+      drawText(ctx, `波次 ${r.wave}  击杀 ${r.kills}  时间 ${Math.floor(r.time)}s`, DESIGN_W / 2, 300, 26, C.white, "center");
+      drawText(ctx, `获得金币 ${r.gold}  分数 ${r.score}`, DESIGN_W / 2, 350, 26, C.yellow, "center");
+      UI.button(ctx, 180, 460, 360, 70, "再来一局", () => App.state = STATE.CHAR_SELECT);
+      UI.button(ctx, 180, 550, 360, 70, "回标题", () => App.state = STATE.TITLE);
+    },
+    leaderboard(ctx) { this.bg(ctx); drawText(ctx, "排行榜", DESIGN_W / 2, 90, 42, C.cyan, "center"); const list = Save.data.leaderboard; if (!list.length) drawText(ctx, "暂无记录", DESIGN_W / 2, 240, 26, C.muted, "center"); list.forEach((r, i) => drawText(ctx, `${i + 1}. ${r.name}  ${r.score}分  波${r.wave}  ${r.victory ? "胜利" : "失败"}`, 80, 180 + i * 48, 22, i < 3 ? C.yellow : C.white)); back(ctx); },
+    achievements(ctx) { this.bg(ctx); drawText(ctx, "成就", DESIGN_W / 2, 90, 42, C.cyan, "center"); ACHIEVEMENTS.forEach((a, i) => { const got = Save.data.achievements[a.id]; drawText(ctx, `${got ? "已达成" : "未达成"}  ${a.name}`, 85, 175 + i * 85, 24, got ? C.green : C.muted); drawText(ctx, a.desc, 85, 208 + i * 85, 18, C.muted); }); back(ctx); },
+    shop(ctx, title, data, labels) {
+      this.bg(ctx); drawText(ctx, title, DESIGN_W / 2, 80, 42, C.cyan, "center"); drawText(ctx, `金币：${Save.data.gold}`, DESIGN_W / 2, 128, 24, C.yellow, "center");
+      Object.keys(labels).forEach((k, i) => { const lv = data[k] || 0, cost = 20 + lv * 15, y = 190 + i * 110; roundRect(ctx, 60, y, 600, 82, 16, C.panel, C.cyan); drawText(ctx, `${labels[k]}  Lv.${lv}`, 85, y + 28, 22, C.white); drawText(ctx, `花费 ${cost} 金币升级`, 85, y + 58, 18, C.muted); UI.button(ctx, 520, y + 18, 105, 46, "升级", () => { if (Save.data.gold >= cost) { Save.data.gold -= cost; data[k] = lv + 1; Save.save(); } }, { size: 18 }); });
+      back(ctx);
+    },
+    skins(ctx) { this.bg(ctx); drawText(ctx, "皮肤", DESIGN_W / 2, 80, 42, C.cyan, "center"); const defs = { neon: ["霓虹默认", 0], gold: ["金币皮肤 掉落+10%", 80], dark: ["暗影皮肤 暴击+5%", 80] }; Object.keys(defs).forEach((k, i) => { const owned = Save.data.skins[k], cost = defs[k][1], y = 190 + i * 110; roundRect(ctx, 60, y, 600, 82, 16, C.panel, Save.data.selectedSkin === k ? C.yellow : C.cyan); drawText(ctx, `${defs[k][0]} ${owned ? "已拥有" : "未拥有"}`, 85, y + 34, 24, C.white); UI.button(ctx, 505, y + 18, 120, 46, owned ? "装备" : `${cost}买`, () => { if (owned) Save.data.selectedSkin = k; else if (Save.data.gold >= cost) { Save.data.gold -= cost; Save.data.skins[k] = 1; Save.data.selectedSkin = k; } Save.save(); }, { size: 18 }); }); back(ctx); },
+    codex(ctx) { this.bg(ctx); drawText(ctx, "图鉴", DESIGN_W / 2, 80, 42, C.cyan, "center"); drawText(ctx, "敌人", 70, 150, 28, C.yellow); Object.keys(ENEMY_DEFS).forEach((k, i) => { const e = ENEMY_DEFS[k], got = Save.data.codex.enemies[k]; drawText(ctx, `${got ? e.emoji : "?"} ${got ? e.name : "未遭遇"}`, 85 + (i % 2) * 310, 200 + Math.floor(i / 2) * 48, 21, got ? C.white : C.muted); }); drawText(ctx, "Boss", 70, 470, 28, C.yellow); BOSSES.forEach((b, i) => { const got = Save.data.codex.bosses[b.id]; drawText(ctx, `${got ? b.emoji : "?"} ${got ? b.name : "未遭遇"}`, 85 + (i % 2) * 310, 520 + Math.floor(i / 2) * 42, 19, got ? C.white : C.muted); }); back(ctx); },
+    weekly(ctx) { this.bg(ctx); drawText(ctx, "挑战模式", DESIGN_W / 2, 90, 42, C.cyan, "center"); drawText(ctx, `每日因子：${DailyChallenge.factors.join(" / ") || "今日未开始"}`, DESIGN_W / 2, 175, 20, C.muted, "center"); drawText(ctx, `周挑战最高分：${Save.data.weeklyBest || 0}`, DESIGN_W / 2, 220, 22, C.yellow, "center"); UI.button(ctx, 180, 310, 360, 70, "开始每日挑战", () => DailyChallenge.start()); UI.button(ctx, 180, 400, 360, 70, "开始周挑战", () => WeeklyChallenge.start()); back(ctx); }
+  };
+
+  function back(ctx) { UI.button(ctx, 250, 1140, 220, 60, "返回", () => App.state = STATE.TITLE); }
+  function overlay(ctx) { ctx.fillStyle = "rgba(0,0,0,.62)"; ctx.fillRect(0, 0, DESIGN_W, DESIGN_H); }
+  function bar(ctx, x, y, w, h, p, fg, bg) { ctx.fillStyle = bg; ctx.fillRect(x, y, w, h); ctx.fillStyle = fg; ctx.fillRect(x, y, w * clamp(p, 0, 1), h); ctx.strokeStyle = "rgba(255,255,255,.25)"; ctx.strokeRect(x, y, w, h); }
+
+  App.init();
+})();
+</script>
+
+</body>
+</html>

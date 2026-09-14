@@ -1,6166 +1,7281 @@
 {
   "Achievement.lua": {
+    "v": 2,
     "mtime": 1779865799,
     "results": [
       {
         "text": "达到50级",
         "line": 38,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "出师未捷",
         "line": 49,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "第一波就阵亡",
         "line": 50,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "爆破专家",
         "line": 56,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "单次炸弹清除20个敌怪",
         "line": 57,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "淡泊名利",
         "line": 63,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "放弃广告宝箱奖励",
         "line": 64,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "初露锋芒",
         "line": 71,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "到达第10波",
         "line": 72,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "身经百战",
         "line": 78,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "到达第20波",
         "line": 79,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "战场老兵",
         "line": 85,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "到达第30波",
         "line": 86,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "传奇幸存者",
         "line": 92,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "到达第50波",
         "line": 93,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "初窥门径",
         "line": 100,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "单局击杀100个敌人",
         "line": 101,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "杀戮机器",
         "line": 107,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "单局击杀500个敌人",
         "line": 108,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "万夫莫敌",
         "line": 114,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "单局击杀1000个敌人",
         "line": 115,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "小有所成",
         "line": 122,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "单局达到10级",
         "line": 123,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "实力非凡",
         "line": 129,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "单局达到20级",
         "line": 130,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "登峰造极",
         "line": 136,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "单局达到30级",
         "line": 137,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "硬核玩家",
         "line": 144,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "困难难度到达第10波",
         "line": 145,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "噩梦行者",
         "line": 151,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "噩梦难度到达第5波",
         "line": 152,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "噩梦征服者",
         "line": 158,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "噩梦难度到达第10波",
         "line": 159,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "精英猎手",
         "line": 166,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "累计击杀10个精英怪",
         "line": 167,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "精英终结者",
         "line": 173,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "累计击杀50个精英怪",
         "line": 174,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "屠龙勇士",
         "line": 181,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击杀第一个Boss",
         "line": 182,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "Boss终结者",
         "line": 188,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "累计击杀10个Boss",
         "line": 189,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "小有积蓄",
         "line": 196,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "累计获得1000金币",
         "line": 197,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "富甲一方",
         "line": 203,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "累计获得10000金币",
         "line": 204,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每日打卡",
         "line": 211,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "完成1次每日挑战",
         "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "持之以恒",
         "line": 218,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "完成5次每日挑战",
         "line": 219,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全员集合",
         "line": 226,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "解锁全部角色",
         "line": 227,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "遗物收藏家",
         "line": 233,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "升级3个不同遗物",
         "line": 234,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "闪电突击",
         "line": 241,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "5分钟内到达第10波",
         "line": 242,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "博物学者",
         "line": 249,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "图鉴收录10个条目",
         "line": 250,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "百科全书",
         "line": 256,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "图鉴收录全部条目",
         "line": 257,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "赛季初体验",
         "line": 264,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "完成1次周挑战",
         "line": 265,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "赛季全勤",
         "line": 271,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "累计完成7次周挑战",
         "line": 272,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "宝箱猎人",
         "line": 279,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击杀全部守卫开启宝箱",
         "line": 280,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "事件达人",
         "line": 286,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "触发全部6种地图事件",
         "line": 287,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "环游世界",
         "line": 294,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "在全部4种地图中通关",
         "line": 295,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "共鸣初现",
         "line": 302,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "首次激活符文共鸣",
         "line": 303,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "共鸣大师",
         "line": 309,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "激活全部6种符文共鸣",
         "line": 310,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🏆 成就解锁",
         "line": 938,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🏆 成就",
         "line": 972,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " 已解锁",
         "line": 979,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "← 返回",
         "line": 1096,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "Config.lua": {
-    "mtime": 1778311715,
+    "v": 2,
+    "mtime": 1786365135,
     "results": [
       {
         "text": "简单",
         "line": 131,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌人较弱，适合新手",
         "line": 131,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "普通",
         "line": 137,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "标准难度，均衡体验",
         "line": 137,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "困难",
         "line": 143,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌人凶猛，经验丰富",
         "line": 143,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "噩梦",
         "line": 149,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "极限挑战，噩梦降临",
         "line": 149,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "小猫咪",
         "line": 182,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "灵敏敏捷，弹幕高手",
         "line": 183,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "小猫倒下了",
         "line": 209,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "下次一定能行喵！",
         "line": 210,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "大获全胜！",
         "line": 211,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "BOSS已被小猫击败喵~",
         "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再来一局喵~",
         "line": 213,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "黄豆勇士",
         "line": 217,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "生命顽强，爆炸专家",
         "line": 218,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "黄豆碎了",
         "line": 239,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "下次再战！豆力全开！",
         "line": 240,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "豆气冲天！",
         "line": 241,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "BOSS被黄豆碾碎啦！",
         "line": 242,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再豆一局！",
         "line": 243,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "灵猴大圣",
         "line": 248,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "极速连击，闪避大师",
         "line": 249,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "猴子摔下来了",
         "line": 270,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "大圣还会归来！",
         "line": 271,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "齐天大胜！",
         "line": 272,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "BOSS被猴哥一棒打飞！",
         "line": 273,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再战一回合！",
         "line": 274,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "无敌巨掌",
         "line": 279,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "力大无穷，范围碾压",
         "line": 280,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "巨掌倒下了",
         "line": 301,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "下次用更大的力量！",
         "line": 302,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "一掌定乾坤！",
         "line": 303,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "BOSS被拍成肉饼啦！",
         "line": 304,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再拍一局！",
         "line": 305,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "自然之灵",
         "line": 310,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "冰霜控制，自然之力",
         "line": 311,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "叶子枯萎了",
         "line": 332,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "春风吹又生！",
         "line": 333,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "万物复苏！",
         "line": 334,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "BOSS被自然之力净化啦！",
         "line": 335,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再绽放一次！",
         "line": 336,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "召唤大军，以众克敌",
         "line": 342,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "OTTO倒下了",
         "line": 363,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "召唤师永不言败！",
         "line": 364,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "召唤大胜！",
         "line": 365,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "BOSS被大军碾碎啦！",
         "line": 366,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再召一局！",
         "line": 367,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "巡逻警官",
         "line": 397,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "警笛弹幕",
         "line": 407,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "追击封锁",
         "line": 418,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全域通缉",
         "line": 429,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "重装工头",
         "line": 444,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "砖块投掷",
         "line": 454,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "钻头冲刺",
         "line": 465,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "建筑崩塌",
         "line": 476,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "地狱厨神",
         "line": 493,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "飞刀投射",
         "line": 503,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "火焰喷射",
         "line": 514,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "致命料理",
         "line": 525,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "代码狂魔",
         "line": 541,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "Bug弹幕",
         "line": 551,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "递归炸弹",
         "line": 562,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "蓝屏死机",
         "line": 574,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "烈焰战士",
         "line": 589,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "水枪喷射",
         "line": 599,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "消防斧冲击",
         "line": 610,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "灭世大火",
         "line": 621,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗夜伯爵",
         "line": 638,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "蝙蝠群",
         "line": 648,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗影传送",
         "line": 659,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "鲜血狂宴",
         "line": 670,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗影绅士",
         "line": 686,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "扑克飞弹",
         "line": 696,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "魔术消失",
         "line": 707,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "终极礼花",
         "line": 718,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "疯狂博士",
         "line": 733,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "试管投射",
         "line": 743,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "基因裂变",
         "line": 754,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "核聚变",
         "line": 766,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "深海船长",
         "line": 781,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加农炮",
         "line": 791,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "船锚冲击",
         "line": 802,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴风骤雨",
         "line": 813,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "电音狂魔",
         "line": 830,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "音波冲击",
         "line": 840,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "低音重炮",
         "line": 851,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "终极混音",
         "line": 862,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗黑医师",
         "line": 877,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "注射针",
         "line": 887,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "瘟疫扩散",
         "line": 898,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "起死回生",
         "line": 910,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗影忍者",
         "line": 926,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "手里剑",
         "line": 936,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "影分身",
         "line": 947,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "千本樱",
         "line": 958,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "歼灭者T-X",
         "line": 975,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "激光扫射",
         "line": 985,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "火箭弹",
         "line": 996,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "终极歼灭",
         "line": 1008,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "深渊魔王",
         "line": 1023,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "地狱火扇",
         "line": 1033,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗影冲锋",
         "line": 1044,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "末日审判",
         "line": 1055,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击无人机",
         "line": 1197,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "召唤蓝色无人机自动攻击",
         "line": 1198,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "绿色无人机",
         "line": 1208,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "更大轨道的绿色无人机，碰撞伤害=100%子弹，远程=50%蓝色",
         "line": 1209,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "手雷",
         "line": 1217,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "碰敌即炸+击退，升级连投",
         "line": 1218,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "力场护盾",
         "line": 1226,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "定期生成护盾抵挡伤害",
         "line": 1227,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "生命恢复",
         "line": 1235,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每秒恢复生命值",
         "line": 1236,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击提升",
         "line": 1245,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全局攻击+10%",
         "line": 1246,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "生命提升",
         "line": 1254,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全局生命+10%",
         "line": 1255,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "移速提升",
         "line": 1263,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全局移速+5%",
         "line": 1264,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击提升",
         "line": 1272,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击率+5%",
         "line": 1273,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "磁力增强",
         "line": 1281,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "拾取范围+30%",
         "line": 1282,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "射速提升",
         "line": 1290,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击间隔-15%",
         "line": 1291,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "多重射击",
         "line": 1299,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "同时发射额外子弹",
         "line": 1300,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "穿透弹",
         "line": 1308,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "子弹可穿透敌人",
         "line": 1309,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "弹射弹",
         "line": 1317,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "子弹命中后弹射至附近敌人",
         "line": 1318,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "星爆猫爪",
         "line": 1327,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "200%范围星爆，连击积攒，爆红心叠攻速",
         "line": 1328,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "豆芽陷阱",
         "line": 1337,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "种下豆芽，踩到大范围爆炸",
         "line": 1338,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "连击拳",
         "line": 1347,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "子弹命中后弹射至附近敌人",
         "line": 1348,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "闪避翻滚",
         "line": 1356,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "移速+7%，暴击率+2%",
         "line": 1357,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "分身打击",
         "line": 1365,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "召唤分身发射射弹，继承弹幕加成",
         "line": 1366,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "极速爆发",
         "line": 1374,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击间隔-20%",
         "line": 1375,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "掌风波",
         "line": 1384,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "子弹可穿透敌人",
         "line": 1385,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "太极拳",
         "line": 1393,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "化劲：消除来袭敌弹并释放6倍掌风波",
         "line": 1394,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "弹指神功",
         "line": 1409,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击率+6%",
         "line": 1410,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "铁拳",
         "line": 1418,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全局攻击+12%",
         "line": 1419,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "点赞弹幕",
         "line": 1428,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "瞄准弹幕连射，受子弹与散射加成",
         "line": 1429,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "巨弹强袭",
         "line": 1438,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "2%概率发射3倍大子弹，附加敌人最大生命0.2%伤害",
         "line": 1439,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击退冲击",
         "line": 1448,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "子弹命中5%概率击退敌人0.2秒",
         "line": 1449,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "藤蔓穿刺",
         "line": 1458,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "子弹+2穿透（上限3层）",
         "line": 1459,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "自然追踪",
         "line": 1467,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "25%概率子弹0.3s后追踪敌人",
         "line": 1468,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "圣诞之树",
         "line": 1476,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "召唤圣诞树环绕，发射冰弹冻结敌人",
         "line": 1477,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "四叶幸运",
         "line": 1485,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "掉落物品概率+15%",
         "line": 1486,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "霜瑟风暴",
         "line": 1494,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "冰霜风暴AoE，对范围内全体敌人造成1/3伤害并叠加冰冻",
         "line": 1495,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "大象踩背",
         "line": 1504,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "2%射击概率召唤大象(10s)，每秒AoE踩踏1.5倍伤害",
         "line": 1505,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "我喜欢你你喜欢我",
         "line": 1520,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击杀敌人时魅惑，上限=等级，近战6次/秒，远程射魅惑弹",
         "line": 1521,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "慢行者",
         "line": 1531,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "发射骑马子弹锁定敌人，制造旋风每秒2次伤害",
         "line": 1532,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "盒子",
         "line": 1547,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每5s部署/拆除盒子，复制僚机技能，伤害50%，上限=等级",
         "line": 1548,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "冲刺",
         "line": 1561,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "移速+15%，可叠加（上限3层=45%）",
         "line": 1562,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "MockCloud.lua": {
+    "v": 2,
     "mtime": 1777450580,
     "results": [
       {
         "text": "勇敢猫猫",
         "line": 47,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "无敌大王",
         "line": 47,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴走忍者",
         "line": 47,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "闪亮英雄",
         "line": 47,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "元气骑士",
         "line": 47,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "酷炫玩家",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "幸运高手",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "狂野勇士",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "超级法师",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "疾风剑客",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "星光猎人",
         "line": 49,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗影挑战者",
         "line": 49,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "冰霜战神",
         "line": 49,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "烈焰幸存者",
         "line": 49,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "钢铁小萌新",
         "line": 49,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "我",
         "line": 310,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "玩家",
         "line": 317,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "SaveData.lua": {
-    "mtime": 1778386667,
+    "v": 2,
+    "mtime": 1785332860,
     "results": [
       {
         "text": "勇敢",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "无敌",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "闪亮",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴走",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "元气",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "快乐",
         "line": 88,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "酷炫",
         "line": 88,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "幸运",
         "line": 88,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "狂野",
         "line": 88,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "超级",
         "line": 88,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "神秘",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗影",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "闪电",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "烈焰",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "冰霜",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "星光",
         "line": 90,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "疾风",
         "line": 90,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "钢铁",
         "line": 90,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴风",
         "line": 90,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "极速",
         "line": 90,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "猫猫",
         "line": 94,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "勇士",
         "line": 94,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "大王",
         "line": 94,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "英雄",
         "line": 94,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "小萌新",
         "line": 94,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "挑战者",
         "line": 95,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "幸存者",
         "line": 95,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "战神",
         "line": 95,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "忍者",
         "line": 95,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "骑士",
         "line": 95,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "猎人",
         "line": 96,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "法师",
         "line": 96,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "剑客",
         "line": 96,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "玩家",
         "line": 96,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "高手",
         "line": 96,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "解锁方式：评价 / 看广告",
         "line": 712,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "通关第",
         "line": 714,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "波解锁",
         "line": 714,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "battle/BattleScene.lua": {
-    "mtime": 1779870244,
+    "v": 2,
+    "mtime": 1786691144,
     "results": [
       {
         "text": " 共鸣激活!",
-        "line": 160,
+        "line": 170,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "治疗无效!",
-        "line": 215,
+        "line": 231,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📦 宝箱开启!",
-        "line": 438,
+        "line": 454,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "背包已满!",
-        "line": 466,
+        "line": 482,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "💥 全屏清怪!",
-        "line": 616,
+        "line": 633,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎰 轮盘!",
-        "line": 842,
+        "line": 874,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎰 轮盘!",
-        "line": 983,
+        "line": 1015,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "battle/Enemy.lua": {
+    "v": 2,
     "mtime": 1779864910,
     "results": []
   },
   "battle/EnemyBullet.lua": {
+    "v": 2,
     "mtime": 1779808678,
     "results": []
   },
   "battle/Loot.lua": {
+    "v": 2,
     "mtime": 1779857770,
     "results": []
   },
   "battle/MapEvent.lua": {
-    "mtime": 1778469623,
+    "v": 2,
+    "mtime": 1785332792,
     "results": [
       {
         "text": "宝箱守卫",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击杀守卫获得大量金币",
         "line": 17,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "治疗泉",
         "line": 24,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "站在泉水中持续回血",
         "line": 26,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "旅行商人",
         "line": 33,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "花金币购买技能升级",
         "line": 35,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "毒雾区",
         "line": 42,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "站在其中持续掉血",
         "line": 44,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加速领域",
         "line": 51,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "进入后短暂大幅加速",
         "line": 53,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "磁力漩涡",
         "line": 60,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "吸取周围所有掉落物",
         "line": 62,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " 升级技能",
         "line": 376,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已售罄",
         "line": 380,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✅ 已开启!",
         "line": 388,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "battle/MapVariant.lua": {
+    "v": 2,
     "mtime": 1778820944,
     "results": [
       {
         "text": "赛博废墟",
         "line": 16,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "废弃终端",
         "line": 31,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "信号塔",
         "line": 32,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "翡翠草原",
         "line": 50,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "大树",
         "line": 64,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "岩石",
         "line": 65,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "幽暗洞穴",
         "line": 83,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "石柱",
         "line": 97,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "矿车",
         "line": 98,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "天空浮岛",
         "line": 116,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "浮岩",
         "line": 130,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "气旋",
         "line": 131,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "battle/Player.lua": {
-    "mtime": 1778346077,
+    "v": 2,
+    "mtime": 1785332942,
     "results": []
   },
   "battle/Projectile.lua": {
+    "v": 2,
     "mtime": 1779858012,
     "results": []
   },
   "battle/RuneEffects.lua": {
+    "v": 2,
     "mtime": 1779856891,
     "results": [
       {
         "text": "🔥浴火重生!",
         "line": 278,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🪖抵挡!",
         "line": 386,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🚨加速!",
         "line": 416,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "👤影分身!",
         "line": 465,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "👁️暗影x",
         "line": 561,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "👁️暗影爆发!x",
         "line": 598,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "⚡超频!",
         "line": 619,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "💰宝箱!",
         "line": 641,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "battle/RuneResonance.lua": {
+    "v": 2,
     "mtime": 1779856922,
     "results": [
       {
         "text": "烈焰重生",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "浴火触发时额外回复20%HP，击杀回血概率翻倍",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "幻影风暴",
         "line": 35,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "影分身也会释放迷你节拍冲击波（50%范围，60%伤害）",
         "line": 37,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "铁壁医疗",
         "line": 46,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "护盾叠满3层时自动回复15%HP，急救冷却-5秒",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗影裂变",
         "line": 57,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暗影爆发时额外产生裂变弹幕（8颗，每颗60%ATK）",
         "line": 59,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "闪电掠夺",
         "line": 68,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "连锁闪电击杀的敌人100%掉落金币，宝箱阈值-5",
         "line": 70,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "超频完美",
         "line": 79,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "超频期间完美主义伤害加成翻倍，未受伤时间减半触发",
         "line": 81,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🔥🩸共鸣!",
         "line": 164,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🪖💊共鸣+",
         "line": 200,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "👁️⚛️暗影裂变!",
         "line": 254,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "battle/Skill.lua": {
+    "v": 2,
     "mtime": 1779857705,
     "results": []
   },
   "battle/SpecialTerrain.lua": {
+    "v": 2,
     "mtime": 1778821708,
     "results": [
       {
         "text": "数据注射器",
         "line": 27,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "⚡ 攻速+20%  25秒",
         "line": 32,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "数据宝箱",
         "line": 35,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "💾 获得大量经验",
         "line": 40,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "激光炮台",
         "line": 43,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🔫 攻击+25%  30秒",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "治愈泉",
         "line": 54,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "💧 回复60%生命",
         "line": 59,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "精灵祝福",
         "line": 62,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🧚 磁力×3  15秒",
         "line": 67,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "自然神龛",
         "line": 70,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🛕 随机技能升级",
         "line": 75,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "古代水晶",
         "line": 81,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "💎 攻击+25%  40秒",
         "line": 86,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "爆炸蘑菇",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🍄 全屏清怪！",
         "line": 94,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "深渊宝藏",
         "line": 97,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🏺 大量经验+金币",
         "line": 102,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "风之祭坛",
         "line": 108,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🌀 移速+30%  20秒",
         "line": 113,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "星辰神殿",
         "line": 116,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "⭐ 无敌5秒+全屏AOE",
         "line": 121,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "云端宝箱",
         "line": 124,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📦 获得大量经验",
         "line": 129,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击+25%",
         "line": 578,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "移速+30%",
         "line": 581,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻速+20%",
         "line": 584,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "磁力×3",
         "line": 587,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "无敌",
         "line": 590,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "battle/Wave.lua": {
+    "v": 2,
     "mtime": 1778820980,
     "results": []
   },
   "fx/GameAudio.lua": {
+    "v": 2,
     "mtime": 1778230268,
     "results": []
   },
   "fx/Glow.lua": {
+    "v": 2,
     "mtime": 1778237793,
     "results": []
   },
   "fx/Particle.lua": {
+    "v": 2,
     "mtime": 1778821954,
     "results": []
   },
   "fx/ScreenShake.lua": {
-    "mtime": 1778294842,
+    "v": 2,
+    "mtime": 1785332874,
     "results": []
   },
   "main.lua": {
-    "mtime": 1779983171,
+    "v": 2,
+    "mtime": 1786691194,
     "results": [
       {
-        "text": "Emoji幸存者",
-        "line": 234,
+        "text": "emoji 英雄战斗",
+        "line": 235,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "更新排行榜",
-        "line": 399,
+        "line": 400,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "更新排行榜",
-        "line": 418,
+        "line": 419,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "联网不可用",
-        "line": 427,
+        "line": 428,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "玩家",
-        "line": 509,
+        "line": 510,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "玩家",
-        "line": 524,
+        "line": 525,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "玩家",
-        "line": 541,
+        "line": 542,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加载失败",
-        "line": 557,
+        "line": 558,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "上传每日挑战",
-        "line": 623,
+        "line": 652,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "emoji 英雄战斗",
+        "line": 1864,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
       }
     ]
   },
   "meta/Codex.lua": {
+    "v": 2,
     "mtime": 1778469622,
     "results": [
       {
         "text": "普通怪",
         "line": 41,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "速敏怪",
         "line": 41,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "坦克怪",
         "line": 41,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "蜂群怪",
         "line": 42,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "冲锋怪",
         "line": 42,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "幽灵怪",
         "line": 42,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "巫师怪",
         "line": 43,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "远程怪",
         "line": 43,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "精英怪",
         "line": 43,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "最基础的敌人，数量众多",
         "line": 46,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "移速极快，血量较低",
         "line": 47,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "血量极高，移速缓慢",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "大量出现的小型单位",
         "line": 49,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "会向玩家冲锋突进",
         "line": 50,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "半透明，可穿越障碍",
         "line": 51,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "召唤其他敌人的施法者",
         "line": 52,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "远距离攻击的射手",
         "line": 53,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "带有随机强化词缀的精英",
         "line": 54,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌人",
         "line": 67,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "技能: ",
         "line": 82,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "技能",
         "line": 101,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "符文",
         "line": 117,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "图腾",
         "line": 135,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "障碍: ",
         "line": 151,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "无障碍物",
         "line": 151,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "地图",
         "line": 155,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📖 图鉴发现: ",
         "line": 471,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📖 图鉴收集册",
         "line": 515,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " 已发现",
         "line": 524,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "尚未发现",
         "line": 667,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "← 返回",
         "line": 710,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "meta/DailyChallenge.lua": {
+    "v": 2,
     "mtime": 1778312630,
     "results": [
       {
         "text": "经验膨胀",
         "line": 41,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "升级经验需求 ×1.5",
         "line": 43,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌怪狂暴",
         "line": 47,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌怪攻击力翻倍",
         "line": 49,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌怪迅捷",
         "line": 53,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌怪移速翻倍",
         "line": 55,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌怪坚韧",
         "line": 59,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌怪血量翻倍",
         "line": 61,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "Boss倍增",
         "line": 65,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "Boss出现间隔减半",
         "line": 67,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "专精之路",
         "line": 77,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "仅1个可获取技能，无等级上限",
         "line": 79,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "缩小药水",
         "line": 83,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "体积和血量 -50%",
         "line": 85,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "巨大化",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "体积和血量 +100%",
         "line": 91,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击本能",
         "line": 95,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "伤害 -4 点，暴击率翻倍",
         "line": 97,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "拾金者",
         "line": 101,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "金币掉率 ×2，道具掉率 ×0.5",
         "line": 103,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "缓释回复",
         "line": 107,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "红心改为5s渐进回复",
         "line": 109,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "危险炸弹",
         "line": 113,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "炸弹掉率 ×2，自伤10点",
         "line": 115,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "广域拾取",
         "line": 119,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "拾取范围 ×2，经验值 ×0.2",
         "line": 121,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "普通怪",
         "line": 227,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "速敏怪",
         "line": 227,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "坦克怪",
         "line": 227,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "蜂群怪",
         "line": 227,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "冲锋怪",
         "line": 228,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "幽灵怪",
         "line": 228,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "巫师怪",
         "line": 228,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "远程怪",
         "line": 228,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "精英怪",
         "line": 229,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "初级",
         "line": 241,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "中级",
         "line": 242,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "高级",
         "line": 243,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "精英",
         "line": 244,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "大师",
         "line": 245,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🥇 冠军",
         "line": 250,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🥈 亚军",
         "line": 251,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🥉 季军",
         "line": 252,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "meta/RelicSystem.lua": {
+    "v": 2,
     "mtime": 1778337036,
     "results": [
       {
         "text": "力量遗物",
         "line": 18,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每级全局攻击+0.2%",
         "line": 20,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敏捷遗物",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每级暴击率+0.2%",
         "line": 27,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "生命遗物",
         "line": 32,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每级基础生命+0.25%",
         "line": 34,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "速度遗物",
         "line": 39,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每级攻击间隔-0.5%，移速+0.5%",
         "line": 41,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "幸运遗物",
         "line": 46,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每级掉落物出现率+1%",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "护甲遗物",
         "line": 53,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每级受伤减免+0.3%",
         "line": 55,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "学识遗物",
         "line": 60,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每级经验获取+0.3%",
         "line": 62,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "磁力遗物",
         "line": 67,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每级拾取范围+1%",
         "line": 69,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "守护遗物",
         "line": 74,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每波开始获得N次护卫充能，将单次受伤降为1点（N=遗物等级）",
         "line": 76,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "飞行遗物",
         "line": 81,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "解锁绿色无人机技能，轨道更大，等级上限=遗物等级+3（需1级以上）",
         "line": 83,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "meta/RuneSystem.lua": {
+    "v": 2,
     "mtime": 1777257153,
     "results": [
       {
         "text": "传说",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "警戒反射",
         "line": 41,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "受伤后3秒内移速+40%，攻速+25%（CD 4秒）",
         "line": 43,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "钢铁壁垒",
         "line": 52,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每6秒获得1层护盾（上限3层），可抵挡致命伤害",
         "line": 54,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "饕餮盛宴",
         "line": 61,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击40%概率回复8%最大HP并使下次必定暴击（CD 3秒）",
         "line": 63,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "递归循环",
         "line": 71,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击杀敌人15%概率释放连锁闪电，弹射4次（每次80%ATK+30%减速2秒，CD 2秒）",
         "line": 73,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "浴火重生",
         "line": 85,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "HP<35%时3秒免疫+AOE火焰伤害120%ATK（CD 15秒）",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "血族契约",
         "line": 97,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "满血时攻击力+25%；击杀15%概率回复5%最大HP",
         "line": 99,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "完美主义",
         "line": 107,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "2秒未受伤：伤害+80%+穿透+2；5秒未受伤：额外击退",
         "line": 109,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "裂变弹头",
         "line": 118,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "穿透后40%概率分裂2颗子弹（75%伤害）",
         "line": 120,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "夺宝奇兵",
         "line": 129,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "Boss击杀+80%金币；每击杀15个敌人召唤宝箱（CD 20秒）",
         "line": 131,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "节拍风暴",
         "line": 139,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每3秒AOE击退+100%ATK伤害+40%减速2秒",
         "line": 141,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "急救协议",
         "line": 151,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "HP<35%时回复40%HP+3秒减伤50%（CD 15秒）",
         "line": 153,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "影分身术",
         "line": 163,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击40%概率召唤影分身（8秒，100%ATK，上限2）",
         "line": 165,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "超频核心",
         "line": 174,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每8击杀触发超频（攻速×3，伤害+80%，5秒）",
         "line": 176,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "深渊王权",
         "line": 188,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击杀敌人叠加暗影（上限30层），满层消耗全部层数释放暗影爆发（300%ATK全屏+全属性每层+1%持续10秒）",
         "line": 190,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "未知符文",
         "line": 257,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "meta/SkinSystem.lua": {
+    "v": 2,
     "mtime": 1777256515,
     "results": [
       {
         "text": "暗影猫",
         "line": 18,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "恋爱猫",
         "line": 36,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "墨镜豆",
         "line": 56,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "大厨豆",
         "line": 74,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "水果猴王",
         "line": 94,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "赛博猴",
         "line": 112,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "摇滚之手",
         "line": 132,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "魔法之手",
         "line": 150,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "樱花之灵",
         "line": 170,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "冰晶之叶",
         "line": 188,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "黄金战车",
         "line": 208,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "机甲OTTO",
         "line": 226,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "meta/TotemSystem.lua": {
-    "mtime": 1778386667,
+    "v": 2,
+    "mtime": 1785332890,
     "results": [
       {
         "text": "垃圾",
         "line": 33,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "普通",
         "line": 34,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "稀有",
         "line": 35,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "罕见",
         "line": 36,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "生命",
         "line": 77,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "初始HP",
         "line": 77,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击",
         "line": 78,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "初始ATK",
         "line": 78,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "速度",
         "line": 79,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "初始SPD",
         "line": 79,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击",
         "line": 80,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击率",
         "line": 80,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "射速",
         "line": 81,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击间隔降低",
         "line": 81,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "掘金",
         "line": 82,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "金币掉取率",
         "line": 82,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "幸运",
         "line": 83,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "掉落率提升",
         "line": 83,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击提升",
         "line": 85,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "开局携带一级攻击提升",
         "line": 85,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "移速提升",
         "line": 86,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "开局携带一级移速提升",
         "line": 86,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "磁力增强",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "开局携带一级磁力增强",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击退冲击",
         "line": 88,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "开局携带一级击退冲击",
         "line": 88,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击无人机",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "开局携带一级攻击无人机",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "异界天赋",
         "line": 91,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "未毕业即可学习其他角色技能",
         "line": 91,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "未知图腾",
         "line": 245,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "图腾",
         "line": 246,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "meta/WeeklyChallenge.lua": {
+    "v": 2,
     "mtime": 1779192851,
     "results": [
       {
         "text": "极速狂潮",
         "line": 34,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "一切加速！敌人更快，玩家也更快",
         "line": 36,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "玻璃大炮",
         "line": 42,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "攻击力×3，但生命值只有1点",
         "line": 44,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "虫潮来袭",
         "line": 50,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "敌怪数量×3，但经验值也×2",
         "line": 52,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "Boss连战",
         "line": 58,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每2波出Boss，Boss血量减半",
         "line": 60,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "铁人模式",
         "line": 66,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "红心掉落全部变为经验宝石",
         "line": 68,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "宝箱雨",
         "line": 74,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "掉落率×4，但敌怪攻击力×2",
         "line": 76,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "命运轮盘",
         "line": 82,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每升级随机正负效果，波次奖励×2",
         "line": 84,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "新手冒险者",
         "line": 96,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "勇敢战士",
         "line": 97,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "精英挑战者",
         "line": 98,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "赛季之星",
         "line": 99,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "传奇勇者",
         "line": 100,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "今天是赛季最后一天！",
         "line": 150,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "赛季剩余 ",
         "line": 152,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " 天",
         "line": 152,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "周一",
         "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "周二",
         "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "周三",
         "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "周四",
         "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "周五",
         "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "周六",
         "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "周日",
         "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🏆 周挑战赛季",
         "line": 439,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "赛季积分: ",
         "line": 448,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "下一奖励: ",
         "line": 484,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " (还需 ",
         "line": 485,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " 积分)",
         "line": 485,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎉 所有赛季奖励已达成！",
         "line": 490,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📅 本周日程",
         "line": 498,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "挑战 →",
         "line": 549,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎁 赛季奖励",
         "line": 558,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "积分)",
         "line": 572,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📦 上赛季奖励: ",
         "line": 597,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " 金币",
         "line": 597,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "[ 点击领取 ]",
         "line": 600,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "← 返回",
         "line": 622,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "social/Tombstone.lua": {
-    "mtime": 1778237964,
+    "v": 2,
+    "mtime": 1785332912,
     "results": [
       {
         "text": "习近平",
         "line": 14,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "毛泽东",
         "line": 14,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "共产党",
         "line": 14,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "国民党",
         "line": 14,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "六四",
         "line": 14,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "天安门",
         "line": 14,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "法轮功",
         "line": 14,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "台独",
         "line": 14,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "藏独",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "疆独",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "文革",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "反共",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "反党",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "颠覆",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "政变",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "独裁",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "专制",
         "line": 15,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "操你",
         "line": 17,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "草你",
         "line": 17,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "日你",
         "line": 17,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "他妈",
         "line": 18,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "妈的",
         "line": 18,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "傻逼",
         "line": 18,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "煞笔",
         "line": 18,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "尼玛",
         "line": 18,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "你妈",
         "line": 18,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "逼",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "屌",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "鸡巴",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "阴茎",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "阴道",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "性交",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "做爱",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "自慰",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "杀人",
         "line": 21,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "自杀",
         "line": 21,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "去死",
         "line": 21,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "弄死",
         "line": 21,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "砍死",
         "line": 21,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "打死",
         "line": 21,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "毒死",
         "line": 21,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "智障",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "弱智",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "脑残",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "废物",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "垃圾人",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "人渣",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "畜生",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "贱人",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加微信",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加qq",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "私聊",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "免费领",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "扫码",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "代练",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "外挂",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "开挂",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "我倒在了黎明前…",
         "line": 57,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "别踩我的坟！",
         "line": 58,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "下次一定能过…",
         "line": 59,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "这波敌人太多了😭",
         "line": 60,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "差一点就赢了…",
         "line": 61,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "替我报仇！",
         "line": 62,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "我的装备掉了吗？",
         "line": 63,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "又是被Boss带走的",
         "line": 64,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "建议削弱第%d波",
         "line": 65,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "第%d波是我的极限",
         "line": 66,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "希望你比我走得更远",
         "line": 67,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "有缘再见👋",
         "line": 68,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "替我报仇！",
+        "line": 105,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "替我报仇！",
+        "line": 112,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
       },
       {
         "text": "上传墓碑",
-        "line": 139,
+        "line": 140,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "旅人",
-        "line": 223,
+        "line": 224,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "旅人",
-        "line": 230,
+        "line": 231,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "旅人",
-        "line": 358,
+        "line": 359,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "💬 靠近查看遗言",
-        "line": 364,
+        "line": 365,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%s %s · 第%d波 · %d击杀",
-        "line": 430,
+        "line": 431,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "旅人",
-        "line": 431,
+        "line": 432,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "存活 ",
-        "line": 437,
+        "line": 438,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "ui/DamageNumber.lua": {
+    "v": 2,
     "mtime": 1778238294,
     "results": []
   },
   "ui/DamageStats.lua": {
+    "v": 2,
     "mtime": 1778416798,
     "results": [
       {
         "text": "基础射击",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "符文效果",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "总伤害",
         "line": 193,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "其他",
         "line": 215,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "ui/GiftAd.lua": {
+    "v": 2,
     "mtime": 1779797565,
     "results": [
       {
         "text": "发现神秘礼物！",
         "line": 111,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎬 看广告领取",
         "line": 141,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "ui/HUD.lua": {
+    "v": 2,
     "mtime": 1779983144,
     "results": [
       {
         "text": "大获全胜！",
         "line": 1327,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "倒下了",
         "line": 1344,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "存活时间",
         "line": 1427,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击杀数",
         "line": 1428,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "到达等级",
         "line": 1429,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "到达波次",
         "line": 1430,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "⚔️ 伤害统计",
         "line": 1488,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🏆 每日挑战奖励",
         "line": 1507,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "本局获得图腾",
         "line": 1543,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎬 看广告复活",
         "line": 1624,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再来一局！",
         "line": 1644,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再来一局！",
         "line": 1666,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "ui/Minimap.lua": {
+    "v": 2,
     "mtime": 1778821331,
     "results": []
   },
   "ui/RelicShop.lua": {
+    "v": 2,
     "mtime": 1778469623,
     "results": [
       {
         "text": "◀ 返回",
         "line": 82,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "遗物商店未解锁",
         "line": 95,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "通过第 ",
         "line": 99,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " 波后可开启",
         "line": 99,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "当前最高波次：",
         "line": 106,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "◀ 返回",
         "line": 145,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🛒 遗物商店",
         "line": 151,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "升级 ▲",
         "line": 312,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📺 观看广告 +500🪙",
         "line": 348,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "今日剩余 ",
         "line": 351,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "/10 次",
         "line": 351,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📺 今日广告已达上限",
         "line": 356,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "明天再来吧 (0/10)",
         "line": 359,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "遗物加成在每局开始时生效 · 金币从局内拾取🪙获得",
         "line": 368,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "ui/RuneShop.lua": {
+    "v": 2,
     "mtime": 1779195577,
     "results": [
       {
         "text": "◀ 返回",
         "line": 132,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🔮 符文管理",
         "line": 137,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已装备",
         "line": 163,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "空",
         "line": 207,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "符文收藏",
         "line": 226,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备成功！",
         "line": 448,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备失败",
         "line": 450,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已卸下符文",
         "line": 456,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "ui/SkillSelect.lua": {
-    "mtime": 1779195271,
+    "v": 2,
+    "mtime": 1785332385,
     "results": []
   },
   "ui/SkinShop.lua": {
+    "v": 2,
     "mtime": 1779195623,
     "results": [
       {
         "text": "◀ 返回",
         "line": 111,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎨 皮肤商店",
         "line": 116,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "待机",
         "line": 208,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "移动",
         "line": 208,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "受伤",
         "line": 208,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "过载",
         "line": 208,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "护盾",
         "line": 208,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "默认外观",
         "line": 217,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "当前: ",
         "line": 220,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "恢复默认",
         "line": 235,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "可用皮肤",
         "line": 255,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暂无皮肤",
         "line": 268,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✦ 使用中",
         "line": 310,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✓ 已拥有",
         "line": 313,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备",
         "line": 351,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已恢复默认外观",
         "line": 416,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备成功！",
         "line": 437,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备失败",
         "line": 439,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "购买成功！-🪙",
         "line": 447,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "金币不足",
         "line": 449,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "广告解锁成功！",
         "line": 460,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "广告未完成",
         "line": 462,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "开发模式：已解锁",
         "line": 468,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "ui/TotemShop.lua": {
+    "v": 2,
     "mtime": 1779195527,
     "results": [
       {
         "text": "全部合成完成 ×",
         "line": 114,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "合成完成 ×",
         "line": 119,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "◀ 返回",
         "line": 222,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🏺 图腾背包",
         "line": 227,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已装备",
         "line": 255,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "合成中… 点击可打断",
         "line": 435,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "松手：全部合成",
         "line": 439,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "按住中…",
         "line": 439,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "⚡ 一键合成（短按一组|长按全部）",
         "line": 439,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "无可合成图腾",
         "line": 785,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "无可合成图腾",
         "line": 801,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备成功！",
         "line": 824,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备栏已满",
         "line": 827,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已卸下图腾",
         "line": 831,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "出售 +🪙",
         "line": 838,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "批量出售 ×",
         "line": 844,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已打断合成",
         "line": 881,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已打断合成",
         "line": 892,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "utils/FPSMonitor.lua": {
+    "v": 2,
     "mtime": 1778413186,
     "results": []
   },
   "utils/I18n.lua": {
-    "mtime": 1779983133,
+    "v": 2,
+    "mtime": 1786365145,
     "results": [
       {
         "text": "中文",
         "line": 13,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "继续游戏",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🕹 摇杆位置",
         "line": 20,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "靠左",
         "line": 21,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "居中",
         "line": 22,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "靠右",
         "line": 23,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "隐藏",
         "line": 24,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎮 移动模式",
         "line": 25,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "自由方向",
         "line": 26,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "八向移动",
         "line": 27,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✨ 辉光效果",
         "line": 28,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "⚙️ 性能档位",
         "line": 29,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "关闭",
         "line": 30,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "开启",
         "line": 31,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🌐 语言",
         "line": 32,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📊 结算退出",
         "line": 33,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "大获全胜！",
         "line": 36,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "倒下了",
         "line": 37,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "存活时间",
         "line": 38,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击杀数",
         "line": 39,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "到达等级",
         "line": 40,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "到达波次",
         "line": 41,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "本局获得图腾",
         "line": 42,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全球排行榜",
         "line": 45,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "查看全球战绩",
         "line": 46,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "成就",
         "line": 47,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已解锁",
         "line": 48,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "本地 W",
         "line": 49,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "为自己取一个名字吧",
         "line": 50,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "输入昵称...",
         "line": 51,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "取消",
         "line": 52,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "就这个",
         "line": 53,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "随机",
         "line": 54,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "自定义",
         "line": 55,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "联网不可用",
         "line": 56,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加载失败",
         "line": 57,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "选择一项强化义体",
         "line": 60,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "武器",
         "line": 61,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "防御",
         "line": 62,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "属性",
         "line": 63,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "最高叠加",
         "line": 64,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "选择你的终极奖励",
         "line": 65,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "满血 + 无敌",
         "line": 66,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "完全恢复HP并获得10秒无敌",
         "line": 67,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "狂暴模式",
         "line": 68,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "20秒内攻击力x3",
         "line": 69,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "◀ 返回",
         "line": 72,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备",
         "line": 73,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "卸下",
         "line": 74,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已装备",
         "line": 75,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "出售",
         "line": 76,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✓ 已拥有",
         "line": 77,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "槽位已满",
         "line": 78,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "空",
         "line": 79,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎨 皮肤商店",
         "line": 82,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "默认外观",
         "line": 83,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "当前:",
         "line": 84,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "恢复默认",
         "line": 85,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "可用皮肤",
         "line": 86,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暂无皮肤",
         "line": 87,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "待机",
         "line": 88,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "移动",
         "line": 89,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "受伤",
         "line": 90,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "过载",
         "line": 91,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "护盾",
         "line": 92,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "看广告免费获取",
         "line": 93,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🔮 符文管理",
         "line": 96,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "符文收藏",
         "line": 97,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "来源:",
         "line": 98,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击败Boss · ",
         "line": 99,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🔒 击败对应Boss后有概率掉落",
         "line": 100,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备符文",
         "line": 101,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "卸下符文",
         "line": 102,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "还没有符文，击败Boss有概率掉落",
         "line": 103,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🏺 图腾背包",
         "line": 106,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全部",
         "line": 107,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "垃圾",
         "line": 108,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "普通",
         "line": 109,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "稀有",
         "line": 110,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "罕见",
         "line": 111,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "品质:",
         "line": 112,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "卖垃圾",
         "line": 113,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加成:",
         "line": 114,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "异界天赋",
         "line": 115,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "背包为空\n击败Boss可获得图腾",
         "line": 116,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": "背包为空\\n击败Boss可获得图腾"
       },
       {
         "text": "该分类下没有图腾",
         "line": 117,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "按住中…",
         "line": 118,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "松手：全部合成",
         "line": 119,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "合成中… 点击可打断",
         "line": 120,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "合成完成",
         "line": 121,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全部合成完成",
         "line": 122,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已打断合成",
         "line": 123,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "无可合成图腾",
         "line": 124,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备成功！",
         "line": 125,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备栏已满",
         "line": 126,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "已卸下图腾",
         "line": 127,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "出售",
         "line": 128,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "批量出售",
         "line": 129,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击+",
         "line": 132,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "射速+",
         "line": 133,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再生+",
         "line": 134,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "掉落+",
         "line": 135,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "💰 +%d 金币",
         "line": 138,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🏆 每日挑战奖励",
         "line": 139,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "达成: %s",
         "line": 140,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "最高叠加 %d 层",
         "line": 144,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "⚔ 武器",
         "line": 146,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🛡 防御",
         "line": 147,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✧ 属性",
         "line": 148,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "%d 秒后自动选择",
+        "line": 149,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "广告播放中 · 倒计时已暂停",
+        "line": 150,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "📺 看广告换一批",
+        "line": 151,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "正在播放广告…",
+        "line": 152,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "已换一批新天赋",
+        "line": 153,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "完整观看后才能换一批",
+        "line": 154,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "当前环境暂不支持广告",
+        "line": 155,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
+      },
+      {
+        "text": "暂无可刷新的天赋",
+        "line": 156,
+        "rule": "chinese_double_quote",
+        "args": null,
+        "src": null
       },
       {
         "text": "品质: %s",
-        "line": 151,
+        "line": 159,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加成: ",
-        "line": 152,
+        "line": 160,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暴击+%d%%",
-        "line": 153,
+        "line": 161,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "射速+%d%%",
-        "line": 154,
+        "line": 162,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "再生+%.1f%%/s",
-        "line": 155,
+        "line": 163,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "掉落+%d%%",
-        "line": 156,
+        "line": 164,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "卸下",
-        "line": 157,
+        "line": 165,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备",
-        "line": 158,
+        "line": 166,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "出售 🪙%d",
-        "line": 159,
+        "line": 167,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "卖垃圾×%d",
-        "line": 160,
+        "line": 168,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "背包为空\n击败Boss可获得图腾",
-        "line": 161,
+        "line": 169,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": "背包为空\\n击败Boss可获得图腾"
       },
       {
         "text": "来源: 击败Boss · %s",
-        "line": 164,
+        "line": 172,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "还没有符文，击败Boss有概率掉落",
-        "line": 165,
+        "line": 173,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "槽位已满",
-        "line": 166,
+        "line": 174,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📺 看广告免费获取  或  🪙%d",
-        "line": 169,
+        "line": 177,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📺 免费",
-        "line": 170,
+        "line": 178,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🪙 %d 金币",
-        "line": 171,
+        "line": 179,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "观看广告可获得 %d EXP",
-        "line": 175,
+        "line": 183,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "放弃（仅获得 %d EXP）",
-        "line": 176,
+        "line": 184,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📺 观看广告 +500🪙",
-        "line": 179,
+        "line": 187,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "今日剩余 %d/10 次",
-        "line": 180,
+        "line": 188,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "明天再来吧 (0/10)",
-        "line": 181,
+        "line": 189,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "最高 Wave %d",
-        "line": 184,
+        "line": 192,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "本地 W%d Lv%d",
-        "line": 185,
+        "line": 193,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d/%d 已解锁",
-        "line": 186,
+        "line": 194,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "Wave%d 后解锁",
-        "line": 187,
+        "line": 195,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d/%d 已解锁",
-        "line": 188,
+        "line": 196,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "装备 %d/%d",
-        "line": 189,
+        "line": 197,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d/%d 已收集",
-        "line": 190,
+        "line": 198,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d/%d 符文",
-        "line": 191,
+        "line": 199,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d/3 装备 · %d 持有",
-        "line": 192,
+        "line": 200,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d/3 图腾",
-        "line": 193,
+        "line": 201,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d/%d 已拥有",
-        "line": 194,
+        "line": 202,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d/%d 皮肤",
-        "line": 195,
+        "line": 203,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d/%d 已发现",
-        "line": 196,
+        "line": 204,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "收集所有敌人·Boss·技能·符文·图腾·地图",
-        "line": 197,
+        "line": 205,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "当前最高：第%d波",
-        "line": 198,
+        "line": 206,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🔒 需通关第%d波",
-        "line": 199,
+        "line": 207,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
-        "text": "Emoji幸存者",
-        "line": 203,
+        "text": "emoji 英雄战斗",
+        "line": 211,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
-        "text": "欢迎来到Emoji幸存者！",
-        "line": 204,
+        "text": "欢迎来到 emoji 英雄战斗！",
+        "line": 212,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
-        "text": "v2.0 - Emoji幸存者",
-        "line": 205,
+        "text": "v2.0 - emoji 英雄战斗",
+        "line": 213,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "开始战斗！",
-        "line": 208,
+        "line": 216,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "难度选择",
-        "line": 209,
+        "line": 217,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "◀ ▶ 切换角色 · 点击按钮开始",
-        "line": 210,
+        "line": 218,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "选择你的角色",
-        "line": 211,
+        "line": 219,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每个角色拥有独特技能和风格",
-        "line": 212,
+        "line": 220,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "专属技能",
-        "line": 213,
+        "line": 221,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "▶️ 继续游戏",
-        "line": 214,
+        "line": 222,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎮 新游戏",
-        "line": 215,
+        "line": 223,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🔗 评价解锁全部",
-        "line": 216,
+        "line": 224,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎬 广告解锁当前",
-        "line": 217,
+        "line": 225,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "评价解锁全部 · 广告解锁当前角色",
-        "line": 218,
+        "line": 226,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✅ 已解锁全部角色！感谢评价支持",
-        "line": 219,
+        "line": 227,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "每日挑战",
-        "line": 220,
+        "line": 228,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "排名",
-        "line": 223,
+        "line": 231,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "玩家",
-        "line": 224,
+        "line": 232,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "波次",
-        "line": 225,
+        "line": 233,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "击杀",
-        "line": 226,
+        "line": 234,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "← 返回",
-        "line": 227,
+        "line": 235,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加载更多",
-        "line": 228,
+        "line": 236,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "— 已加载全部 —",
-        "line": 229,
+        "line": 237,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "暂无排行数据",
-        "line": 230,
+        "line": 238,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "完成一局游戏后你的成绩将自动上传",
-        "line": 231,
+        "line": 239,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "请检查网络后重试",
-        "line": 232,
+        "line": 240,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "为自己取一个名字吧",
-        "line": 235,
+        "line": 243,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "用键盘输入你的名字（回车确认）",
-        "line": 236,
+        "line": 244,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "输入昵称...",
-        "line": 237,
+        "line": 245,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "取消",
-        "line": 238,
+        "line": 246,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✅ 完成",
-        "line": 239,
+        "line": 247,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🎲 随机",
-        "line": 240,
+        "line": 248,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✏️ 自定义",
-        "line": 241,
+        "line": 249,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✅ 就这个",
-        "line": 242,
+        "line": 250,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全球排行榜",
-        "line": 245,
+        "line": 253,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "查看全球战绩",
-        "line": 246,
+        "line": 254,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "成就",
-        "line": 247,
+        "line": 255,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "遗物商店",
-        "line": 248,
+        "line": 256,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "图腾商店",
-        "line": 249,
+        "line": 257,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "符文管理",
-        "line": 250,
+        "line": 258,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "皮肤商店",
-        "line": 251,
+        "line": 259,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "图鉴收集册",
-        "line": 252,
+        "line": 260,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "空",
-        "line": 253,
+        "line": 261,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "更换角色外观",
-        "line": 254,
+        "line": 262,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "周挑战赛季",
-        "line": 255,
+        "line": 263,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "今日: %s %s",
-        "line": 256,
+        "line": 264,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d 积分 · 剩余 %d 天",
-        "line": 257,
+        "line": 265,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "%d 积分 · 最后一天",
-        "line": 258,
+        "line": 266,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "🌐 全球排行榜",
-        "line": 261,
+        "line": 269,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加载中",
-        "line": 262,
+        "line": 270,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "最高波次排名",
-        "line": 264,
+        "line": 272,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "累计击杀排名",
-        "line": 265,
+        "line": 273,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "今日挑战 · %s",
-        "line": 266,
+        "line": 274,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " · 共 %d 人",
-        "line": 267,
+        "line": 275,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "加载更多",
-        "line": 268,
+        "line": 276,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": " (我)",
-        "line": 269,
+        "line": 277,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "⚔️ 波次",
-        "line": 270,
+        "line": 278,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "💀 击杀",
-        "line": 271,
+        "line": 279,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "📅 每日",
-        "line": 272,
+        "line": 280,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "难度选择",
-        "line": 275,
+        "line": 283,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "评价解锁全部 · 广告解锁当前角色",
-        "line": 276,
+        "line": 284,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "💬 靠近查看遗言",
-        "line": 279,
+        "line": 287,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "旅人",
-        "line": 280,
+        "line": 288,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "✏️ 留下你的遗言（点击输入）",
-        "line": 281,
+        "line": 289,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "写点什么吧…",
-        "line": 282,
+        "line": 290,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "utils/PerfQuality.lua": {
+    "v": 2,
     "mtime": 1778822178,
     "results": [
       {
         "text": "省电",
         "line": 19,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "流畅",
         "line": 28,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "均衡",
         "line": 37,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "精致",
         "line": 47,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       },
       {
         "text": "全量",
         "line": 57,
         "rule": "chinese_double_quote",
-        "args": null
+        "args": null,
+        "src": null
       }
     ]
   },
   "utils/SafeMath.lua": {
+    "v": 2,
     "mtime": 1776229341,
     "results": []
   },
   "utils/SpatialHash.lua": {
+    "v": 2,
     "mtime": 1778238209,
     "results": []
   },
   "settings.json": {
-    "mtime": 1779195111,
+    "v": 2,
+    "mtime": 1786691265,
     "results": []
   }
 }

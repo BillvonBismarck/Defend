@@ -6,10 +6,10 @@
 local ScreenShake = {}
 
 -- 当前震动状态
-local shakeTimer    = 0     -- 剩余时间
-local shakeDuration = 0     -- 总时长
-local shakeIntensity = 0    -- 震幅（像素）
-local shakeFreq     = 30    -- 频率（Hz）
+local shakeTimer    = 0.0     -- 剩余时间
+local shakeDuration = 0.0     -- 总时长
+local shakeIntensity = 0.0    -- 震幅（像素）
+local shakeFreq     = 30.0    -- 频率（Hz）
 
 -- 输出偏移（每帧由 Update 计算，由相机读取）
 ScreenShake.offsetX = 0

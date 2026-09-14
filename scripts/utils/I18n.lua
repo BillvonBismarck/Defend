@@ -146,6 +146,14 @@ local strings = {
     skill_type_weapon     = { zh = "⚔ 武器",           en = "⚔ Weapon" },
     skill_type_defense    = { zh = "🛡 防御",           en = "🛡 Defense" },
     skill_type_attr       = { zh = "✧ 属性",           en = "✧ Attribute" },
+    skill_countdown_fmt   = { zh = "%d 秒后自动选择",    en = "Auto pick in %ds" },
+    skill_countdown_paused = { zh = "广告播放中 · 倒计时已暂停", en = "Ad playing · Timer paused" },
+    skill_refresh_ad      = { zh = "📺 看广告换一批",    en = "📺 Watch Ad to Refresh" },
+    skill_refresh_loading = { zh = "正在播放广告…",      en = "Playing ad..." },
+    skill_refresh_success = { zh = "已换一批新天赋",      en = "Choices refreshed" },
+    skill_refresh_incomplete = { zh = "完整观看后才能换一批", en = "Finish the ad to refresh" },
+    skill_refresh_unavailable = { zh = "当前环境暂不支持广告", en = "Ads unavailable" },
+    skill_refresh_no_choices = { zh = "暂无可刷新的天赋", en = "No choices available" },
 
     -- ===== 图腾背包 (TotemShop) 额外 =====
     totem_quality_fmt     = { zh = "品质: %s",         en = "Quality: %s" },
@@ -200,9 +208,9 @@ local strings = {
     card_gold_badge       = { zh = "🪙 %d",               en = "🪙 %d" },
 
     -- ===== 主界面标题 =====
-    game_title            = { zh = "Emoji幸存者",         en = "Emoji Survivors" },
-    game_welcome          = { zh = "欢迎来到Emoji幸存者！", en = "Welcome to Emoji Survivors!" },
-    game_version          = { zh = "v2.0 - Emoji幸存者",  en = "v2.0 - Emoji Survivors" },
+    game_title            = { zh = "emoji 英雄战斗",         en = "Emoji Hero Battle" },
+    game_welcome          = { zh = "欢迎来到 emoji 英雄战斗！", en = "Welcome to Emoji Hero Battle!" },
+    game_version          = { zh = "v2.0 - emoji 英雄战斗",  en = "v2.0 - Emoji Hero Battle" },
 
     -- ===== 角色选择 =====
     charsel_start         = { zh = "开始战斗！",           en = "Start Battle!" },

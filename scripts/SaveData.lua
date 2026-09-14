@@ -555,7 +555,7 @@ function SaveData.LoadGame()
     local ok2, data = pcall(cjson.decode, file:ReadString())
     file:Close()
 
-    if ok2 and data and data.version == 1 then
+    if ok2 and type(data) == "table" and data.version == 1 then
         return data
     end
 

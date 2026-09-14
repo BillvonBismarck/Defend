@@ -12,27 +12,132 @@ local SkillSelect = {}
 SkillSelect.visible = false
 SkillSelect.choices = {}    -- { {def, newLevel, isNew}, ... }
 SkillSelect.onSelect = nil  -- function(index) 选择回调
+SkillSelect.onRefresh = nil -- function() -> 新的三个选项
+SkillSelect.adLoading = false
+SkillSelect.countdown = 45.0
+SkillSelect.feedbackText = nil
+SkillSelect.feedbackTimer = 0
 
 -- 终极奖励状态
 SkillSelect.ultimateVisible = false
 SkillSelect.onUltimateSelect = nil  -- function(choice) "heal_inv" or "rage"
 
--- 布局常量（卡片宽度在 Render 时根据 viewW 动态计算）
-local CARD_H = 196
+-- 布局常量（720×1280 设计分辨率，卡片宽度在 Render 时动态计算）
+local SELECT_TIMEOUT = 45.0
+local CARD_H = 218
 local CARD_GAP = 14
-local CARD_RADIUS = 14
+local CARD_RADIUS = 16
+local REFRESH_GAP = 22
+local REFRESH_W = 360
+local REFRESH_H = 64
+
+local function GetLayout(viewW, viewH, count)
+    local cardW = viewW - 48
+    local cardsH = count * CARD_H + (count - 1) * CARD_GAP
+    local contentH = cardsH + REFRESH_GAP + REFRESH_H
+    local startY = (viewH - contentH) / 2 + 8
+    return {
+        cardW = cardW,
+        cardX = (viewW - cardW) / 2,
+        startY = startY,
+        refreshX = (viewW - REFRESH_W) / 2,
+        refreshY = startY + cardsH + REFRESH_GAP,
+    }
+end
+
+local function SetFeedback(text)
+    SkillSelect.feedbackText = text
+    SkillSelect.feedbackTimer = 2.5
+end
 
 --- 显示技能选择
-function SkillSelect.Show(choices, onSelect)
+function SkillSelect.Show(choices, onSelect, onRefresh)
     SkillSelect.visible = true
     SkillSelect.choices = choices
     SkillSelect.onSelect = onSelect
+    SkillSelect.onRefresh = onRefresh
+    SkillSelect.adLoading = false
+    SkillSelect.countdown = SELECT_TIMEOUT
+    SkillSelect.feedbackText = nil
+    SkillSelect.feedbackTimer = 0
+    print("[SkillSelect] 显示天赋选择，倒计时 " .. SELECT_TIMEOUT .. " 秒")
 end
 
 --- 隐藏
 function SkillSelect.Hide()
     SkillSelect.visible = false
     SkillSelect.choices = {}
+    SkillSelect.onSelect = nil
+    SkillSelect.onRefresh = nil
+    SkillSelect.adLoading = false
+    SkillSelect.feedbackText = nil
+    SkillSelect.feedbackTimer = 0
+end
+
+--- 选择指定天赋
+function SkillSelect.Select(index)
+    if not SkillSelect.visible or SkillSelect.adLoading then return false end
+    if not SkillSelect.choices[index] then return false end
+
+    local callback = SkillSelect.onSelect
+    SkillSelect.Hide()
+    if callback then
+        callback(index)
+    end
+    return true
+end
+
+--- 更新选择倒计时；广告播放期间暂停计时
+function SkillSelect.Update(dt)
+    if SkillSelect.feedbackTimer > 0 then
+        SkillSelect.feedbackTimer = math.max(0, SkillSelect.feedbackTimer - dt)
+        if SkillSelect.feedbackTimer == 0 then
+            SkillSelect.feedbackText = nil
+        end
+    end
+
+    if not SkillSelect.visible or SkillSelect.adLoading then return end
+
+    SkillSelect.countdown = math.max(0, SkillSelect.countdown - dt)
+    if SkillSelect.countdown <= 0 and #SkillSelect.choices > 0 then
+        local autoIndex = math.random(1, #SkillSelect.choices)
+        print("[SkillSelect] 倒计时结束，自动选择第 " .. autoIndex .. " 项")
+        SkillSelect.Select(autoIndex)
+    end
+end
+
+--- 观看奖励广告并刷新三个候选天赋
+local function RefreshChoicesWithAd(sdk)
+    if SkillSelect.adLoading or not SkillSelect.visible then return end
+    if not sdk then
+        SetFeedback(I18n.t("skill_refresh_unavailable"))
+        print("[SkillSelect] SDK 不可用，无法播放奖励广告")
+        return
+    end
+
+    SkillSelect.adLoading = true
+    SetFeedback(I18n.t("skill_refresh_loading"))
+    print("[SkillSelect] 请求奖励广告刷新天赋")
+    sdk:ShowRewardVideoAd(function(result)
+        SkillSelect.adLoading = false
+        if not SkillSelect.visible then return end
+
+        if result and result.success then
+            local refreshed = SkillSelect.onRefresh and SkillSelect.onRefresh() or nil
+            if refreshed and #refreshed > 0 then
+                SkillSelect.choices = refreshed
+                SkillSelect.countdown = SELECT_TIMEOUT
+                SetFeedback(I18n.t("skill_refresh_success"))
+                print("[SkillSelect] 广告完整观看，已刷新 " .. #refreshed .. " 个天赋")
+            else
+                SetFeedback(I18n.t("skill_refresh_no_choices"))
+                print("[SkillSelect] 广告成功，但没有可刷新的天赋")
+            end
+        else
+            SetFeedback(I18n.t("skill_refresh_incomplete"))
+            print("[SkillSelect] 广告未完成，不刷新天赋: " .. tostring(result and result.msg or "unknown"))
+        end
+    end)
 end
 
 --- 处理点击选择
@@ -40,31 +145,29 @@ end
 ---@param touchY number 设计坐标系的点击Y
 ---@param viewW number 设计宽度
 ---@param viewH number 设计高度
+---@param sdk userdata|nil 引擎 SDK，用于播放奖励广告
 ---@return boolean 是否处理了点击
-function SkillSelect.HandleTouch(touchX, touchY, viewW, viewH)
+function SkillSelect.HandleTouch(touchX, touchY, viewW, viewH, sdk)
     if not SkillSelect.visible then return false end
 
     local count = #SkillSelect.choices
     if count == 0 then return false end
 
-    -- 计算卡片布局（竖排居中）
-    local CARD_W = viewW - 48
-    local totalH = count * CARD_H + (count - 1) * CARD_GAP
-    local startY = (viewH - totalH) / 2
-    local cardX = (viewW - CARD_W) / 2
+    local layout = GetLayout(viewW, viewH, count)
 
     for i = 1, count do
-        local cy = startY + (i - 1) * (CARD_H + CARD_GAP)
-        -- 判断点击是否在卡片内
-        if touchX >= cardX and touchX <= cardX + CARD_W and
+        local cy = layout.startY + (i - 1) * (CARD_H + CARD_GAP)
+        if touchX >= layout.cardX and touchX <= layout.cardX + layout.cardW and
             touchY >= cy and touchY <= cy + CARD_H then
-            -- 选中
-            if SkillSelect.onSelect then
-                SkillSelect.onSelect(i)
-            end
-            SkillSelect.Hide()
+            SkillSelect.Select(i)
             return true
         end
+    end
+
+    if touchX >= layout.refreshX and touchX <= layout.refreshX + REFRESH_W and
+        touchY >= layout.refreshY and touchY <= layout.refreshY + REFRESH_H then
+        RefreshChoicesWithAd(sdk)
+        return true
     end
 
     return true -- 消耗点击事件（不穿透）
@@ -83,26 +186,45 @@ function SkillSelect.Render(vg, viewW, viewH, font)
     nvgFillColor(vg, nvgRGBA(0, 0, 0, 160))
     nvgFill(vg)
 
-    -- 标题
+    local layout = GetLayout(viewW, viewH, count)
+    local startY = layout.startY
+    local CARD_W = layout.cardW
+    local cardX = layout.cardX
+
+    -- 标题区：大标题、选择说明、可见倒计时
     nvgFontFaceId(vg, font)
     local zpix = HUD.zpixFontId >= 0 and HUD.zpixFontId or font
-    nvgFontSize(vg, 28)
-    nvgTextAlign(vg, NVG_ALIGN_CENTER + NVG_ALIGN_MIDDLE)
-    nvgFillColor(vg, nvgRGBA(0, 200, 255, 255))
-
-    local totalH = count * CARD_H + (count - 1) * CARD_GAP
-    local startY = (viewH - totalH) / 2
     nvgFontFaceId(vg, zpix)
-    nvgText(vg, viewW / 2, startY - 40, I18n.t("skill_level_up"))
-    nvgFontFaceId(vg, font)
+    nvgFontSize(vg, 42)
+    nvgTextAlign(vg, NVG_ALIGN_CENTER + NVG_ALIGN_MIDDLE)
+    nvgFillColor(vg, nvgRGBA(0, 220, 255, 255))
+    nvgText(vg, viewW / 2, startY - 112, I18n.t("skill_level_up"))
 
-    nvgFontSize(vg, 16)
-    nvgFillColor(vg, nvgRGBA(180, 180, 200, 200))
-    nvgText(vg, viewW / 2, startY - 16, I18n.t("skill_choose"))
+    nvgFontFaceId(vg, font)
+    nvgFontSize(vg, 24)
+    nvgFillColor(vg, nvgRGBA(235, 238, 255, 245))
+    nvgText(vg, viewW / 2, startY - 72, I18n.t("skill_choose"))
+
+    local seconds = math.max(0, math.ceil(SkillSelect.countdown))
+    local timerText = SkillSelect.adLoading and I18n.t("skill_countdown_paused")
+        or I18n.t("skill_countdown_fmt", seconds)
+    local timerW = 280
+    local timerH = 38
+    local timerX = (viewW - timerW) / 2
+    local timerY = startY - 50
+    nvgBeginPath(vg)
+    nvgRoundedRect(vg, timerX, timerY, timerW, timerH, timerH / 2)
+    nvgFillColor(vg, nvgRGBA(7, 15, 35, 230))
+    nvgFill(vg)
+    nvgStrokeColor(vg, nvgRGBA(0, 205, 255, 180))
+    nvgStrokeWidth(vg, 2)
+    nvgStroke(vg)
+    nvgFontFaceId(vg, zpix)
+    nvgFontSize(vg, 18)
+    nvgFillColor(vg, seconds <= 10 and nvgRGBA(255, 90, 90, 255) or nvgRGBA(120, 225, 255, 255))
+    nvgText(vg, viewW / 2, timerY + timerH / 2, timerText)
 
     -- 渲染卡片（动态全宽）
-    local CARD_W = viewW - 48
-    local cardX = (viewW - CARD_W) / 2
     local t = time.elapsedTime
 
     for i, choice in ipairs(SkillSelect.choices) do
@@ -147,10 +269,10 @@ function SkillSelect.Render(vg, viewW, viewH, font)
         nvgStroke(vg)
 
         -- 横向布局：左侧图标 + 右侧文字区
-        local iconAreaW = CARD_H  -- 正方形左区
+        local iconAreaW = 150
         local iconCx = cardX + iconAreaW / 2
         local iconCy = cy + CARD_H / 2
-        local iconR = 32
+        local iconR = 42
 
         -- 图标背景圆
         nvgBeginPath(vg)
@@ -167,32 +289,33 @@ function SkillSelect.Render(vg, viewW, viewH, font)
 
         -- 图标 emoji
         nvgFontFaceId(vg, font)
-        nvgFontSize(vg, 36)
+        nvgFontSize(vg, 48)
         nvgTextAlign(vg, NVG_ALIGN_CENTER + NVG_ALIGN_MIDDLE)
         nvgFillColor(vg, nvgRGBA(255, 255, 255, 255))
         nvgText(vg, iconCx, iconCy, def.icon)
 
         -- 右侧文字区
         local textAreaX = cardX + iconAreaW + 10
-        local textAreaW = CARD_W - iconAreaW - 18
-        local textCx = textAreaX + textAreaW / 2
+        local textAreaW = CARD_W - iconAreaW - 28
 
         -- 等级标签（右上角徽章）
         local levelText = isNew and "✦ NEW" or ("Lv." .. newLevel)
         local levelColor = isNew and Config.COLORS.neonGreen or Config.COLORS.neonBlue
         local lc = levelColor
+        local badgeW, badgeH = 82, 34
+        local badgeX, badgeY = cardX + CARD_W - badgeW - 12, cy + 12
         nvgBeginPath(vg)
-        nvgRoundedRect(vg, cardX + CARD_W - 52, cy + 8, 44, 22, 11)
-        nvgFillColor(vg, nvgRGBA(lc[1], lc[2], lc[3], 40))
+        nvgRoundedRect(vg, badgeX, badgeY, badgeW, badgeH, badgeH / 2)
+        nvgFillColor(vg, nvgRGBA(lc[1], lc[2], lc[3], 55))
         nvgFill(vg)
-        nvgStrokeColor(vg, nvgRGBA(lc[1], lc[2], lc[3], 150))
-        nvgStrokeWidth(vg, 1)
+        nvgStrokeColor(vg, nvgRGBA(lc[1], lc[2], lc[3], 190))
+        nvgStrokeWidth(vg, 1.5)
         nvgStroke(vg)
         nvgFontFaceId(vg, zpix)
-        nvgFontSize(vg, 13)
+        nvgFontSize(vg, 17)
         nvgTextAlign(vg, NVG_ALIGN_CENTER + NVG_ALIGN_MIDDLE)
         nvgFillColor(vg, nvgRGBA(lc[1], lc[2], lc[3], 255))
-        nvgText(vg, cardX + CARD_W - 52 + 22, cy + 8 + 11, levelText)
+        nvgText(vg, badgeX + badgeW / 2, badgeY + badgeH / 2, levelText)
 
         -- 类型标签（左侧徽章）
         local typeLabel
@@ -201,42 +324,73 @@ function SkillSelect.Render(vg, viewW, viewH, font)
         else typeLabel = I18n.t("skill_type_attr")
         end
         nvgFontFaceId(vg, font)
-        nvgFontSize(vg, 11)
+        nvgFontSize(vg, 18)
         nvgTextAlign(vg, NVG_ALIGN_LEFT + NVG_ALIGN_MIDDLE)
-        nvgFillColor(vg, nvgRGBA(br, bg, bb, 180))
-        nvgText(vg, cardX + iconAreaW + 10, cy + 19, typeLabel)
+        nvgFillColor(vg, nvgRGBA(br, bg, bb, 245))
+        nvgText(vg, textAreaX, cy + 30, typeLabel)
 
         -- 技能名称（大字，左对齐）
         nvgFontFaceId(vg, font)
-        nvgFontSize(vg, 22)
+        nvgFontSize(vg, 32)
         nvgTextAlign(vg, NVG_ALIGN_LEFT + NVG_ALIGN_MIDDLE)
-        nvgFillColor(vg, nvgRGBA(255, 255, 255, 245))
-        nvgText(vg, textAreaX, cy + 68, def.name)
+        nvgFillColor(vg, nvgRGBA(255, 255, 255, 255))
+        nvgText(vg, textAreaX, cy + 76, def.name)
 
         -- 分割线
         nvgBeginPath(vg)
-        nvgMoveTo(vg, textAreaX, cy + 82)
-        nvgLineTo(vg, cardX + CARD_W - 14, cy + 82)
-        nvgStrokeColor(vg, nvgRGBA(br, bg, bb, 50))
-        nvgStrokeWidth(vg, 1)
+        nvgMoveTo(vg, textAreaX, cy + 102)
+        nvgLineTo(vg, cardX + CARD_W - 18, cy + 102)
+        nvgStrokeColor(vg, nvgRGBA(br, bg, bb, 90))
+        nvgStrokeWidth(vg, 1.5)
         nvgStroke(vg)
 
-        -- 描述（左对齐，多行适配）
+        -- 描述（左对齐，允许在文字区自动换行）
         nvgFontFaceId(vg, font)
-        nvgFontSize(vg, 14)
-        nvgTextAlign(vg, NVG_ALIGN_LEFT + NVG_ALIGN_MIDDLE)
-        nvgFillColor(vg, nvgRGBA(190, 195, 215, 215))
-        nvgText(vg, textAreaX, cy + 100, def.desc)
+        nvgFontSize(vg, 21)
+        nvgTextAlign(vg, NVG_ALIGN_LEFT + NVG_ALIGN_TOP)
+        nvgTextLineHeight(vg, 1.25)
+        nvgFillColor(vg, nvgRGBA(225, 228, 242, 245))
+        nvgTextBox(vg, textAreaX, cy + 118, textAreaW, def.desc)
 
         -- 最高叠加层数
         if def.maxLevel and def.maxLevel > 1 then
             nvgFontFaceId(vg, zpix)
-            nvgFontSize(vg, 12)
-            nvgFillColor(vg, nvgRGBA(140, 150, 180, 160))
+            nvgFontSize(vg, 17)
+            nvgFillColor(vg, nvgRGBA(175, 185, 215, 220))
             nvgTextAlign(vg, NVG_ALIGN_LEFT + NVG_ALIGN_MIDDLE)
-            nvgText(vg, textAreaX, cy + 122, I18n.t("skill_max_stack_fmt", def.maxLevel))
+            nvgText(vg, textAreaX, cy + 195, I18n.t("skill_max_stack_fmt", def.maxLevel))
             nvgFontFaceId(vg, font)
         end
+    end
+
+    -- 卡片下方的次级操作：观看奖励广告后刷新三个候选
+    local buttonPulse = 0.92 + 0.08 * math.sin(t * 3.0)
+    local btnColor = SkillSelect.adLoading and { 90, 95, 120 } or { 0, 185, 230 }
+    nvgBeginPath(vg)
+    nvgRoundedRect(vg, layout.refreshX, layout.refreshY, REFRESH_W, REFRESH_H, 20)
+    local btnGrad = nvgLinearGradient(vg, layout.refreshX, layout.refreshY,
+        layout.refreshX, layout.refreshY + REFRESH_H,
+        nvgRGBA(btnColor[1], btnColor[2], btnColor[3], 235),
+        nvgRGBA(25, 35, 75, 245))
+    nvgFillPaint(vg, btnGrad)
+    nvgFill(vg)
+    nvgStrokeColor(vg, nvgRGBA(80, 225, 255, math.floor(230 * buttonPulse)))
+    nvgStrokeWidth(vg, 2.5)
+    nvgStroke(vg)
+
+    nvgFontFaceId(vg, font)
+    nvgFontSize(vg, 24)
+    nvgTextAlign(vg, NVG_ALIGN_CENTER + NVG_ALIGN_MIDDLE)
+    nvgFillColor(vg, nvgRGBA(255, 255, 255, 255))
+    local refreshText = SkillSelect.adLoading and I18n.t("skill_refresh_loading")
+        or I18n.t("skill_refresh_ad")
+    nvgText(vg, viewW / 2, layout.refreshY + REFRESH_H / 2, refreshText)
+
+    if SkillSelect.feedbackText then
+        nvgFontFaceId(vg, zpix)
+        nvgFontSize(vg, 16)
+        nvgFillColor(vg, nvgRGBA(255, 230, 120, 255))
+        nvgText(vg, viewW / 2, layout.refreshY + REFRESH_H + 25, SkillSelect.feedbackText)
     end
 end
 

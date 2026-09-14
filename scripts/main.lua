@@ -1,5 +1,5 @@
 --- ============================================================================
---- Emoji幸存者 - 主入口
+--- emoji 英雄战斗 - 主入口
 --- NanoVG 直接渲染 + VirtualControls 摇杆
 --- ============================================================================
 
@@ -132,6 +132,7 @@ gameOverShowTime = 0  -- 防止误触立即关闭结算界面
 repNotifyTime = -999  -- 评价解锁按钮点击后的通知计时器
 gameOverStats = nil
 hasUsedRevive = false       -- 是否已使用广告复活（每局最多一次）
+local _battleResumeCheckFrames = 0 -- 天赋关闭后的完整战斗恢复检查窗口
 
 -- 遗言输入
 local tombLastWords = ""          -- 玩家自定义遗言文本
@@ -231,7 +232,7 @@ end
 -- ============================================================================
 
 function Start()
-    graphics.windowTitle = "Emoji幸存者"
+    graphics.windowTitle = "emoji 英雄战斗"
 
     -- 预览环境 Mock（真机有 clientCloud 时自动跳过）
     MockCloud.Install()
@@ -328,7 +329,7 @@ function Start()
     SubscribeToEvent("MouseButtonUp", "HandleMouseUp")
     SubscribeToEvent("TextInput", "HandleTextInput")
 
-    print("=== Emoji幸存者 ===")
+    print("=== emoji 英雄战斗 ===")
     print("Phase 1: Core Battle Prototype")
 end
 
@@ -569,6 +570,34 @@ local function SetupBattleCallbacks()
     BattleScene.onLevelUp = function(choices)
         SkillSelect.Show(choices, function(index)
             BattleScene.SelectSkill(index)
+            -- 选择回调完成后再次校验：普通天赋选择必须回到完整战斗态。
+            -- 如果触发终极奖励，终极弹窗仍可见，继续保持阻塞是正确行为。
+            if not SkillSelect.visible and not SkillSelect.ultimateVisible and not GiftAd.visible then
+                BattleScene.state = BattleScene.STATE_PLAYING
+                _battleResumeCheckFrames = 8
+            end
+        end, function()
+            local previousIds = {}
+            for _, choice in ipairs(BattleScene.skillChoices) do
+                previousIds[choice.def.id] = true
+            end
+
+            local refreshed = BattleScene.skillChoices
+            for _ = 1, 6 do
+                local candidate = Skill.RandomChoices(Player.skills, Player.charId)
+                refreshed = candidate
+                local hasDifferentChoice = false
+                for _, choice in ipairs(candidate) do
+                    if not previousIds[choice.def.id] then
+                        hasDifferentChoice = true
+                        break
+                    end
+                end
+                if hasDifferentChoice then break end
+            end
+
+            BattleScene.skillChoices = refreshed
+            return refreshed
         end)
     end
 
@@ -711,6 +740,11 @@ local function SetupBattleCallbacks()
     BattleScene.onUltimateSelect = function()
         SkillSelect.ShowUltimate(function(choice)
             BattleScene.SelectUltimate(choice)
+            -- 终极奖励回调结束后，HandleUltimateTouch 还会关闭弹窗；
+            -- 这里先明确解除暂停标志，下一帧由整体战斗更新恢复所有实体。
+            HUD.paused = false
+            BattleScene.state = BattleScene.STATE_PLAYING
+            _battleResumeCheckFrames = 8
         end)
     end
 
@@ -1133,20 +1167,10 @@ function HandleUpdate(eventType, eventData)
             end
         end
 
-        -- [保底2] UI弹窗超时保护（技能选择卡住时自动关闭）
-        -- SkillSelect.visible 超时（15秒自动关闭）
-        if SkillSelect.visible then
-            _skillSelectTimer = (_skillSelectTimer or 0) + dt
-            if _skillSelectTimer > 15.0 then
-                print("[FAILSAFE] SkillSelect.visible timeout (15s), auto-hiding")
-                SkillSelect.Hide()
-                BattleScene.state = BattleScene.STATE_PLAYING
-                _skillSelectTimer = 0
-            end
-        else
-            _skillSelectTimer = 0
-        end
-        -- SkillSelect.ultimateVisible 超时（15秒自动关闭）
+        -- 更新技能选择倒计时；到期会自动选择一项，不会直接关闭丢失升级
+        SkillSelect.Update(dt)
+
+        -- 终极奖励选择保留独立保底（防止回调异常导致永久卡死）
         if SkillSelect.ultimateVisible then
             _ultimateSelectTimer = (_ultimateSelectTimer or 0) + dt
             if _ultimateSelectTimer > 15.0 then
@@ -1171,45 +1195,45 @@ function HandleUpdate(eventType, eventData)
             BattleScene.state = BattleScene.STATE_PLAYING
         end
 
-        -- [保底4] 冻结检测：有输入但玩家位置不变 → 强制恢复
-        local hasInput = (moveX ~= 0 or moveY ~= 0)
-        if hasInput then
-            local px, py = Player.x, Player.y
-            if _lastPlayerX == px and _lastPlayerY == py then
-                _freezeFrames = (_freezeFrames or 0) + 1
-            else
-                _freezeFrames = 0
-            end
-            _lastPlayerX, _lastPlayerY = px, py
-        else
-            _freezeFrames = 0
-        end
-
-        -- 连续60帧(~1秒)有输入但玩家没动 → 核弹级恢复
-        if (_freezeFrames or 0) >= 60 then
-            print("[FAILSAFE] FREEZE DETECTED! 60 frames with input but no movement. Force-clearing all blocks.")
-            HUD.paused = false
-            SkillSelect.visible = false
-            SkillSelect.ultimateVisible = false
-            GiftAd.visible = false
-            BattleScene.state = BattleScene.STATE_PLAYING
-            _freezeFrames = 0
-        end
-
         -- ====================================================================
-        -- 战斗更新（带保底玩家移动）
+        -- 战斗更新：暂停期间必须整体停止，恢复时必须整体恢复
         -- ====================================================================
 
-        -- 暂停/技能选择/终极奖励选择/礼物盒弹窗期间不更新战斗
         local battleBlocked = HUD.paused or SkillSelect.visible or SkillSelect.ultimateVisible or GiftAd.visible
         if not battleBlocked then
-            BattleScene.Update(dt, moveX, moveY, DESIGN_W, DESIGN_H)
-        else
-            -- [保底6] 即使战斗被阻塞（暂停/技能选择），如果冻结计数>30帧，
-            -- 仍然偷偷移动玩家（让玩家感觉不到卡顿）
-            if (_freezeFrames or 0) >= 30 and hasInput then
-                pcall(Player.Update, dt, moveX, moveY)
+            -- 只修复已经关闭 UI 的临时阻塞态，不覆盖 GAME_OVER / VICTORY。
+            local staleBlockingState = BattleScene.state == BattleScene.STATE_SKILL_SELECT
+                or BattleScene.state == BattleScene.STATE_ULTIMATE_SELECT
+                or BattleScene.state == BattleScene.STATE_GIFT_AD
+                or BattleScene.state == BattleScene.STATE_PAUSED
+            if staleBlockingState then
+                print("[FAILSAFE] 战斗 UI 已关闭但状态未恢复，重置为 PLAYING: " .. tostring(BattleScene.state))
+                BattleScene.state = BattleScene.STATE_PLAYING
             end
+            BattleScene.Update(dt, moveX, moveY, DESIGN_W, DESIGN_H)
+
+            if _battleResumeCheckFrames > 0 then
+                _battleResumeCheckFrames = _battleResumeCheckFrames - 1
+                local hb = BattleScene.heartbeat
+                local frame = hb.frame
+                local allSystemsAlive = hb.player == frame
+                    and hb.projectile == frame
+                    and hb.enemy == frame
+                    and hb.enemyBullet == frame
+                    and hb.collision == frame
+                if not allSystemsAlive and BattleScene.state == BattleScene.STATE_PLAYING then
+                    print(string.format(
+                        "[FAILSAFE] 战斗恢复心跳不同步: frame=%d player=%d projectile=%d enemy=%d enemyBullet=%d collision=%d",
+                        frame, hb.player, hb.projectile, hb.enemy, hb.enemyBullet, hb.collision
+                    ))
+                    BattleScene.state = BattleScene.STATE_PLAYING
+                    HUD.paused = false
+                end
+            end
+        else
+            -- 不允许在战斗被阻塞时单独调用 Player.Update。
+            -- 敌人、射弹、空间哈希和碰撞必须与主角使用同一个更新门。
+            _freezeFrames = 0
         end
 
         -- 伤害跳字和粒子始终更新（技能选择期间也淡出）
@@ -1837,7 +1861,7 @@ function RenderTitle()
 
     nvgFontSize(vg, 19)
     nvgFillColor(vg, nvgRGBA(120, 210, 255, 230))
-    nvgText(vg, cx, subY, "Emoji Survivors")
+    nvgText(vg, cx, subY, I18n.lang == "zh" and "emoji 英雄战斗" or "Emoji Hero Battle")
 
     nvgFontSize(vg, 18)
     nvgFillColor(vg, nvgRGBA(255, 220, 100, 130))
@@ -4076,7 +4100,7 @@ function HandleScreenTouch(screenX, screenY)
         end
         -- 技能选择处理
         if SkillSelect.visible then
-            SkillSelect.HandleTouch(dx, dy, DESIGN_W, DESIGN_H)
+            SkillSelect.HandleTouch(dx, dy, DESIGN_W, DESIGN_H, sdk)
             return
         end
         -- 技能/图腾/符文图标点击详情

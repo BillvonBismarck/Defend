@@ -65,7 +65,7 @@
       "Achievement.lua:1096",
       "meta/Codex.lua:710",
       "meta/WeeklyChallenge.lua:622",
-      "utils/I18n.lua:227"
+      "utils/I18n.lua:235"
     ]
   },
   "小猫咪": {
@@ -1398,10 +1398,10 @@
     "locations": [
       "MockCloud.lua:317",
       "SaveData.lua:96",
-      "main.lua:509",
-      "main.lua:524",
-      "main.lua:541",
-      "utils/I18n.lua:224"
+      "main.lua:510",
+      "main.lua:525",
+      "main.lua:542",
+      "utils/I18n.lua:232"
     ]
   },
   "高手": {
@@ -1413,7 +1413,7 @@
   "背包已满!": {
     "key": "t_2kbiLkLD2u8O7L36",
     "locations": [
-      "battle/BattleScene.lua:466"
+      "battle/BattleScene.lua:482"
     ]
   },
   "👁️暗影x{0}": {
@@ -1559,130 +1559,130 @@
     "key": "t_6mbknEjq6HuO4Aa5",
     "locations": [
       "main.lua:234",
-      "utils/I18n.lua:203"
+      "utils/I18n.lua:211"
     ]
   },
   "更新排行榜": {
     "key": "t_ri9dXsxnsCFcG9h6",
     "locations": [
-      "main.lua:399",
-      "main.lua:418"
+      "main.lua:400",
+      "main.lua:419"
     ]
   },
   "联网不可用": {
     "key": "t_mJHFV936mQzJkWih",
     "locations": [
-      "main.lua:427",
+      "main.lua:428",
       "utils/I18n.lua:56"
     ]
   },
   "加载失败": {
     "key": "t_Q3UvhQHDPt3upYjE",
     "locations": [
-      "main.lua:557",
+      "main.lua:558",
       "utils/I18n.lua:57"
     ]
   },
   "上传每日挑战": {
     "key": "t_11NJZYxz711V1inRd0",
     "locations": [
-      "main.lua:623"
+      "main.lua:652"
     ]
   },
   "欢迎来到Emoji幸存者！": {
     "key": "t_FtJW1SXUG4M6pENP",
     "locations": [
-      "utils/I18n.lua:204"
+      "utils/I18n.lua:212"
     ]
   },
   "用键盘输入你的名字（回车确认）": {
     "key": "t_qFi8tiV8q44HWauT",
     "locations": [
-      "utils/I18n.lua:236"
+      "utils/I18n.lua:244"
     ]
   },
   "为自己取一个名字吧": {
     "key": "t_DBFxeyfN0jqh4o",
     "locations": [
-      "utils/I18n.lua:235",
+      "utils/I18n.lua:243",
       "utils/I18n.lua:50"
     ]
   },
   "输入昵称...": {
     "key": "t_hY3zEVjUhMidk8QZ",
     "locations": [
-      "utils/I18n.lua:237",
+      "utils/I18n.lua:245",
       "utils/I18n.lua:51"
     ]
   },
   "取消": {
     "key": "t_OisureGXOZ3ZXL5a",
     "locations": [
-      "utils/I18n.lua:238",
+      "utils/I18n.lua:246",
       "utils/I18n.lua:52"
     ]
   },
   "✅ 完成": {
     "key": "t_6jns2lPS6G0gnoWv",
     "locations": [
-      "utils/I18n.lua:239"
+      "utils/I18n.lua:247"
     ]
   },
   "🎲 随机": {
     "key": "t_qZSAWZ8xr4kxTODA",
     "locations": [
-      "utils/I18n.lua:240"
+      "utils/I18n.lua:248"
     ]
   },
   "✏️ 自定义": {
     "key": "t_1G7jLxeBy1GZPBSQqU",
     "locations": [
-      "utils/I18n.lua:241"
+      "utils/I18n.lua:249"
     ]
   },
   "✅ 就这个": {
     "key": "t_19TI0FduD19dis6iTh",
     "locations": [
-      "utils/I18n.lua:242"
+      "utils/I18n.lua:250"
     ]
   },
   "▶️ 继续游戏": {
     "key": "t_MS1bkQCvM036iVmT",
     "locations": [
-      "utils/I18n.lua:214"
+      "utils/I18n.lua:222"
     ]
   },
   "🎮 新游戏": {
     "key": "t_BbWJc8Q6BSb425AI",
     "locations": [
-      "utils/I18n.lua:215"
+      "utils/I18n.lua:223"
     ]
   },
   "全球排行榜": {
     "key": "t_AZVPvTIPA4VOscd7",
     "locations": [
-      "utils/I18n.lua:245",
+      "utils/I18n.lua:253",
       "utils/I18n.lua:45"
     ]
   },
   "查看全球战绩": {
     "key": "t_l8we7YdXlGM7FiiZ",
     "locations": [
-      "utils/I18n.lua:246",
+      "utils/I18n.lua:254",
       "utils/I18n.lua:46"
     ]
   },
   "成就": {
     "key": "t_sPvY9PdsstieFwUW",
     "locations": [
-      "utils/I18n.lua:247",
+      "utils/I18n.lua:255",
       "utils/I18n.lua:47"
     ]
   },
   "遗物商店": {
     "key": "t_OBnzHCPfO0SrTuTH",
     "locations": [
-      "utils/I18n.lua:248"
+      "utils/I18n.lua:256"
     ]
   },
   "Wave10 后解锁": {
@@ -1694,7 +1694,7 @@
   "图腾商店": {
     "key": "t_DzaYewyjE97JfXMD",
     "locations": [
-      "utils/I18n.lua:249"
+      "utils/I18n.lua:257"
     ]
   },
   "Wave20 后解锁": {
@@ -1708,26 +1708,26 @@
     "key": "t_aQTxlovxaacGofsH",
     "locations": [
       "ui/RuneShop.lua:207",
-      "utils/I18n.lua:253",
+      "utils/I18n.lua:261",
       "utils/I18n.lua:79"
     ]
   },
   "符文管理": {
     "key": "t_1EN66o4eq1EUoCdMkG",
     "locations": [
-      "utils/I18n.lua:250"
+      "utils/I18n.lua:258"
     ]
   },
   "皮肤商店": {
     "key": "t_QA6rVH2fPhWhRF9F",
     "locations": [
-      "utils/I18n.lua:251"
+      "utils/I18n.lua:259"
     ]
   },
   "更换角色外观": {
     "key": "t_14C2aIOgy14h2bwcP2",
     "locations": [
-      "utils/I18n.lua:254"
+      "utils/I18n.lua:262"
     ]
   },
   "v1.0 - Emoji幸存者": {
@@ -1739,97 +1739,97 @@
   "🌐 全球排行榜": {
     "key": "t_6x6AqIvE7RnfOQtA",
     "locations": [
-      "utils/I18n.lua:261"
+      "utils/I18n.lua:269"
     ]
   },
   "⚔️ 波次": {
     "key": "t_EzTG5o8lFUAazZfz",
     "locations": [
-      "utils/I18n.lua:270"
+      "utils/I18n.lua:278"
     ]
   },
   "💀 击杀": {
     "key": "t_1ALzs2XpR19qgw7kTJ",
     "locations": [
-      "utils/I18n.lua:271"
+      "utils/I18n.lua:279"
     ]
   },
   "📅 每日": {
     "key": "t_yvdmfRy2ynKBzM34",
     "locations": [
-      "utils/I18n.lua:272"
+      "utils/I18n.lua:280"
     ]
   },
   "累计击杀排名": {
     "key": "t_RfKTmMQmRn2ZhBh6",
     "locations": [
-      "utils/I18n.lua:265"
+      "utils/I18n.lua:273"
     ]
   },
   "最高波次排名": {
     "key": "t_fnp5GuHIfMS4Q4WG",
     "locations": [
-      "utils/I18n.lua:264"
+      "utils/I18n.lua:272"
     ]
   },
   "请检查网络后重试": {
     "key": "t_e0DmrEKIeVWnLrHm",
     "locations": [
-      "utils/I18n.lua:232"
+      "utils/I18n.lua:240"
     ]
   },
   "排名": {
     "key": "t_gQE8iZtofzSVENLk",
     "locations": [
-      "utils/I18n.lua:223"
+      "utils/I18n.lua:231"
     ]
   },
   "波次": {
     "key": "t_dvzk3kXsdU1B0Blc",
     "locations": [
-      "utils/I18n.lua:225"
+      "utils/I18n.lua:233"
     ]
   },
   "击杀": {
     "key": "t_uWEVVIS3uNuphpQh",
     "locations": [
-      "utils/I18n.lua:226"
+      "utils/I18n.lua:234"
     ]
   },
   "— 已加载全部 —": {
     "key": "t_JbFHCQKLJmHeLFSv",
     "locations": [
-      "utils/I18n.lua:229"
+      "utils/I18n.lua:237"
     ]
   },
   "暂无排行数据": {
     "key": "t_XiD9rxulXDVek5el",
     "locations": [
-      "utils/I18n.lua:230"
+      "utils/I18n.lua:238"
     ]
   },
   "完成一局游戏后你的成绩将自动上传": {
     "key": "t_98lEM0E490RU0RgG",
     "locations": [
-      "utils/I18n.lua:231"
+      "utils/I18n.lua:239"
     ]
   },
   "选择你的角色": {
     "key": "t_ncCrVnrenmdiollS",
     "locations": [
-      "utils/I18n.lua:211"
+      "utils/I18n.lua:219"
     ]
   },
   "每个角色拥有独特技能和风格": {
     "key": "t_69vLQm0J5fDuG9lz",
     "locations": [
-      "utils/I18n.lua:212"
+      "utils/I18n.lua:220"
     ]
   },
   "专属技能": {
     "key": "t_TAkTQ8fAT0v3W0wi",
     "locations": [
-      "utils/I18n.lua:213"
+      "utils/I18n.lua:221"
     ]
   },
   "解锁方式：评价 / 看广告": {
@@ -1841,26 +1841,26 @@
   "评价解锁全部 · 广告解锁当前角色": {
     "key": "t_NG6kJREeNgsE61RI",
     "locations": [
-      "utils/I18n.lua:218",
-      "utils/I18n.lua:276"
+      "utils/I18n.lua:226",
+      "utils/I18n.lua:284"
     ]
   },
   "🔗 评价解锁全部": {
     "key": "t_1669QhXhB16XDksshV",
     "locations": [
-      "utils/I18n.lua:216"
+      "utils/I18n.lua:224"
     ]
   },
   "🎬 广告解锁当前": {
     "key": "t_3BIcSQHu3eBWWkJy",
     "locations": [
-      "utils/I18n.lua:217"
+      "utils/I18n.lua:225"
     ]
   },
   "开始战斗！": {
     "key": "t_11N2Oo1ta11VM7OBhq",
     "locations": [
-      "utils/I18n.lua:208"
+      "utils/I18n.lua:216"
     ]
   },
   "📅 每日挑战": {
@@ -1872,7 +1872,7 @@
   "◀ ▶ 切换角色 · 点击按钮开始": {
     "key": "t_3yU9vhBu46V0ULIc",
     "locations": [
-      "utils/I18n.lua:210"
+      "utils/I18n.lua:218"
     ]
   },
   "经验膨胀": {
@@ -2619,6 +2619,8 @@
   "替我报仇！": {
     "key": "t_UPkYUlHhUGpENi6v",
     "locations": [
+      "social/Tombstone.lua:105",
+      "social/Tombstone.lua:112",
       "social/Tombstone.lua:62"
     ]
   },
@@ -2661,30 +2663,30 @@
   "上传墓碑": {
     "key": "t_8ryzGSIX9M4ybmRB",
     "locations": [
-      "social/Tombstone.lua:139"
+      "social/Tombstone.lua:140"
     ]
   },
   "旅人": {
     "key": "t_H7EpbgwHHGSf8LoT",
     "locations": [
-      "social/Tombstone.lua:223",
-      "social/Tombstone.lua:230",
-      "social/Tombstone.lua:358",
-      "social/Tombstone.lua:431",
-      "utils/I18n.lua:280"
+      "social/Tombstone.lua:224",
+      "social/Tombstone.lua:231",
+      "social/Tombstone.lua:359",
+      "social/Tombstone.lua:432",
+      "utils/I18n.lua:288"
     ]
   },
   "💬 靠近查看遗言": {
     "key": "t_2NzEfCMm1wc4el00",
     "locations": [
-      "social/Tombstone.lua:364",
-      "utils/I18n.lua:279"
+      "social/Tombstone.lua:365",
+      "utils/I18n.lua:287"
     ]
   },
   "%s %s · 第%d波 · %d击杀": {
     "key": "t_BsGOXJXlCMMNIKA5",
     "locations": [
-      "social/Tombstone.lua:430"
+      "social/Tombstone.lua:431"
     ]
   },
   "观看广告可获得 {0} EXP": {
@@ -2873,7 +2875,7 @@
     "key": "t_tArepFKXtJBRyaqL",
     "locations": [
       "ui/RelicShop.lua:348",
-      "utils/I18n.lua:179"
+      "utils/I18n.lua:187"
     ]
   },
   "📺 今日广告已达上限": {
@@ -2886,7 +2888,7 @@
     "key": "t_14YkVWkWn14PDhE5ij",
     "locations": [
       "ui/RelicShop.lua:359",
-      "utils/I18n.lua:181"
+      "utils/I18n.lua:189"
     ]
   },
   "遗物加成在每局开始时生效 · 金币从局内拾取🪙获得": {
@@ -2944,7 +2946,7 @@
   "槽位已满": {
     "key": "t_WTqLG0j5WxwHB5J5",
     "locations": [
-      "utils/I18n.lua:166",
+      "utils/I18n.lua:174",
       "utils/I18n.lua:78"
     ]
   },
@@ -2952,7 +2954,7 @@
     "key": "t_q0BBOzb7qA0l1Ip7",
     "locations": [
       "utils/I18n.lua:103",
-      "utils/I18n.lua:165"
+      "utils/I18n.lua:173"
     ]
   },
   "装备成功！": {
@@ -3148,14 +3150,14 @@
     "key": "t_piVfxxCSpH8XDcmv",
     "locations": [
       "ui/SkinShop.lua:351",
-      "utils/I18n.lua:158",
+      "utils/I18n.lua:166",
       "utils/I18n.lua:73"
     ]
   },
   "📺 免费": {
     "key": "t_1BDlnGqJc1BP78kjGD",
     "locations": [
-      "utils/I18n.lua:170"
+      "utils/I18n.lua:178"
     ]
   },
   "已恢复默认外观": {
@@ -3276,7 +3278,7 @@
   "加成: ": {
     "key": "t_HIgjZukOH9lZ0dM5",
     "locations": [
-      "utils/I18n.lua:152"
+      "utils/I18n.lua:160"
     ]
   },
   "合成中… 点击可打断": {
@@ -3310,7 +3312,7 @@
     "key": "t_dUn2G30TdgjnxbT6",
     "locations": [
       "utils/I18n.lua:116",
-      "utils/I18n.lua:161"
+      "utils/I18n.lua:169"
     ]
   },
   "该分类下没有图腾": {
@@ -3322,7 +3324,7 @@
   "卸下": {
     "key": "t_KNcHGdLrKFIfz7As",
     "locations": [
-      "utils/I18n.lua:157",
+      "utils/I18n.lua:165",
       "utils/I18n.lua:74"
     ]
   },
@@ -3892,13 +3894,13 @@
   "✏️ 留下你的遗言（点击输入）": {
     "key": "t_h18I4lMmgZ9YHro7",
     "locations": [
-      "utils/I18n.lua:281"
+      "utils/I18n.lua:289"
     ]
   },
   "写点什么吧…": {
     "key": "t_h76ayHpNhZ5Bdor4",
     "locations": [
-      "utils/I18n.lua:282"
+      "utils/I18n.lua:290"
     ]
   },
   "通关第{0}波解锁": {
@@ -3964,8 +3966,8 @@
   "难度选择": {
     "key": "t_v471DpqovF9ajtT3",
     "locations": [
-      "utils/I18n.lua:209",
-      "utils/I18n.lua:275"
+      "utils/I18n.lua:217",
+      "utils/I18n.lua:283"
     ]
   },
   "初露锋芒": {
@@ -4368,7 +4370,7 @@
   "📦 宝箱开启!": {
     "key": "t_d8Yc3Q0TcxDRStCR",
     "locations": [
-      "battle/BattleScene.lua:438"
+      "battle/BattleScene.lua:454"
     ]
   },
   "🪙{0} 升级技能": {
@@ -4782,14 +4784,14 @@
   "治疗无效!": {
     "key": "t_eq23pf1Nf0ABTOQu",
     "locations": [
-      "battle/BattleScene.lua:215"
+      "battle/BattleScene.lua:231"
     ]
   },
   "🎰 轮盘!": {
     "key": "t_1D06pxFK81DRmtaXIP",
     "locations": [
-      "battle/BattleScene.lua:842",
-      "battle/BattleScene.lua:983"
+      "battle/BattleScene.lua:1015",
+      "battle/BattleScene.lua:874"
     ]
   },
   "{0}/{1} 已发现": {
@@ -4819,19 +4821,19 @@
   "图鉴收集册": {
     "key": "t_BdyeY04KBUkbW9uz",
     "locations": [
-      "utils/I18n.lua:252"
+      "utils/I18n.lua:260"
     ]
   },
   "收集所有敌人·Boss·技能·符文·图腾·地图": {
     "key": "t_94TcHtNl8uwhia9Q",
     "locations": [
-      "utils/I18n.lua:197"
+      "utils/I18n.lua:205"
     ]
   },
   "周挑战赛季": {
     "key": "t_dlVGqguRdZrUiRjy",
     "locations": [
-      "utils/I18n.lua:255"
+      "utils/I18n.lua:263"
     ]
   },
   "最后一天": {
@@ -5228,7 +5230,7 @@
   " 共鸣激活!": {
     "key": "t_19u4yf7ZS1ANZaDDJ5",
     "locations": [
-      "battle/BattleScene.lua:160"
+      "battle/BattleScene.lua:170"
     ]
   },
   " 升级技能": {
@@ -5360,20 +5362,20 @@
   "加载中": {
     "key": "t_jCTbQoDZjNVpJoln",
     "locations": [
-      "utils/I18n.lua:262"
+      "utils/I18n.lua:270"
     ]
   },
   " (我)": {
     "key": "t_5YVYQNza55veVCY0",
     "locations": [
-      "utils/I18n.lua:269"
+      "utils/I18n.lua:277"
     ]
   },
   "加载更多": {
     "key": "t_QdznZ9oyQTGJS806",
     "locations": [
-      "utils/I18n.lua:228",
-      "utils/I18n.lua:268"
+      "utils/I18n.lua:236",
+      "utils/I18n.lua:276"
     ]
   },
   "当前最高：第": {
@@ -5464,7 +5466,7 @@
   "存活 ": {
     "key": "t_xufPxghExTI4BwBW",
     "locations": [
-      "social/Tombstone.lua:437"
+      "social/Tombstone.lua:438"
     ]
   },
   "观看广告可获得 ": {
@@ -5620,7 +5622,7 @@
   "✅ 已解锁全部角色！感谢评价支持": {
     "key": "t_15lSOptQ315cX1HoV5",
     "locations": [
-      "utils/I18n.lua:219"
+      "utils/I18n.lua:227"
     ]
   },
   "科技加速：子弹更快，攻速提升": {
@@ -5650,7 +5652,7 @@
   "💥 全屏清怪!": {
     "key": "t_FST13H0zF1PQYodM",
     "locations": [
-      "battle/BattleScene.lua:616"
+      "battle/BattleScene.lua:633"
     ]
   },
   "数据注射器": {
@@ -5860,7 +5862,7 @@
   "每日挑战": {
     "key": "t_Fuz7A77rG2iTr3xo",
     "locations": [
-      "utils/I18n.lua:220"
+      "utils/I18n.lua:228"
     ]
   },
   "⚔ 武器": {
@@ -5914,206 +5916,274 @@
   "品质: %s": {
     "key": "t_8mK3z2aS9D6qKq51",
     "locations": [
-      "utils/I18n.lua:151"
+      "utils/I18n.lua:159"
     ]
   },
   "暴击+%d%%": {
     "key": "t_WVTRq1KUWwDsxId7",
     "locations": [
-      "utils/I18n.lua:153"
+      "utils/I18n.lua:161"
     ]
   },
   "射速+%d%%": {
     "key": "t_l2dFLMHjlD323fKa",
     "locations": [
-      "utils/I18n.lua:154"
+      "utils/I18n.lua:162"
     ]
   },
   "再生+%.1f%%/s": {
     "key": "t_REdSyDGkR3H4DeyX",
     "locations": [
-      "utils/I18n.lua:155"
+      "utils/I18n.lua:163"
     ]
   },
   "掉落+%d%%": {
     "key": "t_G5zOuPUmFd5MM8S3",
     "locations": [
-      "utils/I18n.lua:156"
+      "utils/I18n.lua:164"
     ]
   },
   "出售 🪙%d": {
     "key": "t_10YksXSay10zVJ6itT",
     "locations": [
-      "utils/I18n.lua:159"
+      "utils/I18n.lua:167"
     ]
   },
   "卖垃圾×%d": {
     "key": "t_dG1mI6sFcl2nowXY",
     "locations": [
-      "utils/I18n.lua:160"
+      "utils/I18n.lua:168"
     ]
   },
   "来源: 击败Boss · %s": {
     "key": "t_UWIGAtDIU5VUQRB1",
     "locations": [
-      "utils/I18n.lua:164"
+      "utils/I18n.lua:172"
     ]
   },
   "📺 看广告免费获取  或  🪙%d": {
     "key": "t_ewZ73iMpeoZKzcNA",
     "locations": [
-      "utils/I18n.lua:169"
+      "utils/I18n.lua:177"
     ]
   },
   "🪙 %d 金币": {
     "key": "t_kl6fwQLSkJkjTQvx",
     "locations": [
-      "utils/I18n.lua:171"
+      "utils/I18n.lua:179"
     ]
   },
   "观看广告可获得 %d EXP": {
     "key": "t_Tu3koD11bW4QOq",
     "locations": [
-      "utils/I18n.lua:175"
+      "utils/I18n.lua:183"
     ]
   },
   "放弃（仅获得 %d EXP）": {
     "key": "t_wRrRQkStwHPIjXxE",
     "locations": [
-      "utils/I18n.lua:176"
+      "utils/I18n.lua:184"
     ]
   },
   "今日剩余 %d/10 次": {
     "key": "t_1CAvv38jn1Bh9xGdjw",
     "locations": [
-      "utils/I18n.lua:180"
+      "utils/I18n.lua:188"
     ]
   },
   "最高 Wave %d": {
     "key": "t_GaEeWheNGOGl5vMm",
     "locations": [
-      "utils/I18n.lua:184"
+      "utils/I18n.lua:192"
     ]
   },
   "本地 W%d Lv%d": {
     "key": "t_3tPPnLEA4L6Rf7ST",
     "locations": [
-      "utils/I18n.lua:185"
+      "utils/I18n.lua:193"
     ]
   },
   "%d/%d 已解锁": {
     "key": "t_wfxu79bUwD6CoNM3",
     "locations": [
-      "utils/I18n.lua:186",
-      "utils/I18n.lua:188"
+      "utils/I18n.lua:194",
+      "utils/I18n.lua:196"
     ]
   },
   "Wave%d 后解锁": {
     "key": "t_ImNplbs4JGlINEYB",
     "locations": [
-      "utils/I18n.lua:187"
+      "utils/I18n.lua:195"
     ]
   },
   "装备 %d/%d": {
     "key": "t_14tXhV2ME15OZ0j3zt",
     "locations": [
-      "utils/I18n.lua:189"
+      "utils/I18n.lua:197"
     ]
   },
   "%d/%d 已收集": {
     "key": "t_2UTZfgLz1zl0j8k4",
     "locations": [
-      "utils/I18n.lua:190"
+      "utils/I18n.lua:198"
     ]
   },
   "%d/%d 符文": {
     "key": "t_W3zbGgEiWDCNbjtT",
     "locations": [
-      "utils/I18n.lua:191"
+      "utils/I18n.lua:199"
     ]
   },
   "%d/3 装备 · %d 持有": {
     "key": "t_PqIg1d1mQ1MJyPFB",
     "locations": [
-      "utils/I18n.lua:192"
+      "utils/I18n.lua:200"
     ]
   },
   "%d/3 图腾": {
     "key": "t_H04Yz3ACHSdVypTz",
     "locations": [
-      "utils/I18n.lua:193"
+      "utils/I18n.lua:201"
     ]
   },
   "%d/%d 已拥有": {
     "key": "t_PAynA1WxPMdw2Xng",
     "locations": [
-      "utils/I18n.lua:194"
+      "utils/I18n.lua:202"
     ]
   },
   "%d/%d 皮肤": {
     "key": "t_15CxERSxA155DsHt4Z",
     "locations": [
-      "utils/I18n.lua:195"
+      "utils/I18n.lua:203"
     ]
   },
   "%d/%d 已发现": {
     "key": "t_13Bch913A13MLEZCxH",
     "locations": [
-      "utils/I18n.lua:196"
+      "utils/I18n.lua:204"
     ]
   },
   "当前最高：第%d波": {
     "key": "t_11C4hVrsk11gS9vxhl",
     "locations": [
-      "utils/I18n.lua:198"
+      "utils/I18n.lua:206"
     ]
   },
   "🔒 需通关第%d波": {
     "key": "t_tzRoUHHetozgKiT3",
     "locations": [
-      "utils/I18n.lua:199"
+      "utils/I18n.lua:207"
     ]
   },
   "今日: %s %s": {
     "key": "t_1DxOsM5V51DonazAHA",
     "locations": [
-      "utils/I18n.lua:256"
+      "utils/I18n.lua:264"
     ]
   },
   "%d 积分 · 剩余 %d 天": {
     "key": "t_ptlskQWTqLA9sgw2",
     "locations": [
-      "utils/I18n.lua:257"
+      "utils/I18n.lua:265"
     ]
   },
   "%d 积分 · 最后一天": {
     "key": "t_6oWGyWNR6L0ihuYA",
     "locations": [
-      "utils/I18n.lua:258"
+      "utils/I18n.lua:266"
     ]
   },
   "今日挑战 · %s": {
     "key": "t_ww8ygxcTx7T1yViw",
     "locations": [
-      "utils/I18n.lua:266"
+      "utils/I18n.lua:274"
     ]
   },
   " · 共 %d 人": {
     "key": "t_b9AaOjScbHChQTOz",
     "locations": [
-      "utils/I18n.lua:267"
+      "utils/I18n.lua:275"
     ]
   },
   "v2.0 - Emoji幸存者": {
     "key": "t_10vtlE4co10SgMM5W3",
     "locations": [
-      "utils/I18n.lua:205"
+      "utils/I18n.lua:213"
     ]
   },
   "隐藏": {
     "key": "t_kdPAPMuEkRRcVW4N",
     "locations": [
       "utils/I18n.lua:24"
+    ]
+  },
+  "%d 秒后自动选择": {
+    "key": "t_1G5W8MUqR1GWi4S2za",
+    "locations": [
+      "utils/I18n.lua:149"
+    ]
+  },
+  "广告播放中 · 倒计时已暂停": {
+    "key": "t_iTOORRPziw6JjiHW",
+    "locations": [
+      "utils/I18n.lua:150"
+    ]
+  },
+  "📺 看广告换一批": {
+    "key": "t_wZgaG4S9w4mzr824",
+    "locations": [
+      "utils/I18n.lua:151"
+    ]
+  },
+  "正在播放广告…": {
+    "key": "t_m5nQO9IEmZmtbaS7",
+    "locations": [
+      "utils/I18n.lua:152"
+    ]
+  },
+  "已换一批新天赋": {
+    "key": "t_d1SDlV1Qd9CHYkMv",
+    "locations": [
+      "utils/I18n.lua:153"
+    ]
+  },
+  "完整观看后才能换一批": {
+    "key": "t_GqH34hafGMu6S7AC",
+    "locations": [
+      "utils/I18n.lua:154"
+    ]
+  },
+  "当前环境暂不支持广告": {
+    "key": "t_K06PQh1iKT5h6Gdj",
+    "locations": [
+      "utils/I18n.lua:155"
+    ]
+  },
+  "暂无可刷新的天赋": {
+    "key": "t_6ITZvMll6m8pwTKi",
+    "locations": [
+      "utils/I18n.lua:156"
+    ]
+  },
+  "emoji 英雄战斗": {
+    "key": "t_Nq5AcRO8OHO4hKRw",
+    "locations": [
+      "main.lua:1864",
+      "main.lua:235",
+      "utils/I18n.lua:211"
+    ]
+  },
+  "欢迎来到 emoji 英雄战斗！": {
+    "key": "t_2Wg5sksA2yUbjHg7",
+    "locations": [
+      "utils/I18n.lua:212"
+    ]
+  },
+  "v2.0 - emoji 英雄战斗": {
+    "key": "t_AFcZl7iCAOOmNXt3",
+    "locations": [
+      "utils/I18n.lua:213"
     ]
   }
 }

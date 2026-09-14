@@ -312,14 +312,14 @@ function TotemSystem.Synthesize(rarity)
     if roll <= 30 then
         -- 30% 升级
         local newIdx = math.min(idx + 1, #RARITY_ORDER)
-        return RARITY_ORDER[newIdx]
+        return RARITY_ORDER[newIdx] or rarity
     elseif roll <= 80 then
         -- 50% 保持
         return rarity
     else
         -- 20% 降级（垃圾不降）
         local newIdx = math.max(1, idx - 1)
-        return RARITY_ORDER[newIdx]
+        return RARITY_ORDER[newIdx] or rarity
     end
 end
 

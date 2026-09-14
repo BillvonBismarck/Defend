@@ -1,6 +1,6 @@
 --- MapEvent.lua — 随机地图事件系统 (Task 30)
 --- 战斗中随机触发：宝箱守卫、治疗泉、商人、陷阱区
---- @module MapEvent
+---@class MapEvent
 
 local Config = require("Config")
 

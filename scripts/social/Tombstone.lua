@@ -102,13 +102,14 @@ function Tombstone.Upload(stats, charId, charEmoji, lastWords)
 
     -- 生成遗言
     if not lastWords or lastWords == "" then
-        local tpl = DEFAULT_MESSAGES[math.random(#DEFAULT_MESSAGES)]
+        local tpl = DEFAULT_MESSAGES[math.random(#DEFAULT_MESSAGES)] or "替我报仇！"
         if tpl:find("%%d") then
             lastWords = string.format(tpl, stats.wave)
         else
             lastWords = tpl
         end
     end
+    lastWords = lastWords or "替我报仇！"
     -- 限制长度
     if #lastWords > 60 then
         lastWords = lastWords:sub(1, 60) .. "…"

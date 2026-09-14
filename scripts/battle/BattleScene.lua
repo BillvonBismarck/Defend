@@ -72,6 +72,16 @@ BattleScene.STATE_GIFT_AD = 7
 
 BattleScene.state = BattleScene.STATE_PLAYING
 
+-- 完整战斗更新心跳：用于确认恢复的是整条战斗流水线，而不是只有主角。
+BattleScene.heartbeat = {
+    frame = 0,
+    player = 0,
+    projectile = 0,
+    enemy = 0,
+    enemyBullet = 0,
+    collision = 0,
+}
+
 -- 局内金币（本局拾取的局外金币，结算时存入 SaveData.metaGold）
 BattleScene.sessionGold = 0
 
@@ -181,6 +191,12 @@ function BattleScene.Init(charId)
     BattleScene.state = BattleScene.STATE_PLAYING
     BattleScene.skillChoices = {}
     BattleScene.healDots = {}
+    BattleScene.heartbeat.frame = 0
+    BattleScene.heartbeat.player = 0
+    BattleScene.heartbeat.projectile = 0
+    BattleScene.heartbeat.enemy = 0
+    BattleScene.heartbeat.enemyBullet = 0
+    BattleScene.heartbeat.collision = 0
 
     -- 相机直接跳到玩家居中位置，避免从(0,0)慢慢追赶
     local initViewW = Config.DESIGN_W or 720
@@ -528,6 +544,7 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
 
     -- 限制 dt 防止卡顿导致跳帧
     dt = math.min(dt, 0.05)
+    BattleScene.heartbeat.frame = BattleScene.heartbeat.frame + 1
 
     -- 1. 波次管理
     do
@@ -610,7 +627,7 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
                     e.hp = 0
                 end
             end
-            ScreenShake.Trigger(18, 0.4)
+            ScreenShake.TriggerCustom(18, 0.4)
             Particle.Spawn(Player.x, Player.y, "explosion")
             GameAudio.PlaySFX("explosion")
             DamageNumber.Spawn(Player.x, Player.y - 50, "💥 全屏清怪!", "pickup")
@@ -626,7 +643,7 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
     -- 🔴 玩家移动是整个游戏最关键逻辑，三重保护确保必定执行
     local wasOverload = Player.overloadActive
     do
-        local mapSpeedBonus = 0
+        local mapSpeedBonus = 0.0
         local stSpeedMult = 1.0
         pcall(function()
             mapSpeedBonus = MapEvent.GetSpeedBonus(Player)
@@ -654,6 +671,9 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
         end
         if origMoveSpeed then
             Player.speed = origMoveSpeed
+        end
+        if pOk then
+            BattleScene.heartbeat.player = BattleScene.heartbeat.frame
         end
     end
 
@@ -689,6 +709,9 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
     -- 4. 子弹更新 + 碰撞
     do
         local ok, kills = safeCall("Projectile", Projectile.Update, dt, Enemy.active)
+        if ok then
+            BattleScene.heartbeat.projectile = BattleScene.heartbeat.frame
+        end
         if ok and kills then HandleKills(kills) end
     end
 
@@ -713,7 +736,10 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
     end)
 
     -- 6. 敌人更新
-    safeCall("Enemy", Enemy.Update, dt, Player.x, Player.y)
+    local enemyUpdateOk = safeCall("Enemy", Enemy.Update, dt, Player.x, Player.y)
+    if enemyUpdateOk then
+        BattleScene.heartbeat.enemy = BattleScene.heartbeat.frame
+    end
 
     -- 6.5 敌方弹幕更新（ranger子弹 + Boss技能弹幕/范围攻击）
     safeCall("EnemyBulletPhase", function()
@@ -729,6 +755,9 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
         end
         local charmedBulletKills = {}
         local ok, dmg = safeCall("EnemyBullet", EnemyBullet.Update, dt, Player.x, Player.y, Player.radius, blockers, Enemy.active, charmedBulletKills)
+        if ok then
+            BattleScene.heartbeat.enemyBullet = BattleScene.heartbeat.frame
+        end
         local bulletDmg = (ok and dmg) or 0
         if #charmedBulletKills > 0 then
             HandleKills(charmedBulletKills)
@@ -787,6 +816,9 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
     -- 7. 敌人碰撞玩家（造成接触伤害，无敌帧内不受伤也不弹数字）
     do
         local ok, hits = safeCall("EnemyCollision", Enemy.CheckPlayerCollision, Player.x, Player.y, Player.radius)
+        if ok then
+            BattleScene.heartbeat.collision = BattleScene.heartbeat.frame
+        end
         if ok and hits then
             for _, e in ipairs(hits) do
                 local wasInv = Player.invTimer > 0
@@ -814,10 +846,10 @@ function BattleScene.Update(dt, moveX, moveY, viewW, viewH)
             return Player.GetMagnetRange() * SpecialTerrain.GetMagnetMult()
         end)
         if not magnetOk then baseMagnet = 60 end  -- 保底磁铁范围
-        local emOk, effectiveMagnet = pcall(Loot.GetEffectiveMagnetRange, baseMagnet)
-        if not emOk then effectiveMagnet = baseMagnet end
+        local emOk, effectiveMagnetResult = pcall(Loot.GetEffectiveMagnetRange, baseMagnet)
+        local effectiveMagnet = (emOk and tonumber(effectiveMagnetResult)) or baseMagnet
         local ok, exp = safeCall("Loot", Loot.Update, dt, Player.x, Player.y, effectiveMagnet)
-        local expGained = (ok and exp) or 0
+        local expGained = (ok and tonumber(exp)) or 0
         -- 周挑战：经验倍率
         local wcExpMul = WeeklyChallenge.GetMod("expMul")
         if wcExpMul and expGained > 0 then expGained = expGained * wcExpMul end
