@@ -41,3 +41,8 @@ tools/
 urhox-libs/
 AGENTS.md
 CLAUDE.md
+
+# 大体积媒体与本地发布配置(低带宽环境不入库,保留本地文件)
+assets/video/
+game_material/
+.project/
