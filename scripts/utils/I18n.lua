@@ -207,10 +207,24 @@ local strings = {
     card_locked_wave      = { zh = "🔒 需通关第%d波",      en = "🔒 Reach Wave %d" },
     card_gold_badge       = { zh = "🪙 %d",               en = "🪙 %d" },
 
+    -- ===== 内购 / 联机 =====
+    iap_entry             = { zh = "💎 充值",              en = "💎 Shop" },
+    iap_title             = { zh = "钻石充值",             en = "Gem Shop" },
+    iap_balance           = { zh = "余额：gems %d",        en = "Balance: gems %d" },
+    iap_gift              = { zh = "赠送 %d 钻石",         en = "Get %d gems" },
+    iap_need_online       = { zh = "离线模式无法充值",      en = "Shop needs online" },
+    iap_unavailable       = { zh = "内购未开通或暂无商品",  en = "IAP unavailable" },
+    iap_no_products       = { zh = "内购未开通或暂无商品",  en = "No products" },
+    iap_need_taptap       = { zh = "请在 TapTap 客户端购买", en = "Use TapTap app to buy" },
+    iap_purchasing        = { zh = "正在拉起支付…",         en = "Opening payment…" },
+    iap_pay_launched      = { zh = "支付弹窗已拉起",        en = "Payment launched" },
+    iap_buy_fail          = { zh = "购买失败",             en = "Purchase failed" },
+    retry_online          = { zh = "🔄 重试联机",          en = "🔄 Retry Online" },
+
     -- ===== 主界面标题 =====
-    game_title            = { zh = "emoji 英雄战斗",         en = "Emoji Hero Battle" },
-    game_welcome          = { zh = "欢迎来到 emoji 英雄战斗！", en = "Welcome to Emoji Hero Battle!" },
-    game_version          = { zh = "v2.0 - emoji 英雄战斗",  en = "v2.0 - Emoji Hero Battle" },
+    game_title            = { zh = "Emoji幸存者",         en = "Emoji Survivors" },
+    game_welcome          = { zh = "欢迎来到Emoji幸存者！", en = "Welcome to Emoji Survivors!" },
+    game_version          = { zh = "v2.0 - Emoji幸存者",  en = "v2.0 - Emoji Survivors" },
 
     -- ===== 角色选择 =====
     charsel_start         = { zh = "开始战斗！",           en = "Start Battle!" },

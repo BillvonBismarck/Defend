@@ -413,6 +413,8 @@ end
 
 --- 上传到云端
 function Achievement.SyncToCloud()
+    local GameMode = require("GameMode")
+    if GameMode.IsOffline() then return end
     if not clientCloud then return end
     local mask = Achievement.EncodeBitmask()
     clientCloud:SetInt(CLOUD_KEY, mask, {
@@ -427,6 +429,8 @@ end
 
 --- 从云端拉取并合并
 function Achievement.SyncFromCloud()
+    local GameMode = require("GameMode")
+    if GameMode.IsOffline() then return end
     if not clientCloud then return end
     clientCloud:Get(CLOUD_KEY, {
         ok = function(values, iscores)

@@ -12,7 +12,11 @@ local SkinSystem  = require("meta.SkinSystem")
 -- clientCloud 是引擎注入的全局变量，可能在本模块加载后才就绪
 -- 因此不在顶部缓存，改用函数动态获取
 ---@diagnostic disable-next-line: undefined-global
-local function getClientCloud() return clientCloud end
+local function getClientCloud()
+    local GameMode = require("GameMode")
+    if GameMode.IsOffline() then return nil end
+    return clientCloud
+end
 
 local SaveData = {}
 
