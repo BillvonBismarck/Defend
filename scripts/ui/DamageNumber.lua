@@ -12,6 +12,10 @@ DamageNumber.active = {}
 -- zpix 字体 ID（由 main.lua 初始化后设置）
 DamageNumber.fontId = -1
 
+-- 固定单位描边偏移复用，避免40条跳字每帧新建360张临时表。
+local OUTLINE_OFFSETS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 },
+    { -1, -1 }, { 1, -1 }, { -1, 1 }, { 1, 1 } }
+
 -- ============================================================================
 -- 跳字类型预设
 -- ============================================================================
@@ -276,13 +280,8 @@ function DamageNumber.Render(vg, camX, camY, viewW, viewH)
             -- ====== 白边（描边模拟：8方向偏移绘制） ======
             local strokeW = 2.0
             nvgFillColor(vg, nvgRGBA(sc[1], sc[2], sc[3], strokeA))
-            for _, off in ipairs({
-                { -strokeW, 0 }, { strokeW, 0 },
-                { 0, -strokeW }, { 0, strokeW },
-                { -strokeW, -strokeW }, { strokeW, -strokeW },
-                { -strokeW, strokeW },  { strokeW, strokeW },
-            }) do
-                nvgText(vg, sx + off[1], sy + off[2], n.text)
+            for _, off in ipairs(OUTLINE_OFFSETS) do
+                nvgText(vg, sx + off[1] * strokeW, sy + off[2] * strokeW, n.text)
             end
 
             -- ====== 内填充 ======
@@ -318,13 +317,8 @@ function DamageNumber.DrawOutlinedText(vg, x, y, text, fontSize, fillR, fillG, f
 
     -- 白色描边（8方向）
     nvgFillColor(vg, nvgRGBA(255, 255, 255, fillA))
-    for _, off in ipairs({
-        { -strokeW, 0 }, { strokeW, 0 },
-        { 0, -strokeW }, { 0, strokeW },
-        { -strokeW, -strokeW }, { strokeW, -strokeW },
-        { -strokeW, strokeW },  { strokeW, strokeW },
-    }) do
-        nvgText(vg, x + off[1], y + off[2], text)
+    for _, off in ipairs(OUTLINE_OFFSETS) do
+        nvgText(vg, x + off[1] * strokeW, y + off[2] * strokeW, text)
     end
 
     -- 内填充
