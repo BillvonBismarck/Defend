@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="920" viewBox="0 0 1100 920" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif">
+  <rect width="1100" height="920" fill="#0f1420"/>
+  <text x="40" y="54" fill="#e8eefc" font-size="28" font-weight="700">图 6 · 大地图结构与大远征路线（原型建议）</text>
+  <text x="40" y="86" fill="#8ea0c0" font-size="15">核心坐标与三路入口沿用 v0.1；森林 / 冰川 / 火山为主题区；虚线为远征队绕行一周的路线，每房间限伤</text>
+
+  <!-- themed zones -->
+  <rect x="90" y="110" width="210" height="170" rx="16" fill="#12301f" stroke="#3f9f6f" stroke-width="2"/>
+  <text x="195" y="148" fill="#a9ecc7" font-size="18" text-anchor="middle" font-weight="700">森林区</text>
+  <text x="195" y="176" fill="#6fc79b" font-size="14" text-anchor="middle">低危 · 资金 / 基础材料</text>
+  <text x="195" y="202" fill="#5d9f81" font-size="13" text-anchor="middle">清 A1/B1/C1 后解锁</text>
+
+  <rect x="790" y="110" width="220" height="170" rx="16" fill="#122a3a" stroke="#3f8fd1" stroke-width="2"/>
+  <text x="900" y="148" fill="#bcd8f8" font-size="18" text-anchor="middle" font-weight="700">冰川区</text>
+  <text x="900" y="176" fill="#7fa6d6" font-size="14" text-anchor="middle">中危 · 控制类设施图纸</text>
+  <text x="900" y="202" fill="#5f86b3" font-size="13" text-anchor="middle">清对应走廊据点后解锁</text>
+
+  <rect x="640" y="612" width="370" height="190" rx="16" fill="#33191b" stroke="#c2555b" stroke-width="2"/>
+  <text x="825" y="652" fill="#f3b6ba" font-size="18" text-anchor="middle" font-weight="700">火山区</text>
+  <text x="825" y="680" fill="#d98e93" font-size="14" text-anchor="middle">高危 · 高收益设施 / 远征集结</text>
+  <text x="825" y="704" fill="#a86b70" font-size="13" text-anchor="middle">中后期解锁</text>
+  <text x="825" y="775" fill="#c9aef2" font-size="14" text-anchor="middle">每房间限伤 C_room（建议 = 核心耐久的 8%–12%）</text>
+
+  <!-- main hall -->
+  <rect x="355" y="200" width="330" height="330" rx="18" fill="#182338" stroke="#4f6ba8" stroke-width="3"/>
+  <text x="520" y="238" fill="#cfe0ff" font-size="20" text-anchor="middle" font-weight="700">主殿核心圈</text>
+  <circle cx="520" cy="365" r="26" fill="#1d3a6b" stroke="#6fa8ff" stroke-width="3"/>
+  <text x="520" y="371" fill="#dceaff" font-size="15" text-anchor="middle" font-weight="700">核心</text>
+  <text x="520" y="412" fill="#8ea0c0" font-size="13" text-anchor="middle">(32,21) 全关卡固定</text>
+
+  <!-- pillars -->
+  <rect x="400" y="350" width="45" height="45" rx="6" fill="#2b3448" stroke="#57688c"/>
+  <rect x="595" y="335" width="45" height="45" rx="6" fill="#2b3448" stroke="#57688c"/>
+  <text x="423" y="378" fill="#8ea0c0" font-size="11" text-anchor="middle">柱</text>
+  <text x="618" y="363" fill="#8ea0c0" font-size="11" text-anchor="middle">柱</text>
+
+  <!-- build slots -->
+  <g fill="#241d36" stroke="#9a76d6" stroke-width="2">
+    <rect x="432" y="248" width="26" height="26" rx="5"/>
+    <rect x="582" y="248" width="26" height="26" rx="5"/>
+    <rect x="432" y="458" width="26" height="26" rx="5"/>
+    <rect x="582" y="458" width="26" height="26" rx="5"/>
+  </g>
+  <text x="445" y="240" fill="#b9a3e3" font-size="12" text-anchor="middle">T1</text>
+  <text x="595" y="240" fill="#b9a3e3" font-size="12" text-anchor="middle">T2</text>
+  <text x="445" y="500" fill="#b9a3e3" font-size="12" text-anchor="middle">T3</text>
+  <text x="595" y="500" fill="#b9a3e3" font-size="12" text-anchor="middle">T4</text>
+
+  <!-- portals -->
+  <circle cx="295" cy="365" r="16" fill="#3a2020" stroke="#d17070" stroke-width="2"/>
+  <text x="295" y="371" fill="#f0b7b7" font-size="14" text-anchor="middle" font-weight="700">W</text>
+  <circle cx="745" cy="365" r="16" fill="#3a2020" stroke="#d17070" stroke-width="2"/>
+  <text x="745" y="371" fill="#f0b7b7" font-size="14" text-anchor="middle" font-weight="700">E</text>
+  <circle cx="520" cy="575" r="16" fill="#3a2020" stroke="#d17070" stroke-width="2"/>
+  <text x="520" y="581" fill="#f0b7b7" font-size="14" text-anchor="middle" font-weight="700">S</text>
+  <text x="295" y="405" fill="#c98b8b" font-size="12" text-anchor="middle">W 入口 (17,21)</text>
+  <text x="745" y="405" fill="#c98b8b" font-size="12" text-anchor="middle">E 入口 (47,21)</text>
+  <text x="520" y="615" fill="#c98b8b" font-size="12" text-anchor="middle">S 入口 (32,35)</text>
+
+  <!-- logistics -->
+  <circle cx="520" cy="140" r="12" fill="#243a2a" stroke="#5fae7c" stroke-width="2"/>
+  <text x="520" y="172" fill="#a9d9bd" font-size="13" text-anchor="middle">后勤整备区 (32,6) · 回城落点</text>
+
+  <!-- outposts -->
+  <g>
+    <circle cx="160" cy="365" r="14" fill="#233046" stroke="#7fa0d6" stroke-width="2"/>
+    <text x="160" y="370" fill="#cfe0ff" font-size="12" text-anchor="middle">A1</text>
+    <circle cx="160" cy="222" r="14" fill="#233046" stroke="#7fa0d6" stroke-width="2"/>
+    <text x="160" y="227" fill="#cfe0ff" font-size="12" text-anchor="middle">A2</text>
+    <circle cx="880" cy="365" r="14" fill="#233046" stroke="#7fa0d6" stroke-width="2"/>
+    <text x="880" y="370" fill="#cfe0ff" font-size="12" text-anchor="middle">B1</text>
+    <circle cx="880" cy="222" r="14" fill="#233046" stroke="#7fa0d6" stroke-width="2"/>
+    <text x="880" y="227" fill="#cfe0ff" font-size="12" text-anchor="middle">B2</text>
+    <circle cx="520" cy="695" r="14" fill="#233046" stroke="#7fa0d6" stroke-width="2"/>
+    <text x="520" y="700" fill="#cfe0ff" font-size="12" text-anchor="middle">C1</text>
+    <circle cx="880" cy="735" r="14" fill="#233046" stroke="#7fa0d6" stroke-width="2"/>
+    <text x="880" y="740" fill="#cfe0ff" font-size="12" text-anchor="middle">C2</text>
+  </g>
+  <line x1="160" y1="351" x2="160" y2="236" stroke="#3d5b8a" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="880" y1="351" x2="880" y2="236" stroke="#3d5b8a" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="520" y1="681" x2="880" y2="723" stroke="#3d5b8a" stroke-width="2" stroke-dasharray="5 4"/>
+
+  <!-- expedition route -->
+  <defs>
+    <marker id="pur" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b07cf0"/>
+    </marker>
+  </defs>
+  <polyline points="250,215 250,132 840,132 880,180 880,660 830,700 560,700 540,560 520,500"
+            fill="none" stroke="#b07cf0" stroke-width="4" stroke-dasharray="10 7" marker-end="url(#pur)" opacity="0.95"/>
+  <g font-size="15" font-weight="700" text-anchor="middle">
+    <circle cx="250" cy="132" r="15" fill="#2a1b45" stroke="#b07cf0" stroke-width="2"/><text x="250" y="137" fill="#e2cdfb">1</text>
+    <circle cx="880" cy="420" r="15" fill="#2a1b45" stroke="#b07cf0" stroke-width="2"/><text x="880" y="425" fill="#e2cdfb">2</text>
+    <circle cx="700" cy="700" r="15" fill="#2a1b45" stroke="#b07cf0" stroke-width="2"/><text x="700" y="705" fill="#e2cdfb">3</text>
+    <circle cx="533" cy="530" r="15" fill="#2a1b45" stroke="#b07cf0" stroke-width="2"/><text x="533" y="535" fill="#e2cdfb">4</text>
+  </g>
+  <text x="620" y="112" fill="#c9aef2" font-size="14" text-anchor="middle">远征路线：森林 → 冰川 → 火山 → 主殿（绕行一周）</text>
+
+  <!-- legend -->
+  <rect x="40" y="822" width="1020" height="72" rx="12" fill="#131a28" stroke="#2a3550"/>
+  <circle cx="70" cy="858" r="8" fill="#1d3a6b" stroke="#6fa8ff" stroke-width="2"/>
+  <text x="86" y="863" fill="#9fb0cc" font-size="14">核心（固定）</text>
+  <circle cx="210" cy="858" r="8" fill="#233046" stroke="#7fa0d6" stroke-width="2"/>
+  <text x="226" y="863" fill="#9fb0cc" font-size="14">据点 / 主题区</text>
+  <rect x="360" y="850" width="16" height="16" rx="4" fill="#241d36" stroke="#9a76d6" stroke-width="2"/>
+  <text x="384" y="863" fill="#9fb0cc" font-size="14">建造槽</text>
+  <line x1="480" y1="858" x2="520" y2="858" stroke="#b07cf0" stroke-width="4" stroke-dasharray="8 5"/>
+  <text x="530" y="863" fill="#9fb0cc" font-size="14">大远征路线（敌人绕图一周，逐房间消耗）</text>
+  <text x="880" y="863" fill="#9fb0cc" font-size="14">核心不动 · 地图复用</text>
+</svg>

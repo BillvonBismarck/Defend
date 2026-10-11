@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="620" viewBox="0 0 1240 620" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif">
+  <rect width="1240" height="620" fill="#0f1420"/>
+  <text x="60" y="66" fill="#e8eefc" font-size="30" font-weight="700">图 5 · 波次节奏：基础间隔 + 基准攻击时间 + 速清奖励（原型建议）</text>
+  <text x="60" y="100" fill="#8ea0c0" font-size="16">速清奖励 = clamp(基准攻击时间 B − 实际战斗时间 T, 0, 15s)；奖励不结转，提前开波不没收</text>
+
+  <!-- timeline axis -->
+  <line x1="60" y1="250" x2="1180" y2="250" stroke="#2a3550" stroke-width="2"/>
+
+  <!-- wave combat segment -->
+  <rect x="60" y="205" width="300" height="60" rx="10" fill="#3b1f35" stroke="#c25b8f" stroke-width="2"/>
+  <text x="210" y="230" fill="#f3c1da" font-size="17" text-anchor="middle" font-weight="700">波次进攻（实际战斗 T）</text>
+  <text x="210" y="252" fill="#d79ab8" font-size="14" text-anchor="middle">基准 B = 30s / 45s（写入配置）</text>
+
+  <!-- clear marker -->
+  <line x1="360" y1="190" x2="360" y2="300" stroke="#f2d16b" stroke-width="3"/>
+  <text x="360" y="184" fill="#f2d16b" font-size="15" text-anchor="middle" font-weight="700">清波判定成立</text>
+  <text x="360" y="322" fill="#a08c4e" font-size="13" text-anchor="middle">生成完成 + 存活=0（有害反应须结算完）</text>
+
+  <!-- base interval -->
+  <rect x="380" y="205" width="220" height="60" rx="10" fill="#132b46" stroke="#3f7fd1" stroke-width="2"/>
+  <text x="490" y="230" fill="#bcd8f8" font-size="17" text-anchor="middle" font-weight="700">基础间隔 B0 = 15s（保底）</text>
+  <text x="490" y="252" fill="#7fa6d6" font-size="14" text-anchor="middle">沿用 v0.1 战备，慢速不惩罚</text>
+
+  <!-- bonus interval -->
+  <rect x="600" y="205" width="220" height="60" rx="10" fill="#123326" stroke="#3fbf7f" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="710" y="230" fill="#a9ecc7" font-size="17" text-anchor="middle" font-weight="700">速清奖励 R ≤ 15s</text>
+  <text x="710" y="252" fill="#6fc79b" font-size="14" text-anchor="middle">探索窗口 = B0 + R ≤ 30s</text>
+
+  <!-- warning -->
+  <rect x="840" y="205" width="150" height="60" rx="10" fill="#3a2a12" stroke="#e0a33c" stroke-width="2"/>
+  <text x="915" y="230" fill="#f7d79b" font-size="17" text-anchor="middle" font-weight="700">预警 ≥ 8s</text>
+  <text x="915" y="252" fill="#c9a05e" font-size="14" text-anchor="middle">方向提示</text>
+
+  <!-- next wave -->
+  <rect x="1010" y="205" width="150" height="60" rx="10" fill="#3b1f35" stroke="#c25b8f" stroke-width="2"/>
+  <text x="1085" y="240" fill="#f3c1da" font-size="16" text-anchor="middle" font-weight="700">下一波</text>
+
+  <!-- arrows -->
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b6b8f"/>
+    </marker>
+  </defs>
+  <line x1="360" y1="235" x2="378" y2="235" stroke="#5b6b8f" stroke-width="3" marker-end="url(#arw)"/>
+  <line x1="600" y1="235" x2="618" y2="235" stroke="#5b6b8f" stroke-width="3" marker-end="url(#arw)"/>
+  <line x1="820" y1="235" x2="838" y2="235" stroke="#5b6b8f" stroke-width="3" marker-end="url(#arw)"/>
+  <line x1="990" y1="235" x2="1008" y2="235" stroke="#5b6b8f" stroke-width="3" marker-end="url(#arw)"/>
+
+  <!-- formula box -->
+  <rect x="60" y="368" width="1120" height="86" rx="12" fill="#161d2e" stroke="#2a3550"/>
+  <text x="86" y="402" fill="#cfe0ff" font-size="17" font-weight="700">R = clamp( B − T , 0 , R_max )　　R_max = 15s</text>
+  <text x="86" y="432" fill="#8ea0c0" font-size="15">示例：战斗 18s / 基准 30s → R = 12s → 本次探索窗口 = 15s + 12s = 27s；未用完部分作废，不结转</text>
+
+  <!-- guardrails -->
+  <rect x="60" y="478" width="1120" height="108" rx="12" fill="#131a28" stroke="#2a3550"/>
+  <text x="86" y="512" fill="#f0b7b7" font-size="16" font-weight="700">护栏</text>
+  <text x="86" y="540" fill="#9fb0cc" font-size="15">每波只结算一次 · 不得超过 R_max · 不跨波累积 · 提前开波不没收但作废 · 预警仍保证 8 秒 · 弱构筑保底 B0</text>
+  <text x="86" y="566" fill="#9fb0cc" font-size="15">不把「速清」变成通行门槛：奖励的是探索时间（机会），不是数值；慢速只提示，不暗改。</text>
+</svg>

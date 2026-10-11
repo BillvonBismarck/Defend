@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="880" viewBox="0 0 1340 880" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif">
+<rect width="1340" height="880" fill="#0f1420"/>
+<text x="40" y="50" fill="#e8eefc" font-size="26" font-weight="700">图 9 · 三片大地图：几何先行，地形参与战斗</text>
+<text x="40" y="78" fill="#8ea0c0" font-size="14">六边形蜂巢（极光）/ 方格（幽灵诅咒沼泽）/ 环形（沙漠）；每片地形元件都至少有一项战斗作用：伤、挡、改路、给资源</text>
+<rect x="40" y="104" width="400" height="560" rx="14" fill="#111826" stroke="#3f8fd1"/>
+<text x="60" y="136" fill="#e8eefc" font-size="17" font-weight="700">极光地区（六边形）· 原 B 冰川区</text>
+<text x="60" y="158" fill="#7e97c4" font-size="12">平顶 hex · axial · 6 邻接｜B1/B2 两房保持原房间图，只换几何与地形</text>
+<polygon points="154.0,234.0 142.0,254.8 118.0,254.8 106.0,234.0 118.0,213.2 142.0,213.2" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="154.0,279.0 142.0,299.8 118.0,299.8 106.0,279.0 118.0,258.2 142.0,258.2" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="154.0,324.1 142.0,344.9 118.0,344.9 106.0,324.1 118.0,303.3 142.0,303.3" fill="#16233a" stroke="#3b5f92" stroke-width="1.6" stroke-dasharray="5 4"/>
+<polygon points="154.0,369.1 142.0,389.9 118.0,389.9 106.0,369.1 118.0,348.3 142.0,348.3" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="193.0,256.5 181.0,277.3 157.0,277.3 145.0,256.5 157.0,235.7 181.0,235.7" fill="#1d4a52" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="193.0,301.5 181.0,322.3 157.0,322.3 145.0,301.5 157.0,280.8 181.0,280.8" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="193.0,346.6 181.0,367.4 157.0,367.4 145.0,346.6 157.0,325.8 181.0,325.8" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="193.0,391.6 181.0,412.4 157.0,412.4 145.0,391.6 157.0,370.8 181.0,370.8" fill="#16233a" stroke="#3b5f92" stroke-width="1.6" stroke-dasharray="5 4"/>
+<polygon points="232.0,279.0 220.0,299.8 196.0,299.8 184.0,279.0 196.0,258.2 220.0,258.2" fill="#1d4a52" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="232.0,324.1 220.0,344.9 196.0,344.9 184.0,324.1 196.0,303.3 220.0,303.3" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="232.0,369.1 220.0,389.9 196.0,389.9 184.0,369.1 196.0,348.3 220.0,348.3" fill="#1d4a52" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="232.0,414.1 220.0,434.9 196.0,434.9 184.0,414.1 196.0,393.3 220.0,393.3" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="271.0,301.5 259.0,322.3 235.0,322.3 223.0,301.5 235.0,280.8 259.0,280.8" fill="#1d4a52" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="271.0,346.6 259.0,367.4 235.0,367.4 223.0,346.6 235.0,325.8 259.0,325.8" fill="#1d4a52" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="271.0,391.6 259.0,412.4 235.0,412.4 223.0,391.6 235.0,370.8 259.0,370.8" fill="#1d4a52" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="271.0,436.6 259.0,457.4 235.0,457.4 223.0,436.6 235.0,415.9 259.0,415.9" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="310.0,324.1 298.0,344.9 274.0,344.9 262.0,324.1 274.0,303.3 298.0,303.3" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="310.0,369.1 298.0,389.9 274.0,389.9 262.0,369.1 274.0,348.3 298.0,348.3" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="310.0,414.1 298.0,434.9 274.0,434.9 262.0,414.1 274.0,393.3 298.0,393.3" fill="#1d4a52" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="310.0,459.2 298.0,480.0 274.0,480.0 262.0,459.2 274.0,438.4 298.0,438.4" fill="#16233a" stroke="#3b5f92" stroke-width="1.6"/>
+<polygon points="189.0,256.5 179.0,273.8 159.0,273.8 149.0,256.5 159.0,239.2 179.0,239.2" fill="#2ee6c8" opacity="0.18"/>
+<polygon points="228.0,369.1 218.0,386.4 198.0,386.4 188.0,369.1 198.0,351.8 218.0,351.8" fill="#2ee6c8" opacity="0.18"/>
+<polygon points="267.0,346.6 257.0,363.9 237.0,363.9 227.0,346.6 237.0,329.3 257.0,329.3" fill="#2ee6c8" opacity="0.18"/>
+<polygon points="267.0,391.6 257.0,408.9 237.0,408.9 227.0,391.6 237.0,374.3 257.0,374.3" fill="#2ee6c8" opacity="0.18"/>
+<polygon points="228.0,279.0 218.0,296.4 198.0,296.4 188.0,279.0 198.0,261.7 218.0,261.7" fill="#2ee6c8" opacity="0.18"/>
+<polygon points="306.0,414.1 296.0,431.5 276.0,431.5 266.0,414.1 276.0,396.8 296.0,396.8" fill="#2ee6c8" opacity="0.18"/>
+<polygon points="267.0,301.5 257.0,318.9 237.0,318.9 227.0,301.5 237.0,284.2 257.0,284.2" fill="#2ee6c8" opacity="0.18"/>
+<circle cx="286.0" cy="324.0666419935816" r="7" fill="#7fd1ff"/><text x="286.0" y="329.0666419935816" font-size="14" text-anchor="middle">⚡</text>
+<circle cx="286.0" cy="459.166604983954" r="7" fill="#7fd1ff"/><text x="286.0" y="464.166604983954" font-size="14" text-anchor="middle">⚡</text>
+<text x="130.0" y="330.0666419935816" font-size="16" text-anchor="middle">🧊</text>
+<text x="169.0" y="397.6166234887678" font-size="16" text-anchor="middle">🧊</text>
+<text x="208.0" y="420.1332839871632" font-size="15" text-anchor="middle">🕳</text>
+<text x="60" y="568" fill="#9fc4ff" font-size="13">① 冰壳：可击碎，破坏后出现洞口 → 改敌人路径</text>
+<text x="60" y="590" fill="#9fc4ff" font-size="13">② 离子柱：每 2s 电链跳 3 目标；可被冰霜引爆</text>
+<text x="60" y="612" fill="#9fc4ff" font-size="13">③ 极光带：相位移动；带内技能 CD −30% / 敌免减速</text>
+<text x="60" y="634" fill="#9fc4ff" font-size="13">④ 裂隙 + 霜华：击退距离 +30%，冲锋怪会断冲</text>
+<rect x="470" y="104" width="400" height="560" rx="14" fill="#111826" stroke="#3fbf7f"/>
+<text x="490" y="136" fill="#e8eefc" font-size="17" font-weight="700">幽灵诅咒沼泽（方格）· 原 A 森林区</text>
+<text x="490" y="158" fill="#7e97c4" font-size="12">方格 4/8 邻接｜A1/A2 两房保持原房间图，地形层最先落地</text>
+<rect x="510" y="216" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="510" y="248" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="510" y="280" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="510" y="312" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="510" y="344" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="510" y="376" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="510" y="408" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="542" y="216" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="542" y="248" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="542" y="280" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="542" y="312" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="542" y="344" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="542" y="376" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="542" y="408" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="574" y="216" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="574" y="248" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="574" y="280" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="574" y="312" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="574" y="344" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="574" y="376" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="574" y="408" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="606" y="216" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="606" y="248" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="606" y="280" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="606" y="312" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="606" y="344" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="606" y="376" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="606" y="408" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="638" y="216" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="638" y="248" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="638" y="280" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="638" y="312" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="638" y="344" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="638" y="376" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="638" y="408" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="670" y="216" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="670" y="248" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="670" y="280" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="670" y="312" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="670" y="344" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="670" y="376" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="670" y="408" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="702" y="216" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="702" y="248" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="702" y="280" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="702" y="312" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="702" y="344" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="702" y="376" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="702" y="408" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="734" y="216" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="734" y="248" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="734" y="280" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="734" y="312" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="734" y="344" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="734" y="376" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="734" y="408" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="766" y="216" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="766" y="248" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="766" y="280" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="766" y="312" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="766" y="344" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="766" y="376" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<rect x="766" y="408" width="32" height="32" fill="#121a17" stroke="#244235" stroke-width="1"/>
+<circle cx="558.0" cy="264.0" r="17.6" fill="#3a4d2a" opacity="0.85"/>
+<circle cx="590.0" cy="264.0" r="17.6" fill="#3a4d2a" opacity="0.85"/>
+<circle cx="590.0" cy="296.0" r="17.6" fill="#3a4d2a" opacity="0.85"/>
+<circle cx="686.0" cy="360.0" r="17.6" fill="#3a4d2a" opacity="0.85"/>
+<circle cx="718.0" cy="360.0" r="17.6" fill="#3a4d2a" opacity="0.85"/>
+<circle cx="718.0" cy="328.0" r="17.6" fill="#3a4d2a" opacity="0.85"/>
+<circle cx="622.0" cy="392.0" r="17.6" fill="#3a4d2a" opacity="0.85"/>
+<circle cx="750.0" cy="264.0" r="17.6" fill="#5a7a24" opacity="0.85"/>
+<circle cx="750.0" cy="296.0" r="17.6" fill="#5a7a24" opacity="0.85"/>
+<text x="622.0" y="397.0" font-size="15" text-anchor="middle">🌳</text>
+<text x="654.0" y="269.0" font-size="15" text-anchor="middle">🎋</text>
+<circle cx="654.0" cy="392.0" r="96" fill="#ffe9a8" opacity="0.07"/><circle cx="654.0" cy="392.0" r="8" fill="#ffd75e"/>
+<circle cx="750.0" cy="392.0" r="9" fill="#8a4fd6"/>
+<text x="750.0" y="378.0" font-size="12" fill="#c9aef2" text-anchor="middle">诅咒石</text>
+<text x="654.0" y="376.0" font-size="12" fill="#ffe9a8" text-anchor="middle">净化灯</text>
+<rect x="490" y="568" width="360" height="76" rx="10" fill="#0f1a16" stroke="#244235"/>
+<text x="504" y="592" fill="#a9ecc7" font-size="13">泥沼：移速 ×0.6，塔射程 ×0.9 且每秒 −1 HP</text>
+<text x="504" y="612" fill="#a9ecc7" font-size="13">毒沼：5 伤/秒（敌我通吃），净化后变浅水</text>
+<text x="504" y="632" fill="#a9ecc7" font-size="13">迷雾：视野 6 格 / 塔射程 ×0.75；幽灵未照明不可锁定</text>
+<rect x="900" y="104" width="400" height="560" rx="14" fill="#111826" stroke="#e0a33c"/>
+<text x="920" y="136" fill="#e8eefc" font-size="17" font-weight="700">沙漠区（环形）· 原 C 火山区</text>
+<text x="920" y="158" fill="#7e97c4" font-size="12">ring × sector｜C1/C2 两房保持原房间图，弧长随半径换算</text>
+<circle cx="1100.0" cy="352" r="46" fill="none" stroke="#4a3a22" stroke-width="2"/>
+<circle cx="1100.0" cy="352" r="82" fill="none" stroke="#4a3a22" stroke-width="2"/>
+<circle cx="1100.0" cy="352" r="118" fill="none" stroke="#4a3a22" stroke-width="2"/>
+<circle cx="1100.0" cy="352" r="154" fill="none" stroke="#4a3a22" stroke-width="2"/>
+<line x1="1100.0" y1="352" x2="1254.0" y2="352.0" stroke="#3a2f1c" stroke-width="1.5"/>
+<line x1="1100.0" y1="352" x2="1208.9" y2="460.9" stroke="#3a2f1c" stroke-width="1.5"/>
+<line x1="1100.0" y1="352" x2="1100.0" y2="506.0" stroke="#3a2f1c" stroke-width="1.5"/>
+<line x1="1100.0" y1="352" x2="991.1" y2="460.9" stroke="#3a2f1c" stroke-width="1.5"/>
+<line x1="1100.0" y1="352" x2="946.0" y2="352.0" stroke="#3a2f1c" stroke-width="1.5"/>
+<line x1="1100.0" y1="352" x2="991.1" y2="243.1" stroke="#3a2f1c" stroke-width="1.5"/>
+<line x1="1100.0" y1="352" x2="1100.0" y2="198.0" stroke="#3a2f1c" stroke-width="1.5"/>
+<line x1="1100.0" y1="352" x2="1208.9" y2="243.1" stroke="#3a2f1c" stroke-width="1.5"/>
+<path d="M 1056.8 336.3 A 46 46 0 0 1 1143.2 336.3" fill="none" stroke="#c9a05e" stroke-width="9" />
+<path d="M 1177.1 380.0 A 82 82 0 0 1 1029.0 393.0" fill="none" stroke="#c9a05e" stroke-width="9" />
+<path d="M 983.8 331.5 A 118 118 0 0 1 1159.0 249.8" fill="none" stroke="#8a8f96" stroke-width="7" stroke-dasharray="9 6"/>
+<path d="M 1218.0 451.0 A 154 154 0 0 1 1023.0 485.4" fill="none" stroke="#8a8f96" stroke-width="7" stroke-dasharray="9 6"/>
+<circle cx="1200.0" cy="318" r="16" fill="#2e6f8a" opacity="0.9"/><text x="1200.0" y="324" font-size="12" text-anchor="middle">🌴</text>
+<circle cx="1100.0" cy="352" r="13" fill="#1d3a6b" stroke="#6fa8ff" stroke-width="2"/><text x="1100.0" y="356" font-size="11" fill="#dceaff" text-anchor="middle">核心</text>
+<circle cx="1100.0" cy="198.0" r="9" fill="#3a2020" stroke="#d17070" stroke-width="2"/>
+<circle cx="1233.4" cy="429.0" r="9" fill="#3a2020" stroke="#d17070" stroke-width="2"/>
+<circle cx="966.6" cy="429.0" r="9" fill="#3a2020" stroke="#d17070" stroke-width="2"/>
+<text x="920" y="568" fill="#f7d79b" font-size="13">流沙：每秒下沉 1 层，3 层掩埋 3s + 15 伤害</text>
+<text x="920" y="590" fill="#f7d79b" font-size="13">遗迹墙：HP 120，破坏掉 1–3 星砂；沙暴掩埋塔</text>
+<text x="920" y="612" fill="#f7d79b" font-size="13">沙暴：每 45s / 12s；视野 5 格、塔射程 ×0.7、敌 +15% 速</text>
+<text x="920" y="634" fill="#f7d79b" font-size="13">绿洲：半径 4 格回血 2/s；火伤 ×1.5；木乃伊不复生</text>
+<rect x="40" y="692" width="1260" height="150" rx="14" fill="#131a28" stroke="#2a3550"/>
+<text x="62" y="722" fill="#cfe0ff" font-size="16" font-weight="700">地形融入战斗的六条规则（与现有 R1–R9 一致）</text>
+<rect x="62" y="724" width="386" height="34" rx="8" fill="#16233a" stroke="#37507f"/>
+<text x="74" y="746" fill="#bcd8f8" font-size="12.5">地形 × 弹道：<tspan fill="#8ea0c0">墙/柱/遗迹墙截断弹道；高低差改变命中</tspan></text>
+<rect x="474" y="724" width="386" height="34" rx="8" fill="#16233a" stroke="#37507f"/>
+<text x="486" y="746" fill="#bcd8f8" font-size="12.5">地形 × 状态：<tspan fill="#8ea0c0">地形状态可被技能叠加或清除</tspan></text>
+<rect x="886" y="724" width="386" height="34" rx="8" fill="#16233a" stroke="#37507f"/>
+<text x="898" y="746" fill="#bcd8f8" font-size="12.5">地形 × 击退：<tspan fill="#8ea0c0">碰墙即停；霜华放大 30%，沙暴期减半</tspan></text>
+<rect x="62" y="768" width="386" height="34" rx="8" fill="#16233a" stroke="#37507f"/>
+<text x="74" y="790" fill="#bcd8f8" font-size="12.5">地形 × 敌人 AI：<tspan fill="#8ea0c0">按代价最小路径行进，会绕毒沼躲离子柱</tspan></text>
+<rect x="474" y="768" width="386" height="34" rx="8" fill="#16233a" stroke="#37507f"/>
+<text x="486" y="790" fill="#bcd8f8" font-size="12.5">地形 × 建造：<tspan fill="#8ea0c0">槽位受地形约束：泥沼槽弱、驼峰岩槽 +1.5 格</tspan></text>
+<rect x="886" y="768" width="386" height="34" rx="8" fill="#16233a" stroke="#37507f"/>
+<text x="898" y="790" fill="#bcd8f8" font-size="12.5">地形 × 波次：<tspan fill="#8ea0c0">战备期地形会变（极光相位/沙暴倒计时）</tspan></text>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="780" viewBox="0 0 1240 780" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif">
+  <rect width="1240" height="780" fill="#0f1420"/>
+  <text x="40" y="56" fill="#e8eefc" font-size="28" font-weight="700">图 7 · 原型架构与「脱离参考项目」的复用边界</text>
+  <text x="40" y="88" fill="#8ea0c0" font-size="15">依据 Gitee 仓库 Ecnahc1014/emoji-survivors 全树清点（2026-09-23 最后推送）；左列为可直接继承，中列为改造后继承，右列必须新写</text>
+
+  <!-- column headers -->
+  <g font-size="17" font-weight="700" text-anchor="middle">
+    <rect x="40" y="112" width="360" height="44" rx="10" fill="#123326" stroke="#3fbf7f" stroke-width="2"/>
+    <text x="220" y="141" fill="#a9ecc7">① 直接复用（基底已具备）</text>
+    <rect x="440" y="112" width="360" height="44" rx="10" fill="#2b2612" stroke="#e0a33c" stroke-width="2"/>
+    <text x="620" y="141" fill="#f7d79b">② 改造后继承（换语义不改骨架）</text>
+    <rect x="840" y="112" width="360" height="44" rx="10" fill="#3a1d2a" stroke="#d170a0" stroke-width="2"/>
+    <text x="1020" y="141" fill="#f3c1da">③ 必须新写（本案独有系统）</text>
+  </g>
+
+  <!-- column 1 -->
+  <g font-size="14">
+    <rect x="40" y="176" width="360" height="404" rx="14" fill="#111a17" stroke="#2f5f47"/>
+    <text x="62" y="208" fill="#c7f0da" font-weight="700">utils/SpatialHash.lua（3.7KB）</text>
+    <text x="62" y="230" fill="#8fb7a3">网格哈希 + Cantor 配对；Query 回调 / QueryInto</text>
+    <text x="62" y="250" fill="#8fb7a3">复用 table 减 GC → 碰撞与索敌提速</text>
+
+    <text x="62" y="286" fill="#c7f0da" font-weight="700">utils/PerfQuality.lua（3.8KB）+ FPSMonitor</text>
+    <text x="62" y="308" fill="#8fb7a3">五档画质：省电 / 流畅 / 均衡 / 精致 / 全量</text>
+    <text x="62" y="328" fill="#8fb7a3">只降特效不降规则 → 与 v0.1 性能原则一致</text>
+
+    <text x="62" y="364" fill="#c7f0da" font-weight="700">battle/MapVariant.lua（17KB）</text>
+    <text x="62" y="386" fill="#8fb7a3">4 套地图变体 + 圆形障碍 + 种子随机</text>
+    <text x="62" y="406" fill="#8fb7a3">ResolveCollision 推离、视口裁剪渲染</text>
+
+    <text x="62" y="442" fill="#c7f0da" font-weight="700">SaveData.lua（56KB）/ I18n / Loot / 音频</text>
+    <text x="62" y="464" fill="#8fb7a3">存档、双语、掉落、音效与成就框架</text>
+    <text x="62" y="484" fill="#8fb7a3">（图腾 ID 回退是很好的存档兼容范例）</text>
+
+    <text x="62" y="520" fill="#c7f0da" font-weight="700">ui/ HUD（67KB）/ Minimap / DamageNumber</text>
+    <text x="62" y="542" fill="#8fb7a3">血条、伤害数字、小地图、面板与商店 UI</text>
+    <text x="62" y="562" fill="#8fb7a3">→ 守核界面只需加核心耐久与波次预警</text>
+  </g>
+
+  <!-- column 2 -->
+  <g font-size="14">
+    <rect x="440" y="176" width="360" height="404" rx="14" fill="#181510" stroke="#6b5a2a"/>
+    <text x="462" y="208" fill="#f7e3b8" font-weight="700">battle/Wave.lua（11KB）</text>
+    <text x="462" y="230" fill="#c0a878">现状：按时间推进 + 围绕玩家刷怪 + 类型分层池</text>
+    <text x="462" y="250" fill="#c0a878">改造：三路固定入口生成队列 + 主角色错峰</text>
+    <text x="462" y="270" fill="#d98e93">注意：基底有「碾压则加速刷怪」（×0.10/0.25/0.70）</text>
+    <text x="462" y="290" fill="#d98e93">与 E1「速清换探索」方向相反，原型中要替换</text>
+
+    <text x="462" y="326" fill="#f7e3b8" font-weight="700">Enemy / Projectile / Skill（56/31/147KB）</text>
+    <text x="462" y="348" fill="#c0a878">现状：目标只有玩家，死亡一次结算</text>
+    <text x="462" y="368" fill="#c0a878">改造：目标优先级 核心 &gt; 设施 &gt; 角色；</text>
+    <text x="462" y="388" fill="#c0a878">接入 wave_id / zone_id 身份与去重</text>
+
+    <text x="462" y="424" fill="#f7e3b8" font-weight="700">meta/ 图腾·遗物·符文（含共振）</text>
+    <text x="462" y="446" fill="#c0a878">现状：RuneResonance 已有「共振」联携范式</text>
+    <text x="462" y="466" fill="#c0a878">改造：作为设施词条 / 升级分支的数据基底</text>
+
+    <text x="462" y="502" fill="#f7e3b8" font-weight="700">GameMode.lua 离线标志 / network 存根</text>
+    <text x="462" y="524" fill="#c0a878">现状：单机与联机共用一套战斗循环</text>
+    <text x="462" y="544" fill="#c0a878">改造：原型先锁定单机，联机能力留接口</text>
+    <text x="462" y="564" fill="#c0a878">（不在首版范围）</text>
+  </g>
+
+  <!-- column 3 -->
+  <g font-size="14">
+    <rect x="840" y="176" width="360" height="404" rx="14" fill="#1a1116" stroke="#6b2f4a"/>
+    <text x="862" y="208" fill="#f3c1da" font-weight="700">固定核心与耐久结算</text>
+    <text x="862" y="230" fill="#c39aae">核心位置固定、独立耐久、失败优先级</text>
+    <text x="862" y="250" fill="#c39aae">同帧失败 &gt; Boss 死亡；有害反应结算完才成功</text>
+
+    <text x="862" y="286" fill="#f3c1da" font-weight="700">寻路 / 流场（基底没有）</text>
+    <text x="862" y="308" fill="#c39aae">基底是「围绕玩家刷怪」，不依赖寻路；</text>
+    <text x="862" y="328" fill="#c39aae">守核模式必须新写：三路到核心、可建造阻挡、</text>
+    <text x="862" y="348" fill="#c39aae">封路检测与重算回退</text>
+
+    <text x="862" y="384" fill="#f3c1da" font-weight="700">建造槽 · 设施 · 拆除返还</text>
+    <text x="862" y="406" fill="#c39aae">槽位分级、设施独立生命、升级分支、</text>
+    <text x="862" y="426" fill="#c39aae">邻接联携（只读公共字段）</text>
+
+    <text x="862" y="462" fill="#f3c1da" font-weight="700">区域 · 据点状态机 / 大地图</text>
+    <text x="862" y="484" fill="#c39aae">未进入→守军→清空→已领奖→可布防</text>
+    <text x="862" y="504" fill="#c39aae">解锁链与一次性奖励</text>
+
+    <text x="862" y="540" fill="#f3c1da" font-weight="700">速清奖励 / 考验波 / 大远征+房间限伤</text>
+    <text x="862" y="562" fill="#c39aae">E1 结算式、E4 向心多源、E5 逐房间伤害上限</text>
+  </g>
+
+  <!-- bottom band -->
+  <rect x="40" y="604" width="1160" height="136" rx="14" fill="#131a28" stroke="#2a3550"/>
+  <text x="66" y="636" fill="#cfe0ff" font-size="16" font-weight="700">护栏（全部模块共用）</text>
+  <text x="66" y="666" fill="#9fb0cc" font-size="15">空间索引走全部范围查询 · 同屏软上限（建议 80）超限延后批次不删怪 · 每帧查询与生成预算上限</text>
+  <text x="66" y="694" fill="#9fb0cc" font-size="15">死亡 / 掉落 / 清波 / 奖励 各只结算一次 · 据点守军不计清波 · 暂停与演出冻结全部模拟</text>
+  <text x="66" y="722" fill="#9fb0cc" font-size="15">性能紧张先减粒子与合并音效（复用五档画质），不得静默截断规则与结算</text>
+</svg>

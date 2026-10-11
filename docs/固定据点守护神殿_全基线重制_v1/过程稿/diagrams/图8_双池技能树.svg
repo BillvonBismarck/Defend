@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="900" viewBox="0 0 1360 900" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif">
+<rect width="1360" height="900" fill="#0f1420"/>
+<text x="40" y="50" fill="#e8eefc" font-size="26" font-weight="700">图 8 · 双池技能树 v0.6：角色池（人）× 炮台池（8 设施 × 守护灵）</text>
+<text x="40" y="78" fill="#8ea0c0" font-size="14">与仓库对齐：升级=1 角色点（RP），据点/波次/考验/远征=炮台点（TP）；现有 6 模块与 reach/focus 分支原样保留为树的中层节点</text>
+<rect x="40" y="104" width="560" height="430" rx="14" fill="#111a17" stroke="#2f5f47"/>
+<text x="62" y="136" fill="#a9ecc7" font-size="18" font-weight="700">角色池 RP（Progression.lua 现有 10 技能 → 树节点）</text>
+<text x="62" y="160" fill="#6f9f86" font-size="12.5">升级 = 1 点；三选一改为「树上层数解锁」；R38 第 3–5 波范围候选机会保护保留</text>
+<text x="62" y="194" fill="#c7f0da" font-size="14">单体</text>
+<rect x="120" y="176" width="200" height="26" rx="7" fill="#16352a" stroke="#3fbf7f"/>
+<text x="132" y="194" fill="#dff4e8" font-size="12">持续伤害+25% (5级)</text>
+<rect x="330" y="176" width="200" height="26" rx="7" fill="#16352a" stroke="#3fbf7f"/>
+<text x="342" y="194" fill="#dff4e8" font-size="12">射速 −10% (4级)</text>
+<text x="546" y="194" fill="#7fb79b" font-size="11.5" text-anchor="end">贯穿 (3级, 需前置)</text>
+<text x="62" y="228" fill="#c7f0da" font-size="14">范围</text>
+<rect x="120" y="210" width="200" height="26" rx="7" fill="#16352a" stroke="#3fbf7f"/>
+<text x="132" y="228" fill="#dff4e8" font-size="12">爆破半径 1.2+0.3/级 (4级)</text>
+<rect x="330" y="210" width="200" height="26" rx="7" fill="#16352a" stroke="#3fbf7f"/>
+<text x="342" y="228" fill="#dff4e8" font-size="12">击退距离 +0.4 格/级 (4级)</text>
+<text x="62" y="262" fill="#c7f0da" font-size="14">控制</text>
+<rect x="120" y="244" width="200" height="26" rx="7" fill="#16352a" stroke="#3fbf7f"/>
+<text x="132" y="262" fill="#dff4e8" font-size="12">冷凝弹头：减速 +10%/级 (4级)</text>
+<text x="62" y="296" fill="#c7f0da" font-size="14">生存</text>
+<rect x="120" y="278" width="200" height="26" rx="7" fill="#16352a" stroke="#3fbf7f"/>
+<text x="132" y="296" fill="#dff4e8" font-size="12">最大生命 +15/级 (4级)</text>
+<text x="62" y="330" fill="#c7f0da" font-size="14">机动</text>
+<rect x="120" y="312" width="200" height="26" rx="7" fill="#16352a" stroke="#3fbf7f"/>
+<text x="132" y="330" fill="#dff4e8" font-size="12">移速 +12%/级 (3级)</text>
+<text x="62" y="364" fill="#c7f0da" font-size="14">防守</text>
+<rect x="120" y="346" width="200" height="26" rx="7" fill="#16352a" stroke="#3fbf7f"/>
+<text x="132" y="364" fill="#dff4e8" font-size="12">设施 +20%/级 (4级, 3级解锁)</text>
+<rect x="330" y="346" width="200" height="26" rx="7" fill="#16352a" stroke="#3fbf7f"/>
+<text x="342" y="364" fill="#dff4e8" font-size="12">应急电容：冷却 −15%/级 (3级)</text>
+<line x1="62" y1="404" x2="578" y2="404" stroke="#2f5f47" stroke-dasharray="6 5"/>
+<text x="62" y="432" fill="#a9ecc7" font-size="15" font-weight="700">角色线（新增，示例：小猫咪 😺）</text>
+<rect x="62" y="448" width="120" height="54" rx="9" fill="#16352a" stroke="#3fbf7f"/>
+<text x="122" y="470" fill="#f7d79b" font-size="13" text-anchor="middle">星爆猫爪</text>
+<text x="122" y="490" fill="#9fb0a8" font-size="11.5" text-anchor="middle">连击积攒</text>
+<rect x="192" y="448" width="120" height="54" rx="9" fill="#16352a" stroke="#3fbf7f"/>
+<text x="252" y="470" fill="#f7d79b" font-size="13" text-anchor="middle">爆红心</text>
+<text x="252" y="490" fill="#9fb0a8" font-size="11.5" text-anchor="middle">暴击攻速</text>
+<rect x="322" y="448" width="120" height="54" rx="9" fill="#16352a" stroke="#3fbf7f"/>
+<text x="382" y="470" fill="#f7d79b" font-size="13" text-anchor="middle">猫爪风暴</text>
+<text x="382" y="490" fill="#9fb0a8" font-size="11.5" text-anchor="middle">范围+50%</text>
+<rect x="452" y="448" width="120" height="54" rx="9" fill="#3a2a12" stroke="#e0a33c"/>
+<text x="512" y="470" fill="#f7d79b" font-size="13" text-anchor="middle">觉醒</text>
+<text x="512" y="490" fill="#9fb0a8" font-size="11.5" text-anchor="middle">猫爪乱舞</text>
+<rect x="630" y="104" width="690" height="430" rx="14" fill="#1a1116" stroke="#6b2f4a"/>
+<text x="652" y="136" fill="#f3c1da" font-size="18" font-weight="700">炮台池 TP（8 设施 × 守护灵 × A/B 双分支 + 专精）</text>
+<text x="652" y="160" fill="#b18497" font-size="12.5">第 1 点：现有 reach 广域 / focus 重点（20 星砂，不可逆）｜第 2–3 点：下表分支与专精</text>
+<text x="652" y="184" fill="#d9b3c4" font-size="12">设施（代码 ID）</text>
+<text x="820" y="184" fill="#9fe7c0" font-size="12">分支 A</text>
+<text x="1050" y="184" fill="#9fc4ff" font-size="12">分支 B</text>
+<text x="652" y="212" fill="#f3c1da" font-size="12.5">速射塔 rapid</text>
+<text x="652" y="228" fill="#8d6b7b" font-size="11">小猫咪 😺</text>
+<rect x="820" y="195" width="215" height="26" rx="7" fill="#22161d" stroke="#a5567e"/>
+<text x="830" y="212" fill="#f6dcea" font-size="11.5">鱼骨连射（穿透）</text>
+<rect x="1050" y="195" width="248" height="26" rx="7" fill="#22161d" stroke="#8f6bb8"/>
+<text x="1060" y="212" fill="#e2d3f8" font-size="11.5">重点锁定（优先精英）</text>
+<text x="652" y="252" fill="#f3c1da" font-size="12.5">范围塔 area</text>
+<text x="652" y="268" fill="#8d6b7b" font-size="11">黄豆勇士 😆</text>
+<rect x="820" y="235" width="215" height="26" rx="7" fill="#22161d" stroke="#a5567e"/>
+<text x="830" y="252" fill="#f6dcea" font-size="11.5">集群爆破（溅射）</text>
+<rect x="1050" y="235" width="248" height="26" rx="7" fill="#22161d" stroke="#8f6bb8"/>
+<text x="1060" y="252" fill="#e2d3f8" font-size="11.5">聚焦爆破（单体）</text>
+<text x="652" y="292" fill="#f3c1da" font-size="12.5">减速塔 slow</text>
+<text x="652" y="308" fill="#8d6b7b" font-size="11">自然之灵 🍃</text>
+<rect x="820" y="275" width="215" height="26" rx="7" fill="#22161d" stroke="#a5567e"/>
+<text x="830" y="292" fill="#f6dcea" font-size="11.5">广域控制（范围）</text>
+<rect x="1050" y="275" width="248" height="26" rx="7" fill="#22161d" stroke="#8f6bb8"/>
+<text x="1060" y="292" fill="#e2d3f8" font-size="11.5">定点锚控（强减速）</text>
+<text x="652" y="332" fill="#f3c1da" font-size="12.5">击退台 repulsor</text>
+<text x="652" y="348" fill="#8d6b7b" font-size="11">灵猴大圣 🐵</text>
+<rect x="820" y="315" width="215" height="26" rx="7" fill="#22161d" stroke="#a5567e"/>
+<text x="830" y="332" fill="#f6dcea" font-size="11.5">连击拳（链式推）</text>
+<rect x="1050" y="315" width="248" height="26" rx="7" fill="#22161d" stroke="#8f6bb8"/>
+<text x="1060" y="332" fill="#e2d3f8" font-size="11.5">分身推掌（双目标）</text>
+<text x="652" y="372" fill="#f3c1da" font-size="12.5">路障 barricade</text>
+<text x="652" y="388" fill="#8d6b7b" font-size="11">无敌巨掌 🤚</text>
+<rect x="820" y="355" width="215" height="26" rx="7" fill="#22161d" stroke="#a5567e"/>
+<text x="830" y="372" fill="#f6dcea" font-size="11.5">掌风反击（穿透波）</text>
+<rect x="1050" y="355" width="248" height="26" rx="7" fill="#22161d" stroke="#8f6bb8"/>
+<text x="1060" y="372" fill="#e2d3f8" font-size="11.5">太极化劲（反弹弹体）</text>
+<text x="652" y="412" fill="#f3c1da" font-size="12.5">拒马 stakes</text>
+<text x="652" y="428" fill="#8d6b7b" font-size="11">OTTO♿</text>
+<rect x="820" y="395" width="215" height="26" rx="7" fill="#22161d" stroke="#a5567e"/>
+<text x="830" y="412" fill="#f6dcea" font-size="11.5">盒子（部署子体）</text>
+<rect x="1050" y="395" width="248" height="26" rx="7" fill="#22161d" stroke="#8f6bb8"/>
+<text x="1060" y="412" fill="#e2d3f8" font-size="11.5">大象踩踏（范围硬直）</text>
+<text x="652" y="452" fill="#f3c1da" font-size="12.5">维修站 repair</text>
+<text x="652" y="468" fill="#8d6b7b" font-size="11">工程组</text>
+<rect x="820" y="435" width="215" height="26" rx="7" fill="#22161d" stroke="#a5567e"/>
+<text x="830" y="452" fill="#f6dcea" font-size="11.5">快速维修（4→6）</text>
+<rect x="1050" y="435" width="248" height="26" rx="7" fill="#22161d" stroke="#8f6bb8"/>
+<text x="1060" y="452" fill="#e2d3f8" font-size="11.5">过载修复（×2，过热）</text>
+<text x="652" y="492" fill="#f3c1da" font-size="12.5">供能站 energy</text>
+<text x="652" y="508" fill="#8d6b7b" font-size="11">工程组</text>
+<rect x="820" y="475" width="215" height="26" rx="7" fill="#22161d" stroke="#a5567e"/>
+<text x="830" y="492" fill="#f6dcea" font-size="11.5">稳定供能（0.15→0.20）</text>
+<rect x="1050" y="475" width="248" height="26" rx="7" fill="#22161d" stroke="#8f6bb8"/>
+<text x="1060" y="492" fill="#e2d3f8" font-size="11.5">护盾供能（−20% 受伤）</text>
+<rect x="40" y="556" width="1280" height="150" rx="14" fill="#131a28" stroke="#2a3550"/>
+<text x="62" y="586" fill="#cfe0ff" font-size="16" font-weight="700">点数来源与预算（20 波 ≈ RP 24–30 / TP 18–20）</text>
+<rect x="62" y="592" width="390" height="38" rx="9" fill="#16233a" stroke="#37507f"/>
+<text x="76" y="616" fill="#bcd8f8" font-size="13">升级：<tspan fill="#a9ecc7">每级 1 RP</tspan><tspan fill="#7e97c4" font-size="11.5"> · 经验阈值 20+10×(等级−1) 不变</tspan></text>
+<rect x="477" y="592" width="390" height="38" rx="9" fill="#16233a" stroke="#37507f"/>
+<text x="491" y="616" fill="#bcd8f8" font-size="13">据点首清：<tspan fill="#a9ecc7">每房 +2 TP</tspan><tspan fill="#7e97c4" font-size="11.5"> · 与星砂同点触发，但不给星砂</tspan></text>
+<rect x="892" y="592" width="390" height="38" rx="9" fill="#16233a" stroke="#37507f"/>
+<text x="906" y="616" fill="#bcd8f8" font-size="13">每 5 波：<tspan fill="#a9ecc7">+1 RP / +1 TP</tspan><tspan fill="#7e97c4" font-size="11.5"> · 取代原「天赋」发放位置</tspan></text>
+<rect x="62" y="638" width="390" height="38" rx="9" fill="#16233a" stroke="#37507f"/>
+<text x="76" y="662" fill="#bcd8f8" font-size="13">考验波：<tspan fill="#a9ecc7">+1 TP</tspan><tspan fill="#7e97c4" font-size="11.5"> · W20 后已清房触发</tspan></text>
+<rect x="477" y="638" width="390" height="38" rx="9" fill="#16233a" stroke="#37507f"/>
+<text x="491" y="662" fill="#bcd8f8" font-size="13">远征结算：<tspan fill="#a9ecc7">+1 TP / 队</tspan><tspan fill="#7e97c4" font-size="11.5"> · 三队三算</tspan></text>
+<rect x="892" y="638" width="390" height="38" rx="9" fill="#16233a" stroke="#37507f"/>
+<text x="906" y="662" fill="#bcd8f8" font-size="13">洗点：<tspan fill="#a9ecc7">10+5×次数 星砂</tspan><tspan fill="#7e97c4" font-size="11.5"> · 战备期；不返还已建分支星砂</tspan></text>
+<text x="62" y="694" fill="#d98e93" font-size="12.5">预算校验：8 设施 × 3 点 = 24 &gt; TP 上限 ≈20 → 单局不可能点满，必须选 3–4 座重点经营（对齐 v0.3「至少两种构筑」要求）</text>
+<rect x="40" y="726" width="1280" height="140" rx="14" fill="#101722" stroke="#2a3550"/>
+<text x="62" y="756" fill="#cfe0ff" font-size="16" font-weight="700">迁移口径（不改旧夹具，不新增第二套数据源）</text>
+<text x="62" y="786" fill="#9fb0cc" font-size="12.5">Progression.lua：<tspan fill="#7e97c4">十技能升格为树节点；保留 UpgradeOffered/UpgradeChosen 与 R38 机会保护</tspan></text>
+<text x="62" y="806" fill="#9fb0cc" font-size="12.5">TowerModules.lua：<tspan fill="#7e97c4">6 模块 ID 不变，新增 tier 指向炮台树中层；库存与幂等键不动</tspan></text>
+<text x="62" y="826" fill="#9fb0cc" font-size="12.5">Expansion.lua：<tspan fill="#7e97c4">新增 tower_trees 与 respec；Attributes() 追加树的修正项，现有 branches/供能邻接不变</tspan></text>
+<text x="62" y="846" fill="#9fb0cc" font-size="12.5">验收：<tspan fill="#7e97c4">旧 94 PASS 基线保留；新增树/地形/几何用例，未跑标 NOT_RUN</tspan></text>
+</svg>
