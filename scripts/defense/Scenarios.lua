@@ -209,9 +209,9 @@ end
 
 ---@param id? string
 ---@return table
-function Scenarios.Get(id)
+function Scenarios.Get(id, options)
     id = id or "legacy_v02"
-    assert(id == "legacy_v02" or id == "reuse_sample" or id == "large_map_proto" or id == "sanctuary_expansion", "unknown_scenario:" .. tostring(id))
+    assert(id == "legacy_v02" or id == "reuse_sample" or id == "large_map_proto" or id == "sanctuary_expansion" or id == "polygon_expansion", "unknown_scenario:" .. tostring(id))
     local config = copy(Legacy)
     if id == "legacy_v02" then
         config.scenario_id, config.rules_version = id, "0.2.0"
@@ -221,9 +221,10 @@ function Scenarios.Get(id)
         config.declared_ordinary_total, config.declared_special_total = 1176, 0
     elseif id == "reuse_sample" then sample(config)
     elseif id == "sanctuary_expansion" then sample(config); Expansion.Configure(config)
+    elseif id == "polygon_expansion" then sample(config); Expansion.Configure(config); require("defense.PolygonScenario").Configure(config, options)
     else large(config) end
     return config
 end
 
-function Scenarios.List() return { "legacy_v02", "reuse_sample", "large_map_proto", "sanctuary_expansion" } end
+function Scenarios.List() return { "legacy_v02", "reuse_sample", "large_map_proto", "sanctuary_expansion", "polygon_expansion" } end
 return Scenarios

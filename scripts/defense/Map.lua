@@ -217,6 +217,7 @@ local function segmentHitsRect(ax, ay, bx, by, radius, r)
 end
 
 function Map.New(config)
+    if config.polygon_expansion then return require("defense.RoomLattice").New(config, Map) end
     local self = setmetatable({}, Map)
     self:Init(config)
     return self

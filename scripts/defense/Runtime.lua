@@ -72,17 +72,19 @@ local function resetInput()
         joystick.hasTarget = false
     end
 end
-local function makeRun(totalWaves, build, retry, scenarioId)
+local function makeRun(totalWaves, build, retry, scenarioId, scenarioOptions)
     if current.Close and not current.ended then current:Close("重新部署") end
     serial = serial + 1
-    local config = Scenarios.Get(scenarioId or current.scenario_id or "legacy_v02")
+    local seed = scenarioOptions and scenarioOptions.seed or 20261002 + serial * 31
+    local config = Scenarios.Get(scenarioId or current.scenario_id or "legacy_v02", {
+        seed = seed, difficulty = scenarioOptions and scenarioOptions.difficulty or current.config and current.config.difficulty or 1 })
     local valid, totals = WaveDirector.Validate(config)
     assert(valid, "场景波次配置校验失败")
     print(string.format("[Defense] 场景校验=%s 普通体系=%d 特殊=%d", config.scenario_id, totals.ordinary, totals.special))
     current = Run.New { total_waves = totalWaves or config.total_waves, build = build, retry = retry, config = config,
         scenario_id = config.scenario_id,
         run_id = "defense-" .. tostring(os.time()) .. "-" .. serial,
-        seed = 20261002 + serial * 31, meta = meta, on_meta = Storage.Save }
+        seed = seed, meta = meta, on_meta = Storage.Save }
     resetInput()
     LegacyFX.Init()
     if LegacyFX.SetVolume then LegacyFX.SetVolume(volume) end
@@ -108,8 +110,14 @@ local function action(kind, payload)
     elseif kind == "module_choose" then
         requestSerial = requestSerial + 1
         current:ChooseModule(payload.choice_id, payload.module_id, current.run_id .. ":module:" .. requestSerial)
-    elseif kind == "map" then current:Pause("map")
-    elseif kind == "close_map" then current:Resume("map")
+    elseif kind == "map" then
+        if not current.config.polygon_expansion or current.state == "PREPARATION" then
+            current:Pause("map"); current:Emit("MapOpened", {})
+        end
+    elseif kind == "close_map" then current:Resume("map"); current:Emit("MapClosed", {})
+    elseif kind == "teleport" then
+        requestSerial = requestSerial + 1
+        require("defense.Anchors").Teleport(current, payload, current.run_id .. ":teleport:" .. requestSerial)
     elseif kind == "transaction" then
         requestSerial = requestSerial + 1
         current:Transact(payload.action, payload.slot, payload.type, current.run_id .. ":tx:" .. requestSerial)
@@ -170,7 +178,7 @@ function Runtime.Start()
         alwaysShow = false, visible = false, showKeyHints = false,
     }
     UI.Init { theme = Theme.Create(), scale = UI.Scale.DEFAULT }
-    makeRun(20, "single", false, "sanctuary_expansion")
+    makeRun(20, "single", false, "polygon_expansion")
     current:Pause("menu")
     board = Board.New(current, { pixels_per_cell = 40, reducedEffects = reducedEffects })
     view = View.New(current, { newRun = makeRun, action = action })
@@ -178,7 +186,7 @@ function Runtime.Start()
     SubscribeToEvent(vg, "NanoVGRender", "DefenseHandleRender")
     SubscribeToEvent("InputFocus", "DefenseHandleFocus")
     SubscribeToEvent("AppWillEnterBackground", "DefenseHandleBackground")
-    print("[Defense] 原作战场管线已启动：WASD/方向键移动，空格击退，F后勤，R回城，Esc暂停")
+    print("[Defense] 战场启动：WASD/方向键移动，空格击退，F布防，M地图，R返回主空间，Esc暂停")
 end
 ---@param eventType string
 ---@param eventData UpdateEventData

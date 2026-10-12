@@ -1,0 +1,19 @@
+{
+  "base_commit": "189815019cabf1cf12c921ef19329e0527774a5d",
+  "branch": "ecnahc",
+  "tracking": "github/ecnahc",
+  "old_work_stash": "e572cfe897744c8a7753fc2ae54c4181b027d323",
+  "baseline_passed": 126,
+  "passed": 142,
+  "failed": 0,
+  "not_run": 8,
+  "new_cases": 16,
+  "source_hashes_match": true,
+  "baseline_statuses_unchanged": true,
+  "focused_lsp_files": 18,
+  "focused_lsp_errors": 0,
+  "ui_source_and_assets_unchanged": true,
+  "local_maker_configs_byte_identical": 8,
+  "runtime_visual_verified": false,
+  "remote_build_requested": false
+}

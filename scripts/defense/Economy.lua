@@ -95,6 +95,13 @@ function E.Check(run, action, slotId, towerType)
     end
     local slot = findSlot(run, slotId)
     if not slot then return false, "无效建造槽" end
+    if run.config.polygon_expansion then
+        local owner = slot.owner_room_id or run.config.topology.main
+        local current = run.map:RoomAt(run.player.x, run.player.y) or
+            (run.map:IsInRegion("hall", run.player.x, run.player.y) and run.config.topology.main)
+        if current ~= owner then return false, "请前往槽位所在房间就地布防" end
+        if run.room_encounter then return false, "房间交战中不可布防" end
+    end
     local tower = findTower(run, slotId)
     if action == "build" then
         if tower and tower.hp > 0 then return false, "该槽位已占用" end

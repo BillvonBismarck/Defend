@@ -82,9 +82,11 @@ local function withArt(body, options)
         return { imagePaint = true }
     end
     globals.nvgRGBA = function(...) return { ... } end
+    globals.NVG_ALIGN_CENTER, globals.NVG_ALIGN_MIDDLE = 1, 2
     for _, name in ipairs({ "nvgDeleteImage", "nvgBeginPath", "nvgRect", "nvgFillPaint", "nvgFillColor", "nvgFill",
         "nvgSave", "nvgRestore", "nvgIntersectScissor", "nvgMoveTo", "nvgLineTo", "nvgStrokeColor",
-        "nvgStrokeWidth", "nvgStroke", "nvgRoundedRect", "nvgBoxGradient", "nvgLinearGradient", "nvgRadialGradient" }) do
+        "nvgStrokeWidth", "nvgStroke", "nvgRoundedRect", "nvgBoxGradient", "nvgLinearGradient", "nvgRadialGradient",
+        "nvgClosePath", "nvgCircle", "nvgFontFace", "nvgFontSize", "nvgTextAlign", "nvgText" }) do
         globals[name] = function(...) record(name, ...) end
     end
     local modules = { ["urhox-libs/UI"] = ui }
@@ -92,7 +94,7 @@ local function withArt(body, options)
         savedModules[name] = { value = package.loaded[name] }
         package.loaded[name] = value
     end
-    for _, name in ipairs({ "defense.UIArt", "defense.Theme" }) do
+    for _, name in ipairs({ "defense.UIArt", "defense.Theme", "defense.PolygonMapView" }) do
         savedModules[name] = { value = package.loaded[name] }
         package.loaded[name] = nil
     end
@@ -349,6 +351,31 @@ function A.ViewFixtureIsolation(t, presentation)
 end
 
 function A.Register(case)
+    case("POLYGON_MAP_PRESENTATION", function(t)
+        withArt(function(_, _, calls)
+            local Run = require("defense.Run")
+            local run = Run.New { scenario_id = "polygon_expansion", seed = 97 }
+            local renderer = require("defense.PolygonMapView")
+            local clock, currency, rng, count = run.clock, run.currency, run.rng.state, #run.events
+            for _, width in ipairs({ 160, 720, 1280 }) do
+                renderer.RenderInLayout({}, run, { x = 0, y = 0, w = width, h = 300 }, false)
+                renderer.RenderInLayout({}, run, { x = 0, y = 0, w = 160, h = 140 }, true)
+            end
+            local paths, scissor, images = 0, 0, 0
+            for _, call in ipairs(calls) do
+                if call.name == "nvgClosePath" then paths = paths + 1 end
+                if call.name == "nvgIntersectScissor" then scissor = scissor + 1 end
+                if call.name == "nvgCreateImage" then images = images + 1 end
+            end
+            t:Check(paths > #run.config.topology.rooms * 6, "两层均绘真实闭合多边形")
+            t:Equal(scissor, 6, "各布局均裁剪到控件边界")
+            t:Equal(images, 0, "几何UI不生成或加载新贴图")
+            t:Equal(run.clock, clock, "地图不推进时钟")
+            t:Equal(run.currency, currency, "地图不写经济")
+            t:Equal(run.rng.state, rng, "地图不消费玩法随机")
+            t:Equal(#run.events, count, "地图不提交规则事件")
+        end)
+    end)
     case("UIART_ICON_LIFECYCLE", function(t)
         withArt(function(Art, Theme, calls, ui)
             for _, key in ipairs({ "core", "turret", "repair" }) do

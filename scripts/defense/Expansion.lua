@@ -125,7 +125,9 @@ function X.TrackExploration(run, dt, before)
 end
 function X.ShouldStartTrial(run)
     if not X.Enabled(run) or run.trial_started or run.total_waves ~= 20 then return false end
-    for _, room in ipairs(run.rooms) do if room.state == "cleared" or room.state == "claimed" then return true end end
+    for _, room in ipairs(run.rooms) do
+        if (room.state == "cleared" or room.state == "claimed") and (not run.config.polygon_expansion or room.role ~= "gate") then return true end
+    end
     return false
 end
 function X.StartTrial(run, bonus)

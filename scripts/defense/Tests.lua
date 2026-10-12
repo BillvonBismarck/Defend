@@ -954,6 +954,7 @@ require('defense.PrototypeTests').Register(case)
 require('defense.ExpansionTests').Register(case)
 require('defense.LatticeTests').Register(case)
 require('defense.TopologyTests').Register(case)
+require('defense.PolygonTests').Register(case)
 require('defense.UIArtTests').Register(case)
 
 -- 返回固定报告结构；每个case独立catch，失败后继续。保留日志供Runtime.Debug查看。

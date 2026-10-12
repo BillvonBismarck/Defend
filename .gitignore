@@ -10,6 +10,9 @@ logs/.nfs*
 
 # Temp & swap files
 .tmp/
+validation/defense/python-deps/
+__pycache__/
+*.py[cod]
 *.crswap
 .DS_Store
 

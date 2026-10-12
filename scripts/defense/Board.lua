@@ -360,6 +360,9 @@ end
 
 ---@param vg NVGContextWrapper
 function Board:DrawMap(vg, ox, oy, scale, w, h)
+    if self.run.config.polygon_expansion then
+        return require("defense.PolygonMapView").Draw(vg, self.run, ox, oy, scale, false)
+    end
     local run, cfg = self.run, self.run.config
     local map = run.map --[[@as DefenseMap]]
     local regions = map and map.regions or cfg.walkable_regions

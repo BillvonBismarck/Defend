@@ -1,0 +1,961 @@
+{
+  "failed": 0,
+  "passed": 142,
+  "not_run": 8,
+  "results": [
+    {
+      "case": "V01",
+      "error": "",
+      "assertions": 4672,
+      "status": "PASS"
+    },
+    {
+      "case": "V02",
+      "error": "",
+      "assertions": 26,
+      "status": "PASS"
+    },
+    {
+      "case": "V03",
+      "error": "",
+      "assertions": 23,
+      "status": "PASS"
+    },
+    {
+      "case": "V04",
+      "error": "",
+      "assertions": 26,
+      "status": "PASS"
+    },
+    {
+      "case": "V05",
+      "error": "",
+      "assertions": 23,
+      "status": "PASS"
+    },
+    {
+      "case": "V06",
+      "error": "",
+      "assertions": 25,
+      "status": "PASS"
+    },
+    {
+      "case": "V07",
+      "error": "",
+      "assertions": 78,
+      "status": "PASS"
+    },
+    {
+      "case": "V08",
+      "error": "",
+      "assertions": 24,
+      "status": "PASS"
+    },
+    {
+      "case": "V09",
+      "error": "",
+      "assertions": 27,
+      "status": "PASS"
+    },
+    {
+      "case": "V10",
+      "error": "",
+      "assertions": 232,
+      "status": "PASS"
+    },
+    {
+      "case": "V11",
+      "error": "",
+      "assertions": 49,
+      "status": "PASS"
+    },
+    {
+      "case": "V12",
+      "error": "",
+      "assertions": 55,
+      "status": "PASS"
+    },
+    {
+      "case": "V13",
+      "error": "",
+      "assertions": 370,
+      "status": "PASS"
+    },
+    {
+      "case": "V14",
+      "error": "",
+      "assertions": 60,
+      "status": "PASS"
+    },
+    {
+      "case": "V15",
+      "error": "",
+      "assertions": 12,
+      "status": "PASS"
+    },
+    {
+      "case": "V16",
+      "error": "",
+      "assertions": 97,
+      "status": "PASS"
+    },
+    {
+      "case": "V17",
+      "error": "NOT_RUN: 已测Boss预警时钟；HUD常驻、危急遮挡、入口视觉、音效及真机可读性未执行",
+      "assertions": 8,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "V18",
+      "error": "",
+      "assertions": 60,
+      "status": "PASS"
+    },
+    {
+      "case": "V19",
+      "error": "",
+      "assertions": 631,
+      "status": "PASS"
+    },
+    {
+      "case": "V20",
+      "error": "",
+      "assertions": 54,
+      "status": "PASS"
+    },
+    {
+      "case": "ISOLATION",
+      "error": "",
+      "assertions": 18,
+      "status": "PASS"
+    },
+    {
+      "case": "SAME_SEED_REPLAY",
+      "error": "",
+      "assertions": 15,
+      "status": "PASS"
+    },
+    {
+      "case": "ASSERT_GUARD",
+      "error": "",
+      "assertions": 3,
+      "status": "PASS"
+    },
+    {
+      "case": "V21",
+      "error": "",
+      "assertions": 99,
+      "status": "PASS"
+    },
+    {
+      "case": "V22",
+      "error": "",
+      "assertions": 88,
+      "status": "PASS"
+    },
+    {
+      "case": "V23",
+      "error": "",
+      "assertions": 29,
+      "status": "PASS"
+    },
+    {
+      "case": "V24",
+      "error": "",
+      "assertions": 59,
+      "status": "PASS"
+    },
+    {
+      "case": "V25",
+      "error": "",
+      "assertions": 23,
+      "status": "PASS"
+    },
+    {
+      "case": "V26",
+      "error": "",
+      "assertions": 107,
+      "status": "PASS"
+    },
+    {
+      "case": "V27",
+      "error": "",
+      "assertions": 61,
+      "status": "PASS"
+    },
+    {
+      "case": "V28",
+      "error": "",
+      "assertions": 39,
+      "status": "PASS"
+    },
+    {
+      "case": "V29",
+      "error": "",
+      "assertions": 23,
+      "status": "PASS"
+    },
+    {
+      "case": "V30",
+      "error": "",
+      "assertions": 361,
+      "status": "PASS"
+    },
+    {
+      "case": "V31",
+      "error": "",
+      "assertions": 40,
+      "status": "PASS"
+    },
+    {
+      "case": "V32",
+      "error": "NOT_RUN: 需真实玩家观察、原话与分子/分母；自动连锁不代表理解、主动复现、迁移或留存",
+      "assertions": 0,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "V33",
+      "error": "NOT_RUN: 需真实玩家观察、原话与分子/分母；自动连锁不代表理解、主动复现、迁移或留存",
+      "assertions": 0,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "V34",
+      "error": "NOT_RUN: 需真实玩家观察、原话与分子/分母；自动连锁不代表理解、主动复现、迁移或留存",
+      "assertions": 0,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "PERF_OPENING",
+      "error": "",
+      "assertions": 13,
+      "status": "PASS"
+    },
+    {
+      "case": "PERF_TARGET",
+      "error": "",
+      "assertions": 6,
+      "status": "PASS"
+    },
+    {
+      "case": "WAVE_REST_REWARD",
+      "error": "",
+      "assertions": 150,
+      "status": "PASS"
+    },
+    {
+      "case": "WAVE_REST_PAUSE_AND_DANGER",
+      "error": "",
+      "assertions": 48,
+      "status": "PASS"
+    },
+    {
+      "case": "WORLD_DEPTH_ORDER",
+      "error": "",
+      "assertions": 6,
+      "status": "PASS"
+    },
+    {
+      "case": "AUDIT_UPGRADE_PREVIEW",
+      "error": "",
+      "assertions": 22,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_STAGE",
+      "error": "",
+      "assertions": 443,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_REPORT",
+      "error": "",
+      "assertions": 17,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_SELECT",
+      "error": "",
+      "assertions": 13,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_ECONOMY",
+      "error": "",
+      "assertions": 60,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_OBSERVATION",
+      "error": "",
+      "assertions": 24,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_STORY",
+      "error": "",
+      "assertions": 24,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_MODAL",
+      "error": "",
+      "assertions": 18,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_STORAGE",
+      "error": "",
+      "assertions": 67,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_ROOMS",
+      "error": "",
+      "assertions": 41,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_PRESENTATION",
+      "error": "",
+      "assertions": 12,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_ATTACK_SOURCES",
+      "error": "",
+      "assertions": 48,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_DISPLACED_PARENT",
+      "error": "",
+      "assertions": 14,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_REACTION_CONFIG",
+      "error": "",
+      "assertions": 30,
+      "status": "PASS"
+    },
+    {
+      "case": "COMPLETION_PATH_WARM",
+      "error": "",
+      "assertions": 80,
+      "status": "PASS"
+    },
+    {
+      "case": "B01",
+      "error": "",
+      "assertions": 216,
+      "status": "PASS"
+    },
+    {
+      "case": "B02",
+      "error": "",
+      "assertions": 45,
+      "status": "PASS"
+    },
+    {
+      "case": "B03",
+      "error": "",
+      "assertions": 74,
+      "status": "PASS"
+    },
+    {
+      "case": "B04",
+      "error": "",
+      "assertions": 27,
+      "status": "PASS"
+    },
+    {
+      "case": "B05",
+      "error": "",
+      "assertions": 26,
+      "status": "PASS"
+    },
+    {
+      "case": "M01",
+      "error": "",
+      "assertions": 213734,
+      "status": "PASS"
+    },
+    {
+      "case": "M02",
+      "error": "",
+      "assertions": 127828,
+      "status": "PASS"
+    },
+    {
+      "case": "M03",
+      "error": "",
+      "assertions": 4294,
+      "status": "PASS"
+    },
+    {
+      "case": "M04",
+      "error": "",
+      "assertions": 48,
+      "status": "PASS"
+    },
+    {
+      "case": "UI01",
+      "error": "",
+      "assertions": 12962,
+      "status": "PASS"
+    },
+    {
+      "case": "S14_EXPANSION_UI",
+      "error": "",
+      "assertions": 699,
+      "status": "PASS"
+    },
+    {
+      "case": "UI02",
+      "error": "",
+      "assertions": 8486,
+      "status": "PASS"
+    },
+    {
+      "case": "UI03",
+      "error": "",
+      "assertions": 8575,
+      "status": "PASS"
+    },
+    {
+      "case": "M05",
+      "error": "",
+      "assertions": 182,
+      "status": "PASS"
+    },
+    {
+      "case": "R01",
+      "error": "",
+      "assertions": 27,
+      "status": "PASS"
+    },
+    {
+      "case": "R02",
+      "error": "",
+      "assertions": 8386,
+      "status": "PASS"
+    },
+    {
+      "case": "R03",
+      "error": "",
+      "assertions": 351,
+      "status": "PASS"
+    },
+    {
+      "case": "R04",
+      "error": "",
+      "assertions": 119247,
+      "status": "PASS"
+    },
+    {
+      "case": "X01",
+      "error": "",
+      "assertions": 139285,
+      "status": "PASS"
+    },
+    {
+      "case": "X02",
+      "error": "",
+      "assertions": 25208,
+      "status": "PASS"
+    },
+    {
+      "case": "X03",
+      "error": "",
+      "assertions": 16804,
+      "status": "PASS"
+    },
+    {
+      "case": "X04",
+      "error": "",
+      "assertions": 20616,
+      "status": "PASS"
+    },
+    {
+      "case": "X05",
+      "error": "",
+      "assertions": 8410,
+      "status": "PASS"
+    },
+    {
+      "case": "X06",
+      "error": "",
+      "assertions": 73073,
+      "status": "PASS"
+    },
+    {
+      "case": "X07",
+      "error": "",
+      "assertions": 1404,
+      "status": "PASS"
+    },
+    {
+      "case": "C01",
+      "error": "",
+      "assertions": 39761,
+      "status": "PASS"
+    },
+    {
+      "case": "C02",
+      "error": "",
+      "assertions": 8425,
+      "status": "PASS"
+    },
+    {
+      "case": "C03",
+      "error": "",
+      "assertions": 52,
+      "status": "PASS"
+    },
+    {
+      "case": "E01",
+      "error": "NOT_RUN: 未执行真人构筑/探索实战、理解访谈或桌面竖屏真机画面/音效/FPS；CPU规则与记录桩不替代体验证据",
+      "assertions": 0,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "E02",
+      "error": "NOT_RUN: 未执行真人构筑/探索实战、理解访谈或桌面竖屏真机画面/音效/FPS；CPU规则与记录桩不替代体验证据",
+      "assertions": 0,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "E03",
+      "error": "NOT_RUN: 未执行真人构筑/探索实战、理解访谈或桌面竖屏真机画面/音效/FPS；CPU规则与记录桩不替代体验证据",
+      "assertions": 0,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "E04",
+      "error": "NOT_RUN: 未执行真人构筑/探索实战、理解访谈或桌面竖屏真机画面/音效/FPS；CPU规则与记录桩不替代体验证据",
+      "assertions": 0,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "S01_TIMING",
+      "error": "",
+      "assertions": 31,
+      "status": "PASS"
+    },
+    {
+      "case": "S02_EXPLORATION_FACTS",
+      "error": "",
+      "assertions": 7,
+      "status": "PASS"
+    },
+    {
+      "case": "S03_REWARD_ONCE",
+      "error": "",
+      "assertions": 8,
+      "status": "PASS"
+    },
+    {
+      "case": "S04_BRANCH_TRANSACTION",
+      "error": "",
+      "assertions": 12,
+      "status": "PASS"
+    },
+    {
+      "case": "S05_FACILITIES",
+      "error": "",
+      "assertions": 9,
+      "status": "PASS"
+    },
+    {
+      "case": "S06_PERIPHERAL_COMBAT",
+      "error": "",
+      "assertions": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "S07_TRIAL_FILTER_AND_WARNING",
+      "error": "",
+      "assertions": 12,
+      "status": "PASS"
+    },
+    {
+      "case": "S08_SHARED_CORE_BUDGET",
+      "error": "",
+      "assertions": 8,
+      "status": "PASS"
+    },
+    {
+      "case": "S09_END_PRIORITY",
+      "error": "",
+      "assertions": 6,
+      "status": "PASS"
+    },
+    {
+      "case": "S10_ROUTE_REAL_MOVEMENT",
+      "error": "",
+      "assertions": 1750,
+      "status": "PASS"
+    },
+    {
+      "case": "S11_TRIAL_COMPLETE",
+      "error": "",
+      "assertions": 8,
+      "status": "PASS"
+    },
+    {
+      "case": "S12_DELAYED_PROJECTILE",
+      "error": "",
+      "assertions": 6,
+      "status": "PASS"
+    },
+    {
+      "case": "S13_FX_ISOLATION",
+      "error": "",
+      "assertions": 9,
+      "status": "PASS"
+    },
+    {
+      "case": "L01_尺寸与面积契约",
+      "error": "",
+      "assertions": 7,
+      "status": "PASS"
+    },
+    {
+      "case": "L02_面积比 1:2.16:4.00",
+      "error": "",
+      "assertions": 3,
+      "status": "PASS"
+    },
+    {
+      "case": "L03_内外接半径",
+      "error": "",
+      "assertions": 12,
+      "status": "PASS"
+    },
+    {
+      "case": "L04_端口方向与朝向类别",
+      "error": "",
+      "assertions": 27,
+      "status": "PASS"
+    },
+    {
+      "case": "L05_走廊长度区间",
+      "error": "",
+      "assertions": 6,
+      "status": "PASS"
+    },
+    {
+      "case": "L06_中心距公式",
+      "error": "",
+      "assertions": 9,
+      "status": "PASS"
+    },
+    {
+      "case": "L07_端口点等于边中点",
+      "error": "",
+      "assertions": 8,
+      "status": "PASS"
+    },
+    {
+      "case": "L08_十二边阶梯取整",
+      "error": "",
+      "assertions": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "L09_房间重叠判定",
+      "error": "",
+      "assertions": 5,
+      "status": "PASS"
+    },
+    {
+      "case": "L10_槽位与墙段契约",
+      "error": "",
+      "assertions": 7,
+      "status": "PASS"
+    },
+    {
+      "case": "T01_全难度生成并通过校验",
+      "error": "",
+      "assertions": 10,
+      "status": "PASS"
+    },
+    {
+      "case": "T02_骨架契约",
+      "error": "",
+      "assertions": 14,
+      "status": "PASS"
+    },
+    {
+      "case": "T03_房间数与难度单调",
+      "error": "",
+      "assertions": 11,
+      "status": "PASS"
+    },
+    {
+      "case": "T04_确定性（同种子同布局）",
+      "error": "",
+      "assertions": 2,
+      "status": "PASS"
+    },
+    {
+      "case": "T05_环路同型等距闭环（可构造性）",
+      "error": "",
+      "assertions": 19,
+      "status": "PASS"
+    },
+    {
+      "case": "T05b_环路缺失必须显式降级",
+      "error": "",
+      "assertions": 2,
+      "status": "PASS"
+    },
+    {
+      "case": "T06_单向锁数量与状态",
+      "error": "",
+      "assertions": 11,
+      "status": "PASS"
+    },
+    {
+      "case": "T07_传送锚点与六边房一致",
+      "error": "",
+      "assertions": 10,
+      "status": "PASS"
+    },
+    {
+      "case": "T08_走廊长度与中心距全量一致",
+      "error": "",
+      "assertions": 163,
+      "status": "PASS"
+    },
+    {
+      "case": "T09_无重叠且无孤立房间",
+      "error": "",
+      "assertions": 325,
+      "status": "PASS"
+    },
+    {
+      "case": "T10_端口唯一占用",
+      "error": "",
+      "assertions": 73,
+      "status": "PASS"
+    },
+    {
+      "case": "T11_难度表与几何上限一致",
+      "error": "",
+      "assertions": 7,
+      "status": "PASS"
+    },
+    {
+      "case": "T12_大批量种子稳定性",
+      "error": "",
+      "assertions": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_REAL_EXPEDITION_MOVE",
+      "error": "",
+      "assertions": 8,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_ENCOUNTER_DOOR",
+      "error": "",
+      "assertions": 2,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_GRAPH_CONTRACT",
+      "error": "",
+      "assertions": 5,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_W20_TRIAL",
+      "error": "",
+      "assertions": 7,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_SCENARIO",
+      "error": "",
+      "assertions": 7,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_RADIUS_PATHS",
+      "error": "",
+      "assertions": 1221,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_COLLISION",
+      "error": "",
+      "assertions": 50,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_ENCOUNTER_IDENTITY",
+      "error": "",
+      "assertions": 14,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_TRI_CORE_WAVES",
+      "error": "",
+      "assertions": 5,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_CLEAR_REWARD_ONCE",
+      "error": "",
+      "assertions": 6,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_ANCHOR_PERMISSION",
+      "error": "",
+      "assertions": 6,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_TELEPORT_CLOCK",
+      "error": "",
+      "assertions": 7,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_LOCAL_BUILD",
+      "error": "",
+      "assertions": 5,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_FAILURE_PRIORITY",
+      "error": "",
+      "assertions": 3,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_ROOM_GATE",
+      "error": "",
+      "assertions": 3,
+      "status": "PASS"
+    },
+    {
+      "case": "POLYGON_MAP_PRESENTATION",
+      "error": "",
+      "assertions": 7,
+      "status": "PASS"
+    },
+    {
+      "case": "UIART_ICON_LIFECYCLE",
+      "error": "",
+      "assertions": 81,
+      "status": "PASS"
+    },
+    {
+      "case": "UIART_ICON_FAILURE_FALLBACK",
+      "error": "",
+      "assertions": 96,
+      "status": "PASS"
+    },
+    {
+      "case": "UIART_ICON_CONTEXT_BOUNDARY",
+      "error": "",
+      "assertions": 18,
+      "status": "PASS"
+    },
+    {
+      "case": "UIART_ICON_LAYOUT_ROUNDING",
+      "error": "",
+      "assertions": 48,
+      "status": "PASS"
+    },
+    {
+      "case": "UIART_POINTER_CANCEL",
+      "error": "",
+      "assertions": 59,
+      "status": "PASS"
+    },
+    {
+      "case": "UIART_FRAME_CLIP_ATMOSPHERE",
+      "error": "",
+      "assertions": 98,
+      "status": "PASS"
+    },
+    {
+      "case": "UIART_GAUGE_SEGMENTS",
+      "error": "",
+      "assertions": 556,
+      "status": "PASS"
+    },
+    {
+      "case": "UIART_THEME_DARKTECH",
+      "error": "",
+      "assertions": 421,
+      "status": "PASS"
+    },
+    {
+      "case": "UIART_STUB_ISOLATION",
+      "error": "",
+      "assertions": 9,
+      "status": "PASS"
+    }
+  ],
+  "lua": "Lua 5.4",
+  "source_sha256": {
+    "scripts/defense/Anchors.lua": "c682b21d395c28e6bf23af8a4fa5a2c0705d9d5aefc7f366f838f2d237be57f0",
+    "scripts/defense/Board.lua": "83408a54f7c0f9f45a932f45708befe22a4f7d28959d6bda9d89d3888fd5cffe",
+    "scripts/defense/Combat.lua": "690cd65df7cc083e241ab422cf16a302029e67c5a365a111e4cdc29fe36913fc",
+    "scripts/defense/CompletionTests.lua": "df5e1d02bca4523a51159bcee960b5fa12f4425a81b2d094d40f4db6d095ad6e",
+    "scripts/defense/Config.lua": "4275c6dd10be62f0882bea60cb0227afadd36bcf9b2e4b767f1439fa373c4e1d",
+    "scripts/defense/Economy.lua": "cf5faf062b7d2d4483ceb334ca70c578bfedee9023b1846e5e0b350adc06dbac",
+    "scripts/defense/EmergenceTests.lua": "9af04fb56294c314ccd70f1a76c93787fd09e4e801dd36904006d1f5796593b4",
+    "scripts/defense/Expansion.lua": "93c72e4c180f3881935a3471de735089b7c150978f3e1cb9171659cd5eaf1531",
+    "scripts/defense/ExpansionTests.lua": "3bcd405afc955a68e73577b8ad9eef9e6377a59997f37daba8e891f1b3e031e2",
+    "scripts/defense/Expedition.lua": "3c1a3f891d5bee8ca4a5799a61e45a1a56138f310d240c5476426c1dfce3ba53",
+    "scripts/defense/Feedback.lua": "155016cda140453a54ca3af55d141674542b6df2d46042c0a61d13819aa8f60e",
+    "scripts/defense/fx/DamageNumber.lua": "ff926fb1821052a96abd523908e109c0b36b82b13dbec89072c3feaf23a0f890",
+    "scripts/defense/fx/FPSMonitor.lua": "5c9d1e0eaefdf557a696939b0c7eb58fcb01c787d77ccd8f25b2ccd587c00777",
+    "scripts/defense/fx/GameAudio.lua": "81e5ea7e0c1ae9d055569aeba6012714cd9289a955a0fc63a695713cdc640145",
+    "scripts/defense/fx/Glow.lua": "fc2c1dbf28c519e73e1837fe6a4972d5abfbfe30d57a22500e1bb0a408554c8a",
+    "scripts/defense/fx/Particle.lua": "d7cd2767c8a64c4d923cf4d70fac2460e594189bf352e133a58746d132a98237",
+    "scripts/defense/fx/PerfQuality.lua": "d0d48972cdfa38bf6a7f1c1bfed5612b23fd98217395fca080f5348e5ead577c",
+    "scripts/defense/fx/ScreenShake.lua": "8aa127a3d123bf028e0479ab10f42f55af1430822af605e232de20df38966c09",
+    "scripts/defense/FX.lua": "c11374ace8310f0936758f40adb071f44110fa165488401af54d718a73550708",
+    "scripts/defense/Lattice.lua": "40861d0f790ec5508e19cae4b05460be9a313348f60725388daed97bb08b358e",
+    "scripts/defense/LatticeTests.lua": "7972bb3303d69ff185d7f4b11dd380227acba8e66817b870db01bc92b2eb4f2a",
+    "scripts/defense/LegacyFX.lua": "825b578a11bb3b9ccad505d341ffba4f7d6bfc7bd4af08ae63cd2a4423156761",
+    "scripts/defense/Map.lua": "ebf21a1b7380950a86769de6f86f45207d8c86a11030d53fbc4ccc221b749679",
+    "scripts/defense/PerformanceTests.lua": "7d1ed5daf803cd7ea9eac20c89f34e4591ad12b0f3fd77af3faa72838da98263",
+    "scripts/defense/PolygonMapView.lua": "850eb3b8b168b455a5bf7b2e76fdc8a3d2356225dd69c3f17bb8531482726ad4",
+    "scripts/defense/PolygonRooms.lua": "753aadf7f27c9a9375ef794139da2c47397487792e237d3c1a206f6fcc873925",
+    "scripts/defense/PolygonScenario.lua": "cefcd7c0969e47671b4cf549b9991e536d377c115593daef7e6fedfa150dc1e3",
+    "scripts/defense/PolygonTests.lua": "8e61da1a1a754ed9ee1674cef415da5300516b2466415adbc51b30f661d84485",
+    "scripts/defense/Progression.lua": "4af59bb8057206d3f9fa21ffc9ac699c1e240acaeb05d79a3d5e78565c60fa58",
+    "scripts/defense/PrototypeTests.lua": "6d6b71e39b5f4ec007741d7bb7ba39baaa4db38f620e1660a490e62a259542de",
+    "scripts/defense/ProtoView.lua": "71b39effda1fb1458e19c829e0de132358957616bc661f9274ee99d7e89d3659",
+    "scripts/defense/Radar.lua": "1aa08ad57024ec1e72536194cdc14dd637933f3f83c113cce4c5fe8fb2cb9a64",
+    "scripts/defense/Random.lua": "3bd8d39481a1bc2a892c97599013939755fad255fadfbd997484f8f8e7c4a6ac",
+    "scripts/defense/Reactions.lua": "da25b10097d6f191e4c7209bf5674092564921cf9a00710e8aee99f6258dd8cf",
+    "scripts/defense/RoomGraph.lua": "1ba0b11026c2a2b7d0965f9decd2304b678f590416f49ac3f22d9cd36b5b9b05",
+    "scripts/defense/RoomLattice.lua": "21affacf11333d5ae78ef6765e8523a773d4070ca3d4d6ea24312804a3c1810a",
+    "scripts/defense/Run.lua": "3a836535de91f7803b0ee25d7ef8ead7766305b922a7ef9d00b8f23944ffc785",
+    "scripts/defense/Runtime.lua": "6e33b93e90b205feb6bb84a934607ad0939591bdc1ec16de06d503ec806c1bd6",
+    "scripts/defense/Scenarios.lua": "6d15c04226296e045cb158abd488dfd9b95725b735f39f000bc68da3b9d85fb4",
+    "scripts/defense/Storage.lua": "32a8389f50f71c1522e3891e8aa4d1a6da854d361427fead247e139b21e4b0a2",
+    "scripts/defense/Tests.lua": "63e970e6904d295a52c8ba63459b9c338b5f8fb64b7a6d7a5c64853898ea0c78",
+    "scripts/defense/Theme.lua": "c2284c6abfe363306ad47277426f5f388fbde3d002f51dbcc7d4e831eda9a3f1",
+    "scripts/defense/Topology.lua": "3642cff1847bf7fd6d50aa7c277396b36cc38b48a684718a2abcd696b8b9c73d",
+    "scripts/defense/TopologyTests.lua": "932c9ee450b91cd1505bce2afcac8e89e09de13bedaee23f3fa6abde43dedf9c",
+    "scripts/defense/TowerModules.lua": "dc580037b3b316aec7efcf017da6c4e5f4b4457d7b06ece1a1f2872589086115",
+    "scripts/defense/UIArt.lua": "92201507ce1cf098e1eec963debd587e97d630abe34b5873acd0e75089abdde7",
+    "scripts/defense/UIArtTests.lua": "2418860e5462b22929db7089148d7fedf3f8a2f5dcc501fa734b6492af2323bf",
+    "scripts/defense/View.lua": "f5ea1043740d7a7de85f20c0f86aec369e5c11ccd4141aadff5bbc43a591bba7",
+    "scripts/defense/Visuals.lua": "8bd201aa32041b34f56b028b79095a343c773891acdcf67fdaef402313241f6c",
+    "scripts/defense/WaveDirector.lua": "561ab84fbddab8fc1a6bd0953fcfd1ca44c7d8bf681d7a6c8ebf886c3a2a0b7a"
+  },
+  "evidence_boundary": "Lua rules and UI stubs only; engine graphics, audio, FPS and human playtest unverified."
+}

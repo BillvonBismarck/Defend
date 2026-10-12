@@ -1,0 +1,19 @@
+{
+  "maker_project_id": "00d35a6e-6832-4027-880c-f595f2111938",
+  "maker_branch": "main",
+  "local_commit": "50d72c42af4ec564d6099ad9d465fef958ba81c8",
+  "remote_main_commit": "50d72c42af4ec564d6099ad9d465fef958ba81c8",
+  "remote_matches_local": true,
+  "code_submit_status": "pushed",
+  "remote_build_status": "success",
+  "preview_refresh_http_status": 200,
+  "source_files_verified": 548,
+  "source_and_stage_byte_match": true,
+  "original_workspace_branch": "ecnahc",
+  "original_source_unchanged": true,
+  "github_pushed": false,
+  "watcher_consecutive_failures": 0,
+  "watcher_last_error": null,
+  "runtime_log_bytes_at_verification": 0,
+  "runtime_playtest_verified": false
+}

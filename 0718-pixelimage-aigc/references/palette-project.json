@@ -1,0 +1,50 @@
+{
+  "name": "project-pixel-palette",
+  "note": "Project-adaptation palette (NOT an official palette of any reference game). Structure = shared neutrals + 4-step element ramps. Replace per project, keep the structure.",
+  "shared_neutral": {
+    "outline": "#10131F",
+    "shadow": "#252A3A",
+    "metal_dark": "#555B6C",
+    "metal_mid": "#9FA6B3",
+    "highlight": "#F1EEF0"
+  },
+  "elements": {
+    "lightning": [
+      "#3A2466",
+      "#7650B8",
+      "#B77CFF",
+      "#F0D9FF"
+    ],
+    "water": [
+      "#164E70",
+      "#2E91C9",
+      "#71CDFF",
+      "#D8F5FF"
+    ],
+    "fire": [
+      "#6B2C24",
+      "#C4512B",
+      "#FF8E42",
+      "#FFE08A"
+    ],
+    "grass": [
+      "#234E38",
+      "#4F8E4C",
+      "#89E05D",
+      "#DDF6A0"
+    ],
+    "neutral": [
+      "#343847",
+      "#747B8C",
+      "#DCE1EA",
+      "#FFFFFF"
+    ],
+    "trash": [
+      "#2B2930",
+      "#59535E",
+      "#92858A",
+      "#C2B5B0"
+    ]
+  },
+  "max_visible_colors": 9
+}

@@ -6,6 +6,7 @@ local EPS = 1e-7
 local function finite(n) return type(n) == "number" and n == n and n > -math.huge and n < math.huge end
 local function isPoint(p) return type(p) == "table" and finite(p.x) and finite(p.y) end
 local function cleared(room) return room and (room.state == "cleared" or room.state == "claimed" or room.reward_claimed == true) end
+---@return table<string,table>
 local function roomIndex(rooms)
     local result = {}
     for _, room in ipairs(rooms or {}) do result[room.id] = room end
@@ -65,6 +66,7 @@ end
 ---@param run table
 ---@return boolean, string?
 function RoomGraph.UpdateAccess(run)
+    if run.config.polygon_expansion then return require("defense.PolygonRooms").UpdateAccess(run) end
     if not run.config or not run.map then return false, "missing_map" end
     local rooms = roomIndex(run.rooms)
     for _, def in ipairs(run.config.rooms or {}) do
@@ -370,7 +372,8 @@ function RoomGraph.Check(config, map, radius)
                 end
                 if edge.shortcut and edge.gate_id then trial:SetUnlocked(edge.gate_id, not wasLocked) end
                 if edge.cross_region then
-                    local ar, br = a.room_id and rooms[a.room_id], b.room_id and rooms[b.room_id]
+                    local ar = a.room_id and rooms[a.room_id] --[[@as table?]]
+                    local br = b.room_id and rooms[b.room_id] --[[@as table?]]
                     if not ar or not br or ar.region_id == br.region_id then error("invalid_cross_region_edge:" .. edge.id)
                     else report.cross_region_count = report.cross_region_count + 1 end
                 end

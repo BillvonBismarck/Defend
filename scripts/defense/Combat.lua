@@ -434,13 +434,14 @@ local function displacementInfo(run, target, dx, dy, requested)
     local wanted = math.max(0, requested) / math.max(1, target.weight or 1)
     local bx, by = target.x + info.dx * wanted, target.y + info.dy * wanted
     local limit, blocked = wallLimit(run, target.x, target.y, bx, by, target.radius or 0)
-    if target.room_id then
+    local confinedRoom = target.room_id or (target == run.player and run.room_encounter and run.room_encounter.room_id)
+    if confinedRoom then
         -- 守军位移仍在房内，符合既有守房身份；爆炸伤害可跨房但不改wave归属。
         local low, high = 0, limit
-        if roomAt(run, bx, by) ~= target.room_id then
+        if roomAt(run, bx, by) ~= confinedRoom then
             for _ = 1, 16 do
                 local t = (low + high) * 0.5
-                if roomAt(run, target.x + (bx - target.x) * t, target.y + (by - target.y) * t) == target.room_id then low = t else high = t end
+                if roomAt(run, target.x + (bx - target.x) * t, target.y + (by - target.y) * t) == confinedRoom then low = t else high = t end
             end
             limit, blocked = low, true
         end
@@ -1139,6 +1140,7 @@ end
 ---@param run table
 function Combat.UpdateRooms(run, dt)
     if stopped(run) then return end
+    if run.config.polygon_expansion then return require("defense.PolygonRooms").Update(run, Combat) end
     -- dt 故意不消费：这里只做生命周期，守军在 Update 中只模拟一次。
     local current = roomAt(run, run.player.x, run.player.y)
     for _, room in ipairs(run.rooms) do
@@ -1231,7 +1233,8 @@ function Combat.Update(run, dt, intent)
         local length = math.sqrt(dx * dx + dy * dy)
         if length > 1 then dx, dy = dx / length, dy / length end
         local speed = p.speed * (1 + skill(run, p, "mobility") * 0.12) * p.slow_factor
-        p.x, p.y = run.map:Move(p.x, p.y, dx * speed * step, dy * speed * step, p.radius)
+        local nx, ny = run.map:Move(p.x, p.y, dx * speed * step, dy * speed * step, p.radius)
+        if not run.room_encounter or run.map:IsInRegion(run.room_encounter.room_id, nx, ny) then p.x, p.y = nx, ny end
         -- 老特效先计时；本步创建的预警获得完整 >=.7 秒寿命。
         for _, fx in ipairs(run.effects) do
             if fx.timer then fx.timer = math.max(0, fx.timer - step); if fx.timer <= 0 then fx.alive = false end end
@@ -1239,7 +1242,7 @@ function Combat.Update(run, dt, intent)
         local enemyCount = #run.enemies
         for i = 1, enemyCount do
             local e = run.enemies[i] --[[@as table]]
-            if e.alive then stepEnemy(run, e, step) end
+            if e.alive and (not run.config.polygon_expansion or not e.room_id or not run.active_rooms or run.active_rooms[e.room_id]) then stepEnemy(run, e, step) end
             if p.hp <= 0 or run.core.hp <= 0 or run.technical_error then break end
         end
         if p.hp <= 0 or run.core.hp <= 0 or run.technical_error then break end

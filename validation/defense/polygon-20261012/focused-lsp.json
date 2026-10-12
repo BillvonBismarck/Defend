@@ -1,0 +1,200 @@
+[
+  {
+    "file": "Board",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "Combat",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "Economy",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "Expansion",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "Map",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "ProtoView",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "Radar",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "RoomGraph",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "Run",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "Runtime",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "Scenarios",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "View",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "Anchors",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "PolygonMapView",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "PolygonRooms",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "PolygonScenario",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "PolygonTests",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  },
+  {
+    "file": "RoomLattice",
+    "opened": true,
+    "result": {
+      "ok": true,
+      "result": {
+        "kind": "full",
+        "items": []
+      }
+    }
+  }
+]

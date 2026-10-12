@@ -36,6 +36,7 @@ end
 local function paused(run) return next(run.pause_reasons or {}) ~= nil end
 
 ---@class DefenseView
+---@field selectedPolygonDifficulty number?
 ---@field run table
 ---@field callbacks table
 ---@field root Panel
@@ -64,6 +65,7 @@ function View:init(run, callbacks)
     self.menuOpen, self.replayPreview, self.destroyed = true, false, false
     self.selectedBuild, self.modeKey, self.layoutKey = run.build or "single", "__dirty", ""
     self.selectedScenario, self.protoSlots = Proto.Scenario(run), {}
+    self.selectedPolygonDifficulty = run.config.difficulty or 1
     self.elapsed, self.updateRemaining, self.dirty = 0, 0, true
     self.atmosphere = Theme.Atmosphere(0)
     self.topHeight = -1
@@ -84,7 +86,8 @@ end
 function View:NewRun(total, retry, scenarioId)
     self.menuOpen = false
     if self.callbacks.newRun then
-        self.callbacks.newRun(total, self.selectedBuild, retry == true, scenarioId or Proto.Scenario(self.run))
+        self.callbacks.newRun(total, self.selectedBuild, retry == true, scenarioId or Proto.Scenario(self.run),
+            { difficulty = self.selectedPolygonDifficulty or self.run.config.difficulty or 1 })
     end
     self.modeKey, self.dirty = "__dirty", true
 end
@@ -364,13 +367,20 @@ function View:BuildPause()
 end
 function View:BuildRules()
     local scroll, panel = self:ModalShell("玩法", "自动攻击 · 移动躲避 · 守住核心")
-    if self.run.config.sanctuary_expansion then
+    if self.run.config.polygon_expansion then
+        scroll:AddChild(label("主空间三路守核，战备期探索三片群系。进入房间后锁门，清空全部守军波次才可离开；守核时钟继续，角色或核心归零即全局失败。", C.cyan, 12))
+        scroll:AddChild(label("三角房三波小怪；六边房两波不同小Boss，首清激活传送锚点；地区十二边房为超级Boss。首清奖励只领取一次，星砂累计收入上限120。", C.text, 12))
+        scroll:AddChild(label("F就地布防，仅可操作当前已清房间的槽位，主空间可直接布防。M打开大地图并暂停；已激活锚点可传送，跨群系经主空间，20秒冷却。预警、进攻和房间战斗中不可传送。", C.text, 12))
+        scroll:AddChild(label("W20后有已清探索房间则进入三队考验，房间核心伤害预算仍为100；未探索时直接结算。小地图显示当前房，大地图显示全域。", C.warn, 12))
+    elseif self.run.config.sanctuary_expansion then
         scroll:AddChild(label("神殿扩展：基础战备15秒；速清奖励最多15秒，本波用完即失效。提前开波和自然开波都有独立8秒预警。", C.cyan, 12))
         scroll:AddChild(label("森林补资金，冰川补模块，火山补星砂。房间只领奖一次；星砂累计收入上限120，高级支援和不可逆分支消耗星砂。", C.text, 12))
         scroll:AddChild(label("四类八种设施共用12个存活名额；两次升级后封顶。完好拆除返50%基础与升级资金，损坏不返，星砂不返。", C.text, 12))
         scroll:AddChild(label("W20完成后，已清房间参与考验，未清房不出怪；三支远征队可在巡行中击杀，每来源房共享100核心损失预算。总时限从入场起计算，暂停冻结；超时失败。", C.warn, 12))
     end
-    scroll:AddChild(label("WASD / 方向键移动，空格击退；F 后勤，R 回城，M 地图，Enter 提前开波。触屏使用摇杆与按钮。", C.dim, 12))
+    scroll:AddChild(label(self.run.config.polygon_expansion and
+        "WASD / 方向键移动，空格击退；F 布防，R 返回主空间，M 地图，Enter 提前开波。触屏使用摇杆与按钮。" or
+        "WASD / 方向键移动，空格击退；F 后勤，R 回城，M 地图，Enter 提前开波。触屏使用摇杆与按钮。", C.dim, 12))
     for _, item in ipairs({
         { "🌀 站位决定击退方向", "最近合法目标会出现轮廓。击退无伤害，射程4.5格、冷却8秒；碰到墙柱会停止。" },
         { "💣 在哪死亡，就在哪爆炸", "爆炸推进怪死亡0.7秒后结算；范围2.5格、伤害40。危险圈锁定死亡点，期间可以换位。" },
@@ -617,9 +627,9 @@ function View:UpdateHUD()
     local canInspect = not run.ended and not self.menuOpen and not (run.pause_reasons or {}).technical
     self:SetButton("modules", "模块 " .. fmt(modulePending), not canInspect or modulePending == 0)
     self:Visible(self.buttons.modules, modulePending > 0)
-    self:SetButton("map", "地图", not canInspect)
+    self:SetButton("map", "地图", not canInspect or run.config.polygon_expansion and run.state ~= "PREPARATION")
     self:SetButton("wave", "开波", not canPlay or run.state ~= "PREPARATION")
-    self:SetButton("logistics", "后勤", not canPlay or run.state ~= "PREPARATION")
+    self:SetButton("logistics", run.config.polygon_expansion and "布防" or "后勤", not canPlay or run.state ~= "PREPARATION" or run.room_encounter ~= nil)
     self:SetButton("active", p.active_cd <= 0 and "击退" or "击退 " .. fmt(math.ceil(p.active_cd)) .. "秒", not canPlay or p.active_cd > 0)
     self:Visible(self.buttons.wave, run.state == "PREPARATION")
     self:Visible(self.buttons.logistics, run.state == "PREPARATION")
@@ -631,6 +641,11 @@ function View:UpdateHUD()
     self:SetButton("recall", run.recall.active and "回城中" or "回城", not canPlay or run.state ~= "PREPARATION" or
         (room.state ~= "cleared" and room.state ~= "claimed") or run.recall.active)
     self:Visible(self.buttons.recall, run.recall.active or run.state == "PREPARATION" and (room.state == "cleared" or room.state == "claimed"))
+    if run.config.polygon_expansion then
+        local ok = require("defense.Anchors").Check(run, run.config.topology.main)
+        self:SetButton("recall", "返回主空间", not canPlay or not ok)
+        self:Visible(self.buttons.recall, run.anchors[id] ~= nil and run.state == "PREPARATION")
+    end
     if self.modeKey == "logistics" then self:RefreshLogistics() end
     if self.modalLabels.pause then self.modalLabels.pause:SetText("第 " .. fmt(run.wave_id) .. " / " .. fmt(run.total_waves) ..
         " 波 · 入口 " .. portals .. " · 待结算危险 " .. fmt(pending)) end

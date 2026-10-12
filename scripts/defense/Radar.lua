@@ -70,6 +70,10 @@ end
 function Radar:Render(vg)
     local l, run = self:GetAbsoluteLayout(), self.run
     if not run.config or l.w <= 0 or l.h <= 0 then return end
+    if run.config.polygon_expansion then
+        self:RenderFullBackground(vg)
+        return require("defense.PolygonMapView").RenderInLayout(vg, run, l, true)
+    end
     self:RenderFullBackground(vg)
     local size, origin = run.config.map_size, run.config.map_origin or { x = 0, y = 0 }
     if not size or size.w <= 0 or size.h <= 0 then return end

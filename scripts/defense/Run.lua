@@ -13,6 +13,7 @@ local TowerModules = require("defense.TowerModules")
 local RoomGraph = require("defense.RoomGraph")
 local Expedition = require("defense.Expedition")
 local Expansion = require("defense.Expansion")
+local Anchors = require("defense.Anchors")
 local runSerial = 0
 
 ---@class DefenseRun
@@ -35,7 +36,7 @@ function Run.New(options)
 end
 
 function Run:init(options)
-    self.config = (options.config and Feedback.Copy(options.config)) or (options.scenario_id and Scenarios.Get(options.scenario_id)) or Config
+    self.config = (options.config and Feedback.Copy(options.config)) or (options.scenario_id and Scenarios.Get(options.scenario_id, options)) or Config
     self.scenario_id = self.config.scenario_id or options.scenario_id or "legacy_v02"
     self.rules_version = self.config.rules_version or self.config.version
     self.record_namespace = self.config.record_namespace or "legacy_v02"
@@ -89,6 +90,8 @@ function Run:init(options)
     self.warning_elapsed = 0
     self.pause_reasons = {}
     self.enemies, self.projectiles, self.drops, self.effects, self.towers, self.rooms = {}, {}, {}, {}, {}, {}
+    self.current_room_id, self.active_rooms, self.anchors = "", {}, {}
+    self.room_encounter = nil --[[@as table?]]
     self.events, self.transactions, self.settled_waves, self.story_seen = {}, {}, {}, {}
     self.next_entity_id, self.event_id = 1, 0
     self.range_opportunity_offered, self.range_opportunity_wave = false, 0
@@ -113,9 +116,15 @@ function Run:init(options)
             module_reward = def.module_reward == true, defense_slots = Feedback.Copy(def.defense_slots or {}),
             challenge_target = def.challenge_target == true, prerequisite_satisfied = self.map.locked[def.id] ~= true,
             challenge_gate_open = false, accessible = self.map.locked[def.id] ~= true,
-            state = "unvisited", guard_ids = {}, reward_claimed = false }
+            kind = def.kind, role = def.role,
+            state = def.initially_cleared and "claimed" or "unvisited", guard_ids = {}, reward_claimed = def.initially_cleared == true }
     end
     TowerModules.Init(self)
+    Anchors.Init(self)
+    if self.config.polygon_expansion then
+        self:Emit("LatticeGenerated", { seed = self.config.map_seed, difficulty = self.config.difficulty,
+            rooms = #self.config.topology.rooms, degraded = Feedback.Copy(self.config.topology.degraded) })
+    end
     RoomGraph.UpdateAccess(self)
     self:Emit("RunStarted", { total_waves = self.total_waves, build = self.build, version = self.config.version,
         scenario_id = self.scenario_id, rules_version = self.rules_version, record_namespace = self.record_namespace })
@@ -336,6 +345,9 @@ function Run:ClaimRoom(id, requestId)
 end
 
 function Run:RequestRecall()
+    if self.config.polygon_expansion then
+        return Anchors.Teleport(self, self.config.topology.main, self.run_id .. ":recall:" .. tostring(self.event_id)).ok
+    end
     if self.ended or self.state ~= "PREPARATION" or self:IsPaused() then return false end
     local id = self.map:RoomAt(self.player.x, self.player.y)
     for _, room in ipairs(self.rooms) do
@@ -492,6 +504,7 @@ function Run:Step(dt, intent)
     if self:CheckFailure() or self:IsPaused() then return end
     if self.state == "DEPLOY" then return end
     self.clock = self.clock + dt
+    if self.config.polygon_expansion then self.anchor_cooldown = math.max(0, self.anchor_cooldown - dt) end
     -- 先提交当前时槽全部有害反应，不被升级、自然开波、普通AI提前抢占。
     Combat.ProcessReactions(self)
     if self:CheckFailure() then return end
@@ -567,7 +580,10 @@ end
 
 function Run:Snapshot()
     local _, activeTarget = Combat.ActiveTarget(self)
-    return { expansion = Expansion.Snapshot(self), version = self.config.version, run_id = self.run_id, state = self.state, wave = self.wave_id,
+    return { polygon = self.config.polygon_expansion and { seed = self.config.map_seed, difficulty = self.config.difficulty,
+        current_room_id = self.current_room_id, encounter = Feedback.Copy(self.room_encounter),
+        active_rooms = Feedback.Copy(self.active_rooms), anchors = Feedback.Copy(self.anchors), anchor_cooldown = self.anchor_cooldown } or nil,
+        expansion = Expansion.Snapshot(self), version = self.config.version, run_id = self.run_id, state = self.state, wave = self.wave_id,
         total_waves = self.total_waves, clock = self.clock, core_hp = self.core.hp, player_hp = self.player.hp,
         core_x = self.core.x, core_y = self.core.y, currency = self.currency, level = self.player.level,
         experience = self.player.experience, alive = self:AliveCount(), queue_remaining = self.director:Remaining(),

@@ -41,7 +41,7 @@ local function towerAt(run, slot)
     end
     return destroyed
 end
-local SCENARIO_NAMES = { legacy_v02 = "经典防守", reuse_sample = "三房间考验", large_map_proto = "外圈远征", sanctuary_expansion = "神殿扩展" }
+local SCENARIO_NAMES = { legacy_v02 = "经典防守", reuse_sample = "三房间考验", large_map_proto = "外圈远征", sanctuary_expansion = "神殿扩展", polygon_expansion = "多边形远域" }
 local REGION_NAMES = { A = "森林 / 西区", B = "冰川 / 东区", C = "火山 / 南区" }
 local function roomName(run, id)
     if not id or id == "core" then return "主殿" end
@@ -174,8 +174,20 @@ function P.BuildScenarioMenu(view, parent)
         reuse_sample = "5波防守；第5波远征穿过三处房间，探索模块与外围布防。",
         large_map_proto = "20波外圈防守；第10、20波远征巡行，多房间探索与捷径。",
         sanctuary_expansion = "20波守核；速清最多+15秒探索，星砂与四类设施构筑。清过据点后追加考验与三队远征，逐房间核心限伤。原型数值待试玩。",
+        polygon_expansion = "多边形房间 · 三路守核。三角三波、六边两波小Boss、地区核心Boss；清空六边激活传送。就地布防，战备期地图可传送。",
     }
     parent:AddChild(text(descriptions[selected], C.dim))
+    if selected == "polygon_expansion" then
+        local levels = {}
+        for level = 1, 5 do
+            local button = view:Button("难度 " .. level, function()
+                view.selectedPolygonDifficulty = level; markDirty(view)
+            end, (view.selectedPolygonDifficulty or view.run.config.difficulty or 1) == level and "success" or "secondary")
+            button:SetStyle({ flexGrow = 1, height = 44, minWidth = 70 })
+            levels[#levels + 1] = button
+        end
+        parent:AddChild(row(levels))
+    end
     local total = selected == "legacy_v02" and (view.selectedLegacyWaves or 20) or Scenarios.Get(selected).total_waves
     if selected == "legacy_v02" then
         local lengths = {}
@@ -292,7 +304,8 @@ local function logisticsKey(view)
 end
 function P.BuildLogistics(view)
     local run = view.run
-    local scroll, panel = view:ModalShell("后勤布防", "已暂停；仅战备期可操作。主殿与外围共用资金和存活名额。")
+    local scroll, panel = view:ModalShell(run.config.polygon_expansion and "就地布防" or "后勤布防",
+        run.config.polygon_expansion and "已暂停；仅可操作当前房间槽位。资金与12个存活名额全域共享。" or "已暂停；仅战备期可操作。主殿与外围共用资金和存活名额。")
     view.modalLabels.balance, view.modalLabels.transaction = text("", Theme.Gold, 13), text("", C.green)
     scroll:AddChild(view.modalLabels.balance)
     scroll:AddChild(view.modalLabels.transaction)
@@ -466,6 +479,12 @@ function P.ReturnEstimate(run)
     return RoomGraph.EstimateReturn(run)
 end
 function P.ReturnText(run, estimate)
+    if run.config.polygon_expansion then
+        local id = run.map:RoomAt(run.player.x, run.player.y)
+        local room = roomById(run, id)
+        if run.room_encounter then return "房间交战 " .. tostring(room and room.encounter_wave or 1) .. " 波 · 清空后可离开；主空间仍按时进攻" end
+        return "步行回防或使用已激活六边锚点 · 传送冷却 " .. whole(math.ceil(run.anchor_cooldown)) .. "秒"
+    end
     estimate = estimate or P.ReturnEstimate(run)
     if not estimate.reachable or estimate.seconds == math.huge then return "回防路径不可用：" .. tostring(estimate.reason or "未找到合法路径") end
     local value = "实际路径回防约 " .. num(estimate.seconds) .. "秒 / " .. num(estimate.path_length or estimate.distance) ..
@@ -529,6 +548,16 @@ function P.ExpeditionText(snapshot, compact)
     return head .. separator .. "转场免伤 → " .. nextRoom
 end
 function P.HUDText(run)
+    if run.config.polygon_expansion and not run.trial_started then
+        local room = roomById(run, run.current_room_id)
+        local title = room and room.name or "主空间 · 三路守核"
+        if run.room_encounter then
+            local total = 0
+            for _, def in ipairs(run.config.rooms) do if def.id == room.id then total = def.encounter_waves; break end end
+            return title .. " · 房间交战 " .. whole(room.encounter_wave) .. "/" .. whole(total) .. "波"
+        end
+        return title .. " · 传送冷却 " .. whole(math.ceil(run.anchor_cooldown)) .. "秒"
+    end
     if run.config.sanctuary_expansion and run.trial_started then
         local alive, teams = 0, {}
         for _, e in ipairs(P.Expeditions(run)) do if e.stage ~= "DEAD" then alive = alive + 1; teams[e.squad_id] = true end end
@@ -571,6 +600,10 @@ local function shortcutText(run, shortcut)
         (state ~= false and roomId and "（清空 " .. roomName(run, roomId) .. " 后开放）" or "")
 end
 function P.MapOverview(run)
+    if run.config.polygon_expansion then
+        return require("defense.PolygonMapView").Widget { run = run, width = "100%", height = 300,
+            backgroundColor = C.ink, borderWidth = 1, borderColor = C.cyanDim, borderRadius = 8, pointerEvents = "none" }
+    end
     local size, origin = run.config.map_size, run.config.map_origin or { x = 0, y = 0 }
     local w, h = size.w, size.h
     local panel = UI.Panel { width = "100%", aspectRatio = w / h, backgroundColor = C.ink,
@@ -609,6 +642,21 @@ function P.BuildMap(view)
     local run = view.run
     local scroll, panel = view:ModalShell("房间地图", "已暂停；查看路线、房间状态与布防。")
     scroll:AddChild(P.MapOverview(run))
+    if run.config.polygon_expansion then
+        local Anchors = require("defense.Anchors")
+        scroll:AddChild(text("空心：未激活锚点 · 实心：可传送 · 跨群系经主空间中转", C.dim))
+        if run.last_teleport then scroll:AddChild(text(run.last_teleport.reason, run.last_teleport.ok and C.cyan or C.warn)) end
+        local ids = {}; for id in pairs(run.anchors) do ids[#ids + 1] = id end; table.sort(ids)
+        for _, id in ipairs(ids) do
+            local ok, reason = Anchors.Check(run, id)
+            local button = view:Button("传送：" .. (id == run.config.topology.main and "主空间" or roomName(run, id)), function()
+                view:Action("teleport", id); markDirty(view)
+            end, "secondary")
+            button:SetDisabled(not ok)
+            scroll:AddChild(button)
+            scroll:AddChild(text(reason, C.dim))
+        end
+    end
     scroll:AddChild(text("蓝：可探索 · 橙：待领奖 · 绿：已领奖 · 灰：未开放", C.dim, 10))
     scroll:AddChild(text(P.ReturnText(run), C.warn))
     local upcoming, routeOrder = {}, {}
