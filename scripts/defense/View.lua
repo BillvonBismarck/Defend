@@ -7,6 +7,7 @@ local Progression = require("defense.Progression")
 local LegacyFX = require("defense.FX")
 local Feedback = require("defense.Feedback")
 local Proto = require("defense.ProtoView")
+local Interaction = require("defense.Interaction")
 local C = Theme.C
 local View = {}
 View.__index = View
@@ -80,6 +81,11 @@ function View:init(run, callbacks)
 end
 function View:Action(kind, payload)
     if self.destroyed then return end
+    if kind=="logistics" and self.run.config.polygon_expansion then
+        local slot=Interaction.NearestSlot(self.run)
+        self.selectedLogisticsRoom=slot and (slot.owner_room_id or "core") or "core"
+        self.selectedLogisticsSlot=slot and slot.id or nil
+    end
     if self.callbacks.action then self.callbacks.action(kind, payload) end
     self.dirty = true
 end
@@ -93,6 +99,7 @@ function View:NewRun(total, retry, scenarioId)
 end
 function View:SetRun(run)
     self.run = run
+    require('defense.Placement').Reset(self)
     self.menuOpen = (run.pause_reasons or {}).menu == true
     self.selectedBuild = run.build or self.selectedBuild
     self.selectedScenario, self.protoSlots = Proto.Scenario(run), {}
@@ -181,10 +188,20 @@ function View:BuildRoot()
         self:AddLabel(self.alerts, item[1], "", item[2], item[3]):SetStyle({ textAlign = "center", maxLines = 1,
             visible = false, textStroke = { width = 1, color = C.ink } })
     end
-    self.radar = Radar { run = self.run, width = "100%", height = 84, pointerEvents = "none",
+    self.radar = Radar { run = self.run, width = "100%", height = 84, pointerEvents = "auto",
+        onClick=function() self:Action("map") end,
         backgroundColor = C.rail }
     self.radarPanel = Art.Frame({ position = "absolute", top = 160, right = 12, width = 116,
-        padding = 4, backgroundColor = C.panel, pointerEvents = "none", children = { self.radar } }, self)
+        padding = 4, backgroundColor = C.panel, pointerEvents = "box-none", children = {
+            label("地图 M",C.dim,10),self.radar } }, self)
+    self.towerFloat=Art.Frame({position="absolute",left=12,top=160,width=200,padding=8,gap=4,
+        backgroundColor=C.panel,pointerEvents="box-none"},self)
+    self:AddLabel(self.towerFloat,"towerSummary","",C.cyan,11)
+    self:AddLabel(self.towerFloat,"towerOutput","",C.dim,10)
+    self:AddLabel(self.towerFloat,"nearbySlot","",C.dim,10)
+    local towerStats=self:Button("炮台全场统计",function() self:Action("tower_stats") end)
+    towerStats:SetStyle({height=36})
+    self.towerFloat:AddChild(towerStats)
     self.bottom = UI.Panel { position = "absolute", left = 12, right = 12, bottom = 12,
         gap = 6, pointerEvents = "box-none" }
     local actions = row()
@@ -206,7 +223,7 @@ function View:BuildRoot()
         zIndex = 100, backgroundColor = C.bg,
         alignItems = "center", justifyContent = "center", padding = 12, visible = false, pointerEvents = "auto" }
     local content = UI.Panel { width = "100%", height = "100%", pointerEvents = "box-none",
-        children = { self.top, self.alerts, self.radarPanel, self.bottom, self.overlay } }
+        children = { self.top, self.alerts, self.radarPanel, self.towerFloat, self.bottom, self.overlay } }
     self.root = UI.Panel { width = "100%", height = "100%", pointerEvents = "box-none",
         children = { UI.SafeAreaView { width = "100%", height = "100%", nativeMenuInset = true,
             pointerEvents = "box-none", children = { content } } } }
@@ -232,6 +249,7 @@ function View:Mode()
     if run.ended then return "result" end
     -- 模块与地图不会改写 pause_reasons.upgrade/manual；关闭后显露原有面板。
     if reasons.module_choice then return Proto.ModuleKey(run) end
+    if reasons.tower_stats then return "tower_stats" end
     if reasons.map then return "map" end
     if reasons.upgrade then
         local key = "upgrade:" .. fmt(run.player.level)
@@ -369,8 +387,8 @@ function View:BuildRules()
     local scroll, panel = self:ModalShell("玩法", "自动攻击 · 移动躲避 · 守住核心")
     if self.run.config.polygon_expansion then
         scroll:AddChild(label("主空间三路守核，战备期探索三片群系。进入房间后锁门，清空全部守军波次才可离开；守核时钟继续，角色或核心归零即全局失败。", C.cyan, 12))
-        scroll:AddChild(label("三角房三波小怪；六边房两波不同小Boss，首清激活传送锚点；地区十二边房为超级Boss。首清奖励只领取一次，星砂累计收入上限120。", C.text, 12))
-        scroll:AddChild(label("F就地布防，仅可操作当前已清房间的槽位，主空间可直接布防。M打开大地图并暂停；已激活锚点可传送，跨群系经主空间，20秒冷却。预警、进攻和房间战斗中不可传送。", C.text, 12))
+        scroll:AddChild(label("三条大分支由外围一圈房间互相连通。核心传送点默认激活；其他房间清空敌人后激活，无敌人的房间走入即激活。普通三角房三波小怪、六边战斗房两波不同小Boss、地区核心为超级Boss。", C.text, 12))
+        scroll:AddChild(label("F打开布防浮窗：选炮塔种类、点击槽位，再确认放置。M打开地图；绿点可传送，橙点已激活但暂不可传，红点尚未激活。跨群系经主空间中转，传送冷却20秒。", C.text, 12))
         scroll:AddChild(label("W20后有已清探索房间则进入三队考验，房间核心伤害预算仍为100；未探索时直接结算。小地图显示当前房，大地图显示全域。", C.warn, 12))
     elseif self.run.config.sanctuary_expansion then
         scroll:AddChild(label("神殿扩展：基础战备15秒；速清奖励最多15秒，本波用完即失效。提前开波和自然开波都有独立8秒预警。", C.cyan, 12))
@@ -480,6 +498,20 @@ function View:BuildRecap()
     end
     panel:AddChild(self:Button("返回", function() self:Action("close_recap") end, "primary"))
 end
+function View:BuildTowerStats()
+    local run=self.run
+    local scroll,panel=self:ModalShell("炮台全场统计","全域只读统计；日常布防使用 E / 最近布防。")
+    panel:SetStyle({maxWidth=960})
+    scroll:AddChild(label("存活 "..#Interaction.Towers(run).."/12 · 设施累计输出 "..fmt(run.totals.tower_output),C.cyan,14))
+    if #run.towers==0 then scroll:AddChild(label("尚未建造炮台。在战备期靠近房间槽位，点击最近布防。",C.dim,12)) end
+    for _,tower in ipairs(run.towers) do
+        local attrs=require("defense.TowerModules").Attributes(run,tower)
+        scroll:AddChild(card({label(run.config.towers[tower.type].name.." · "..tower.slot_id.." · "..(tower.owner_room_id or "主空间"),C.text,12),
+            label("耐久 "..fmt(tower.hp).."/"..fmt(tower.max_hp).." · 输出 "..fmt(run.totals.output_by_source[tostring(tower.entity_id or tower.id)]).." · "..(tower.hp>0 and "运行中" or "已损毁"),tower.hp>0 and C.green or C.error,11),
+            label(Proto.AttributesText(attrs,run),C.dim,11)}))
+    end
+    panel:AddChild(self:Button("返回战场",function() self:Action("close_tower_stats") end,"primary"))
+end
 function View:BuildResult()
     local run = self.run
     if (run.pause_reasons or {}).technical or run.result == "UNDETERMINED" or run.result == "undetermined" then
@@ -507,6 +539,7 @@ function View:RefreshOverlay(key)
     self.transactionButtons, self.transactionLabels, self.modalLabels, self.protoSlots = {}, {}, {}, {}
     self.overlayContent = nil
     self.modeKey = key
+    self.overlay:SetStyle({backgroundColor=C.bg,pointerEvents='auto'})
     self.overlay:SetVisible(key ~= "")
     if key == "menu" then self:BuildMenu()
     elseif key == "pause" then self:BuildPause()
@@ -515,6 +548,7 @@ function View:RefreshOverlay(key)
     elseif key == "result" then self:BuildResult()
     elseif key == "recap" then self:BuildRecap()
     elseif key == "map" then Proto.BuildMap(self)
+    elseif key == "tower_stats" then self:BuildTowerStats()
     elseif key == "technical" then Proto.BuildTechnical(self)
     elseif key:sub(1, 13) == "moduleChoice:" then Proto.BuildModules(self)
     elseif key:sub(1, 6) == "story:" then self:BuildStory()
@@ -565,6 +599,11 @@ function View:Events(events)
 end
 function View:UpdateHUD()
     local run, p, core = self.run, self.run.player, self.run.core
+    local towers=Interaction.Towers(run)
+    self:Text("towerSummary","全场炮台 "..#towers.."/12")
+    self:Text("towerOutput","累计输出 "..fmt(run.totals.tower_output))
+    local nearest,distance=Interaction.NearestSlot(run)
+    self:Text("nearbySlot",nearest and "最近槽位 "..nearest.id.." · "..string.format("%.1f",distance).."米" or "门廊中 · 进入房间后布防")
     self:Text("playerHP", "角色 " .. fmt(p.hp) .. " / " .. fmt(p.max_hp))
     self:Text("coreHP", "核心 " .. fmt(core.hp) .. " / " .. fmt(core.max_hp))
     self:Bar("playerHP", p.hp, p.max_hp)
@@ -627,9 +666,9 @@ function View:UpdateHUD()
     local canInspect = not run.ended and not self.menuOpen and not (run.pause_reasons or {}).technical
     self:SetButton("modules", "模块 " .. fmt(modulePending), not canInspect or modulePending == 0)
     self:Visible(self.buttons.modules, modulePending > 0)
-    self:SetButton("map", "地图", not canInspect or run.config.polygon_expansion and run.state ~= "PREPARATION")
+    self:SetButton("map", "地图 M", not canInspect)
     self:SetButton("wave", "开波", not canPlay or run.state ~= "PREPARATION")
-    self:SetButton("logistics", run.config.polygon_expansion and "布防" or "后勤", not canPlay or run.state ~= "PREPARATION" or run.room_encounter ~= nil)
+    self:SetButton("logistics", run.config.polygon_expansion and "炮台布防 E" or "后勤", not canPlay or run.state ~= "PREPARATION" or run.room_encounter ~= nil)
     self:SetButton("active", p.active_cd <= 0 and "击退" or "击退 " .. fmt(math.ceil(p.active_cd)) .. "秒", not canPlay or p.active_cd > 0)
     self:Visible(self.buttons.wave, run.state == "PREPARATION")
     self:Visible(self.buttons.logistics, run.state == "PREPARATION")
@@ -680,11 +719,13 @@ function View:Update(dt)
         self.topHeight = topHeight
         self.alerts:SetStyle({ top = topHeight + 6 })
         self.radarPanel:SetStyle({ top = topHeight + 60 })
+        self.towerFloat:SetStyle({ top = topHeight + 60 })
     end
     self:Visible(self.top, mode == "")
     self:Visible(self.alerts, mode == "")
     self:Visible(self.bottom, mode == "")
     self:Visible(self.radarPanel, mode == "" and not narrow)
+    self:Visible(self.towerFloat,mode=="" and width>=640 and height>=320)
     self.updateRemaining = self.updateRemaining - dt
     if self.dirty or self.updateRemaining <= 0 then
         self:UpdateHUD(); self.dirty, self.updateRemaining = false, 0.1

@@ -747,6 +747,7 @@ end
 local function repath(run, e, tx, ty)
     e.path = run.map:Path(e.x, e.y, tx, ty, e.radius) or {}
     e.path_index, e.path_timer, e.path_x, e.path_y = 1, value(run, "path_interval"), tx, ty
+    e.path_revision = run.map.revision
     return #e.path > 0
 end
 
@@ -787,7 +788,11 @@ end
 local function moveEnemy(run, e, tx, ty, speed, dt)
     local x, y = tx, ty
     if not visible(run, e.x, e.y, tx, ty, e.radius) then
-        if e.path_timer <= 0 or not e.path_x or distance2(tx, ty, e.path_x, e.path_y) > 1 then repath(run, e, tx, ty) end
+        -- 多边形图的路径跨房间中心；周期性从当前位置重算会把刚离开中心的单位
+        -- 重新引回中心，形成往返。固定目标沿原路径前进，只有目标或几何变化才重算。
+        if not e.path_x or #e.path == 0 or distance2(tx, ty, e.path_x, e.path_y) > 1
+            or run.config.polygon_expansion and e.path_revision ~= run.map.revision
+            or not run.config.polygon_expansion and e.path_timer <= 0 then repath(run, e, tx, ty) end
         local point = e.path[e.path_index] --[[@as table?]]
         while point and distance2(e.x, e.y, point.x, point.y) < 0.12 ^ 2 do
             e.path_index = e.path_index + 1

@@ -5,6 +5,7 @@ local Random = require("defense.Random")
 local Lattice = require("defense.Lattice")
 
 local Topology = {}
+Topology.Debug = false
 
 Topology.Version = "polygon-topology-v1"
 Topology.MaxSteps = 400          -- G12 整局步数上限（含回退尝试）
@@ -29,7 +30,7 @@ end
 -- 端口基数上限（G4）：三角 ≤2、六边 ≤3、十二边 ≤6；群系核心额外限 3
 local DEGREE_CAP = { tri = 2, hex = 3, dodeca = 6 }
 
----@return integer 该房间还能再接几条走廊（同时受端口与度数上限约束）
+---@return number 该房间还能再接几条走廊（同时受端口与度数上限约束）
 local function capacity(room)
     local cap = room.role == "district_core" and 3 or (DEGREE_CAP[room.kind] or 6)
     return cap - room.degree
@@ -107,7 +108,7 @@ local function placeBest(graph, parent, kind, id, district, lengths, ports)
     local candidates = ports or sortedPorts(parent)
     for _, length in ipairs(lengths or Topology.LengthOrder) do
         for _, portIndex in ipairs(candidates) do
-            if graph.steps < Topology.MaxSteps then
+            if graph.steps < graph.maxSteps then
                 graph.steps = graph.steps + 1
                 local room, placeErr, info = tryPlace(graph, parent, portIndex, kind, length, id, district)
                 if room then return room, info end
@@ -143,15 +144,15 @@ local function dropRoom(graph, id)
 end
 
 ---@return table 生成结果：房间、连接、环路、门、锚点与统计
-function Topology.Generate(seed, difficulty)
+function Topology.Generate(seed, difficulty, options)
     local level = difficulty or 3
-    local plan = Topology.Difficulty[level]
+    local plan = options and options.plan or Topology.Difficulty[level]
     assert(plan, "未知难度:" .. tostring(level))
     local rng = Random.New(seed or 20261008)
     local graph = {
         version = Topology.Version, seed = seed or 20261008, difficulty = level,
         rooms = {}, byId = {}, links = {}, districts = {}, anchors = {}, degraded = {},
-        steps = 0, linkSeq = 0,
+        steps = 0, linkSeq = 0, maxSteps = options and options.max_steps or Topology.MaxSteps,
     }
 
     local function addRoom(room) graph.rooms[#graph.rooms + 1] = room; graph.byId[room.id] = room; return room end
@@ -166,9 +167,9 @@ function Topology.Generate(seed, difficulty)
     end
     local function jitter(anchor)
         -- 在优先值附近取一个 [2u,4u] 内的长度，消费随机源，保证 seed 影响布局
-        local options = { 2.5, 3, 3.5 }
-        local pick = options[rng:Index(#options)]
-        if anchor == "short" then pick = math.min(pick, 3) end
+        local lengths = { 2.5, 3, 3.5 }
+        local pick = assert(lengths[math.floor(rng:Index(#lengths))])
+        if anchor == "short" and pick > 3 then pick = 3 end
         return pick
     end
     local function shuffledLengths()
@@ -204,7 +205,7 @@ function Topology.Generate(seed, difficulty)
 
         -- S2 闸室：三角，必须正对主空间
         local gate, gateInfo, gateErr = placeBest(graph, main, "tri", "T-" .. district, district,
-            { Lattice.CorridorPreferred or 3, jitter("short") }, { mainPort })
+            { 3, jitter("short") }, { mainPort })
         assert(gate, "闸室放置失败:" .. district .. " " .. tostring(gateErr))
         gate.role = "gate"
         addRoom(gate)
@@ -212,13 +213,70 @@ function Topology.Generate(seed, difficulty)
         district_.gate = gate.id
         district_.rooms[#district_.rooms + 1] = gate.id
 
+        -- 中距离菱形环：入口 H 分成 A/B 两条通路，在环房 R 汇合。
+        --           A ── R
+        --          /     /
+        -- gate ── H ── B
+        -- 四房均为六边，边距 3u；H/R 非相邻中心距同为 2r+3，留足间隙。
+        -- 不改尺寸/端口/碰撞，先整组校验，再一次性提交；只在生成时执行。
+        local middleEntry,midCount=gate,0
+        if options and options.plan then
+            for _,entryPort in ipairs(sortedPorts(gate)) do
+                if midCount>0 then break end
+                local marker=graph.linkSeq
+                local staged={}
+                local h,hi=placeBest(graph,gate,'hex','M-'..district..'-H',district,{3},{entryPort})
+                if h then
+                    addRoom(h);staged[#staged+1]=h
+                    local axis=gate.ports[hi.portIndex]
+                    local ap=Lattice.PortIndexFacing(h,Lattice.Norm(axis-60))
+                    local bp=Lattice.PortIndexFacing(h,Lattice.Norm(axis+60))
+                    local a,_,ai=tryPlace(graph,h,ap,'hex',3,'M-'..district..'-A',district)
+                    if a then addRoom(a);staged[#staged+1]=a end
+                    local b,_,bi=tryPlace(graph,h,bp,'hex',3,'M-'..district..'-B',district)
+                    if b then addRoom(b);staged[#staged+1]=b end
+                    if a and b then
+                        local arp=Lattice.PortIndexFacing(a,Lattice.Norm(axis+60))
+                        local r,_,ri=tryPlace(graph,a,arp,'hex',3,'M-'..district..'-R',district)
+                        if r then
+                            local brp=Lattice.PortIndexFacing(b,Lattice.Norm(axis-60))
+                            local rbp=Lattice.PortIndexFacing(r,Lattice.Norm(axis+120))
+                            local expected=Lattice.CenterDistance('hex','hex',3)
+                            local gap=math.sqrt((b.x-r.x)^2+(b.y-r.y)^2)
+                            local corridor=Lattice.Corridor(b,brp,r,rbp,3)
+                            if math.abs(gap-expected)<0.001 and not corridorBlocked(graph,corridor,b.id,r.id) then
+                                r.mid_ring=true;r.ring_paths={a.id,b.id}
+                                addRoom(r);staged[#staged+1]=r
+                                addLink(gate,hi.portIndex,h,hi.backPort,3)
+                                addLink(h,ap,a,ai.backPort,3)
+                                addLink(h,bp,b,bi.backPort,3)
+                                addLink(a,arp,r,ri.backPort,3)
+                                addLink(b,brp,r,rbp,3,{loop=true,mid_ring=true})
+                                for _,room in ipairs(staged) do district_.rooms[#district_.rooms+1]=room.id end
+                                district_.hex=district_.hex+4;district_.loops=district_.loops+1
+                                district_.mid_ring=r.id;middleEntry,midCount=r,4
+                            end
+                        end
+                    end
+                end
+                if midCount==0 then
+                    for li=#graph.links,1,-1 do
+                        if tonumber(graph.links[li].id:match('^L(%d+)$'))>marker then removeLink(graph,graph.links[li]) end
+                    end
+                    for _,room in ipairs(staged) do dropRoom(graph,room.id) end
+                end
+            end
+            assert(midCount==4,'中距离环路生成失败:'..district)
+        end
+
         -- S1 类型序列：环路簇（3 个六边）+ 普通房，总房间数对齐难度表
-        local middle = plan.rooms - 2
+        local middle = plan.rooms - 2 - midCount
         local slots = {}
-        local clusters = math.min(plan.clusters, math.floor(middle / 2))
-        local remaining = middle - clusters * 2
+        local clusterSize = options and options.plan and 3 or 2
+        local clusters = math.min(plan.clusters, math.floor(middle / clusterSize))
+        local remaining = middle - clusters * clusterSize
         local wantHex = plan.hex
-        local hexPlaced = 0
+        local hexPlaced = midCount
         for _ = 1, remaining do
             local kind = (hexPlaced < wantHex - clusters * 2) and "hex" or "tri"
             if kind == "hex" then hexPlaced = hexPlaced + 1 end
@@ -231,7 +289,7 @@ function Topology.Generate(seed, difficulty)
         local normalCount = #slots - clusters
 
         -- S3–S6 生成链：先普通房，再核心，最后环簇
-        local tail, index = gate, 0
+        local tail, index = middleEntry, 0
         local corePlaced = false
         while index < #slots do
             local slot = slots[index + 1]
@@ -241,13 +299,32 @@ function Topology.Generate(seed, difficulty)
                 local kind = slot.kind or "hex"
                 local order = { kind, kind == "hex" and "tri" or "hex" }
                 local room, info, placeErr
+                local attachment = tail
+                if options and options.plan then
+                    local branches={}
+                    for _,rid in ipairs(district_.rooms) do
+                        local r=graph.byId[rid]
+                        if capacity(r)>0 then branches[#branches+1]=r end
+                    end
+                    -- 从未占满的节点继续分叉，避免把所有普通房串成三条长直线。
+                    local start=math.floor(rng:Index(#branches))
+                    for offset=0,#branches-1 do
+                        local candidate=branches[(start+offset-1)%#branches+1]
+                        for _,candidateKind in ipairs(order) do
+                            room,info,placeErr=placeBest(graph,candidate,candidateKind,"R-"..district.."-"..#graph.rooms,district,shuffledLengths())
+                            if room then attachment=candidate; break end
+                        end
+                        if room then break end
+                    end
+                end
                 for _, candidateKind in ipairs(order) do
+                    if room then break end
                     room, info, placeErr = placeBest(graph, tail, candidateKind, "R-" .. district .. "-" .. tostring(#graph.rooms), district, shuffledLengths())
                     if room then break end
                 end
                 if room then
                     addRoom(room)
-                    addLink(tail, info.portIndex, room, info.backPort, info.length)
+                    addLink(attachment, info.portIndex, room, info.backPort, info.length)
                     district_.rooms[#district_.rooms + 1] = room.id
                     if room.kind == "hex" then district_.hex = district_.hex + 1 end
                     tail = room
@@ -264,6 +341,23 @@ function Topology.Generate(seed, difficulty)
             if not slot.cluster then
                 index = index + 1
             else
+                -- 大网络给每个环簇独立入口，避免链中六边房度数已满导致所有环路降级。
+                if clusterSize == 3 then
+                    local entries={}
+                    for _,rid in ipairs(district_.rooms) do
+                        local r=graph.byId[rid]; if capacity(r)>0 then entries[#entries+1]=r end
+                    end
+                    table.sort(entries,function(a,b) return a.x*a.x+a.y*a.y > b.x*b.x+b.y*b.y end)
+                    for _,entry in ipairs(entries) do
+                        local connector,info=placeBest(graph,entry,"hex","H-"..district.."-"..graph.linkSeq,district)
+                        if connector then
+                            addRoom(connector); addLink(entry,info.portIndex,connector,info.backPort,info.length)
+                            district_.rooms[#district_.rooms+1]=connector.id
+                            district_.hex=district_.hex+1
+                            break
+                        end
+                    end
+                end
                 local linkMarker = graph.linkSeq
                 local placed, ok, lastErr = {}, false, "no_parent"
                 local parents = {}
@@ -405,6 +499,7 @@ function Topology.Generate(seed, difficulty)
             if room and capacity(room) >= 1 and #freePorts(room) >= 1 then anchors[#anchors + 1] = room end
         end
         table.sort(anchors, function(a, b)
+            if a.id == b.id then return false end
             if a.id == tail.id then return true end
             if b.id == tail.id then return false end
             local da, db = a.x * a.x + a.y * a.y, b.x * b.x + b.y * b.y

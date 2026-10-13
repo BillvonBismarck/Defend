@@ -2,6 +2,7 @@
 -- 碰撞：圆体到并集外墙 >= radius；开口处删除共用边，不收缩每间房制造假墙。
 -- 关门房间整块禁止通行；连续胶囊扫掠不会越墙，敌人与玩家共用通行规则。
 local Lattice = require("defense.Lattice")
+local Index = require("defense.RoomIndex")
 local RoomLattice = {}
 local EPS = 1e-7
 local function finite(x) return type(x) == "number" and x == x and math.abs(x) < math.huge end
@@ -62,6 +63,7 @@ function RoomLattice:Init(config)
         end
         self.roomsById[room.id], self.room_regions[room.id] = room, region
         self.neighbors[room.id] = {}
+        points.room_ids = {room.id}
         self.regions[#self.regions + 1], self.polygons[#self.polygons + 1] = region, points
     end
     self.room_regions.hall = self.room_regions[graph.main]
@@ -79,6 +81,7 @@ function RoomLattice:Init(config)
         local bx, by = corridor.x2 * unit + dx / len * EPS, corridor.y2 * unit + dy / len * EPS
         self.polygons[#self.polygons + 1] = { { x = ax - nx, y = ay - ny }, { x = bx - nx, y = by - ny },
             { x = bx + nx, y = by + ny }, { x = ax + nx, y = ay + ny } }
+        self.polygons[#self.polygons].room_ids = {link.a,link.b}
         self.neighbors[link.a][#self.neighbors[link.a] + 1] = link.b
         self.neighbors[link.b][#self.neighbors[link.b] + 1] = link.a
         if link.gate then
@@ -90,12 +93,25 @@ function RoomLattice:Init(config)
             self.locked[gateId], self.locked_regions[gateId], self.gate_regions[gateId] = true, { gate }, gate
         end
     end
-    -- 按所有多边形交点切边，只留下并集外缘（走廊接缝不是墙）。
+    self.polygonBounds = {}
+    for _, points in ipairs(self.polygons) do
+        local bound = { points = points, x1 = math.huge, y1 = math.huge, x2 = -math.huge, y2 = -math.huge }
+        for _, p in ipairs(points) do
+            bound.x1, bound.y1 = math.min(bound.x1,p.x), math.min(bound.y1,p.y)
+            bound.x2, bound.y2 = math.max(bound.x2,p.x), math.max(bound.y2,p.y)
+        end
+        self.polygonBounds[#self.polygonBounds+1] = bound
+    end
+    self.polygonIndex = Index.New(self.polygonBounds)
+    -- 仅检查相交包围盒，不在初始化时对整图多边形两两切边。
     for index, points in ipairs(self.polygons) do
         for i, a in ipairs(points) do
             local b, ts = points[i % #points + 1], { 0, 1 }
-            for j, other in ipairs(self.polygons) do
-                if index ~= j then
+            local candidates = self.polygonIndex:Query(math.min(a.x,b.x)-EPS,math.min(a.y,b.y)-EPS,
+                math.max(a.x,b.x)+EPS,math.max(a.y,b.y)+EPS)
+            for _, candidate in ipairs(candidates) do
+                local other = candidate.points
+                if points ~= other then
                     for k, c in ipairs(other) do
                         local t = intersection(a, b, c, other[k % #other + 1])
                         if t then ts[#ts + 1] = t end
@@ -111,8 +127,9 @@ function RoomLattice:Init(config)
                     -- 向外微移；接缝恰在另一多边形边上也能稳定归类。
                     local ex, ey = b.x - a.x, b.y - a.y
                     local len = math.sqrt(ex^2 + ey^2)
-                    for j, other in ipairs(self.polygons) do
-                        if index ~= j and inside(other, x + ey / len * EPS * 8, y - ex / len * EPS * 8) then hidden = true; break end
+                    for _, candidate in ipairs(candidates) do
+                        local other = candidate.points
+                        if points ~= other and inside(other, x + ey / len * EPS * 8, y - ex / len * EPS * 8) then hidden = true; break end
                     end
                     if not hidden then self.edges[#self.edges + 1] = {
                         ax = a.x + (b.x - a.x) * lo, ay = a.y + (b.y - a.y) * lo,
@@ -121,6 +138,24 @@ function RoomLattice:Init(config)
             end
         end
     end
+    for _, e in ipairs(self.edges) do
+        e.x1,e.y1,e.x2,e.y2 = math.min(e.ax,e.bx),math.min(e.ay,e.by),math.max(e.ax,e.bx),math.max(e.ay,e.by)
+    end
+    self.edgeIndex = Index.New(self.edges)
+    local locks = {}
+    for id, regions in pairs(self.locked_regions) do
+        for _, region in ipairs(regions) do
+            local b = { id=id,points=region.points,x1=math.huge,y1=math.huge,x2=-math.huge,y2=-math.huge }
+            for _,p in ipairs(b.points) do
+                b.x1,b.y1,b.x2,b.y2=math.min(b.x1,p.x),math.min(b.y1,p.y),math.max(b.x2,p.x),math.max(b.y2,p.y)
+            end
+            locks[#locks+1]=b
+        end
+    end
+    self.lockIndex = Index.New(locks)
+    self.roomIndex = Index.New(self.regions)
+    self.roomDefs = {}; for _, def in ipairs(config.rooms) do self.roomDefs[def.id]=def end
+    self.pathLinks, self.pathRevision = {}, -1
     return self
 end
 
@@ -128,15 +163,15 @@ function RoomLattice:IsWalkable(x, y, radius)
     radius = radius or 0
     if not finite(x) or not finite(y) or not finite(radius) or radius < 0 then return false end
     local covered = false
-    for _, points in ipairs(self.polygons) do if inside(points, x, y) then covered = true; break end end
+    for _, bound in ipairs(self.polygonIndex:Query(x,y,x,y)) do if inside(bound.points, x, y) then covered = true; break end end
     if not covered then return false end
-    for id, locked in pairs(self.locked) do
-        if locked then for _, region in ipairs(self.locked_regions[id]) do
+    for _, region in ipairs(self.lockIndex:Query(x-radius,y-radius,x+radius,y+radius)) do
+        if self.locked[region.id] then
             if circleTouches(region.points, x, y, radius) then return false end
-        end end
+        end
     end
     if radius > 0 then
-        for _, e in ipairs(self.edges) do
+        for _, e in ipairs(self.edgeIndex:Query(x-radius,y-radius,x+radius,y+radius)) do
             if distanceSq(x, y, { x = e.ax, y = e.ay }, { x = e.bx, y = e.by }) < radius^2 - EPS then return false end
         end
     end
@@ -146,15 +181,16 @@ function RoomLattice:LineOfSight(x1, y1, x2, y2, radius)
     radius = radius or 0
     if not self:IsWalkable(x1, y1, radius) or not self:IsWalkable(x2, y2, radius) then return false end
     local a, b = { x = x1, y = y1 }, { x = x2, y = y2 }
-    for _, e in ipairs(self.edges) do
+    local ax,ay,bx,by=math.min(x1,x2)-radius,math.min(y1,y2)-radius,math.max(x1,x2)+radius,math.max(y1,y2)+radius
+    for _, e in ipairs(self.edgeIndex:Query(ax,ay,bx,by)) do
         if segmentSq(a, b, { x = e.ax, y = e.ay }, { x = e.bx, y = e.by }) < math.max(EPS, radius^2 - EPS) then return false end
     end
-    for id, locked in pairs(self.locked) do
-        if locked then for _, region in ipairs(self.locked_regions[id]) do
+    for _, region in ipairs(self.lockIndex:Query(ax,ay,bx,by)) do
+        if self.locked[region.id] then
             for i, p in ipairs(region.points) do
                 if segmentSq(a, b, p, region.points[i % #region.points + 1]) <= radius^2 + EPS then return false end
             end
-        end end
+        end
     end
     return true
 end
@@ -163,25 +199,65 @@ function RoomLattice:IsInRegion(id, x, y)
     return region ~= nil and finite(x) and finite(y) and inside(region.points, x, y)
 end
 function RoomLattice:RoomAt(x, y)
-    for _, def in ipairs(self.config.rooms) do if self:IsInRegion(def.id, x, y) then return def.id end end
+    if not finite(x) or not finite(y) then return nil end
+    for _, region in ipairs(self.roomIndex:Query(x,y,x,y)) do
+        if self.roomDefs[region.id] and inside(region.points,x,y) then return region.id end
+    end
     return nil
+end
+function RoomLattice:ResidentRoom(x,y)
+    local best,distance=nil,math.huge
+    for _,b in ipairs(self.polygonIndex:Query(x,y,x,y)) do
+        if inside(b.points,x,y) then
+            for _,id in ipairs(b.points.room_ids) do
+                local room=self.config.topology.byId[id]
+                local d=(room.x*self.config.polygon_unit-x)^2+(room.y*self.config.polygon_unit-y)^2
+                if d<distance then best,distance=id,d end
+            end
+        end
+    end
+    return best or self.config.topology.main
 end
 function RoomLattice:Path(x1, y1, x2, y2, radius)
     radius = radius or 0
     if not self:IsWalkable(x1, y1, radius) or not self:IsWalkable(x2, y2, radius) then return nil end
     if self:LineOfSight(x1, y1, x2, y2, radius) then return { { x = x1, y = y1 }, { x = x2, y = y2 } } end
     local graph, unit, queue, previous = self.config.topology, self.config.polygon_unit, {}, {}
-    for _, room in ipairs(graph.rooms) do
-        if self:LineOfSight(x1, y1, room.x * unit, room.y * unit, radius) then queue[#queue + 1] = room.id; previous[room.id] = false end
+    local function anchors(x,y)
+        local result,seen={},{}
+        for _,b in ipairs(self.polygonIndex:Query(x,y,x,y)) do
+            if inside(b.points,x,y) then
+                for _,id in ipairs(b.points.room_ids) do
+                    local room=graph.byId[id]
+                    if not seen[id] and self:LineOfSight(x,y,room.x*unit,room.y*unit,radius) then
+                        result[#result+1]=id; seen[id]=true
+                    end
+                end
+            end
+        end
+        return result
+    end
+    local goals={}; for _,id in ipairs(anchors(x2,y2)) do goals[id]=true end
+    for _,id in ipairs(anchors(x1,y1)) do queue[#queue+1]=id; previous[id]=false end
+    if self.pathRevision ~= self.revision then self.pathLinks,self.pathRevision={},self.revision end
+    local function traversable(id,nextId)
+        local key=id < nextId and id..':'..nextId or nextId..':'..id
+        key=key..':'..radius
+        local cached=self.pathLinks[key]
+        if cached ~= nil then return cached end
+        local a,b=graph.byId[id],graph.byId[nextId]
+        local ok=self:LineOfSight(a.x*unit,a.y*unit,b.x*unit,b.y*unit,radius)
+        self.pathLinks[key]=ok
+        return ok
     end
     local cursor, found = 1, nil
     while cursor <= #queue do
         local id = queue[cursor]; cursor = cursor + 1
         local room = graph.byId[id]
-        if self:LineOfSight(room.x * unit, room.y * unit, x2, y2, radius) then found = id; break end
+        if goals[id] then found = id; break end
         for _, nextId in ipairs(self.neighbors[id]) do
             local nextRoom = graph.byId[nextId]
-            if previous[nextId] == nil and self:LineOfSight(room.x * unit, room.y * unit, nextRoom.x * unit, nextRoom.y * unit, radius) then
+            if previous[nextId] == nil and traversable(id,nextId) then
                 previous[nextId], queue[#queue + 1] = id, nextId
             end
         end

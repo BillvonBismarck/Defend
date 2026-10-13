@@ -34,6 +34,10 @@ local volume, reducedEffects = 1, false
 local settingsSaveRemaining = 0
 local performance = { frames = 0, elapsed = 0, simulation = 0, simulationMax = 0,
     renderFrames = 0, render = 0, renderMax = 0, snapshot = {} }
+-- 编辑器/外部验证读取同一真实实例，不创建替代玩法。
+function Runtime.GetRun() return current end
+function Runtime.GetView() return view end
+function Runtime.GetBoard() return board end
 
 function Runtime.GetPerformanceSnapshot()
     local result = {}
@@ -100,8 +104,25 @@ local function action(kind, payload)
     if not active then return end
     if kind == "wave" then current:RequestWave()
     elseif kind == "active" then pendingActive = true
-    elseif kind == "logistics" then current:OpenLogistics()
-    elseif kind == "close_logistics" then current:Resume("logistics")
+    elseif kind == "logistics" then
+        if current.config.polygon_expansion then
+            require('defense.Placement').Reset(view)
+            local slot=require("defense.Interaction").NearestSlot(current)
+            view.selectedLogisticsRoom=slot and (slot.owner_room_id or "core") or "core"
+            view.selectedLogisticsSlot=slot and slot.id or nil
+        end
+        current:OpenLogistics()
+    elseif kind == "tower_stats" then current:Pause("tower_stats")
+    elseif kind == "close_tower_stats" then current:Resume("tower_stats")
+    elseif kind == 'placement_position' then
+        if current.pause_reasons.logistics and view.modeKey=='logistics' then
+            local dpr=math.max(1,graphics:GetDPR())
+            local ratio=UI.GetScale()/dpr
+            local wx,wy=board:ScreenToWorld(payload.x*ratio,payload.y*ratio,graphics:GetWidth()/dpr,graphics:GetHeight()/dpr)
+            require('defense.Placement').SelectPosition(view,require('defense.Interaction').SlotAtPoint(current,wx,wy,math.max(0.65,18/board.pixelsPerCell)))
+        end
+    elseif kind == "close_logistics" then
+        current:Resume("logistics");require('defense.Placement').Reset(view)
     elseif kind == "pause" then current:Pause("manual")
     elseif kind == "resume" then current:Resume("manual"); current:Resume("focus")
     elseif kind == "upgrade" then current:ChooseUpgrade(type(payload) == "string" and payload or payload.id)
@@ -111,9 +132,7 @@ local function action(kind, payload)
         requestSerial = requestSerial + 1
         current:ChooseModule(payload.choice_id, payload.module_id, current.run_id .. ":module:" .. requestSerial)
     elseif kind == "map" then
-        if not current.config.polygon_expansion or current.state == "PREPARATION" then
-            current:Pause("map"); current:Emit("MapOpened", {})
-        end
+        if not current.ended then current:Pause("map"); current:Emit("MapOpened", {}) end
     elseif kind == "close_map" then current:Resume("map"); current:Emit("MapClosed", {})
     elseif kind == "teleport" then
         requestSerial = requestSerial + 1
@@ -167,13 +186,19 @@ function Runtime.Start()
     vg = nvgCreate(1)
     assert(vg, "战场 NanoVG 上下文创建失败")
     nvgSetRenderOrder(vg, -10)
-    local font = nvgCreateFont(vg, "sans", "Fonts/MiSans-Regular.ttf")
+    local font = nvgCreateFont(vg, "sans", "Fonts/zpix.ttf")
     assert(font >= 0, "战场字体加载失败")
     local pixel = nvgCreateFont(vg, "zpix", "Fonts/zpix.ttf")
+    local emoji=nvgCreateFont(vg,'emoji','Fonts/Twemoji.Mozilla.ttf')
+    assert(emoji>=0,'Emoji 字体加载失败')
+    nvgAddFallbackFontId(vg,font,emoji)
+    if pixel>=0 then nvgAddFallbackFontId(vg,pixel,emoji) end
     DamageNumber.fontId = pixel >= 0 and pixel or font
-    VirtualControls.Initialize(720, 1280)
+    require("defense.GameGlyphs").Init(vg)
+    require('defense.TowerArt').Init(vg)
+    VirtualControls.Initialize(1280, 720)
     joystick = VirtualControls.CreateJoystick {
-        position = Vector2(140, -210), alignment = { HA_LEFT, VA_BOTTOM },
+        position = Vector2(100, -110), alignment = { HA_LEFT, VA_BOTTOM },
         baseRadius = 62, knobRadius = 28, moveRadius = 48, pressRegionRadius = 88,
         alwaysShow = false, visible = false, showKeyHints = false,
     }
@@ -196,6 +221,7 @@ function DefenseHandleUpdate(eventType, eventData)
     local dt = math.min(rawDt, 0.1)
     if input:GetKeyPress(KEY_ESCAPE) then
         if current.pause_reasons.module_choice then action("module_close")
+        elseif current.pause_reasons.tower_stats then action("close_tower_stats")
         elseif current.pause_reasons.map then action("close_map")
         elseif current.pause_reasons.logistics then action("close_logistics")
         elseif current.pause_reasons.rules then action("close_rules")
@@ -203,7 +229,7 @@ function DefenseHandleUpdate(eventType, eventData)
         elseif current.pause_reasons.manual or current.pause_reasons.focus then action("resume")
         elseif not current.pause_reasons.menu then action("pause") end
     end
-    if input:GetKeyPress(KEY_F) then action("logistics") end
+    if input:GetKeyPress(KEY_F) or input:GetKeyPress(KEY_E) then action("logistics") end
     if input:GetKeyPress(KEY_M) then action("map") end
     if input:GetKeyPress(KEY_R) then action("recall") end
     if input:GetKeyPress(KEY_RETURN) then action("wave") end
@@ -226,7 +252,6 @@ function DefenseHandleUpdate(eventType, eventData)
     end
     current:PresentationUpdate(dt)
     current:Update(dt, { x = x, y = y, active = pulse })
-    local simulationTime = os.clock() - simulationStarted
     local worldDt = not current:IsPaused() and not current.ended and dt or 0
     LegacyFX.Update(worldDt)
     local events = current:DrainEvents()
@@ -235,11 +260,12 @@ function DefenseHandleUpdate(eventType, eventData)
     if view.Events then view:Events(events) end
     board:Update(worldDt)
     view:Update(dt)
+    board.placementSlot=current.pause_reasons.logistics and view.placementSlot or nil
     if settingsSaveRemaining > 0 then
         settingsSaveRemaining = math.max(0, settingsSaveRemaining - dt)
         if settingsSaveRemaining == 0 then current:SaveMeta() end
     end
-    samplePerformance(rawDt, simulationTime)
+    samplePerformance(rawDt, os.clock()-simulationStarted)
     if joystick then
         joystick.visible = not current:IsPaused() and not current.ended
         joystick:_updateShouldShow()
@@ -290,10 +316,13 @@ function Runtime.Stop()
     if board.Destroy then board:Destroy() end
     view, board = {}, {}
     LegacyFX.Stop()
+    if vg then require('defense.TowerArt').Stop(vg) end
+    local uiVg=UI.GetNVGContext()
+    if uiVg then require('defense.TowerArt').Stop(uiVg) end
     UI.Shutdown()
     VirtualControls.Shutdown()
     joystick = nil
-    if vg then nvgDelete(vg); vg = nil end
+    if vg then require("defense.GameGlyphs").Stop(vg); nvgDelete(vg); vg = nil end
     DamageNumber.fontId = -1
     print("[Defense] 已退出；阶段记录保留，旧幸存者存档不改写")
 end

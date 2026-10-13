@@ -3,11 +3,31 @@ local Anchors = {}
 function Anchors.Init(run)
     run.anchors, run.anchor_cooldown = {}, 0
     if run.config.polygon_expansion then
-        run.anchors[run.config.topology.main] = { id = run.config.topology.main, district = "core", x = 0, y = 4, active = true }
+        run.anchors[run.config.topology.main] = { id = run.config.topology.main, room_id=run.config.topology.main,district = "core", x = 0, y = 4, active = true }
         for _, def in ipairs(run.config.rooms) do
-            if def.kind == "hex" then run.anchors[def.id] = { id = def.id, district = def.region_id, x = def.x, y = def.y, active = false } end
+            run.anchors[def.id] = { id = def.id,room_id=def.id, district = def.region_id, x = def.x, y = def.y, active = false }
         end
     end
+end
+function Anchors.Update(run)
+    if run.ended then return end
+    local current=run.map:RoomAt(run.player.x,run.player.y)
+    for _,room in ipairs(run.rooms) do
+        local anchor=run.anchors[room.id]
+        if anchor and not anchor.active and (room.state=='cleared' or room.state=='claimed') and (current==room.id or not room.reward_claimed) then
+            local occupied=false
+            for _,enemy in ipairs(run.enemies) do
+                if enemy.alive and (enemy.room_id==room.id or run.map:RoomAt(enemy.x,enemy.y)==room.id) then occupied=true;break end
+            end
+            if not occupied and (current==room.id or not room.reward_claimed) then Anchors.Activate(run,room.id) end
+        end
+    end
+end
+function Anchors.Status(run,id)
+    local anchor=run.anchors[id]
+    if not anchor or not anchor.active then return 'inactive','传送点尚未激活' end
+    local ok,reason=Anchors.Check(run,id)
+    return ok and 'available' or 'blocked',reason
 end
 function Anchors.Activate(run, id)
     local anchor = run.anchors[id]

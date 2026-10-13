@@ -103,14 +103,17 @@ local function presentation(body)
         "nvgStrokeColor", "nvgStrokeWidth", "nvgStroke", "nvgCircle", "nvgFontFace", "nvgFontSize", "nvgTextAlign",
         "nvgText", "nvgEllipse", "nvgFillPaint", "nvgClosePath", "nvgSave", "nvgRestore", "nvgIntersectScissor",
         "nvgTranslate", "nvgRotate", "nvgGlobalAlpha", "nvgLineCap", "nvgScale", "nvgBeginFrame", "nvgEndFrame",
-        "nvgDelete", "nvgRadialGradient", "nvgLinearGradient" }) do globals[name] = stub(name) end
+        "nvgDelete", "nvgRadialGradient", "nvgLinearGradient","nvgImagePattern","nvgDeleteImage" }) do globals[name] = stub(name) end
+    local imageId=0
+    globals.nvgCreateImage=function(...) imageId=imageId+1;calls[#calls+1]={name='nvgCreateImage',args={...}};return imageId end
+    globals.NVG_IMAGE_NEAREST=1
     globals.nvgRGBA = function(red, green, blue, alpha) return { red, green, blue, alpha } end
     globals.NVG_ALIGN_CENTER, globals.NVG_ALIGN_MIDDLE, globals.NVG_ROUND = 2, 16, 1
     globals.GetAudio = false
     local widget = {}
     function widget:Extend() return {} end
     local ui = { Widget = widget, ProgressBar = widget }
-    local modules = { ["defense.Board"] = false, ["defense.LegacyFX"] = false, ["defense.FX"] = false,
+    local modules = { ["defense.Board"] = false,['defense.TowerArt']=false, ["defense.LegacyFX"] = false, ["defense.FX"] = false,
         ["defense.View"] = false, ["defense.Radar"] = false, ["defense.Theme"] = false,
         ["defense.UIArt"] = false, ["defense.ProtoView"] = false, -- 仅Mode入口也须隔离类绑定的UI缓存。
         ["urhox-libs/UI"] = ui,
@@ -201,7 +204,8 @@ function C.Register(case)
                 board:Render({}, 960, 640)
                 for i = first, #calls do
                     local c = calls[i]
-                    if c.name == "nvgText" and tostring(c.args[4]):find("depth_", 1, true) then order[#order + 1] = c.args[4] end
+                    if c.name == "nvgText" and tostring(c.args[4]):find("depth_", 1, true) then order[#order + 1] = c.args[4]
+                    elseif c.name=='nvgImagePattern' then order[#order+1]='depth_tower' end
                 end
                 return table.concat(order, ",")
             end

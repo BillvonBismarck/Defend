@@ -7,10 +7,15 @@ local function point(x, y) return { x = x, y = y } end
 function Polygon.Configure(c, options)
     options = options or {}
     local seed, difficulty = options.seed or 20261012, options.difficulty or 1
-    local graph = Topology.Generate(seed, difficulty)
+    -- 正式场景使用大房间网络；旧拓扑样板仍供历史场景和回归复用。
+    local plan = { rooms = 12 + difficulty * 4, hex = 6 + difficulty * 2,
+        clusters = 2 + math.floor(difficulty / 2), gates = difficulty,
+        boss_waves = difficulty < 3 and 1 or difficulty < 5 and 2 or 3,
+        enemy_scale = 1 + (difficulty-1)*0.15 }
+    local graph = require('defense.GlobalRing').Generate(seed,difficulty,{plan=plan,max_steps=8000})
     local ok, reason = Topology.Validate(graph)
     assert(ok, reason)
-    c.scenario_id, c.rules_version, c.version = "polygon_expansion", "polygon-playable-v1", "polygon-playable-v1"
+    c.scenario_id, c.rules_version, c.version = "polygon_expansion", "polygon-global-ring-v3", "polygon-global-ring-v3"
     c.record_namespace = "defense_polygon_expansion"
     c.title, c.polygon_expansion = "固定据点守护神殿 · 多边形远域", true
     c.polygon_unit, c.topology, c.difficulty, c.map_seed = 2, graph, difficulty, seed
@@ -41,18 +46,25 @@ function Polygon.Configure(c, options)
         c.room_graph.nodes[#c.room_graph.nodes + 1] = { id = room.id, kind = room.role, x = x, y = y,
             room_id = room.role ~= "main" and room.id or nil }
         local slots = {}
-        if room.kind == "tri" then slots[1] = point(x, y)
+        if room.kind == "tri" then
+            slots[1] = point(x, y)
+        elseif room.kind == "hex" then
+            -- 三个槽环绕房间中心：1.4 米到中心，短程阻挡设施也能覆盖经过中心的敌人。
+            local base = Lattice.PortNormals("hex", room.rotation)[1]
+            for index = 0, 2 do
+                local angle = math.rad(base + index * 120)
+                slots[#slots + 1] = point(x + 1.4 * math.cos(angle), y + 1.4 * math.sin(angle))
+            end
         else
-            local normals = Lattice.PortNormals(room.kind, room.rotation)
-            local count = Lattice.Spec(room.kind).sides
-            for edge = 1, count do
-                local angle = room.kind == "hex" and normals[edge] or (edge * 30)
-                local port = Lattice.PortIndexFacing(room, angle)
-                if not port or not room.used[port] then
-                    local r = (Lattice.Inradius(room.kind) - 1) * unit
-                    slots[#slots + 1] = point(x + r * math.cos(math.rad(angle)), y + r * math.sin(math.rad(angle)))
-                    if room.kind == "hex" and #slots >= 3 then break end
-                end
+            -- 十二边房保留十二槽：内圈拦截入殿路线，外圈给远程塔及支援设施留出间距。
+            local base = Lattice.PortNormals("dodeca", room.rotation)[1]
+            for index = 0, 5 do
+                local angle = math.rad(base + index * 60)
+                slots[#slots + 1] = point(x + 2.4 * math.cos(angle), y + 2.4 * math.sin(angle))
+            end
+            for index = 0, 5 do
+                local angle = math.rad(base + 30 + index * 60)
+                slots[#slots + 1] = point(x + 5.2 * math.cos(angle), y + 5.2 * math.sin(angle))
             end
         end
         local slotIds = {}
@@ -69,7 +81,8 @@ function Polygon.Configure(c, options)
             c.rooms[#c.rooms + 1] = { id = room.id, kind = kind, role = room.role,
                 name = ({ A = "幽灵沼泽", B = "极光地区", C = "沙漠区" })[room.district] .. " · " .. Lattice.Spec(kind).name,
                 x = x, y = y, tier = prerequisite and 2 or 1, prerequisite = prerequisite,
-                region_id = room.district, guard_profile = { count = 4, roles = { "advance", "ranged" } },
+                access_prerequisites=room.access_from,
+                region_id = room.district, guard_profile = { count = room.empty and 0 or 4, roles = { "advance", "ranged" } },
                 encounter_waves = kind == "tri" and 3 or kind == "hex" and 2 or 1,
                 defense_slots = slotIds, module_reward = kind == "hex", challenge_target = false,
                 gold_reward = kind == "dodeca" and 80 or kind == "hex" and 60 or 40,

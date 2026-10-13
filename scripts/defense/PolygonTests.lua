@@ -14,7 +14,14 @@ local function fresh(options)
     return run
 end
 local function first(run, kind)
-    for _, room in ipairs(run.rooms) do if room.kind == kind and room.role ~= "gate" then return room end end
+    local best,distance=nil,math.huge
+    for _,room in ipairs(run.rooms) do
+        if room.kind==kind and room.role~='gate' and (not room.guard_profile or room.guard_profile.count~=0) then
+            local d=room.x^2+room.y^2
+            if d<distance then best,distance=room,d end
+        end
+    end
+    return best
 end
 local function enter(run, room)
     room.prerequisite = nil; run.map:SetUnlocked(room.id, true); room.accessible = true
@@ -47,7 +54,7 @@ function Tests.Register(case)
             if expedition.stage == "ROOM_ENGAGED" then entered = true end
             if entered and expedition.stage ~= "ROOM_ENGAGED" then exited = true end
         end
-        t:Check(entered, "真实沿路径进入房间")
+        t:Check(entered, "真实沿路径进入房间: stage=" .. tostring(expedition.stage) .. " route_index=" .. tostring(expedition.route_index) .. " technical=" .. tostring(run.technical_error and run.technical_error.reason))
         t:Check(exited, "12秒交战后真实离房")
         t:Equal(expedition.stage, "FINAL_ASSAULT", "返回核心最终攻势")
         t:Check(iterations < 3000, "路径无卡死")

@@ -4,6 +4,8 @@ local Original = require("defense.Visuals")
 local Combat = require("defense.Combat")
 local TowerModules = require("defense.TowerModules")
 local LegacyFX = require("defense.FX")
+local Glyphs = require("defense.GameGlyphs")
+local TowerArt=require('defense.TowerArt')
 local COLORS = Original.COLORS
 local CAT = Original.CHARACTERS[1]
 local TAU = math.pi * 2
@@ -43,6 +45,7 @@ local WHITE = COLORS.white
 ---@field displacements table[]
 ---@field coverage table<string, table>
 ---@field geometryRevision string
+---@field placementSlot table?
 local Board = {}
 Board.__index = Board
 
@@ -63,7 +66,8 @@ local function ring(vg, x, y, r, c, width, a)
     nvgBeginPath(vg); nvgCircle(vg, x, y, r)
     nvgStrokeColor(vg, color(c, a)); nvgStrokeWidth(vg, width or 1); nvgStroke(vg)
 end
-local function text(vg, x, y, value, size, c, a)
+local function text(vg, x, y, value, size, c, a, actor)
+    if not actor and Glyphs.Draw(vg,x,y,value,size,color(c or WHITE,a)) then return end
     nvgFontFace(vg, "sans"); nvgFontSize(vg, size)
     nvgTextAlign(vg, NVG_ALIGN_CENTER + NVG_ALIGN_MIDDLE)
     nvgFillColor(vg, color(c or WHITE, a)); nvgText(vg, x, y, tostring(value))
@@ -155,12 +159,13 @@ local function buildCoverage(run, x, y, radius, reduced)
     local function corners(r)
         corner(r.x1, r.y1); corner(r.x2, r.y1); corner(r.x2, r.y2); corner(r.x1, r.y2)
     end
-    local map = run.map --[[@as DefenseMap]]
+    local map = run.map --[[@as table]]
     for _, r in ipairs(map.obstacles or {}) do corners(r) end
     for id, locked in pairs(map.locked or {}) do
         if locked and map.room_regions[id] then corners(map.room_regions[id]) end
     end
-    for _, edge in ipairs(map.edges or {}) do corner(edge.ax, edge.ay); corner(edge.bx, edge.by) end
+    local localEdges = map.edgeIndex and map.edgeIndex:Query(x-radius,y-radius,x+radius,y+radius) or map.edges or {}
+    for _, edge in ipairs(localEdges) do corner(edge.ax, edge.ay); corner(edge.bx, edge.by) end
     table.sort(angles)
     for _, a in ipairs(angles) do
         local dx, dy = math.cos(a), math.sin(a)
@@ -299,14 +304,13 @@ function Board:Update(dt)
     end
     for id in pairs(self.trajectories) do if not seen[id] then self.trajectories[id] = nil end end
     if not run.map then return end
-    local locks = {}
-    for id, locked in pairs(run.map.locked or {}) do locks[#locks + 1] = id .. tostring(locked) end
-    table.sort(locks)
-    local revision = table.concat(locks, ":")
+    local revision = tostring(run.map.revision)
     if revision ~= self.geometryRevision then self.coverage = {}; self.geometryRevision = revision end
     -- 覆盖缓存在 Update 建立，锁状态变化时失效。
     local needed = {}
     local function cover(x, y, r)
+        -- 战场只驻留玩家附近的范围表现；远端逻辑仍正常推进。
+        if run.config.polygon_expansion and dist2(p.x,p.y,x,y) > (r+25)^2 then return end
         local key = coverageKey(x, y, r)
         needed[key] = true
         if not self.coverage[key] then self.coverage[key] = buildCoverage(run, x, y, r, self.reducedEffects) end
@@ -342,11 +346,30 @@ function Board:GetTransform(logicalW, logicalH)
 end
 function Board:ScreenToWorld(x, y, logicalW, logicalH)
     local ox, oy, scale = self:GetTransform(logicalW, logicalH)
+    if not self.reducedEffects then
+        local sx,sy=LegacyFX.GetShakeOffset()
+        ox,oy=ox+sx,oy+sy
+    end
     return (x - ox) / scale, (y - oy) / scale
+end
+function Board:DrawPlacement(vg,ox,oy,scale)
+    local slot=self.placementSlot
+    if not slot then return end
+    local x,y=ox+slot.x*scale,oy+slot.y*scale
+    local r=math.max(15,scale*0.5)
+    for _,sx in ipairs({-1,1}) do
+        for _,sy in ipairs({-1,1}) do
+            local cx,cy=x+sx*r,y+sy*r
+            line(vg,cx-sx*10,cy,cx,cy,COLORS.neonGreen,3)
+            line(vg,cx,cy,cx,cy-sy*10,COLORS.neonGreen,3)
+        end
+    end
 end
 
 ---@param vg NVGContextWrapper
 function Board:DrawCoverage(vg, x, y, radius, ox, oy, scale, c, alpha, outline)
+    local p=self.run.player
+    if self.run.config.polygon_expansion and dist2(p.x,p.y,x,y)>(radius+25)^2 then return end
     local key = coverageKey(x, y, radius)
     local points = self.coverage[key] or buildCoverage(self.run, x, y, radius, self.reducedEffects)
     nvgBeginPath(vg)
@@ -361,7 +384,9 @@ end
 ---@param vg NVGContextWrapper
 function Board:DrawMap(vg, ox, oy, scale, w, h)
     if self.run.config.polygon_expansion then
-        return require("defense.PolygonMapView").Draw(vg, self.run, ox, oy, scale, false)
+        local roomId = self.run.map:RoomAt(self.run.player.x,self.run.player.y) or self.run.current_room_id or self.run.config.topology.main
+        return require("defense.PolygonMapView").Draw(vg, self.run, ox, oy, scale, false,
+            { x1=-ox/scale,y1=-oy/scale,x2=(w-ox)/scale,y2=(h-oy)/scale },roomId)
     end
     local run, cfg = self.run, self.run.config
     local map = run.map --[[@as DefenseMap]]
@@ -522,10 +547,12 @@ function Board:DrawTower(vg, tower, ox, oy, scale)
     if alive then
         if not self.reducedEffects then glow(vg, x, y, 42, c, 40) end
         shadow(vg, x, y, 16)
-        text(vg, x, y, tower.emoji or (run.config.towers[tower.type] or {}).emoji or TOWER_EMOJI[tower.type], 34, WHITE)
-        text(vg, x + 25, y - 23, "⚓", 14, c, 200)
-        hpBar(vg, x, y + 24, 38, tower.hp, tower.max_hp, c)
-        text(vg, x, y + 39, slot.id .. " · " .. tostring(tower.upgrade_count or 0), 10, c)
+        if not TowerArt.Draw(vg,x,y,tower.type,64) then
+            text(vg,x,y,TOWER_EMOJI[tower.type],32,WHITE,nil,true)
+        end
+        text(vg, x + 31, y - 30, "⚓", 14, c, 200)
+        hpBar(vg, x, y + 34, 38, tower.hp, tower.max_hp, c)
+        text(vg, x, y + 48, (run.config.towers[tower.type] or {}).name .. " · " .. tostring((tower.upgrade_count or 0)+1), 10, c)
         if tower.branch_id then
             text(vg, x, y - 57, (run.config.branches[tower.branch_id] or {}).name or tower.branch_id, 10, c, 220)
         end
@@ -667,7 +694,7 @@ function Board:DrawEnemy(vg, e, x, y, scale, dying)
         ring(vg, x, y, r + 4, c, 2, 50)
     end
     shadow(vg, x, y, r * deathScale, 60)
-    text(vg, x, y, enemyEmoji(run, e), r * 2.2 * deathScale, WHITE)
+    text(vg, x, y, enemyEmoji(run, e), r * 2.2 * deathScale, WHITE,nil,true)
     if not dying then
         if e.subtype == "explosive" or e.explodes_on_death then
             ring(vg, x, y, r + 7, COLORS.neonOrange, 2, 160)
@@ -775,7 +802,7 @@ function Board:DrawPlayer(vg, ox, oy, scale)
     end
     shadow(vg, x, y, r)
     local emoji = p.hp <= 0 and emojis.dead or hit and emojis.hit or self.moving and emojis.move or p.emoji or emojis.idle
-    text(vg, x, y, emoji, r * 2.4, WHITE)
+    text(vg, x, y, emoji, r * 2.4, WHITE,nil,true)
     nvgRestore(vg)
     if self.run.recall and self.run.recall.active then
         ring(vg, x, y, r + 15, COLORS.neonBlue, 2, 100)
@@ -914,11 +941,12 @@ function Board:Render(vg, logicalW, logicalH)
         local alpha = math.max(0, d.life / 0.32)
         line(vg, x, y, bx, by, COLORS.neonBlue, 2, alpha * 140)
         ring(vg, bx, by, 18, d.blocked and COLORS.neonOrange or COLORS.neonBlue, 2, alpha * 190)
-        if d.emoji and not self.reducedEffects then text(vg, x, y, d.emoji, 30, WHITE, alpha * 80) end
+        if d.emoji and not self.reducedEffects then text(vg, x, y, d.emoji, 30, WHITE, alpha * 80,true) end
     end
     self:DrawProjectiles(vg, ox, oy, scale, logicalW, logicalH)
     self:DrawActiveTarget(vg, ox, oy, scale)
     self:DrawCore(vg, ox, oy, scale, logicalW, logicalH, true)
+    self:DrawPlacement(vg, ox, oy, scale)
     LegacyFX.Render(vg, ox, oy, scale, logicalW, logicalH)
     nvgRestore(vg)
 end

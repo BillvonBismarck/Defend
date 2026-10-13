@@ -97,7 +97,7 @@ end
 ---@param t DefenseTestContext
 ---@param r table
 function E.CheckPresentation(t,r)
-    local moduleNames={"defense.Board","defense.LegacyFX","defense.FX","defense.fx.Particle","defense.fx.GameAudio","defense.fx.DamageNumber","defense.fx.ScreenShake"}
+    local moduleNames={"defense.Board","defense.TowerArt","defense.LegacyFX","defense.FX","defense.fx.Particle","defense.fx.GameAudio","defense.fx.DamageNumber","defense.fx.ScreenShake"}
     local savedModules,savedGlobals={},{}
     local calls={}
     local function record(name,...)
@@ -134,6 +134,10 @@ function E.CheckPresentation(t,r)
     global("nvgRGBA",function(red,green,blue,alpha) return {red,green,blue,alpha} end)
     global("nvgRadialGradient",stub("nvgRadialGradient"))
     global("nvgLinearGradient",stub("nvgLinearGradient"))
+    global('nvgImagePattern',stub('nvgImagePattern'))
+    local imageId=0
+    global('nvgCreateImage',function(...) imageId=imageId+1;record('nvgCreateImage',...);return imageId end)
+    global('NVG_IMAGE_NEAREST',1)
     -- 测试边缘桩的枚举，仅隔离NanoVG输入，不用于生产规则数字判断。
     global("NVG_ALIGN_CENTER",2); global("NVG_ALIGN_MIDDLE",16); global("NVG_ROUND",1)
     global("GetAudio",false)

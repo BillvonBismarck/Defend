@@ -303,6 +303,7 @@ local function logisticsKey(view)
     return table.concat(parts, ":")
 end
 function P.BuildLogistics(view)
+    if view.run.config.polygon_expansion then return require('defense.Placement').Build(view) end
     local run = view.run
     local scroll, panel = view:ModalShell(run.config.polygon_expansion and "就地布防" or "后勤布防",
         run.config.polygon_expansion and "已暂停；仅可操作当前房间槽位。资金与12个存活名额全域共享。" or "已暂停；仅战备期可操作。主殿与外围共用资金和存活名额。")
@@ -319,6 +320,12 @@ function P.BuildLogistics(view)
     view.protoSlots, view.protoLogisticsRooms, view.protoLogisticsSelectors = {}, {}, {}
     view.selectedLogisticsSlots = view.selectedLogisticsSlots or {}
     local groups, order = logisticsGroups(run)
+    if run.config.polygon_expansion then
+        local localId=run.map:RoomAt(run.player.x,run.player.y) or run.config.topology.main
+        if localId==run.config.topology.main then localId="core" end
+        groups,order={ [localId]=groups[localId] or {} },{localId}
+        view.selectedLogisticsRoom=localId
+    end
     if not groups[view.selectedLogisticsRoom] then view.selectedLogisticsRoom = order[1] end
     local selectedSlots = groups[view.selectedLogisticsRoom] or {}
     local selected = nil --[[@as table?]]
@@ -427,6 +434,7 @@ function P.BuildLogistics(view)
     P.RefreshLogistics(view)
 end
 function P.RefreshLogistics(view)
+    if view.run.config.polygon_expansion then return require('defense.Placement').Refresh(view) end
     local run, definitions = view.run, P.Definitions(view.run)
     set(view.modalLabels.balance, "资金 " .. whole(run.currency) .. " · 战备 " .. whole(math.ceil(run.preparation_remaining)) ..
         "秒 · 修复 " .. whole(run.repair_uses) .. "/3 · 存活塔 " .. whole(aliveTowers(run)) .. "/" .. whole(run.config.max_alive_towers or 6) ..
@@ -602,7 +610,7 @@ end
 function P.MapOverview(run)
     if run.config.polygon_expansion then
         return require("defense.PolygonMapView").Widget { run = run, width = "100%", height = 300,
-            backgroundColor = C.ink, borderWidth = 1, borderColor = C.cyanDim, borderRadius = 8, pointerEvents = "none" }
+            backgroundColor = C.ink, borderWidth = 1, borderColor = C.cyanDim, borderRadius = 8, pointerEvents = "auto" }
     end
     local size, origin = run.config.map_size, run.config.map_origin or { x = 0, y = 0 }
     local w, h = size.w, size.h
@@ -641,20 +649,29 @@ end
 function P.BuildMap(view)
     local run = view.run
     local scroll, panel = view:ModalShell("房间地图", "已暂停；查看路线、房间状态与布防。")
-    scroll:AddChild(P.MapOverview(run))
+    local overview=P.MapOverview(run)
+    view.mapOverview=overview
+    if run.config.polygon_expansion then
+        panel:SetStyle({maxWidth=1280})
+        local _,height=UI.GetViewportSize()
+        overview:SetHeight(math.max(180,math.min(560,height*0.52)))
+        -- 地图固定在窗口主区域；详情另行滚动，不把地图藏在长列表里。
+        panel:RemoveChild(scroll); panel:AddChild(overview); panel:AddChild(scroll)
+        scroll:AddChild(row({view:Button("放大 +",function() overview.zoom=math.min(10,overview.zoom*1.4) end),
+            view:Button("缩小 -",function() overview.zoom=math.max(1,overview.zoom/1.4) end),
+            view:Button("全图复位",function() overview.zoom,overview.panX,overview.panY=1,0,0 end)}))
+        scroll:AddChild(text(#run.config.topology.rooms.."房间 · "..run.config.topology.stats.loops.."环路 · 滚轮/捏合缩放，拖动平移",C.cyan))
+    else scroll:AddChild(overview) end
     if run.config.polygon_expansion then
         local Anchors = require("defense.Anchors")
-        scroll:AddChild(text("空心：未激活锚点 · 实心：可传送 · 跨群系经主空间中转", C.dim))
-        if run.last_teleport then scroll:AddChild(text(run.last_teleport.reason, run.last_teleport.ok and C.cyan or C.warn)) end
-        local ids = {}; for id in pairs(run.anchors) do ids[#ids + 1] = id end; table.sort(ids)
-        for _, id in ipairs(ids) do
-            local ok, reason = Anchors.Check(run, id)
-            local button = view:Button("传送：" .. (id == run.config.topology.main and "主空间" or roomName(run, id)), function()
-                view:Action("teleport", id); markDirty(view)
-            end, "secondary")
-            button:SetDisabled(not ok)
-            scroll:AddChild(button)
-            scroll:AddChild(text(reason, C.dim))
+        local legend=text("点击地图传送点：绿=可传送，橙=已激活但暂不可传，红=未激活",C.dim)
+        view.mapTeleportStatus=text(run.last_teleport and run.last_teleport.reason or '点击地图上的传送点查看或传送',C.warn)
+        panel:RemoveChild(scroll);panel:AddChild(legend);panel:AddChild(view.mapTeleportStatus);panel:AddChild(scroll)
+        overview.props.onAnchorClick=function(id)
+            local ok,reason=Anchors.Check(run,id)
+            if ok then view:Action('teleport',id)
+            else run.last_teleport={ok=false,reason=reason,target_id=id} end
+            set(view.mapTeleportStatus,run.last_teleport.reason)
         end
     end
     scroll:AddChild(text("蓝：可探索 · 橙：待领奖 · 绿：已领奖 · 灰：未开放", C.dim, 10))

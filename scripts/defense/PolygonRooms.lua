@@ -9,6 +9,13 @@ function Rooms.UpdateAccess(run)
         local parent = index[room.prerequisite]
         local accessible = not parent or parent.state == "cleared" or parent.state == "claimed"
             or room.state == "cleared" or room.state == "claimed"
+        if room.access_prerequisites and room.state~='cleared' and room.state~='claimed' then
+            accessible=false
+            for _,id in ipairs(room.access_prerequisites) do
+                local predecessor=index[id]
+                if predecessor and (predecessor.state=='cleared' or predecessor.state=='claimed') then accessible=true;break end
+            end
+        end
         room.prerequisite_satisfied, room.accessible, room.unlocked = accessible, accessible, accessible
         local was = run.map.locked[room.id]
         run.map:SetUnlocked(room.id, accessible)
@@ -54,19 +61,24 @@ end
 function Rooms.Update(run, Combat)
     if run.ended or run:IsPaused() then return end
     local current = run.map:RoomAt(run.player.x, run.player.y)
-    run.current_room_id, run.active_rooms = current or run.config.topology.main, {}
+    run.current_room_id, run.active_rooms = current or run.map:ResidentRoom(run.player.x,run.player.y), {}
     run.active_rooms[run.current_room_id] = true
-    local count = 1
-    for _, id in ipairs(run.map.neighbors[run.current_room_id] or {}) do
-        if count >= 3 then break end
-        if run.map.locked[id] ~= true then run.active_rooms[id], count = true, count + 1 end
-    end
+    -- 只驻留当前房间的探索战斗内容；远处守军不预生成，清房状态留在轻量图中。
     for _, room in ipairs(run.rooms) do
         if room.accessible and room.state == "unvisited" and room.id == current then
+            local def=definition(run,room.id)
+            if def.guard_profile and def.guard_profile.count==0 then
+                room.state='cleared';room.encounter_wave=0
+                run:Emit('RoomCleared',{id=room.id,tier=room.tier,empty=true})
+                Anchors.Activate(run,room.id)
+                Rooms.UpdateAccess(run)
+                run:Emit('DefenseSiteAvailable',{room_id=room.id,reason='empty_room_entered'})
+            else
             room.state, room.encounter_wave = "active", 1
             run.room_encounter = { room_id = room.id }
             run:Emit("RoomEncounterStarted", { room_id = room.id, waves = definition(run, room.id).encounter_waves, kind = room.kind })
             spawnWave(run, room, Combat)
+            end
         end
         if room.state == "active" then
             local alive = false
@@ -86,5 +98,6 @@ function Rooms.Update(run, Combat)
             end
         end
     end
+    Anchors.Update(run)
 end
 return Rooms

@@ -949,6 +949,8 @@ end)
 
 require("defense.EmergenceTests").Register(case)
 require("defense.PerformanceTests").Register(case)
+require("defense.StreamingTests").Register(case)
+require('defense.ReviewTests').Register(case)
 require('defense.CompletionTests').Register(case)
 require('defense.PrototypeTests').Register(case)
 require('defense.ExpansionTests').Register(case)

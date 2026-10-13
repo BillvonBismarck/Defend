@@ -112,6 +112,7 @@ function Run:init(options)
     for _, def in ipairs(self.config.rooms) do
         self.rooms[#self.rooms + 1] = { id = def.id, name = def.name, x = def.x, y = def.y, tier = def.tier,
             unlocked = self.map.locked[def.id] ~= true, prerequisite = def.prerequisite, unlock = def.unlock,
+            access_prerequisites=Feedback.Copy(def.access_prerequisites),
             region_id = def.region_id or def.id, guard_profile = Feedback.Copy(def.guard_profile), reward_kind = def.reward_kind,
             module_reward = def.module_reward == true, defense_slots = Feedback.Copy(def.defense_slots or {}),
             challenge_target = def.challenge_target == true, prerequisite_satisfied = self.map.locked[def.id] ~= true,
